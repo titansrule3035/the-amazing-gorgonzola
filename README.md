@@ -2,7 +2,6 @@
 
 TODO:
 
-* Add GitHub repository webhook to my Discord server
 * Add button (arrow keys, Z and X) icons, rewrite the code
 * Make playable area bigger (1.5x)
 * ON/OFF parent and child blocks
