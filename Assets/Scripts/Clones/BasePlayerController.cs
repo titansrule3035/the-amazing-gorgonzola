@@ -29,10 +29,9 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
 
     // === INDICATOR OBJECTS
+    [Export] public float offset;
     private bool showIndicator = false;
     private AnimatedSprite2D indicator;
-    private AnimationPlayer indicatorPlayer;
-    private AnimationTree indicatorTree;
 
     // === STATE ===
     [Export] public bool shouldFlip;
@@ -61,6 +60,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         if (animationPlayer != null)
             animationPlayer.AnimationFinished += HandleAnimationFinished;
+
+        indicator = GetNode<AnimatedSprite2D>("indicator");
 
         _ = WireSignalsAsync();
 
@@ -101,6 +102,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
         MoveAndSlide();
 
         UpdateAnimation(velocity);
+
+        indicator.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - offset);
     }
 
     // === Jump Logic ===
@@ -322,6 +325,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
     public void ChangeIndicator(string param)
     {
-        indicatorTree.Set($"parameters/conditions/{param}", true);
+        indicator.Play(param);
     }
 }

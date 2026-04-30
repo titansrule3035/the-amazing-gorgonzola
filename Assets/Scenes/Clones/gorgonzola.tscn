@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://dt16u0sqmom6y"]
+[gd_scene load_steps=140 format=3 uid="uid://dt16u0sqmom6y"]
 
 [ext_resource type="Texture2D" uid="uid://bky6c11hi48ip" path="res://Assets/Sprites/Clones/Player/gorgonzola_fall.png" id="1_h5fqh"]
 [ext_resource type="Script" uid="uid://conswvwcv6458" path="res://Assets/Scripts/Clones/Gorgonzola.cs" id="1_jve7h"]
@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://dqguxrer7frkl" path="res://Assets/Sprites/Clones/Player/gorg_enter_door.png" id="2_s4obv"]
 [ext_resource type="Texture2D" uid="uid://57euekbiyh4d" path="res://Assets/Sprites/Clones/Player/gorgonzola_jump.png" id="3_lioqv"]
 [ext_resource type="Texture2D" uid="uid://dejukgm6w28ly" path="res://Assets/Sprites/Clones/Player/gorgonzola_walk.png" id="4_8030n"]
+[ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://Assets/Sprites/UI/buttonicon_x.png" id="7_7o5j1"]
+[ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://Assets/Sprites/UI/buttonicon_down.png" id="7_qkku6"]
+[ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://Assets/Sprites/UI/buttonicon_z.png" id="9_2c0lj"]
+[ext_resource type="Texture2D" uid="uid://daikahq1rhoqq" path="res://Assets/Sprites/UI/buttonicon_left.png" id="10_l8jp7"]
+[ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://Assets/Sprites/UI/buttonicon_enter.png" id="11_jrrv0"]
+[ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://Assets/Sprites/UI/buttonicon_right.png" id="12_gk5qv"]
+[ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://Assets/Sprites/UI/buttonicon_space.png" id="13_0wdt1"]
+[ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://Assets/Sprites/UI/buttonicon_up.png" id="14_s01dc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
 size = Vector2(30, 60)
@@ -924,10 +932,110 @@ states/walk/position = Vector2(669, 100)
 transitions = ["jump", "rise", SubResource("AnimationNodeStateMachineTransition_4npl0"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_2byfh"), "rise", "fall", SubResource("AnimationNodeStateMachineTransition_uc81n"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_xxm30"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_hnq35"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_uwcej"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_siv36"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_ucodw"), "rise", "idle", SubResource("AnimationNodeStateMachineTransition_0e1d5"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_h1n27"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_r5xnx"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_6rpk1"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_ly2rs"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_lioqv"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_hag0k"), "idle", "enter_door", SubResource("AnimationNodeStateMachineTransition_scgvb"), "fall", "enter_door", SubResource("AnimationNodeStateMachineTransition_8lx8v"), "rise", "enter_door", SubResource("AnimationNodeStateMachineTransition_x2ocu"), "jump", "enter_door", SubResource("AnimationNodeStateMachineTransition_hlrci"), "walk", "enter_door", SubResource("AnimationNodeStateMachineTransition_tbwaf")]
 graph_offset = Vector2(-31, -99.38681)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqihl"]
+atlas = ExtResource("7_qkku6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16wqw"]
+atlas = ExtResource("7_7o5j1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02bgc"]
+atlas = ExtResource("9_2c0lj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isyh3"]
+atlas = ExtResource("10_l8jp7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrmv5"]
+atlas = ExtResource("11_jrrv0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wara"]
+atlas = ExtResource("12_gk5qv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdd36"]
+atlas = ExtResource("13_0wdt1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmfq6"]
+atlas = ExtResource("14_s01dc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pqihl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqihl")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16wqw")
+}],
+"loop": true,
+"name": &"interact",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02bgc")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isyh3")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrmv5")
+}],
+"loop": true,
+"name": &"return",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wara")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdd36")
+}],
+"loop": true,
+"name": &"spacebar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmfq6")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
 [node name="gorgonzola" type="CharacterBody2D"]
 z_index = 10
 collision_layer = 8192
 script = ExtResource("1_jve7h")
+offset = 96.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -30)
@@ -936,7 +1044,7 @@ debug_color = Color(0, 0.644446, 0.280746, 0.42)
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_k2sbu")
-animation = &"enter_door"
+animation = &"idle"
 frame = 2
 offset = Vector2(0, -50)
 
@@ -953,3 +1061,8 @@ parameters/conditions/isFalling = false
 parameters/conditions/isMoving = false
 parameters/conditions/jump = false
 parameters/conditions/levelCompleted = false
+
+[node name="indicator" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_pqihl")
+animation = &"up"

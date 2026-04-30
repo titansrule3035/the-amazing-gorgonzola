@@ -16,7 +16,8 @@ public partial class Door : Node2D
 
     private readonly string[] animationParams = { "open", "close" };
 
-    private Vector2 gorgPos;
+    private Gorgonzola gorg;
+    private bool lastGroundedState;
 
     public override async void _Ready()
     {
@@ -50,12 +51,7 @@ public partial class Door : Node2D
         if (body is Gorgonzola)
         {
             inRange = true;
-
-            // Only show indicator if the door is already open
-            if (opened)
-            {
-                // have gorg display his up indicator
-            }
+            UpdateIndicator();
         }
     }
 
@@ -63,43 +59,41 @@ public partial class Door : Node2D
     {
         if (body is Gorgonzola)
         {
-            //hide gorgs indicator
             inRange = false;
+            UpdateIndicator();
         }
     }
 
     public override void _Process(double delta)
     {
-        if (GlobalGameManager.GetInstance().levelCompleted)
-        {
-            //hide gorgs indicator
+        gorg = Gorgonzola.GetInstance();
+
+        if (gorg == null || GlobalGameManager.GetInstance() == null)
             return;
+
+        if (GlobalGameManager.GetInstance().levelCompleted)
+            return;
+
+        bool grounded = gorg.IsOnFloor();
+
+        if (grounded != lastGroundedState)
+        {
+            lastGroundedState = grounded;
+            UpdateIndicator();
         }
 
-        // Toggle door with "jump"
         if (Input.IsActionJustPressed("jump"))
         {
             if (!opened)
-            {
                 Open();
-            }
             else
-            {
                 Close();
-            }
         }
 
-        // Handle interaction only when door is open and player is in range
-        if (opened && inRange)
+        if (opened && inRange && Input.IsActionJustPressed("interact"))
         {
-            gorgPos = Gorgonzola.GetInstance().GlobalPosition;
-
-            // find gorg and only have his up indicator become visible
-
-            if (Input.IsActionJustPressed("up"))
-            {
-                GlobalGameManager.GetInstance().levelCompleted = true;
-            }
+            GlobalGameManager.GetInstance().levelCompleted = true;
+            UpdateIndicator();
         }
     }
 
@@ -107,21 +101,14 @@ public partial class Door : Node2D
     {
         opened = true;
         PlayAnimation("open");
-
-        // If player is already in range, show indicator once
-        if (inRange)
-        {
-            // show gorgs indicator
-        }
+        UpdateIndicator();
     }
 
     public void Close()
     {
         opened = false;
         PlayAnimation("close");
-
-        // Always clear indicator when closing
-        // hide gorgs indicator
+        UpdateIndicator();
     }
 
     private void PlayAnimation(string activeParam)
@@ -140,8 +127,45 @@ public partial class Door : Node2D
         base._ExitTree();
     }
 
+    private void UpdateIndicator()
+    {
+        var gm = GlobalGameManager.GetInstance();
+
+        if (gm == null || gorg == null)
+            return;
+
+        if (gm.levelCompleted)
+        {
+            gorg.SetIndicatorVisibility(false);
+            return;
+        }
+
+        bool shouldShow =
+            opened &&
+            inRange &&
+            gorg.IsOnFloor();
+
+        if (shouldShow)
+        {
+            gorg.ChangeIndicator("interact");
+            gorg.SetIndicatorVisibility(true);
+        }
+        else
+        {
+            gorg.SetIndicatorVisibility(false);
+        }
+    }
+
     void OnFlush()
     {
         QueueFree();
+    }
+
+    private void RefreshIfNeeded()
+    {
+        if (gorg == null || GlobalGameManager.GetInstance() == null)
+            return;
+
+        UpdateIndicator();
     }
 }

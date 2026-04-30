@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://bpnpe2o4rqypr"]
+[gd_scene load_steps=126 format=3 uid="uid://bpnpe2o4rqypr"]
 
 [ext_resource type="Script" uid="uid://co353gur3v72n" path="res://Assets/Scripts/Clones/RevClone.cs" id="1_ci2bv"]
 [ext_resource type="Texture2D" uid="uid://bhl1k3pii5shf" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_fall.png" id="2_ci2bv"]
@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://dirlplpoj4mws" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_jump.png" id="4_c084s"]
 [ext_resource type="Texture2D" uid="uid://cxvl8ca8iqdlf" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_walk.png" id="5_ci2bv"]
 [ext_resource type="Texture2D" uid="uid://dm0y8sstivi8x" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_win.png" id="6_vnly1"]
+[ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://Assets/Sprites/UI/buttonicon_down.png" id="7_oj6kr"]
+[ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://Assets/Sprites/UI/buttonicon_x.png" id="8_87m3s"]
+[ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://Assets/Sprites/UI/buttonicon_z.png" id="9_bb0hu"]
+[ext_resource type="Texture2D" uid="uid://daikahq1rhoqq" path="res://Assets/Sprites/UI/buttonicon_left.png" id="10_xh6j0"]
+[ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://Assets/Sprites/UI/buttonicon_enter.png" id="11_3mymr"]
+[ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://Assets/Sprites/UI/buttonicon_right.png" id="12_yim1h"]
+[ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://Assets/Sprites/UI/buttonicon_space.png" id="13_rbg4t"]
+[ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://Assets/Sprites/UI/buttonicon_up.png" id="14_iicnf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
 size = Vector2(30, 60)
@@ -792,6 +800,105 @@ states/win/position = Vector2(975, 41.613197)
 transitions = ["jump", "rise", SubResource("AnimationNodeStateMachineTransition_4npl0"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_2byfh"), "rise", "fall", SubResource("AnimationNodeStateMachineTransition_uc81n"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_xxm30"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_hnq35"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_uwcej"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_siv36"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_ucodw"), "rise", "idle", SubResource("AnimationNodeStateMachineTransition_0e1d5"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_h1n27"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_r5xnx"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_6rpk1"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_ly2rs"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_lioqv"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_hag0k"), "jump", "kill", SubResource("AnimationNodeStateMachineTransition_c084s"), "rise", "kill", SubResource("AnimationNodeStateMachineTransition_ah3ue"), "walk", "kill", SubResource("AnimationNodeStateMachineTransition_knmnb"), "idle", "kill", SubResource("AnimationNodeStateMachineTransition_enjla"), "kill", "win", SubResource("AnimationNodeStateMachineTransition_2nml3"), "jump", "win", SubResource("AnimationNodeStateMachineTransition_1rxwb"), "rise", "win", SubResource("AnimationNodeStateMachineTransition_xghkp"), "walk", "win", SubResource("AnimationNodeStateMachineTransition_oj6kr"), "idle", "win", SubResource("AnimationNodeStateMachineTransition_87m3s"), "fall", "win", SubResource("AnimationNodeStateMachineTransition_bb0hu")]
 graph_offset = Vector2(77, -10.38681)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqihl"]
+atlas = ExtResource("7_oj6kr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16wqw"]
+atlas = ExtResource("8_87m3s")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02bgc"]
+atlas = ExtResource("9_bb0hu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isyh3"]
+atlas = ExtResource("10_xh6j0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrmv5"]
+atlas = ExtResource("11_3mymr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wara"]
+atlas = ExtResource("12_yim1h")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdd36"]
+atlas = ExtResource("13_rbg4t")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmfq6"]
+atlas = ExtResource("14_iicnf")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w4r65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqihl")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16wqw")
+}],
+"loop": true,
+"name": &"interact",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02bgc")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isyh3")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrmv5")
+}],
+"loop": true,
+"name": &"return",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wara")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdd36")
+}],
+"loop": true,
+"name": &"spacebar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmfq6")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
 [node name="rev_clone" type="CharacterBody2D"]
 z_index = 10
 scale = Vector2(-1, 1)
@@ -805,7 +912,7 @@ debug_color = Color(1, 0.494118, 0.494118, 0.611765)
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_k2sbu")
-animation = &"win"
+animation = &"idle"
 autoplay = "idle"
 frame = 1
 offset = Vector2(0, -50)
@@ -824,3 +931,8 @@ parameters/conditions/isMoving = false
 parameters/conditions/jump = false
 parameters/conditions/kill = false
 parameters/conditions/levelCompleted = false
+
+[node name="indicator" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_w4r65")
+animation = &"up"
