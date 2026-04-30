@@ -1,6 +1,6 @@
 **VIEW-ONLY LICENSE (VOL) FOR GIT REPOSITORIES**
 
-Copyright (c) [YEAR] [AUTHOR/ORGANIZATION]
+Copyright (c) 2026 eshears and titansrule3035
 
 All rights reserved.
 
@@ -61,7 +61,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 For permissions beyond the scope of this license, contact:
 
-[EMAIL OR CONTACT INFO]
+varggas2006@gmail.com - eshears
+jorod3035@gmail.com - titansrule3035
 
 ---
 
