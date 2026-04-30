@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://f08fa71xh8xl"]
+
+[ext_resource type="Texture2D" uid="uid://bn2b05tp7g12l" path="res://Assets/Sprites/UI/up.png" id="1_5ukaf"]
+
+[node name="Sprite2D" type="Sprite2D"]
+z_index = 10
+position = Vector2(0, -16)
+scale = Vector2(2, 2)
+texture = ExtResource("1_5ukaf")

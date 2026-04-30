@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvo3lsr41h8bq"]
+
+[ext_resource type="Script" uid="uid://b170ojrvt46sj" path="res://Assets/Scripts/UI/PauseMenu.cs" id="1_0jt6v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvpo4"]
+bg_color = Color(1, 0.43, 0.100000024, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sa586"]
+bg_color = Color(2.4546682e-06, 0.72518116, 0.20955053, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3x44"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="pause_menu" type="Panel"]
+offset_left = -200.0
+offset_top = -146.0
+offset_right = 200.0
+offset_bottom = 146.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cvpo4")
+script = ExtResource("1_0jt6v")
+
+[node name="Button1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 94.0
+offset_right = 281.0
+offset_bottom = 147.0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_sa586")
+text = "resume"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 190.0
+offset_right = 281.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_i3x44")
+text = "quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 35
+text = "Game paused"
+horizontal_alignment = 1
+vertical_alignment = 1

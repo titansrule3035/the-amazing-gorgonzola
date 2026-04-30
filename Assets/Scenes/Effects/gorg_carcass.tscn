@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxhnti2lcb1qg"]
+
+[ext_resource type="Script" uid="uid://5kkolkcl288e" path="res://Assets/Scripts/Effects/GorgCarcass.cs" id="1_5upmx"]
+[ext_resource type="Texture2D" uid="uid://dq67g8gw3eoi5" path="res://Assets/Sprites/Clones/Player/gorg_hat.png" id="2_vm5pn"]
+[ext_resource type="Texture2D" uid="uid://bu3b33fts3v4i" path="res://Assets/Sprites/Clones/Player/gorg_torso.png" id="3_vfvi2"]
+[ext_resource type="Texture2D" uid="uid://b34x4sm6hy1uk" path="res://Assets/Sprites/Clones/Player/gorg_head.png" id="4_g2t1o"]
+[ext_resource type="Texture2D" uid="uid://dse3iclhdaob4" path="res://Assets/Sprites/Clones/Player/gorg_leg_l.png" id="5_qofew"]
+[ext_resource type="Texture2D" uid="uid://bl0gnj24k5a3l" path="res://Assets/Sprites/Clones/Player/gorg_leg_r.png" id="6_pdo80"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sl1cg"]
+radius = 7.195
+height = 14.39
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lonr7"]
+radius = 12.6491
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uw0wt"]
+radius = 14.0
+height = 28.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8pno"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6ug7"]
+radius = 10.0499
+
+[node name="gorg_carcass" type="Node2D"]
+script = ExtResource("1_5upmx")
+
+[node name="gorg_hat" type="RigidBody2D" parent="."]
+position = Vector2(0, -69)
+collision_layer = 0
+collision_mask = 3
+
+[node name="sprite" type="Sprite2D" parent="gorg_hat"]
+texture = ExtResource("2_vm5pn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_hat"]
+position = Vector2(-4, -2)
+shape = SubResource("CapsuleShape2D_sl1cg")
+
+[node name="gorg_torso" type="RigidBody2D" parent="."]
+position = Vector2(9, -22)
+collision_layer = 0
+collision_mask = 3
+
+[node name="sprite" type="Sprite2D" parent="gorg_torso"]
+texture = ExtResource("3_vfvi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_torso"]
+position = Vector2(0, 1.485)
+shape = SubResource("CircleShape2D_lonr7")
+
+[node name="gorg_head" type="RigidBody2D" parent="."]
+position = Vector2(7, -42)
+collision_layer = 0
+collision_mask = 3
+
+[node name="sprite" type="Sprite2D" parent="gorg_head"]
+texture = ExtResource("4_g2t1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_head"]
+shape = SubResource("CapsuleShape2D_uw0wt")
+
+[node name="gorg_leg_l" type="RigidBody2D" parent="."]
+position = Vector2(4, -6)
+collision_layer = 0
+collision_mask = 3
+
+[node name="sprite" type="Sprite2D" parent="gorg_leg_l"]
+texture = ExtResource("5_qofew")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_leg_l"]
+shape = SubResource("CircleShape2D_s8pno")
+
+[node name="gorg_leg_r" type="RigidBody2D" parent="."]
+position = Vector2(25, -16)
+collision_layer = 0
+collision_mask = 3
+
+[node name="sprite" type="Sprite2D" parent="gorg_leg_r"]
+texture = ExtResource("6_pdo80")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_leg_r"]
+position = Vector2(-5, 0)
+shape = SubResource("CircleShape2D_i6ug7")

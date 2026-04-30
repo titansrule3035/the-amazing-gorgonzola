@@ -1,0 +1,119 @@
+[gd_scene load_steps=13 format=3 uid="uid://bahvvnowulrr2"]
+
+[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://Assets/Scripts/Effects/Effect.cs" id="1_5rtkl"]
+[ext_resource type="Texture2D" uid="uid://dok7w77mhydvv" path="res://Assets/Sprites/Effects/jump_effect.png" id="1_tnqb2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbdc0"]
+atlas = ExtResource("1_tnqb2")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmvxf"]
+atlas = ExtResource("1_tnqb2")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfjqr"]
+atlas = ExtResource("1_tnqb2")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phsky"]
+atlas = ExtResource("1_tnqb2")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysuil"]
+atlas = ExtResource("1_tnqb2")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q31i8"]
+atlas = ExtResource("1_tnqb2")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2fhk5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbdc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmvxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfjqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phsky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysuil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q31i8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_c7vng"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_3vsd5"]
+resource_name = "default"
+length = 0.60001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1h8qh"]
+_data = {
+&"RESET": SubResource("Animation_c7vng"),
+&"default": SubResource("Animation_3vsd5")
+}
+
+[node name="jump_effect" type="Node2D"]
+script = ExtResource("1_5rtkl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
+sprite_frames = SubResource("SpriteFrames_2fhk5")
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1h8qh")
+}
+autoplay = "default"

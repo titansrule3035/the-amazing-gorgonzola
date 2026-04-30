@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3 uid="uid://ddvu3cojc55cx"]
+
+[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://Assets/Scripts/Effects/Effect.cs" id="1_ehsxq"]
+[ext_resource type="Texture2D" uid="uid://c4hvuqofnymp6" path="res://Assets/Sprites/Effects/norm_clone_kill.png" id="2_evmch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvpaw"]
+atlas = ExtResource("2_evmch")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1cyw"]
+atlas = ExtResource("2_evmch")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtni1"]
+atlas = ExtResource("2_evmch")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3f4i"]
+atlas = ExtResource("2_evmch")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4lym"]
+atlas = ExtResource("2_evmch")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sivm"]
+atlas = ExtResource("2_evmch")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh0df"]
+atlas = ExtResource("2_evmch")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shvlf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvpaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1cyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtni1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3f4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4lym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sivm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh0df")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_x3sha"]
+resource_name = "default"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_lk3r2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wq4l"]
+_data = {
+&"RESET": SubResource("Animation_lk3r2"),
+&"default": SubResource("Animation_x3sha")
+}
+
+[node name="norm_kill_effect" type="Node2D"]
+script = ExtResource("1_ehsxq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 10
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_shvlf")
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4wq4l")
+}
+autoplay = "default"

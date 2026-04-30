@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8l0nsxljfu3v"]
+
+[ext_resource type="Script" uid="uid://dumpgsg6x5k33" path="res://Assets/Scripts/Level Assets/KillZone.cs" id="1_7lhwg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7lhwg"]
+size = Vector2(16, 16)
+
+[node name="kill_zone" type="Node2D"]
+script = ExtResource("1_7lhwg")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 65534
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7lhwg")
+debug_color = Color(1, 0, 0, 0.603922)
