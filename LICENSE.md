@@ -67,3 +67,5 @@ jorod3035@gmail.com - titansrule3035
 ---
 
 **By accessing this repository, you agree to be bound by the terms of this license.**
+
+License found in LICENSE.md, all rights reserved.
