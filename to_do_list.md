@@ -9,6 +9,7 @@ TODO:
 * Add the "spotlight" thing when you beat a level
 * Add cursor functionality
 * Add text support with the custom font
-* Add Lixe's dialogue
+* Add Lixe's dialogue system
+* Add Jub and Buj NPCs employing the same dialogue system
 * Add Lixe's entrance animation
 
