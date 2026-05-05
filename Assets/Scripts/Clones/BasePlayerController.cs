@@ -6,14 +6,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
 {
     // === MOVEMENT TUNING ===
     [Export] public float MoveSpeed = 200f;
-    [Export] public float ShortJumpMultiplier = 350f;  // extra gravity when releasing early
-    [Export] public float JumpVelocity = 450f;
-    [Export] public float MaxJumpHoldTime = 0.15f; // 0.15-0.25 is typical
-    [Export] public float MaxFallSpeed = 830f;         // terminal velocity
-    [Export] public float FallMultiplier = 1.5f;      // gravity multiplier when falling
-    private float _jumpHoldTimer = 0f;
-    private bool _shortJumpTriggered = false;
-
+    [Export] public float JumpVelocity = 350f;
+    [Export] public float FallMultiplier = 2.0f;
+    [Export] public float ShortJumpMultiplier = 3.0f;
+    [Export] public float MaxFallSpeed = 800f;
 
     // === EFFECTS ===
     private readonly PackedScene _jumpEffectScene = GD.Load<PackedScene>("res://Assets/Scenes/Effects/jump_effect.tscn");
@@ -27,15 +23,12 @@ public abstract partial class BasePlayerController : CharacterBody2D
     // === ANIMATION PARAMS ===
     private readonly string[] _animationParams = { "idle", "isMoving", "isFalling", "jump", "kill", "levelCompleted" };
 
-
     // === INDICATOR OBJECTS
     [Export] public float offset;
-    private bool showIndicator = false;
     private AnimatedSprite2D indicator;
 
     // === STATE ===
     [Export] public bool shouldFlip;
-    private bool _isJumping = false;
     private bool _isLanded = false;
 
     // === COYOTE TIME ===
@@ -132,31 +125,13 @@ public abstract partial class BasePlayerController : CharacterBody2D
         if (_jumpBufferTimer > 0f && (IsOnFloor() || _canCoyoteJump))
         {
             _jumpBufferTimer = 0f;
-            velocity.Y = -JumpVelocity;
-            _isJumping = true;
-            _shortJumpTriggered = false;
-            _jumpHoldTimer = 0f;
-            _canCoyoteJump = false;
-            SpawnEffect(_jumpEffectScene, GlobalPosition);
-        }
 
-        // --- TRACK JUMP HOLD ---
-        if (_isJumping)
-        {
-            if (Input.IsActionPressed("jump") && _jumpHoldTimer < MaxJumpHoldTime)
-            {
-                _jumpHoldTimer += dt; // continue rising
-            }
-            else if (!Input.IsActionPressed("jump") && velocity.Y < 0f)
-            {
-                // released early while moving up -> short jump
-                _shortJumpTriggered = true;
-                _isJumping = false;
-            }
-            else if (_jumpHoldTimer >= MaxJumpHoldTime)
-            {
-                _isJumping = false; // stop hold, natural fall begins
-            }
+            // ✅ SAFEGUARD: prevents stacking upward velocity
+            velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
+
+            _canCoyoteJump = false;
+
+            SpawnEffect(_jumpEffectScene, GlobalPosition);
         }
     }
 
@@ -169,38 +144,31 @@ public abstract partial class BasePlayerController : CharacterBody2D
                 SpawnEffect(_landEffectScene, GlobalPosition);
                 _isLanded = true;
             }
-            _isJumping = false;
-            _shortJumpTriggered = false;
-            _jumpHoldTimer = 0f;
             return;
         }
 
         _isLanded = false;
-        float baseGravity = Math.Abs(GetGravity().Y);
 
-        float gravityMultiplier;
+        float gravity = Math.Abs(GetGravity().Y);
 
-        if (velocity.Y < 0f) // rising
+        // --- VARIABLE JUMP HEIGHT ---
+        if (velocity.Y < 0f && !Input.IsActionPressed("jump"))
         {
-            if (_shortJumpTriggered)
-                gravityMultiplier = ShortJumpMultiplier; // force early fall
-            else if (_isJumping)
-                gravityMultiplier = 1f; // normal jump hold
-            else
-                gravityMultiplier = FallMultiplier; // natural fall after hold
+            velocity.Y += gravity * ShortJumpMultiplier * dt;
         }
-        else // falling
+        else if (velocity.Y > 0f)
         {
-            gravityMultiplier = FallMultiplier;
+            velocity.Y += gravity * FallMultiplier * dt;
         }
-
-        velocity.Y += baseGravity * gravityMultiplier * dt;
+        else
+        {
+            velocity.Y += gravity * dt;
+        }
 
         // Clamp fall speed
         if (velocity.Y > MaxFallSpeed)
             velocity.Y = MaxFallSpeed;
     }
-
 
     // === Horizontal Movement ===
     private void HandleHorizontalMovement(ref Vector2 velocity, float direction)
@@ -229,14 +197,13 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private void UpdateAnimation(Vector2 velocity)
     {
         if (animationTree == null)
-        {
             return;
-        }
+
         if (!GlobalGameManager.GetInstance().levelCompleted)
         {
             if (IsOnFloor())
             {
-                if (Mathf.Abs(velocity.X) > 1f && !GlobalGameManager.GetInstance().levelCompleted)
+                if (Mathf.Abs(velocity.X) > 1f)
                     PlayAnimation("isMoving");
                 else
                     PlayAnimation("idle");
@@ -254,7 +221,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
             PlayAnimation("levelCompleted");
             Gorgonzola.GetInstance().doorMoveTriggered = true;
         }
-
     }
 
     protected void PlayAnimation(string activeParam)
@@ -270,6 +236,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     protected void SpawnEffect(PackedScene scene, Vector2 position)
     {
         if (scene == null) return;
+
         var effect = scene.Instantiate<Node2D>();
         if (effect == null) return;
 
@@ -291,7 +258,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
     protected virtual void Flush()
     {
-        _isJumping = false;
         _isLanded = false;
         _coyoteTimer = 0f;
         _canCoyoteJump = false;
