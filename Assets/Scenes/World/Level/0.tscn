@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d227yw68ef152"]
+[gd_scene load_steps=23 format=3 uid="uid://d227yw68ef152"]
 
 [ext_resource type="Script" uid="uid://duvcb812er7qa" path="res://Assets/Scripts/Rooms/r0.cs" id="1_nuls1"]
 [ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://Assets/Sprites/World/labobg.png" id="3_idwkl"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://Assets/Scenes/Clones/rev_clone.tscn" id="8_ybgmm"]
 [ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://Assets/Scenes/World/garg_spawn.tscn" id="9_52r7t"]
 [ext_resource type="Texture2D" uid="uid://cnorkwmuv8a7m" path="res://Assets/Sprites/World/Untitled.png" id="10_idwkl"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_mhfc5"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_1eun7"]
 [ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://Assets/Scenes/World/lab_door.tscn" id="12_mhfc5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nuls1"]
@@ -1859,6 +1861,9 @@ physics_layer_1/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_dhf00")
 sources/2 = SubResource("TileSetAtlasSource_y0w4n")
 
+[sub_resource type="Resource" id="Resource_8lyde"]
+script = ExtResource("12_1eun7")
+
 [node name="test_level" type="Node2D"]
 script = ExtResource("1_nuls1")
 
@@ -1905,3 +1910,9 @@ position = Vector2(480, -352)
 position = Vector2(-1632, -64)
 scale = Vector2(0.814664, 0.816326)
 texture = ExtResource("10_idwkl")
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+position = Vector2(224, -480)
+script = ExtResource("11_mhfc5")
+snap_to_pixel = true
+tween_resource = SubResource("Resource_8lyde")

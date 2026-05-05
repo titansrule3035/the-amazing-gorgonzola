@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://dt16u0sqmom6y"]
+[gd_scene load_steps=141 format=3 uid="uid://dt16u0sqmom6y"]
 
 [ext_resource type="Texture2D" uid="uid://bky6c11hi48ip" path="res://Assets/Sprites/Clones/Player/gorgonzola_fall.png" id="1_h5fqh"]
 [ext_resource type="Script" uid="uid://conswvwcv6458" path="res://Assets/Scripts/Clones/Gorgonzola.cs" id="1_jve7h"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://Assets/Sprites/UI/buttonicon_right.png" id="12_gk5qv"]
 [ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://Assets/Sprites/UI/buttonicon_space.png" id="13_0wdt1"]
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://Assets/Sprites/UI/buttonicon_up.png" id="14_s01dc"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_2c0lj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
 size = Vector2(30, 60)
@@ -1066,3 +1067,11 @@ parameters/conditions/levelCompleted = false
 visible = false
 sprite_frames = SubResource("SpriteFrames_pqihl")
 animation = &"up"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("15_2c0lj")

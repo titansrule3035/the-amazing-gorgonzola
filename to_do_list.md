@@ -2,7 +2,8 @@
 
 TODO:
 
-* Camera movement
+* Rework SpawnGorg logic
+* Resize and reposition camera
 * ON/OFF parent and child blocks
 * Make temporary title screen and level select UI
 * Add the "spotlight" thing when you beat a level
