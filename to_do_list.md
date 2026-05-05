@@ -2,7 +2,6 @@
 
 TODO:
 
-* Fix jump logic
 * Camera movement
 * ON/OFF parent and child blocks
 * Make temporary title screen and level select UI
