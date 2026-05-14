@@ -87,11 +87,18 @@ public partial class GorgCarcass : Node2D
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
 
+        CanvasEffects.GetInstance().OnFadeOut += Flush;
         GlobalGameManager.GetInstance().OnFlush += Flush;
     }
 
     void Flush()
     {
+        CanvasEffects.GetInstance().OnFadeOut -= Flush;
+        GlobalGameManager.GetInstance().OnFlush -= Flush;
         QueueFree();
+    }
+    void Flush(bool levelCompleted)
+    {
+        Flush();
     }
 }

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxlfv7311kikn"
-path="res://.godot/imported/buttonicon_space.png-46913264f020f8007f0cbe241d87c833.ctex"
+path="res://.godot/imported/buttonicon_space.png-abead9364beab74eb2ff6e09a24bd5c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/buttonicon_space.png"
-dest_files=["res://.godot/imported/buttonicon_space.png-46913264f020f8007f0cbe241d87c833.ctex"]
+source_file="res://assets/Sprites/UI/buttonicon_space.png"
+dest_files=["res://.godot/imported/buttonicon_space.png-abead9364beab74eb2ff6e09a24bd5c3.ctex"]
 
 [params]
 
