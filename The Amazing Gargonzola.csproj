@@ -5,4 +5,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>TheAmazingGargonzola</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="csharp" />
+  </ItemGroup>
 </Project>

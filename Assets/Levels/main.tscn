@@ -26,5 +26,4 @@ offset_right = 194.0
 offset_bottom = -172.0
 
 [node name="fade_panel" parent="." instance=ExtResource("2_m252d")]
-visible = true
-position = Vector2(18, -432)
+position = Vector2(18, -386)
