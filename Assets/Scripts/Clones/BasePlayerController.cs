@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 public abstract partial class BasePlayerController : CharacterBody2D
 {
     // === MOVEMENT TUNING ===
+    [Export] public float AscendMultiplier = 2f;
     [Export] public float MoveSpeed = 200f;
-    [Export] public float JumpVelocity = 350f;
-    [Export] public float FallMultiplier = 2.0f;
+    [Export] public float JumpVelocity = 500f;
+    [Export] public float FallMultiplier = 2.25f;
     [Export] public float ShortJumpMultiplier = 3.0f;
     [Export] public float MaxFallSpeed = 800f;
 
@@ -117,16 +118,19 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         // --- JUMP BUFFER ---
         if (Input.IsActionJustPressed("jump"))
+        {
             _jumpBufferTimer = JumpBufferTime;
+        }
         else
+        {
             _jumpBufferTimer -= dt;
+        }
 
         // --- START JUMP ---
         if (_jumpBufferTimer > 0f && (IsOnFloor() || _canCoyoteJump))
         {
             _jumpBufferTimer = 0f;
 
-            // ✅ SAFEGUARD: prevents stacking upward velocity
             velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
 
             _canCoyoteJump = false;
@@ -151,11 +155,17 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         float gravity = Math.Abs(GetGravity().Y);
 
-        // --- VARIABLE JUMP HEIGHT ---
+        // --- SHORT JUMP ---
         if (velocity.Y < 0f && !Input.IsActionPressed("jump"))
         {
             velocity.Y += gravity * ShortJumpMultiplier * dt;
         }
+        // --- NORMAL ASCENT ---
+        else if (velocity.Y < 0f)
+        {
+            velocity.Y += gravity * AscendMultiplier * dt;
+        }
+        // --- FALLING ---
         else if (velocity.Y > 0f)
         {
             velocity.Y += gravity * FallMultiplier * dt;
@@ -165,7 +175,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
             velocity.Y += gravity * dt;
         }
 
-        // Clamp fall speed
         if (velocity.Y > MaxFallSpeed)
             velocity.Y = MaxFallSpeed;
     }
