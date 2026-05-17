@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dbeal6wnepjab" path="res://assets/Sprites/UI/pixel.png" id="2_noj42"]
 
 [node name="fade_panel" type="Node2D"]
-visible = false
 script = ExtResource("1_hhdf1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 z_index = 4096
-scale = Vector2(1184, 928)
+position = Vector2(-3.0517578e-05, 3.0517578e-05)
+scale = Vector2(2368, 1578.6666)
 texture = ExtResource("2_noj42")

@@ -1,21 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://rhb6mualyteu"]
 
-[ext_resource type="Script" uid="uid://dp0d1epso522" path="res://Assets/Scripts/Persistent/GlobalGameManager.cs" id="1_linyq"]
-[ext_resource type="PackedScene" uid="uid://dvf1hvt32xcao" path="res://Assets/Scenes/UI/fade_panel.tscn" id="2_m252d"]
-[ext_resource type="PackedScene" uid="uid://qiaoiwvifwhi" path="res://Assets/Scenes/UI/level_cleared_menu.tscn" id="3_ybloh"]
-[ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://Assets/Scenes/UI/pause_menu.tscn" id="4_t4uah"]
+[ext_resource type="Script" uid="uid://dp0d1epso522" path="res://assets/Scripts/Persistent/GlobalGameManager.cs" id="1_linyq"]
+[ext_resource type="PackedScene" uid="uid://dvf1hvt32xcao" path="res://assets/Scenes/UI/fade_panel.tscn" id="2_m252d"]
+[ext_resource type="PackedScene" uid="uid://qiaoiwvifwhi" path="res://assets/Scenes/UI/level_cleared_menu.tscn" id="3_ybloh"]
+[ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="4_t4uah"]
 
 [node name="main" type="Node2D"]
 position = Vector2(-2, 0)
 
-[node name="camera" type="Camera2D" parent="."]
-position = Vector2(2, -320)
-
 [node name="game_manager" type="Node2D" parent="."]
 script = ExtResource("1_linyq")
-
-[node name="fade_panel" parent="." instance=ExtResource("2_m252d")]
-position = Vector2(0, -320)
 
 [node name="level_cleared_menu" parent="." instance=ExtResource("3_ybloh")]
 z_index = 19
@@ -30,3 +24,6 @@ offset_left = -206.0
 offset_top = -464.0
 offset_right = 194.0
 offset_bottom = -172.0
+
+[node name="fade_panel" parent="." instance=ExtResource("2_m252d")]
+position = Vector2(18, -386)

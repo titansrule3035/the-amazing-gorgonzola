@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cp20547sq05x2"]
 
-[ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://Assets/Scripts/Rooms/r1.cs" id="1_8se8v"]
-[ext_resource type="Texture2D" uid="uid://nu8f8ejfwu7o" path="res://Assets/Sprites/World/test_tileset_nw.png" id="1_xmwhe"]
-[ext_resource type="Texture2D" uid="uid://m1fdhk5qf8fv" path="res://Assets/Sprites/World/test_bg_2.png" id="3_p5nbd"]
+[ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://assets/Scripts/Rooms/r1.cs" id="1_8se8v"]
+[ext_resource type="Texture2D" uid="uid://nu8f8ejfwu7o" path="res://assets/Sprites/World/test_tileset_nw.png" id="1_xmwhe"]
+[ext_resource type="Texture2D" uid="uid://m1fdhk5qf8fv" path="res://assets/Sprites/World/test_bg_2.png" id="3_p5nbd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmwhe"]
 texture = ExtResource("1_xmwhe")

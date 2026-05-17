@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 public abstract partial class BasePlayerController : CharacterBody2D
 {
     // === MOVEMENT TUNING ===
-    [Export] public float MoveSpeed = 200f;
+    [Export] public float AscendMultiplier = 1.5f;
+    [Export] public float MoveSpeed = 250f;
     [Export] public float JumpVelocity = 350f;
-    [Export] public float FallMultiplier = 2.0f;
-    [Export] public float ShortJumpMultiplier = 3.0f;
+    [Export] public float FallMultiplier = 2.25f;
     [Export] public float MaxFallSpeed = 800f;
 
     // === EFFECTS ===
@@ -30,11 +30,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
     // === STATE ===
     [Export] public bool shouldFlip;
     private bool _isLanded = false;
-
-    // === COYOTE TIME ===
-    [Export] public float CoyoteTime = 0.12f;
-    private float _coyoteTimer = 0f;
-    private bool _canCoyoteJump = false;
 
     // === JUMP BUFFERING ===
     [Export] public float JumpBufferTime = 0.15f;
@@ -102,34 +97,22 @@ public abstract partial class BasePlayerController : CharacterBody2D
     // === Jump Logic ===
     private void HandleJump(ref Vector2 velocity, float dt)
     {
-        // --- COYOTE TIME ---
-        if (IsOnFloor())
-        {
-            _coyoteTimer = 0f;
-            _canCoyoteJump = true;
-        }
-        else
-        {
-            _coyoteTimer += dt;
-            if (_coyoteTimer > CoyoteTime)
-                _canCoyoteJump = false;
-        }
-
         // --- JUMP BUFFER ---
         if (Input.IsActionJustPressed("jump"))
+        {
             _jumpBufferTimer = JumpBufferTime;
+        }
         else
+        {
             _jumpBufferTimer -= dt;
+        }
 
         // --- START JUMP ---
-        if (_jumpBufferTimer > 0f && (IsOnFloor() || _canCoyoteJump))
+        if (_jumpBufferTimer > 0f && IsOnFloor())
         {
             _jumpBufferTimer = 0f;
 
-            // ✅ SAFEGUARD: prevents stacking upward velocity
             velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
-
-            _canCoyoteJump = false;
 
             SpawnEffect(_jumpEffectScene, GlobalPosition);
         }
@@ -151,11 +134,12 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         float gravity = Math.Abs(GetGravity().Y);
 
-        // --- VARIABLE JUMP HEIGHT ---
-        if (velocity.Y < 0f && !Input.IsActionPressed("jump"))
+        // --- NORMAL ASCENT ---
+        if (velocity.Y < 0f) // This condition now handles all upward movement
         {
-            velocity.Y += gravity * ShortJumpMultiplier * dt;
+            velocity.Y += gravity * AscendMultiplier * dt;
         }
+        // --- FALLING ---
         else if (velocity.Y > 0f)
         {
             velocity.Y += gravity * FallMultiplier * dt;
@@ -165,7 +149,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
             velocity.Y += gravity * dt;
         }
 
-        // Clamp fall speed
         if (velocity.Y > MaxFallSpeed)
             velocity.Y = MaxFallSpeed;
     }
@@ -259,8 +242,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
     protected virtual void Flush()
     {
         _isLanded = false;
-        _coyoteTimer = 0f;
-        _canCoyoteJump = false;
         _jumpBufferTimer = 0f;
         QueueFree();
     }

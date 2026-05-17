@@ -2,7 +2,6 @@
 
 TODO:
 
-* Fix jump logic
 * ON/OFF parent and child blocks
 * Make temporary title screen and level select UI
 * Add the "spotlight" thing when you beat a level
