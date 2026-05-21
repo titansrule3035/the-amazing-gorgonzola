@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d227yw68ef152"]
+[gd_scene format=3 uid="uid://d227yw68ef152"]
 
 [ext_resource type="Script" uid="uid://duvcb812er7qa" path="res://assets/Scripts/Rooms/r0.cs" id="1_nuls1"]
 [ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://assets/Sprites/World/labobg.png" id="3_idwkl"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://assets/Scenes/World/garg_spawn.tscn" id="9_52r7t"]
 [ext_resource type="Texture2D" uid="uid://cnorkwmuv8a7m" path="res://assets/Sprites/World/Untitled.png" id="10_idwkl"]
 [ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/World/lab_door.tscn" id="12_mhfc5"]
+[ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/World/on_off_switch.tscn" id="12_mivox"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nuls1"]
 atlas = ExtResource("3_idwkl")
@@ -1860,39 +1861,39 @@ physics_layer_1/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_idwkl")
 sources/2 = SubResource("TileSetAtlasSource_nuls1")
 
-[node name="test_level" type="Node2D"]
+[node name="test_level2" type="Node2D" unique_id=1869554895]
 script = ExtResource("1_nuls1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=121178562]
 
-[node name="test_bg" type="AnimatedSprite2D" parent="."]
+[node name="test_bg" type="AnimatedSprite2D" parent="." unique_id=173385077]
 position = Vector2(16.000023, -447.99997)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_ybgmm")
 autoplay = "default"
 frame_progress = 0.0900363
 
-[node name="filter" type="Sprite2D" parent="test_bg"]
+[node name="filter" type="Sprite2D" parent="test_bg" unique_id=546050520]
 modulate = Color(1, 1, 1, 0.223529)
 scale = Vector2(-800, -640)
 texture = ExtResource("4_nuls1")
 
-[node name="kill_zones" type="Node2D" parent="."]
+[node name="kill_zones" type="Node2D" parent="." unique_id=868441466]
 position = Vector2(432, -352)
 
-[node name="kill_zone" parent="kill_zones" instance=ExtResource("4_1eun7")]
+[node name="kill_zone" parent="kill_zones" unique_id=1909711223 instance=ExtResource("4_1eun7")]
 position = Vector2(-400, -240)
 scale = Vector2(40, 2)
 
-[node name="kill_zone3" parent="kill_zones" instance=ExtResource("4_1eun7")]
+[node name="kill_zone3" parent="kill_zones" unique_id=1865446723 instance=ExtResource("4_1eun7")]
 position = Vector2(-624, 368)
 scale = Vector2(12, 2)
 
-[node name="kill_zone4" parent="kill_zones" instance=ExtResource("4_1eun7")]
+[node name="kill_zone4" parent="kill_zones" unique_id=1783478546 instance=ExtResource("4_1eun7")]
 position = Vector2(-208, 368)
 scale = Vector2(12, 2)
 
-[node name="tile_map" type="TileMap" parent="."]
+[node name="tile_map" type="TileMap" parent="." unique_id=1213813057]
 tile_set = SubResource("TileSet_tit20")
 format = 2
 layer_0/name = "Background"
@@ -1905,27 +1906,31 @@ layer_2/tile_data = PackedInt32Array(-2031635, 1376258, 10, -1966099, 458754, 14
 layer_3/name = "George"
 layer_3/z_index = 3
 
-[node name="norm_clone" parent="." instance=ExtResource("7_4ks8u")]
+[node name="norm_clone" parent="." unique_id=770465139 instance=ExtResource("7_4ks8u")]
 position = Vector2(-480, -640)
 
-[node name="rev_clone" parent="." instance=ExtResource("8_ybgmm")]
+[node name="rev_clone" parent="." unique_id=353714527 instance=ExtResource("8_ybgmm")]
 position = Vector2(512, -64)
 
-[node name="gorg_spawn" parent="." instance=ExtResource("9_52r7t")]
+[node name="gorg_spawn" parent="." unique_id=588967463 instance=ExtResource("9_52r7t")]
 position = Vector2(-480, -64)
 direction = 1
 
-[node name="lab_door" parent="." instance=ExtResource("12_mhfc5")]
+[node name="lab_door" parent="." unique_id=774187305 instance=ExtResource("12_mhfc5")]
 position = Vector2(-448, -224)
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="camera" type="Camera2D" parent="." unique_id=894712086]
 position = Vector2(1, 0)
 limit_left = -608
 limit_top = -1024
 limit_right = 640
 limit_bottom = 32
 
-[node name="level_outline" type="Sprite2D" parent="."]
+[node name="level_outline" type="Sprite2D" parent="." unique_id=2136071320]
 position = Vector2(-1190.6213, -384.00003)
 scale = Vector2(1.4977819, 1.5008376)
 texture = ExtResource("10_idwkl")
+
+[node name="on_off_switch" parent="." unique_id=1283040908 instance=ExtResource("12_mivox")]
+z_index = 2
+position = Vector2(592, -336)

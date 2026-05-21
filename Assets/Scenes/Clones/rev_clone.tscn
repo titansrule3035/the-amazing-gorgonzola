@@ -1,19 +1,19 @@
-[gd_scene load_steps=126 format=3 uid="uid://bpnpe2o4rqypr"]
+[gd_scene format=3 uid="uid://bpnpe2o4rqypr"]
 
-[ext_resource type="Script" uid="uid://co353gur3v72n" path="res://Assets/Scripts/Clones/RevClone.cs" id="1_ci2bv"]
-[ext_resource type="Texture2D" uid="uid://bhl1k3pii5shf" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_fall.png" id="2_ci2bv"]
-[ext_resource type="Texture2D" uid="uid://cpxm3tds8p4so" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_idle.png" id="3_vnly1"]
-[ext_resource type="Texture2D" uid="uid://dirlplpoj4mws" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_jump.png" id="4_c084s"]
-[ext_resource type="Texture2D" uid="uid://cxvl8ca8iqdlf" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_walk.png" id="5_ci2bv"]
-[ext_resource type="Texture2D" uid="uid://dm0y8sstivi8x" path="res://Assets/Sprites/Clones/Rev Clone/rev_clone_win.png" id="6_vnly1"]
-[ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://Assets/Sprites/UI/buttonicon_down.png" id="7_oj6kr"]
-[ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://Assets/Sprites/UI/buttonicon_x.png" id="8_87m3s"]
-[ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://Assets/Sprites/UI/buttonicon_z.png" id="9_bb0hu"]
-[ext_resource type="Texture2D" uid="uid://daikahq1rhoqq" path="res://Assets/Sprites/UI/buttonicon_left.png" id="10_xh6j0"]
-[ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://Assets/Sprites/UI/buttonicon_enter.png" id="11_3mymr"]
-[ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://Assets/Sprites/UI/buttonicon_right.png" id="12_yim1h"]
-[ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://Assets/Sprites/UI/buttonicon_space.png" id="13_rbg4t"]
-[ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://Assets/Sprites/UI/buttonicon_up.png" id="14_iicnf"]
+[ext_resource type="Script" uid="uid://co353gur3v72n" path="res://assets/Scripts/Clones/RevClone.cs" id="1_ci2bv"]
+[ext_resource type="Texture2D" uid="uid://bhl1k3pii5shf" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_fall.png" id="2_ci2bv"]
+[ext_resource type="Texture2D" uid="uid://cpxm3tds8p4so" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_idle.png" id="3_vnly1"]
+[ext_resource type="Texture2D" uid="uid://dirlplpoj4mws" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_jump.png" id="4_c084s"]
+[ext_resource type="Texture2D" uid="uid://cxvl8ca8iqdlf" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_walk.png" id="5_ci2bv"]
+[ext_resource type="Texture2D" uid="uid://dm0y8sstivi8x" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_win.png" id="6_vnly1"]
+[ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="7_oj6kr"]
+[ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://assets/Sprites/UI/buttonicon_x.png" id="8_87m3s"]
+[ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://assets/Sprites/UI/buttonicon_z.png" id="9_bb0hu"]
+[ext_resource type="Texture2D" uid="uid://daikahq1rhoqq" path="res://assets/Sprites/UI/buttonicon_left.png" id="10_xh6j0"]
+[ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://assets/Sprites/UI/buttonicon_enter.png" id="11_3mymr"]
+[ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://assets/Sprites/UI/buttonicon_right.png" id="12_yim1h"]
+[ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://assets/Sprites/UI/buttonicon_space.png" id="13_rbg4t"]
+[ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_iicnf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
 size = Vector2(30, 60)
@@ -899,30 +899,28 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="rev_clone" type="CharacterBody2D"]
+[node name="rev_clone" type="CharacterBody2D" unique_id=900630761]
 z_index = 10
 scale = Vector2(-1, 1)
 collision_layer = 32768
 script = ExtResource("1_ci2bv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1115182824]
 position = Vector2(0, -30)
 shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(1, 0.494118, 0.494118, 0.611765)
 
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=976931618]
 sprite_frames = SubResource("SpriteFrames_k2sbu")
 animation = &"idle"
 autoplay = "idle"
 frame = 1
 offset = Vector2(0, -50)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ps2t6")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2124742424]
+libraries/ = SubResource("AnimationLibrary_ps2t6")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=627574406]
 tree_root = SubResource("AnimationNodeStateMachine_2byfh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
@@ -932,7 +930,7 @@ parameters/conditions/jump = false
 parameters/conditions/kill = false
 parameters/conditions/levelCompleted = false
 
-[node name="indicator" type="AnimatedSprite2D" parent="."]
+[node name="indicator" type="AnimatedSprite2D" parent="." unique_id=1683346147]
 visible = false
 sprite_frames = SubResource("SpriteFrames_w4r65")
 animation = &"up"
