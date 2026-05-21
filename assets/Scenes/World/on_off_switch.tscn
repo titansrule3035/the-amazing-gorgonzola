@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://d3xgwjijc1j5h"]
+
+[ext_resource type="Texture2D" uid="uid://cfu306yt0pi2i" path="res://assets/Sprites/World/off_block_real.png" id="1_ttrpr"]
+[ext_resource type="Texture2D" uid="uid://dnfbsk0b0xibc" path="res://assets/Sprites/World/on_block_real.png" id="2_3x31o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttrpr"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtrdc"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5py5f"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sk77"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81n5f"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypm70"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hi4wn"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tebia"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uvig"]
+atlas = ExtResource("2_3x31o")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb5ae"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4yuo"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l88wn"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkc3v"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhe8e"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6j0hu"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0bko"]
+atlas = ExtResource("1_ttrpr")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0s3ks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttrpr")
+}],
+"loop": true,
+"name": &"off",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtrdc")
+}],
+"loop": true,
+"name": &"on",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5py5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sk77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81n5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypm70")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hi4wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tebia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7uvig")
+}],
+"loop": false,
+"name": &"turn_off",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb5ae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4yuo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l88wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkc3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhe8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6j0hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0bko")
+}],
+"loop": false,
+"name": &"turn_on",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_ttrpr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_3x31o"]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [&"off"]
+}
+
+[sub_resource type="Animation" id="Animation_00mep"]
+resource_name = "on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [&"on"]
+}
+
+[sub_resource type="Animation" id="Animation_dtrdc"]
+resource_name = "turn_off"
+length = 0.6333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [&"turn_off"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5py5f"]
+_data = {
+&"RESET": SubResource("Animation_ttrpr"),
+&"off": SubResource("Animation_3x31o"),
+&"on": SubResource("Animation_00mep"),
+&"turn_off": SubResource("Animation_dtrdc")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2sk77"]
+
+[node name="on_off_switch" type="Node2D" unique_id=1283040908]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1611492352]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_0s3ks")
+animation = &"off"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1574086633]
+libraries/ = SubResource("AnimationLibrary_5py5f")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1979291277]
+tree_root = SubResource("AnimationNodeStateMachine_2sk77")
+anim_player = NodePath("../AnimationPlayer")
