@@ -1,42 +1,71 @@
 using Godot;
 using System;
+using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 
 public partial class OnOffSwitch : Node2D
 {
     Area2D collisionArea;
     AnimatedSprite2D sprite;
-
-    bool opened;
+    [Export] public bool opened;
 
     public override void _Ready()
     {
         collisionArea = GetNode<Area2D>("Area2D");
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionArea.BodyEntered += OnBodyEntered;
-        collisionArea.BodyExited += OnBodyExited;
+
+        var manager = OnOffManager.GetInstance();
+        if (manager == null)
+        {
+            GD.PrintErr("OnOffSwitch: No OnOffManager instance found!");
+            return;
+        }
+
+        
+        if(opened != manager.GetState())
+        {
+            manager.SetState(opened);
+        }
+
+        if (opened)
+        {
+            PlayAnimation("on");
+        }
+        else
+        {
+            PlayAnimation("off");
+        }
+
+        manager.OnStateChanged += ChangeState;
+
         base._Ready();
     }
 
     void OnBodyEntered(Node2D body)
     {
-        ChangeState();
+        OnOffManager.GetInstance().ChangeState();
     }
 
-    void OnBodyExited(Node2D body)
+    void ChangeState(bool on)
     {
-
+        opened = on;
+        sprite.Play(on ? "turn_on" : "turn_off");
     }
 
-    void ChangeState()
+    void PlayAnimation(string animation)
     {
-        opened = !opened;
-        if (opened)
+        sprite.Play(animation);
+    }
+
+    public override void _ExitTree()
+    {
+        collisionArea.BodyEntered -= OnBodyEntered;
+
+        var manager = OnOffManager.GetInstance();
+        if (manager != null)
         {
-            sprite.Play("turn_on");
+            manager.OnStateChanged -= ChangeState;
         }
-        else
-        {
-            sprite.Play("turn_off");
-        }
+        base._ExitTree();
     }
 }
