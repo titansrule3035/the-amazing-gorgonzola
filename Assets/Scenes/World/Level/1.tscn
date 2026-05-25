@@ -1,16 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxtyhggutkjrb"]
+[gd_scene format=3 uid="uid://cxtyhggutkjrb"]
 
-[ext_resource type="Script" uid="uid://duvcb812er7qa" path="res://Assets/Scripts/Rooms/r0.cs" id="1_o34au"]
-[ext_resource type="Texture2D" uid="uid://cnorkwmuv8a7m" path="res://Assets/Sprites/World/Untitled.png" id="2_vrtih"]
-[ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://Assets/Sprites/World/labobg.png" id="3_kqv3k"]
-[ext_resource type="Texture2D" uid="uid://dbeal6wnepjab" path="res://Assets/Sprites/UI/pixel.png" id="4_ku1s0"]
-[ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://Assets/Scenes/World/kill_zone.tscn" id="5_e64k3"]
-[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://Assets/Sprites/World/world_1_tileset.png" id="6_toj7x"]
-[ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://Assets/Sprites/World/world_1_tileset_final.png" id="7_upqoq"]
-[ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://Assets/Scenes/Clones/norm_clone.tscn" id="8_1ipiw"]
-[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://Assets/Scenes/Clones/rev_clone.tscn" id="9_sxmrs"]
-[ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://Assets/Scenes/World/garg_spawn.tscn" id="10_i2c7p"]
-[ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://Assets/Scenes/World/lab_door.tscn" id="11_t1bak"]
+[ext_resource type="Script" uid="uid://duvcb812er7qa" path="res://assets/Scripts/Rooms/r0.cs" id="1_o34au"]
+[ext_resource type="Texture2D" uid="uid://cnorkwmuv8a7m" path="res://assets/Sprites/World/Untitled.png" id="2_vrtih"]
+[ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://assets/Sprites/World/labobg.png" id="3_kqv3k"]
+[ext_resource type="Texture2D" uid="uid://dbeal6wnepjab" path="res://assets/Sprites/UI/pixel.png" id="4_ku1s0"]
+[ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/World/kill_zone.tscn" id="5_e64k3"]
+[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="6_toj7x"]
+[ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="7_upqoq"]
+[ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Clones/norm_clone.tscn" id="8_1ipiw"]
+[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Clones/rev_clone.tscn" id="9_sxmrs"]
+[ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://assets/Scenes/World/garg_spawn.tscn" id="10_i2c7p"]
+[ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/World/lab_door.tscn" id="11_t1bak"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nuls1"]
 atlas = ExtResource("3_kqv3k")
@@ -1839,51 +1839,51 @@ physics_layer_1/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_nuls1")
 sources/2 = SubResource("TileSetAtlasSource_mhfc5")
 
-[node name="test_level" type="Node2D"]
+[node name="test_level" type="Node2D" unique_id=1523755046]
 script = ExtResource("1_o34au")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=270018928]
 
-[node name="level_outline" type="Sprite2D" parent="."]
+[node name="level_outline" type="Sprite2D" parent="." unique_id=900233512]
 position = Vector2(-1408, -320)
 scale = Vector2(0.814664, 0.816326)
 texture = ExtResource("2_vrtih")
 
-[node name="test_bg" type="AnimatedSprite2D" parent="."]
+[node name="test_bg" type="AnimatedSprite2D" parent="." unique_id=1215367548]
 position = Vector2(0, -320)
 sprite_frames = SubResource("SpriteFrames_ybgmm")
 autoplay = "default"
 frame_progress = 0.0900363
 
-[node name="filter" type="Sprite2D" parent="test_bg"]
+[node name="filter" type="Sprite2D" parent="test_bg" unique_id=258500989]
 modulate = Color(1, 1, 1, 0.223529)
 scale = Vector2(-800, -640)
 texture = ExtResource("4_ku1s0")
 
-[node name="kill_zones" type="Node2D" parent="."]
+[node name="kill_zones" type="Node2D" parent="." unique_id=1645982189]
 position = Vector2(432, -352)
 
-[node name="kill_zone" parent="kill_zones" instance=ExtResource("5_e64k3")]
+[node name="kill_zone" parent="kill_zones" unique_id=1475699705 instance=ExtResource("5_e64k3")]
 position = Vector2(-576, -144)
 scale = Vector2(8, 2)
 
-[node name="kill_zone2" parent="kill_zones" instance=ExtResource("5_e64k3")]
+[node name="kill_zone2" parent="kill_zones" unique_id=303558273 instance=ExtResource("5_e64k3")]
 position = Vector2(-288, -144)
 scale = Vector2(8, 2)
 
-[node name="kill_zone3" parent="kill_zones" instance=ExtResource("5_e64k3")]
+[node name="kill_zone3" parent="kill_zones" unique_id=594057547 instance=ExtResource("5_e64k3")]
 position = Vector2(-720, 80)
 scale = Vector2(6, 2)
 
-[node name="kill_zone4" parent="kill_zones" instance=ExtResource("5_e64k3")]
+[node name="kill_zone4" parent="kill_zones" unique_id=1517087463 instance=ExtResource("5_e64k3")]
 position = Vector2(-576, 336)
 scale = Vector2(8, 2)
 
-[node name="kill_zone5" parent="kill_zones" instance=ExtResource("5_e64k3")]
+[node name="kill_zone5" parent="kill_zones" unique_id=1555686749 instance=ExtResource("5_e64k3")]
 position = Vector2(-288, 336)
 scale = Vector2(8, 2)
 
-[node name="tile_map" type="TileMap" parent="."]
+[node name="tile_map" type="TileMap" parent="." unique_id=1241754460]
 position = Vector2(435, -352)
 tile_set = SubResource("TileSet_pvlxp")
 format = 2
@@ -1897,15 +1897,22 @@ layer_2/tile_data = PackedInt32Array(655334, 1638402, 24, 655335, 131073, 11, 65
 layer_3/name = "George"
 layer_3/z_index = 3
 
-[node name="norm_clone" parent="." instance=ExtResource("8_1ipiw")]
+[node name="norm_clone" parent="." unique_id=495957293 instance=ExtResource("8_1ipiw")]
 position = Vector2(-352, -544)
 
-[node name="rev_clone" parent="." instance=ExtResource("9_sxmrs")]
+[node name="rev_clone" parent="." unique_id=971116764 instance=ExtResource("9_sxmrs")]
 position = Vector2(352, -64)
 
-[node name="gorg_spawn" parent="." instance=ExtResource("10_i2c7p")]
+[node name="gorg_spawn" parent="." unique_id=1261236771 instance=ExtResource("10_i2c7p")]
 position = Vector2(-352, -64)
 direction = 1
 
-[node name="lab_door" parent="." instance=ExtResource("11_t1bak")]
+[node name="lab_door" parent="." unique_id=1516452415 instance=ExtResource("11_t1bak")]
 position = Vector2(272, -256)
+
+[node name="camera" type="Camera2D" parent="." unique_id=823990749]
+position = Vector2(1, 0)
+limit_left = -429
+limit_top = -640
+limit_right = 435
+limit_bottom = 0

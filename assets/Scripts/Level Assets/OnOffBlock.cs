@@ -46,12 +46,10 @@ public partial class OnOffBlock : Node2D
         {
             if (green)
             {
-                GD.Print("Green Block: Turned on!!!!");
                 body.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
             }
             else
             {
-                GD.Print("Red Block: Turned off!!!!");
                 body.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
             }
         }
@@ -59,12 +57,10 @@ public partial class OnOffBlock : Node2D
         {
             if (!green)
             {
-                GD.Print("Red Block: Turned on!!!!");
                 body.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
             }
             else
             {
-                GD.Print("Green Block: Turned off!!!!");
                 body.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
             }
         }

@@ -43,7 +43,10 @@ public partial class OnOffSwitch : Node2D
 
     void OnBodyEntered(Node2D body)
     {
-        OnOffManager.GetInstance().ChangeState();
+        if(body is BasePlayerController) 
+        {
+            OnOffManager.GetInstance().ChangeState();
+        }
     }
 
     void ChangeState(bool on)
