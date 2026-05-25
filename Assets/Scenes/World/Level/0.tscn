@@ -1991,3 +1991,6 @@ position = Vector2(-368, -432)
 
 [node name="red_on_off_block8" parent="on_offs" unique_id=1973482627 instance=ExtResource("15_dl2o1")]
 position = Vector2(-368, -464)
+
+[node name="red_on_off_block9" parent="on_offs" unique_id=1408077688 instance=ExtResource("15_dl2o1")]
+position = Vector2(-368, -496)
