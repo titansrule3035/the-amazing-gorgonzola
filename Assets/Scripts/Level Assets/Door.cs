@@ -160,4 +160,9 @@ public partial class Door : Node2D
 
         UpdateIndicator();
     }
+
+    public Vector2 GetColliderPos()
+    {
+        return area.GlobalPosition;
+    }
 }

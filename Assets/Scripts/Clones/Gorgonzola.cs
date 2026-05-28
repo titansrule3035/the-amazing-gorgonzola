@@ -42,7 +42,7 @@ public partial class Gorgonzola : BasePlayerController
 
     public void MoveToDoor()
     {
-        Vector2 endPos = new Vector2(Door.GetInstance().GlobalPosition.X, GlobalPosition.Y);
+        Vector2 endPos = new Vector2(Door.GetInstance().GetColliderPos().X, GlobalPosition.Y);
 
         float moveTime = .4f;
 

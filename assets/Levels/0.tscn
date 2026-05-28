@@ -3,21 +3,60 @@
 [ext_resource type="Script" uid="uid://bv60s3bvbr1i" path="res://assets/Scripts/UI/MainMenu.cs" id="1_wdlxv"]
 [ext_resource type="Texture2D" uid="uid://dneetot10hqqd" path="res://assets/Sprites/UI/Title Screen/titlescreen_bg.png" id="2_b1o7a"]
 [ext_resource type="Texture2D" uid="uid://eolw5m46olpt" path="res://assets/Sprites/UI/Title Screen/TAGlogo.png" id="3_b1o7a"]
+[ext_resource type="Texture2D" uid="uid://gmgcr2mut4eh" path="res://assets/Sprites/UI/Title Screen/Lab/titlescreen_lab_2.png" id="3_nft5b"]
+[ext_resource type="Texture2D" uid="uid://ckyii0pbrwlci" path="res://assets/Sprites/UI/Title Screen/Lab/titlescreen_lab_1.png" id="5_3otin"]
+[ext_resource type="Texture2D" uid="uid://qqmp6l766is8" path="res://assets/Sprites/UI/Title Screen/Buttons/play.png" id="5_j3iwk"]
+[ext_resource type="Texture2D" uid="uid://efbyib8mq1yu" path="res://assets/Sprites/UI/Title Screen/Lab/titlescreen_lab_3.png" id="6_kbh3w"]
+[ext_resource type="Texture2D" uid="uid://d16ovi81popy5" path="res://assets/Sprites/UI/Title Screen/Buttons/play_pressed.png" id="6_my4w0"]
+[ext_resource type="Texture2D" uid="uid://bn1on4kmdrqvr" path="res://assets/Sprites/UI/Title Screen/Buttons/play_hover.png" id="7_6gh7j"]
+[ext_resource type="Texture2D" uid="uid://feyk6fdcfnwe" path="res://assets/Sprites/UI/Title Screen/Buttons/play_disabled.png" id="8_23tc7"]
+[ext_resource type="Texture2D" uid="uid://blo4j2avkkpx6" path="res://assets/Sprites/UI/Title Screen/Buttons/options.png" id="8_f8drl"]
+[ext_resource type="Texture2D" uid="uid://7wse5lvwmhvw" path="res://assets/Sprites/UI/Title Screen/Buttons/options_pressed.png" id="9_23tc7"]
+[ext_resource type="Texture2D" uid="uid://dkqfw46bl1ia3" path="res://assets/Sprites/UI/Title Screen/Buttons/options_hover.png" id="10_wgx0f"]
+[ext_resource type="Texture2D" uid="uid://mhxeaqqygu2w" path="res://assets/Sprites/UI/Title Screen/Buttons/quit.png" id="11_0bsmd"]
+[ext_resource type="Texture2D" uid="uid://c51tf2obary6a" path="res://assets/Sprites/UI/Title Screen/Buttons/quit_pressed.png" id="12_3vrmg"]
+[ext_resource type="Texture2D" uid="uid://wv5dkui37cw2" path="res://assets/Sprites/UI/Title Screen/Buttons/options_disabled.png" id="12_wgx0f"]
+[ext_resource type="Texture2D" uid="uid://dxgp4uq8gueek" path="res://assets/Sprites/UI/Title Screen/Buttons/quit_hover.png" id="13_xtvsg"]
+[ext_resource type="Texture2D" uid="uid://cy2jrwaupujme" path="res://assets/Sprites/UI/Title Screen/Buttons/quit_disabled.png" id="16_0bsmd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdlxv"]
-bg_color = Color(0.07450981, 0.60784316, 0.07450981, 1)
+[sub_resource type="Animation" id="Animation_5ogbb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect3:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_nft5b")]
+}
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1o7a"]
-bg_color = Color(0.003921569, 0.3019608, 0.003921569, 1)
+[sub_resource type="Animation" id="Animation_bhtwu"]
+resource_name = "default"
+length = 0.30001
+loop_mode = 1
+step = 0.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect3:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_3otin"), ExtResource("3_nft5b"), ExtResource("6_kbh3w")]
+}
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bahr7"]
-bg_color = Color(0.07450981, 0.48235294, 0.07450981, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1lq4"]
-bg_color = Color(0.07450981, 0.60784316, 0.07450981, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvn8q"]
-bg_color = Color(0.003921569, 0.3019608, 0.003921569, 1)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_at7ji"]
+_data = {
+&"RESET": SubResource("Animation_5ogbb"),
+&"default": SubResource("Animation_bhtwu")
+}
 
 [node name="main_menu" type="Node2D" unique_id=1089058078]
 
@@ -46,10 +85,18 @@ offset_right = 1248.0
 offset_bottom = 832.0
 texture = ExtResource("2_b1o7a")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=622336845]
+[node name="TextureRect3" type="TextureRect" parent="Control" unique_id=1094582089]
+texture_filter = 2
+texture_repeat = 1
 layout_mode = 0
 offset_right = 1248.0
-offset_bottom = 320.0
+offset_bottom = 832.0
+texture = ExtResource("3_nft5b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=622336845]
+layout_mode = 0
+offset_right = 659.0
+offset_bottom = 352.0
 
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer" unique_id=1752662185]
 custom_minimum_size = Vector2(0, 320)
@@ -60,66 +107,37 @@ stretch_mode = 5
 
 [node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=1310329683]
 layout_mode = 0
-offset_left = 322.0
-offset_top = 320.0
-offset_right = 624.0
+offset_top = 528.0
+offset_right = 302.0
 offset_bottom = 832.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer" unique_id=165588870]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 18
 
-[node name="NewGame" type="Button" parent="Control/CenterContainer/VBoxContainer" unique_id=1028864040]
+[node name="Play" type="TextureButton" parent="Control/CenterContainer/VBoxContainer" unique_id=1660209054]
 layout_mode = 2
-theme_override_font_sizes/font_size = 43
-theme_override_styles/normal = SubResource("StyleBoxFlat_wdlxv")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_b1o7a")
-theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
-action_mode = 0
-text = "New Game
-"
-icon_alignment = 1
-vertical_icon_alignment = 2
+texture_normal = ExtResource("5_j3iwk")
+texture_pressed = ExtResource("6_my4w0")
+texture_hover = ExtResource("7_6gh7j")
+texture_disabled = ExtResource("8_23tc7")
 
-[node name="Options" type="Button" parent="Control/CenterContainer/VBoxContainer" unique_id=1149872566]
+[node name="Options" type="TextureButton" parent="Control/CenterContainer/VBoxContainer" unique_id=270656760]
 layout_mode = 2
-theme_override_font_sizes/font_size = 43
-theme_override_styles/normal = SubResource("StyleBoxFlat_a1lq4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qvn8q")
-theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
-text = "Options"
-icon_alignment = 1
-vertical_icon_alignment = 2
+texture_normal = ExtResource("8_f8drl")
+texture_pressed = ExtResource("9_23tc7")
+texture_hover = ExtResource("10_wgx0f")
+texture_disabled = ExtResource("12_wgx0f")
 
-[node name="CenterContainer2" type="CenterContainer" parent="Control" unique_id=1110718337]
-layout_mode = 0
-offset_left = 624.0
-offset_top = 320.0
-offset_right = 928.0
-offset_bottom = 832.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer2" unique_id=87841706]
-custom_minimum_size = Vector2(150, 0)
+[node name="Quit" type="TextureButton" parent="Control/CenterContainer/VBoxContainer" unique_id=882588029]
 layout_mode = 2
-theme_override_constants/separation = 64
+texture_normal = ExtResource("11_0bsmd")
+texture_pressed = ExtResource("12_3vrmg")
+texture_hover = ExtResource("13_xtvsg")
+texture_disabled = ExtResource("16_0bsmd")
 
-[node name="LoadGame" type="Button" parent="Control/CenterContainer2/VBoxContainer" unique_id=2092128692]
-layout_mode = 2
-theme_override_font_sizes/font_size = 43
-theme_override_styles/normal = SubResource("StyleBoxFlat_a1lq4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qvn8q")
-theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
-text = "Load Game"
-icon_alignment = 1
-vertical_icon_alignment = 2
-
-[node name="Quit" type="Button" parent="Control/CenterContainer2/VBoxContainer" unique_id=958605073]
-layout_mode = 2
-theme_override_font_sizes/font_size = 43
-theme_override_styles/normal = SubResource("StyleBoxFlat_a1lq4")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_qvn8q")
-theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
-text = "Quit"
-icon_alignment = 1
-vertical_icon_alignment = 2
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control" unique_id=16791238]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_at7ji")
+autoplay = &"default"

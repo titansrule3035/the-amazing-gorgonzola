@@ -30,6 +30,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     // === STATE ===
     [Export] public bool shouldFlip;
     private bool _isLanded = false;
+    [Export] public bool isFalling;
 
     // === JUMP BUFFERING ===
     [Export] public float JumpBufferTime = 0.15f;
@@ -69,6 +70,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        isFalling = Velocity.Y >= 0f;
         float dt = (float)delta;
         Vector2 velocity = Velocity;
 

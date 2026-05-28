@@ -21,8 +21,8 @@ public partial class OnOffSwitch : Node2D
             return;
         }
 
-        
-        if(opened != manager.GetState())
+
+        if (opened != manager.GetState())
         {
             manager.SetState(opened);
         }
@@ -43,9 +43,13 @@ public partial class OnOffSwitch : Node2D
 
     void OnBodyEntered(Node2D body)
     {
-        if(body is BasePlayerController) 
+        if (body is BasePlayerController)
         {
-            OnOffManager.GetInstance().ChangeState();
+            BasePlayerController clone = body as BasePlayerController;
+            if (!clone.isFalling)
+            {
+                OnOffManager.GetInstance().ChangeState();
+            }
         }
     }
 

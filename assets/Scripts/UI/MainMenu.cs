@@ -4,19 +4,17 @@ using System.Linq;
 
 public partial class MainMenu : Control
 {
-    public Button[] buttons;
+    public TextureButton[] buttons;
 
     public override void _Ready()
     {
-        buttons = new Button[4];
-        buttons[0] = GetNode<Button>("CenterContainer/VBoxContainer/NewGame");
-        buttons[0].Pressed += NewGameButtonPressed;
-        buttons[1] = GetNode<Button>("CenterContainer/VBoxContainer/Options");
+        buttons = new TextureButton[3];
+        buttons[0] = GetNode<TextureButton>("CenterContainer/VBoxContainer/Play");
+        buttons[0].Pressed += PlayButtonPressed;
+        buttons[1] = GetNode<TextureButton>("CenterContainer/VBoxContainer/Options");
         buttons[1].Pressed += OptionsButtonPressed;
-        buttons[2] = GetNode<Button>("CenterContainer2/VBoxContainer/LoadGame");
-        buttons[2].Pressed += LoadGameButtonPressed;
-        buttons[3] = GetNode<Button>("CenterContainer2/VBoxContainer/Quit");
-        buttons[3].Pressed += QuitButtonPressed;
+        buttons[2] = GetNode<TextureButton>("CenterContainer/VBoxContainer/Quit");
+        buttons[2].Pressed += QuitButtonPressed;
 
         CanvasEffects.GetInstance().OnFadeIn += OnFadeIn;
         CanvasEffects.GetInstance().OnFadeOut += OnFadeOut;
@@ -27,7 +25,7 @@ public partial class MainMenu : Control
 
     }
 
-    void NewGameButtonPressed()
+    void PlayButtonPressed()
     {
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -37,10 +35,6 @@ public partial class MainMenu : Control
         CanvasEffects.GetInstance().FadeOut(col);
     }
     void OptionsButtonPressed()
-    {
-
-    }
-    void LoadGameButtonPressed()
     {
 
     }
