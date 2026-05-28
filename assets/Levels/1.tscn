@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d227yw68ef152"]
 
-[ext_resource type="Script" uid="uid://duvcb812er7qa" path="res://assets/Scripts/Rooms/r0.cs" id="1_nuls1"]
+[ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://assets/Scripts/Rooms/r1.cs" id="1_nw3ek"]
 [ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://assets/Sprites/World/labobg.png" id="3_idwkl"]
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/World/kill_zone.tscn" id="4_1eun7"]
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="4_mhfc5"]
@@ -1879,7 +1879,7 @@ sources/1 = SubResource("TileSetAtlasSource_idwkl")
 sources/2 = SubResource("TileSetAtlasSource_nuls1")
 
 [node name="test_level" type="Node2D" unique_id=1869554895]
-script = ExtResource("1_nuls1")
+script = ExtResource("1_nw3ek")
 
 [node name="camera" type="Camera2D" parent="." unique_id=894712086]
 position = Vector2(1, 0)

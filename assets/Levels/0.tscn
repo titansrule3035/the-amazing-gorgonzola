@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://drdv1jot5wed7"]
 
-[ext_resource type="Texture2D" uid="uid://dilimx1scbvat" path="res://assets/Sprites/UI/TAGtitlefull.png" id="1_bahr7"]
 [ext_resource type="Script" uid="uid://bv60s3bvbr1i" path="res://assets/Scripts/UI/MainMenu.cs" id="1_wdlxv"]
+[ext_resource type="Texture2D" uid="uid://dneetot10hqqd" path="res://assets/Sprites/UI/Title Screen/titlescreen_bg.png" id="2_b1o7a"]
+[ext_resource type="Texture2D" uid="uid://eolw5m46olpt" path="res://assets/Sprites/UI/Title Screen/TAGlogo.png" id="3_b1o7a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdlxv"]
 bg_color = Color(0.07450981, 0.60784316, 0.07450981, 1)
@@ -29,11 +30,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wdlxv")
 
-[node name="ColorRect" type="ColorRect" parent="Control" unique_id=3735969]
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1653349488]
+texture_filter = 2
+texture_repeat = 1
 layout_mode = 0
 offset_right = 1248.0
 offset_bottom = 832.0
-color = Color(0, 0.30980393, 0.15294118, 1)
+texture = ExtResource("2_b1o7a")
+
+[node name="TextureRect2" type="TextureRect" parent="Control" unique_id=1175942489]
+texture_filter = 2
+texture_repeat = 1
+layout_mode = 0
+offset_right = 1248.0
+offset_bottom = 832.0
+texture = ExtResource("2_b1o7a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=622336845]
 layout_mode = 0
@@ -43,7 +54,7 @@ offset_bottom = 320.0
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer" unique_id=1752662185]
 custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
-texture = ExtResource("1_bahr7")
+texture = ExtResource("3_b1o7a")
 expand_mode = 1
 stretch_mode = 5
 
