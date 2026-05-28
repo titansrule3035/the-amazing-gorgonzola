@@ -8,6 +8,7 @@
 * Design Pause Menu and Level Cleared Menu
 
 ### Developers:
+* Add save/load system
 * Finish up final title screen
 * Make temporary level select UI
 * Add the "spotlight" thing when you beat a level
