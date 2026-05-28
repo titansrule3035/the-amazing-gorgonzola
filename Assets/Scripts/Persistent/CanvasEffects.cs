@@ -41,36 +41,30 @@ public partial class CanvasEffects : Node2D
 
     public void FadeIn(float duration)
     {
-        // Fade from opaque to transparent
-        Color endResult = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, 0);
-
-        tween?.Kill(); // cancel previous tweens if any
-        tween = CreateTween();
-        tween.TweenProperty(sprite, "modulate", endResult, duration);
-        tween.Finished += () =>
-        {
-            OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
-
-            // Optionally: OnFadeCompleted?.Invoke(levelPassed);
-        };
+        StartFadingIn(duration);
     }
 
     public void FadeIn()
     {
-        // Fade from opaque to transparent
-        Color endResult = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, 0);
-
-        tween?.Kill(); // cancel previous tweens if any
-        tween = CreateTween();
-        tween.TweenProperty(sprite, "modulate", endResult, fadeinTime);
-        tween.Finished += () =>
-        {
-            OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
-            // Optionally: OnFadeCompleted?.Invoke(levelPassed);
-        };
+        StartFadingIn(fadeinTime);
     }
 
     public void FadeOut(float duration, Color fadeToColor)
+    {
+        StartFadingOut(duration, fadeToColor);
+    }
+
+    public void FadeOut(Color fadeToColor)
+    {
+        StartFadingOut(fadeoutTime, fadeToColor);
+    }
+
+    public static CanvasEffects GetInstance()
+    {
+        return instance;
+    }
+
+    private void StartFadingOut(float duration, Color fadeToColor)
     {
         // Start transparent
         sprite.Modulate = new Color(fadeToColor.R, fadeToColor.G, fadeToColor.B, 0);
@@ -87,27 +81,18 @@ public partial class CanvasEffects : Node2D
             }
         };
     }
-
-    public void FadeOut(Color fadeToColor)
+    private void StartFadingIn(float duration)
     {
-        // Start transparent
-        sprite.Modulate = new Color(fadeToColor.R, fadeToColor.G, fadeToColor.B, 0);
+        // Fade from opaque to transparent
+        Color endResult = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, 0);
 
         tween?.Kill(); // cancel previous tweens if any
         tween = CreateTween();
-        tween.TweenProperty(sprite, "modulate", fadeToColor, fadeoutTime);
+        tween.TweenProperty(sprite, "modulate", endResult, duration);
         tween.Finished += () =>
         {
-            OnFadeOut?.Invoke();
-            if (GlobalGameManager.GetInstance().levelCompleted)
-            {
-                OnLevelCompleteFadeOut?.Invoke();
-            }
+            OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
+            // Optionally: OnFadeCompleted?.Invoke(levelPassed);
         };
-    }
-
-    public static CanvasEffects GetInstance()
-    {
-        return instance;
     }
 }
