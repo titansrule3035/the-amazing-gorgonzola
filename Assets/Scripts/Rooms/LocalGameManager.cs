@@ -7,10 +7,6 @@ public abstract partial class LocalGameManager : Node2D
 
     [Export] public Vector2 levelOrigin;
 
-    // === FADE TIMING (IN SECONDS) ===
-    [Export] public float fadeinTime = 0.5f;
-    [Export] public float fadeoutTime = 1.5f;
-
     // === EVENTS ===
     public event Action OnFlush;
 
@@ -33,8 +29,9 @@ public abstract partial class LocalGameManager : Node2D
         // Connect signals instead of direct calls
         CanvasEffects.GetInstance().OnFadeIn += HandleFadeIn;
         CanvasEffects.GetInstance().OnFadeOut += HandleFadeOut;
+        CanvasEffects.GetInstance().OnLevelCompleteFadeOut += HandleLevelCompleted;
 
-        if(SpawnGorg.GetInstance() != null)
+        if (SpawnGorg.GetInstance() != null)
         {
             SpawnGorg.GetInstance().GorgSpawned += HandleGorgSpawned;
         }
@@ -44,10 +41,11 @@ public abstract partial class LocalGameManager : Node2D
     {
         if (flush)
         {
+            GD.Print("Flush triggered");
             OnFlush?.Invoke();
 
             // Start fade out only once
-            CanvasEffects.GetInstance().FadeOut(fadeoutTime, dieColor, false);
+            CanvasEffects.GetInstance().FadeOut(dieColor);
             flush = false;
         }
         else
@@ -62,21 +60,25 @@ public abstract partial class LocalGameManager : Node2D
         }
     }
 
-    protected void HandleFadeOut(bool levelPassed)
+    protected void HandleFadeOut()
     {
         OnFlush?.Invoke();
-        CanvasEffects.GetInstance().FadeIn(fadeinTime, levelPassed);
-        if(GlobalGameManager.GetInstance().activeLevelIndex != 2)
+        if (!GlobalGameManager.GetInstance().levelCompleted && !GlobalGameManager.GetInstance().gamePaused)
         {
-            if (!levelPassed)
+            if (!GlobalGameManager.GetInstance().IsLastLevel())
             {
-                // GlobalGameManager is responsible for reload/transition
                 GlobalGameManager.GetInstance()?.ReloadLevel();
             }
-            else
-            {
-                GlobalGameManager.GetInstance().LoadNextLevel();
-            }
+        }
+        CanvasEffects.GetInstance().FadeIn();
+    }
+
+    protected void HandleLevelCompleted()
+    {
+        GD.Print("Level completed");
+        if (!GlobalGameManager.GetInstance().IsLastLevel())
+        {
+            GlobalGameManager.GetInstance().LoadNextLevel();
         }
         else
         {
@@ -98,6 +100,7 @@ public abstract partial class LocalGameManager : Node2D
 
     private void HandleGorgKilled()
     {
+        GD.Print("Gorg killed");
         flush = true;
     }
 
@@ -124,6 +127,7 @@ public abstract partial class LocalGameManager : Node2D
         {
             fade.OnFadeIn -= HandleFadeIn;
             fade.OnFadeOut -= HandleFadeOut;
+            fade.OnLevelCompleteFadeOut -= HandleLevelCompleted;
         }
 
         var gorgSpawnPoint = SpawnGorg.GetInstance();

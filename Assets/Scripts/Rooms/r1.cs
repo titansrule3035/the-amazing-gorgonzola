@@ -10,7 +10,8 @@ public partial class r1 : LocalGameManager
         if (Input.IsActionJustPressed("jump"))
         {
             Color col = new Color(0, 0, 0, 1);
-            CanvasEffects.GetInstance().FadeOut(fadeoutTime , col, true);
+            GlobalGameManager.GetInstance().levelCompleted = true;
+            CanvasEffects.GetInstance().FadeOut(col);
         }
     }
 }

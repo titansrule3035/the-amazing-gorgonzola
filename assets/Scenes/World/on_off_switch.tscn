@@ -140,7 +140,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00mep"]
-size = Vector2(32, 33)
+size = Vector2(32, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3x31o"]
 size = Vector2(32, 32)
@@ -158,7 +158,7 @@ autoplay = "off"
 collision_mask = 65534
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=242529388]
-position = Vector2(0, 0.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_00mep")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2115898140]

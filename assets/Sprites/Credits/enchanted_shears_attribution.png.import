@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cov38q888cd55"
-path="res://.godot/imported/yubbo_yippo.png-27143b598a59587f8301f4ab471da844.ctex"
+uid="uid://wmksq2e0q7f3"
+path="res://.godot/imported/enchanted_shears_attribution.png-86db9e4d669c3452a691bbc2f53373c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Miscellaneous/yubbo_yippo.png"
-dest_files=["res://.godot/imported/yubbo_yippo.png-27143b598a59587f8301f4ab471da844.ctex"]
+source_file="res://assets/Sprites/Credits/enchanted_shears_attribution.png"
+dest_files=["res://.godot/imported/enchanted_shears_attribution.png-86db9e4d669c3452a691bbc2f53373c0.ctex"]
 
 [params]
 

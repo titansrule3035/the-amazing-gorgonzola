@@ -23,6 +23,8 @@ public partial class GlobalGameManager : Node2D
 
     public bool gamePaused = false;
 
+    public bool canPause = true;
+
     // ------------------------------------------------------------
     //  LIFECYCLE
     // ------------------------------------------------------------
@@ -38,7 +40,7 @@ public partial class GlobalGameManager : Node2D
 
         instance = this;
 
-        LoadOrderedLevelScenes("res://Assets/Scenes/World/Level");
+        LoadOrderedLevelScenes("res://assets/Levels");
 
         if (levels.Count == 0)
         {
@@ -202,15 +204,24 @@ public partial class GlobalGameManager : Node2D
             LevelClearedMenu.GetInstance().Visible = false;
         }
 
-        if (Input.IsActionJustPressed("pause"))
+        if (Input.IsActionJustPressed("pause") && canPause)
         {
-            gamePaused = !gamePaused;
-            Engine.TimeScale = Engine.TimeScale > 0 ? Engine.TimeScale = 0 : Engine.TimeScale = 1;
+            gamePaused = GetTree().Paused = !gamePaused;
         }
-        PauseMenu.GetInstance().Visible = gamePaused;
+        PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
     }
     public void ShowVictoryMenu(bool condition)
     {
         LevelClearedMenu.GetInstance().Visible |= condition;
+    }
+
+    public bool IsLastLevel()
+    {
+        return activeLevelIndex == levels.Count - 1;
+    }
+    
+    public int GetLevelCount()
+    {
+        return levels.Count;
     }
 }

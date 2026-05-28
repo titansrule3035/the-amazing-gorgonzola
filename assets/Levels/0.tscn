@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://drdv1jot5wed7"]
+
+[ext_resource type="Texture2D" uid="uid://dilimx1scbvat" path="res://assets/Sprites/UI/TAGtitlefull.png" id="1_bahr7"]
+[ext_resource type="Script" uid="uid://bv60s3bvbr1i" path="res://assets/Scripts/UI/MainMenu.cs" id="1_wdlxv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdlxv"]
+bg_color = Color(0.07450981, 0.60784316, 0.07450981, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1o7a"]
+bg_color = Color(0.003921569, 0.3019608, 0.003921569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bahr7"]
+bg_color = Color(0.07450981, 0.48235294, 0.07450981, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1lq4"]
+bg_color = Color(0.07450981, 0.60784316, 0.07450981, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvn8q"]
+bg_color = Color(0.003921569, 0.3019608, 0.003921569, 1)
+
+[node name="main_menu" type="Node2D" unique_id=1089058078]
+
+[node name="Control" type="Control" parent="." unique_id=604902363]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wdlxv")
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=3735969]
+layout_mode = 0
+offset_right = 1248.0
+offset_bottom = 832.0
+color = Color(0, 0.30980393, 0.15294118, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=622336845]
+layout_mode = 0
+offset_right = 1248.0
+offset_bottom = 320.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer" unique_id=1752662185]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+texture = ExtResource("1_bahr7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=1310329683]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 320.0
+offset_right = 624.0
+offset_bottom = 832.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer" unique_id=165588870]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="NewGame" type="Button" parent="Control/CenterContainer/VBoxContainer" unique_id=1028864040]
+layout_mode = 2
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("StyleBoxFlat_wdlxv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_b1o7a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
+action_mode = 0
+text = "New Game
+"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="Options" type="Button" parent="Control/CenterContainer/VBoxContainer" unique_id=1149872566]
+layout_mode = 2
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("StyleBoxFlat_a1lq4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qvn8q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
+text = "Options"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="Control" unique_id=1110718337]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 320.0
+offset_right = 928.0
+offset_bottom = 832.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer2" unique_id=87841706]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="LoadGame" type="Button" parent="Control/CenterContainer2/VBoxContainer" unique_id=2092128692]
+layout_mode = 2
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("StyleBoxFlat_a1lq4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qvn8q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
+text = "Load Game"
+icon_alignment = 1
+vertical_icon_alignment = 2
+
+[node name="Quit" type="Button" parent="Control/CenterContainer2/VBoxContainer" unique_id=958605073]
+layout_mode = 2
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("StyleBoxFlat_a1lq4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qvn8q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bahr7")
+text = "Quit"
+icon_alignment = 1
+vertical_icon_alignment = 2

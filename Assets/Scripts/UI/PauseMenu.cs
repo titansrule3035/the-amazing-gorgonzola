@@ -34,11 +34,19 @@ public partial class PauseMenu : Panel
 
     void QuitButtonPressed()
     {
-        GetTree().Quit();
+        CanvasEffects.GetInstance().FadeOut(Colors.Black);
+        CanvasEffects.GetInstance().OnFadeOut += MainMenu;
     }
 
     public static PauseMenu GetInstance()
     {
         return instance;
+    }
+
+    public void MainMenu()
+    {
+        GlobalGameManager.GetInstance().LoadLevel(0);
+        CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
+        GlobalGameManager.GetInstance().gamePaused = false;
     }
 }

@@ -6,8 +6,13 @@ public partial class CanvasEffects : Node2D
     private static CanvasEffects instance;
 
     // Events for fade out (screen covered) and fade in (screen cleared)
-    public event Action<bool>? OnFadeOut;
+    public event Action? OnFadeOut;
     public event Action<bool>? OnFadeIn;
+    public event Action? OnLevelCompleteFadeOut;
+
+    // === FADE TIMING (IN SECONDS) ===
+    [Export] public float fadeinTime = 0.5f;
+    [Export] public float fadeoutTime = 1.5f;
 
     // Optional: you can keep this if you want a unified event after each fade completes
     // public event Action<bool>? OnFadeCompleted;
@@ -34,7 +39,7 @@ public partial class CanvasEffects : Node2D
         sprite.Modulate = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, 0);
     }
 
-    public void FadeIn(float duration, bool levelPassed)
+    public void FadeIn(float duration)
     {
         // Fade from opaque to transparent
         Color endResult = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, 0);
@@ -44,12 +49,28 @@ public partial class CanvasEffects : Node2D
         tween.TweenProperty(sprite, "modulate", endResult, duration);
         tween.Finished += () =>
         {
-            OnFadeIn?.Invoke(levelPassed);
+            OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
+
             // Optionally: OnFadeCompleted?.Invoke(levelPassed);
         };
     }
 
-    public void FadeOut(float duration, Color fadeToColor, bool levelPassed)
+    public void FadeIn()
+    {
+        // Fade from opaque to transparent
+        Color endResult = new Color(sprite.Modulate.R, sprite.Modulate.G, sprite.Modulate.B, 0);
+
+        tween?.Kill(); // cancel previous tweens if any
+        tween = CreateTween();
+        tween.TweenProperty(sprite, "modulate", endResult, fadeinTime);
+        tween.Finished += () =>
+        {
+            OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
+            // Optionally: OnFadeCompleted?.Invoke(levelPassed);
+        };
+    }
+
+    public void FadeOut(float duration, Color fadeToColor)
     {
         // Start transparent
         sprite.Modulate = new Color(fadeToColor.R, fadeToColor.G, fadeToColor.B, 0);
@@ -59,7 +80,29 @@ public partial class CanvasEffects : Node2D
         tween.TweenProperty(sprite, "modulate", fadeToColor, duration);
         tween.Finished += () =>
         {
-            OnFadeOut?.Invoke(levelPassed);
+            OnFadeOut?.Invoke();
+            if (GlobalGameManager.GetInstance().levelCompleted)
+            {
+                OnLevelCompleteFadeOut?.Invoke();
+            }
+        };
+    }
+
+    public void FadeOut(Color fadeToColor)
+    {
+        // Start transparent
+        sprite.Modulate = new Color(fadeToColor.R, fadeToColor.G, fadeToColor.B, 0);
+
+        tween?.Kill(); // cancel previous tweens if any
+        tween = CreateTween();
+        tween.TweenProperty(sprite, "modulate", fadeToColor, fadeoutTime);
+        tween.Finished += () =>
+        {
+            OnFadeOut?.Invoke();
+            if (GlobalGameManager.GetInstance().levelCompleted)
+            {
+                OnLevelCompleteFadeOut?.Invoke();
+            }
         };
     }
 

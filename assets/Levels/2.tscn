@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp20547sq05x2"]
+[gd_scene format=3 uid="uid://cp20547sq05x2"]
 
 [ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://assets/Scripts/Rooms/r1.cs" id="1_8se8v"]
 [ext_resource type="Texture2D" uid="uid://nu8f8ejfwu7o" path="res://assets/Sprites/World/test_tileset_nw.png" id="1_xmwhe"]
@@ -12,13 +12,14 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_xmwhe")
 
-[node name="1" type="Node2D"]
+[node name="1" type="Node2D" unique_id=565139785]
 script = ExtResource("1_8se8v")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." unique_id=1945548673]
 tile_set = SubResource("TileSet_8se8v")
 format = 2
 
-[node name="TestBg2" type="Sprite2D" parent="."]
-position = Vector2(0, -320)
+[node name="TestBg2" type="Sprite2D" parent="." unique_id=1221020426]
 texture = ExtResource("3_p5nbd")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1221955001]

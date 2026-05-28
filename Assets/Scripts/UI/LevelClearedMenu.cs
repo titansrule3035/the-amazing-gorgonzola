@@ -29,12 +29,20 @@ public partial class LevelClearedMenu : Panel
     void NextButtonPressed()
     {
         Color col = new Color(0, 0, 0, 1);
-        CanvasEffects.GetInstance().FadeOut(1.5f, col, true);
+        CanvasEffects.GetInstance().FadeOut(col);
     }
 
     void QuitButtonPressed()
     {
-        GetTree().Quit();
+        CanvasEffects.GetInstance().FadeOut(Colors.Black);
+        CanvasEffects.GetInstance().OnFadeOut += MainMenu;
+    }
+
+    public void MainMenu()
+    {
+        GlobalGameManager.GetInstance().LoadLevel(0);
+        CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
+        GlobalGameManager.GetInstance().gamePaused = false;
     }
 
     public static LevelClearedMenu GetInstance()
