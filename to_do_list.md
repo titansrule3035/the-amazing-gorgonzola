@@ -5,6 +5,7 @@
 * Design the level select UI
 * Work on custom .ttf font
 * Design more levels!!!!!!!
+* Design Pause Menu and Level Cleared Menu
 
 ### Developers:
 * Make temporary title screen and level select UI
