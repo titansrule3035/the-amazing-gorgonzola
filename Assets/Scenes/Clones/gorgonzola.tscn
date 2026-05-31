@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://dt16u0sqmom6y"]
+[gd_scene format=3 uid="uid://dt16u0sqmom6y"]
 
 [ext_resource type="Texture2D" uid="uid://bky6c11hi48ip" path="res://assets/Sprites/Clones/Player/gorgonzola_fall.png" id="1_h5fqh"]
 [ext_resource type="Script" uid="uid://conswvwcv6458" path="res://assets/Scripts/Clones/Gorgonzola.cs" id="1_jve7h"]
@@ -1031,29 +1031,27 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="gorgonzola" type="CharacterBody2D"]
+[node name="gorgonzola" type="CharacterBody2D" unique_id=1190956393]
 z_index = 10
 collision_layer = 8192
 script = ExtResource("1_jve7h")
 offset = 96.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=648897750]
 position = Vector2(0, -30)
 shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0, 0.644446, 0.280746, 0.42)
 
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=71917797]
 sprite_frames = SubResource("SpriteFrames_k2sbu")
 animation = &"idle"
 frame = 2
 offset = Vector2(0, -50)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ps2t6")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=923463853]
+libraries/ = SubResource("AnimationLibrary_ps2t6")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=2099808674]
 tree_root = SubResource("AnimationNodeStateMachine_2byfh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
@@ -1062,7 +1060,9 @@ parameters/conditions/isMoving = false
 parameters/conditions/jump = false
 parameters/conditions/levelCompleted = false
 
-[node name="indicator" type="AnimatedSprite2D" parent="."]
+[node name="indicator" type="AnimatedSprite2D" parent="." unique_id=397721834]
 visible = false
 sprite_frames = SubResource("SpriteFrames_pqihl")
 animation = &"up"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1764554129]

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GoldenKey : Node2D
+public partial class Key : Node2D
 {
     Area2D area;
     public override void _Ready()
@@ -16,7 +16,6 @@ public partial class GoldenKey : Node2D
         if (door != null)
         {
             door.Open();
-            
         }
     }
     private void OnBodyEntered(Node2D body)
@@ -24,6 +23,9 @@ public partial class GoldenKey : Node2D
         if (body is BasePlayerController)
         {
             OpenDoor();
+
+            (body as BasePlayerController).hasKey = true;
+
             QueueFree();
         }
     }

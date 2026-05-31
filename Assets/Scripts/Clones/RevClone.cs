@@ -16,5 +16,8 @@ public partial class RevClone : BasePlayerController
     {
         SpawnEffect(killEffectScene, GlobalPosition);
         QueueFree();
+
+        base.Kill();
+
     }
 }

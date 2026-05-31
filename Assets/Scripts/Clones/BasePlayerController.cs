@@ -31,6 +31,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     [Export] public bool shouldFlip;
     private bool _isLanded = false;
     [Export] public bool isFalling;
+    [Export] public bool hasKey = false;
 
     // === JUMP BUFFERING ===
     [Export] public float JumpBufferTime = 0.15f;
@@ -38,6 +39,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
     // === SIGNAL BUS ===
     public static event Action MainPlayerKilled;
+
 
     public override void _Ready()
     {
@@ -48,24 +50,32 @@ public abstract partial class BasePlayerController : CharacterBody2D
         animationTree = GetNodeOrNull<AnimationTree>("AnimationTree");
 
         if (animationPlayer != null)
+        {
             animationPlayer.AnimationFinished += HandleAnimationFinished;
-
+        }
         indicator = GetNode<AnimatedSprite2D>("indicator");
 
         _ = WireSignalsAsync();
 
         if (this is not Gorgonzola)
+        {
             MainPlayerKilled += OnMainPlayerKilled;
+        }
     }
 
     private async Task WireSignalsAsync()
     {
         while (LocalGameManager.GetInstance() == null && IsInsideTree())
+        {
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
 
         var gm = LocalGameManager.GetInstance();
+
         if (gm != null)
+        {
             gm.OnFlush += Flush;
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -152,20 +162,24 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
 
         if (velocity.Y > MaxFallSpeed)
+        {
             velocity.Y = MaxFallSpeed;
+        }
     }
 
     // === Horizontal Movement ===
     private void HandleHorizontalMovement(ref Vector2 velocity, float direction)
     {
-        if (!GlobalGameManager.GetInstance().levelCompleted)
+        if (!GlobalGameManager.GetInstance().levelCompleted && GlobalGameManager.GetInstance().canMove)
         {
             float accel = MoveSpeed;
             if (direction != 0f)
             {
                 velocity.X = direction * accel;
                 if (sprite != null)
+                {
                     sprite.FlipH = ShouldFlipSprite(direction);
+                }
             }
             else
             {
@@ -182,26 +196,36 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private void UpdateAnimation(Vector2 velocity)
     {
         if (animationTree == null)
+        {
             return;
+        }
 
-        if (!GlobalGameManager.GetInstance().levelCompleted)
+        if (!GlobalGameManager.GetInstance().levelCompleted && GlobalGameManager.GetInstance().canMove)
         {
             if (IsOnFloor())
             {
                 if (Mathf.Abs(velocity.X) > 1f)
+                {
                     PlayAnimation("isMoving");
+                }
                 else
+                {
                     PlayAnimation("idle");
+                }
             }
             else
             {
                 if (velocity.Y > 0f)
+                {
                     PlayAnimation("isFalling");
+                }
                 else
+                {
                     PlayAnimation("jump");
+                }
             }
         }
-        else
+        else if (GlobalGameManager.GetInstance().canMove)
         {
             PlayAnimation("levelCompleted");
             Gorgonzola.GetInstance().doorMoveTriggered = true;
@@ -211,10 +235,14 @@ public abstract partial class BasePlayerController : CharacterBody2D
     protected void PlayAnimation(string activeParam)
     {
         if (animationTree == null)
+        {
             return;
+        }
 
         foreach (string param in _animationParams)
+        {
             animationTree.Set($"parameters/conditions/{param}", param == activeParam);
+        }
     }
 
     // === Effects ===
@@ -230,7 +258,9 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
         if (anim != null)
+        {
             anim.FlipH = shouldFlip;
+        }
     }
 
     // === Utility & Cleanup ===
@@ -239,7 +269,14 @@ public abstract partial class BasePlayerController : CharacterBody2D
     protected virtual void OnAnimationFinished(StringName animName) { }
     protected abstract float GetMovementInput();
     public virtual bool ShouldFlipSprite(float direction) => direction < 0f;
-    public abstract void Kill();
+    public virtual void Kill()
+    {
+        if (hasKey)
+        {
+            hasKey = false;
+            Door.GetInstance()?.Close();
+        }
+    }
 
     protected virtual void Flush()
     {
@@ -256,13 +293,19 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         var gm = LocalGameManager.GetInstance();
         if (gm != null)
+        {
             gm.OnFlush -= Flush;
+        }
 
         if (this is not Gorgonzola)
+        {
             MainPlayerKilled -= OnMainPlayerKilled;
+        }
 
         if (animationPlayer != null)
+        {
             animationPlayer.AnimationFinished -= HandleAnimationFinished;
+        }
 
         base._ExitTree();
     }

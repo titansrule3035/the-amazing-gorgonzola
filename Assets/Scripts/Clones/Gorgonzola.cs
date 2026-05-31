@@ -66,11 +66,14 @@ public partial class Gorgonzola : BasePlayerController
     {
         OnKilled?.Invoke();
         BasePlayerController.KillAllClones();
+        GlobalGameManager.GetInstance().canMove = false;
         GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
         effect.flip = shouldFlip;
         GetTree().Root.AddChild(effect);
         effect.GlobalPosition = GlobalPosition;
         QueueFree();
+
+        base.Kill();
     }
 
     public static Gorgonzola GetInstance()

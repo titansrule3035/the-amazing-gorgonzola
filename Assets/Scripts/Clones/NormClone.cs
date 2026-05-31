@@ -16,5 +16,7 @@ public partial class NormClone : BasePlayerController
     {
         SpawnEffect(killEffectScene, GlobalPosition);
         QueueFree();
+
+        base.Kill();
     }
 }
