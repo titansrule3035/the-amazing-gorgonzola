@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="4_mhfc5"]
 [ext_resource type="Texture2D" uid="uid://dbeal6wnepjab" path="res://assets/Sprites/UI/pixel.png" id="4_nuls1"]
 [ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="5_1eun7"]
-[ext_resource type="PackedScene" uid="uid://d4lyad824tgl3" path="res://assets/Scenes/World/golden_key.tscn" id="5_p3xfx"]
+[ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/World/key_card.tscn" id="5_nw3ek"]
 [ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Clones/norm_clone.tscn" id="7_4ks8u"]
 [ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Clones/rev_clone.tscn" id="8_ybgmm"]
 [ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://assets/Scenes/World/garg_spawn.tscn" id="9_52r7t"]
@@ -1896,8 +1896,8 @@ scale = Vector2(1.4977819, 1.5008376)
 texture = ExtResource("10_idwkl")
 
 [node name="test_bg" type="AnimatedSprite2D" parent="." unique_id=173385077]
-position = Vector2(16.000023, -447.99997)
-scale = Vector2(1.5, 1.5)
+position = Vector2(15.999998, -439.99994)
+scale = Vector2(1.48, 1.4750001)
 sprite_frames = SubResource("SpriteFrames_ybgmm")
 autoplay = "default"
 frame_progress = 0.0900363
@@ -1907,8 +1907,8 @@ modulate = Color(1, 1, 1, 0.223529)
 scale = Vector2(-800, -640)
 texture = ExtResource("4_nuls1")
 
-[node name="golden_key" parent="test_bg" unique_id=335912822 instance=ExtResource("5_p3xfx")]
-position = Vector2(325.3333, -160.00002)
+[node name="key_card" parent="." unique_id=2108054528 instance=ExtResource("5_nw3ek")]
+position = Vector2(504, -688)
 
 [node name="tile_map" type="TileMap" parent="." unique_id=1213813057]
 tile_set = SubResource("TileSet_tit20")
