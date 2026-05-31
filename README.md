@@ -18,4 +18,4 @@
 * Add Lixe's entrance animation
 
 ---
-© 2026 titansrule3035 & Enchanted Shears | Licensing can be found in LICENSE.md
+© 2026 [JM3035](https://github.com/titansrule3035) & [Enchanted Shears](https://github.com/eshears) | Licensing can be found in LICENSE.md
