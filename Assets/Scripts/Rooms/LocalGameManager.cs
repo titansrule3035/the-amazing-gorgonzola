@@ -35,6 +35,10 @@ public abstract partial class LocalGameManager : Node2D
         {
             SpawnGorg.GetInstance().GorgSpawned += HandleGorgSpawned;
         }
+
+        GlobalGameManager.GetInstance().localGM = this;
+
+        GlobalGameManager.GetInstance().canMove = false;
     }
 
     public override void _Process(double delta)
@@ -47,16 +51,6 @@ public abstract partial class LocalGameManager : Node2D
             // Start fade out only once
             CanvasEffects.GetInstance().FadeOut(dieColor);
             flush = false;
-        }
-        else
-        {
-            if (!GlobalGameManager.GetInstance().levelCompleted)
-            {
-                if (Input.IsActionJustPressed("reset") && Gorgonzola.GetInstance() != null)
-                {
-                    Gorgonzola.GetInstance().CallDeferred("Kill");
-                }
-            }
         }
     }
 
@@ -88,7 +82,7 @@ public abstract partial class LocalGameManager : Node2D
 
     private void HandleFadeIn(bool levelPassed)
     {
-        ProcessFade(levelPassed);
+        GlobalGameManager.GetInstance().canMove = true;
     }
 
 
@@ -104,11 +98,6 @@ public abstract partial class LocalGameManager : Node2D
         flush = true;
     }
 
-    private void ProcessFade(bool levelPassed)
-    {
-        // Optional global logic after fade completes
-    }
-
     public static LocalGameManager GetInstance()
     {
         return instance;
@@ -121,7 +110,6 @@ public abstract partial class LocalGameManager : Node2D
             instance = null;
         }
 
-        // Disconnect signals safely
         var fade = CanvasEffects.GetInstance();
         if (fade != null)
         {
@@ -135,6 +123,8 @@ public abstract partial class LocalGameManager : Node2D
         {
             SpawnGorg.GetInstance().GorgSpawned -= HandleGorgSpawned;
         }
+
+        GlobalGameManager.GetInstance().localGM = null;
 
         base._ExitTree();
     }

@@ -25,6 +25,8 @@ public partial class GlobalGameManager : Node2D
 
     public bool canPause = true;
 
+    public bool canMove = true;
+
     // ------------------------------------------------------------
     //  LIFECYCLE
     // ------------------------------------------------------------
@@ -191,24 +193,27 @@ public partial class GlobalGameManager : Node2D
         }
 
         activeLevel = null;
-        localGM = null;
 
         levelCompleted = false;
     }
 
     public override void _Process(double delta)
     {
-        base._Process(delta);
         if (!levelCompleted)
         {
             LevelClearedMenu.GetInstance().Visible = false;
+            if (Input.IsActionJustPressed("reset") && Gorgonzola.GetInstance() != null && canMove)
+            {
+                Gorgonzola.GetInstance().CallDeferred("Kill");
+            }
         }
 
-        if (Input.IsActionJustPressed("pause") && canPause)
+        if (Input.IsActionJustPressed("pause") && canPause && canMove)
         {
             gamePaused = GetTree().Paused = !gamePaused;
         }
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
+        base._Process(delta);
     }
     public void ShowVictoryMenu(bool condition)
     {
@@ -219,7 +224,7 @@ public partial class GlobalGameManager : Node2D
     {
         return activeLevelIndex == levels.Count - 1;
     }
-    
+
     public int GetLevelCount()
     {
         return levels.Count;
