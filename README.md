@@ -7,7 +7,7 @@
 * Design more levels!!!!!!!
 * Design Pause Menu and Level Cleared Menu
 
-### Developers:
+### [Developers](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo):
 * Add save/load system
 * Finish up final title screen
 * Make temporary level select UI
