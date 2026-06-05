@@ -54,10 +54,24 @@ public partial class GlobalGameManager : Node2D
 
         await WaitForGameLoaded();
     }
-
-    public static GlobalGameManager GetInstance()
+    
+    public override void _Process(double delta)
     {
-        return instance;
+        if (!levelCompleted)
+        {
+            LevelClearedMenu.GetInstance().Visible = false;
+            if (Input.IsActionJustPressed("reset") && Gorgonzola.GetInstance() != null && canMove)
+            {
+                Gorgonzola.GetInstance().CallDeferred("Kill");
+            }
+        }
+
+        if (Input.IsActionJustPressed("pause") && canPause && canMove)
+        {
+            gamePaused = GetTree().Paused = !gamePaused;
+        }
+        PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
+        base._Process(delta);
     }
 
     public override void _ExitTree()
@@ -68,9 +82,10 @@ public partial class GlobalGameManager : Node2D
         base._ExitTree();
     }
 
-    // ------------------------------------------------------------
-    //  GAME READY WAIT
-    // ------------------------------------------------------------
+    public static GlobalGameManager GetInstance()
+    {
+        return instance;
+    }
 
     private async System.Threading.Tasks.Task WaitForGameLoaded()
     {
@@ -140,7 +155,6 @@ public partial class GlobalGameManager : Node2D
         }
     }
 
-    // Shared core instantiation routine
     private void InstantiateActiveLevel()
     {
         activeLevel = levels[activeLevelIndex].Instantiate<Node2D>();
@@ -178,10 +192,6 @@ public partial class GlobalGameManager : Node2D
         InstantiateActiveLevel();
     }
 
-    // ------------------------------------------------------------
-    //  DELoad
-    // ------------------------------------------------------------
-
     private void DeloadLevel()
     {
         // Clear gameplay references safely
@@ -197,24 +207,7 @@ public partial class GlobalGameManager : Node2D
         levelCompleted = false;
     }
 
-    public override void _Process(double delta)
-    {
-        if (!levelCompleted)
-        {
-            LevelClearedMenu.GetInstance().Visible = false;
-            if (Input.IsActionJustPressed("reset") && Gorgonzola.GetInstance() != null && canMove)
-            {
-                Gorgonzola.GetInstance().CallDeferred("Kill");
-            }
-        }
 
-        if (Input.IsActionJustPressed("pause") && canPause && canMove)
-        {
-            gamePaused = GetTree().Paused = !gamePaused;
-        }
-        PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
-        base._Process(delta);
-    }
     public void ShowVictoryMenu(bool condition)
     {
         LevelClearedMenu.GetInstance().Visible |= condition;
@@ -228,5 +221,10 @@ public partial class GlobalGameManager : Node2D
     public int GetLevelCount()
     {
         return levels.Count;
+    }
+
+    public Node2D GetActiveLevel()
+    {
+        return activeLevel;
     }
 }
