@@ -4,8 +4,8 @@ using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 
 public partial class OnOffSwitch : Node2D
 {
-    Area2D collisionArea;
-    AnimatedSprite2D sprite;
+    public Area2D collisionArea;
+    public AnimatedSprite2D sprite;
     [Export] public bool opened;
 
     public override void _Ready()
@@ -14,18 +14,7 @@ public partial class OnOffSwitch : Node2D
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         collisionArea.BodyEntered += OnBodyEntered;
 
-        var manager = OnOffManager.GetInstance();
-        if (manager == null)
-        {
-            GD.PrintErr("OnOffSwitch: No OnOffManager instance found!");
-            return;
-        }
-
-
-        if (opened != manager.GetState())
-        {
-            manager.SetState(opened);
-        }
+        opened = OnOffManager.GetState();
 
         if (opened)
         {
@@ -36,30 +25,30 @@ public partial class OnOffSwitch : Node2D
             PlayAnimation("off");
         }
 
-        manager.OnStateChanged += ChangeState;
+        OnOffManager.OnStateChanged += ChangeState;
 
         base._Ready();
     }
 
-    void OnBodyEntered(Node2D body)
+    protected void OnBodyEntered(Node2D body)
     {
         if (body is BasePlayerController)
         {
             BasePlayerController clone = body as BasePlayerController;
             if (!clone.isFalling)
             {
-                OnOffManager.GetInstance().ChangeState();
+                OnOffManager.ChangeState();
             }
         }
     }
 
-    void ChangeState(bool on)
+    protected virtual void ChangeState(bool on)
     {
         opened = on;
         sprite.Play(on ? "turn_on" : "turn_off");
     }
 
-    void PlayAnimation(string animation)
+    protected virtual void PlayAnimation(string animation)
     {
         sprite.Play(animation);
     }
@@ -68,11 +57,8 @@ public partial class OnOffSwitch : Node2D
     {
         collisionArea.BodyEntered -= OnBodyEntered;
 
-        var manager = OnOffManager.GetInstance();
-        if (manager != null)
-        {
-            manager.OnStateChanged -= ChangeState;
-        }
+        OnOffManager.OnStateChanged -= ChangeState;
+
         base._ExitTree();
     }
 }
