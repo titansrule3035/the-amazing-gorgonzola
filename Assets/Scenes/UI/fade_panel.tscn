@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://dvf1hvt32xcao"]
 
 [ext_resource type="Script" uid="uid://cusgpa2tw78m8" path="res://assets/Scripts/Persistent/CanvasEffects.cs" id="1_hhdf1"]
-[ext_resource type="Texture2D" uid="uid://dbeal6wnepjab" path="res://assets/Sprites/UI/pixel.png" id="2_noj42"]
 
 [node name="fade_panel" type="Node2D" unique_id=1666193912]
 process_mode = 3
 script = ExtResource("1_hhdf1")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1487741018]
-process_mode = 3
-modulate = Color(0, 0, 0, 1)
-z_index = 4096
-position = Vector2(-3.0517578e-05, 3.0517578e-05)
-scale = Vector2(2368, 1578.6666)
-texture = ExtResource("2_noj42")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=834312946]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1294107581]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
