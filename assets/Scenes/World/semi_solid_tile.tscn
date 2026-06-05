@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://k1nk5gsufp6b"]
+
+[ext_resource type="Texture2D" uid="uid://khafcm2kbjwd" path="res://assets/Sprites/World/semi_solid_tile.png" id="1_mla0i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_018v2"]
+size = Vector2(32, 16)
+
+[node name="semi_solid_tile" type="StaticBody2D" unique_id=16047266]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=781109990]
+texture = ExtResource("1_mla0i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1994952197]
+shape = SubResource("RectangleShape2D_018v2")
+one_way_collision = true
