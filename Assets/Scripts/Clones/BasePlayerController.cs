@@ -275,6 +275,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             hasKey = false;
             Door.GetInstance()?.Close();
+            Key.GetInstance().BlackenUIElement();
         }
     }
 
