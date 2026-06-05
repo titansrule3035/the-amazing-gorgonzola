@@ -13,14 +13,7 @@ public partial class OnOffBlock : Node2D
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         body = GetNode<StaticBody2D>("StaticBody2D").GetNode<CollisionShape2D>("CollisionShape2D");
 
-        var manager = OnOffManager.GetInstance();
-        if (manager == null)
-        {
-            GD.PrintErr("OnOffBlock: No OnOffManager instance found!");
-            return;
-        }
-
-        manager.OnStateChanged += OnStateChanged;
+        OnOffManager.OnStateChanged += OnStateChanged;
 
         CheckState();
 
@@ -67,17 +60,14 @@ public partial class OnOffBlock : Node2D
     }
     public override void _ExitTree()
     {
-        var manager = OnOffManager.GetInstance();
-        if (manager != null)
-        {
-            manager.OnStateChanged -= OnStateChanged;
-        }
+        OnOffManager.OnStateChanged -= OnStateChanged;
+
         base._ExitTree();
     }
 
     void CheckState()
     {
-        bool state = OnOffManager.GetInstance().GetState();
+        bool state = OnOffManager.GetState();
         if (state)
         {
             if (green)
