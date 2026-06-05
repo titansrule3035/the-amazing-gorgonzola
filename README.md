@@ -7,13 +7,16 @@
 * Design more levels!!!!!!!
 * Design Pause Menu and Level Cleared Menu
 
-### [Developers](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo):
+### [Developers:](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo)
+* Suggest empty space ideas for the designers to fill in for new level
 * Add save/load system
+* Add pallete swap system
 * Finish up final title screen
 * Make temporary level select UI
 * Add the "spotlight" thing when you beat a level
 * Add cursor functionality
 * Add text support with the custom font
+* Get designer to write Lixe's dialogue
 * Add Lixe's dialogue
 * Add Lixe's entrance animation
 
