@@ -100,6 +100,9 @@ size = Vector2(32, 32)
 
 [node name="key_card" type="Node2D" unique_id=335912822]
 script = ExtResource("1_pmava")
+uiElementSize = 64.0
+uiElementPos = Vector2(112, 720)
+displayInUI = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1944789571]
 sprite_frames = SubResource("SpriteFrames_r0ync")
