@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bky6c11hi48ip" path="res://assets/Sprites/Clones/Player/gorgonzola_fall.png" id="1_h5fqh"]
 [ext_resource type="Script" uid="uid://conswvwcv6458" path="res://assets/Scripts/Clones/Gorgonzola.cs" id="1_jve7h"]
+[ext_resource type="Shader" uid="uid://crs60mx58w3uk" path="res://assets/Shaders/clone.gdshader" id="1_w2di2"]
 [ext_resource type="Texture2D" uid="uid://csv6qtbd4vbb" path="res://assets/Sprites/Clones/Player/gorgonzola_idle.png" id="2_ly2rs"]
 [ext_resource type="Texture2D" uid="uid://dqguxrer7frkl" path="res://assets/Sprites/Clones/Player/gorg_enter_door.png" id="2_s4obv"]
 [ext_resource type="Texture2D" uid="uid://57euekbiyh4d" path="res://assets/Sprites/Clones/Player/gorgonzola_jump.png" id="3_lioqv"]
@@ -15,8 +16,16 @@
 [ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://assets/Sprites/UI/buttonicon_space.png" id="13_0wdt1"]
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_s01dc"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h4t2g"]
+shader = ExtResource("1_w2di2")
+shader_parameter/flip = true
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
 size = Vector2(30, 60)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w2di2"]
+shader = ExtResource("1_w2di2")
+shader_parameter/flip = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qkku6"]
 atlas = ExtResource("2_s4obv")
@@ -1033,6 +1042,7 @@ animations = [{
 
 [node name="gorgonzola" type="CharacterBody2D" unique_id=1190956393]
 z_index = 10
+material = SubResource("ShaderMaterial_h4t2g")
 collision_layer = 8192
 script = ExtResource("1_jve7h")
 offset = 96.0
@@ -1043,6 +1053,7 @@ shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0, 0.644446, 0.280746, 0.42)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=71917797]
+material = SubResource("ShaderMaterial_w2di2")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
 animation = &"idle"
 frame = 2
