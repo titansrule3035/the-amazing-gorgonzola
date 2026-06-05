@@ -27,7 +27,6 @@ offset_right = 194.0
 offset_bottom = -172.0
 
 [node name="fade_panel" parent="." unique_id=1773837399 instance=ExtResource("4_xomjc")]
-process_mode = 3
 visible = false
 position = Vector2(0, 32)
 scale = Vector2(1.5, 1.5)
