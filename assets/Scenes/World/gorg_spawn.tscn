@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bs53y7p28fn3b"]
+
+[ext_resource type="Script" uid="uid://madmueyemxje" path="res://assets/Scripts/Level Assets/SpawnGorg.cs" id="1_w037m"]
+[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Clones/gorgonzola.tscn" id="2_05euk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf4l2"]
+size = Vector2(30, 60)
+
+[node name="gorg_spawn" type="Area2D" unique_id=1248137168]
+script = ExtResource("1_w037m")
+gorgonzolaScene = ExtResource("2_05euk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1451273259]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_bf4l2")
+debug_color = Color(0, 0.644446, 0.280746, 0.42)
