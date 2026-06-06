@@ -5,7 +5,7 @@ public partial class SpawnGorg : Area2D
 {
     private static SpawnGorg instance;
 
-    private PackedScene gorgonzolaScene = GD.Load<PackedScene>("res://Assets/Scenes/Clones/Gorgonzola.tscn");
+    [Export] private PackedScene gorgonzolaScene;
 
     // === SIGNALS ===
     public event Action<Gorgonzola> GorgSpawned;
