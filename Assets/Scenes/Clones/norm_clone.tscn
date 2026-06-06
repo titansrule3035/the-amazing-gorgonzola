@@ -1,19 +1,22 @@
-[gd_scene load_steps=127 format=3 uid="uid://djtqny62cuq2g"]
+[gd_scene format=3 uid="uid://djtqny62cuq2g"]
 
-[ext_resource type="Script" uid="uid://si4nrymeopfu" path="res://Assets/Scripts/Clones/NormClone.cs" id="1_u8y20"]
-[ext_resource type="Texture2D" uid="uid://5lyminlohu51" path="res://Assets/Sprites/Clones/Norm Clone/norm_clone_fall.png" id="2_jve7h"]
-[ext_resource type="Texture2D" uid="uid://xepo5u7hepls" path="res://Assets/Sprites/Clones/Norm Clone/norm_clone_idle.png" id="3_u8y20"]
-[ext_resource type="Texture2D" uid="uid://cfw44qhb6clhv" path="res://Assets/Sprites/Clones/Norm Clone/norm_clone_jump.png" id="4_qlkyf"]
-[ext_resource type="Texture2D" uid="uid://dx7cwe85fx1sk" path="res://Assets/Sprites/Clones/Norm Clone/norm_clone_walk.png" id="5_dh7bw"]
-[ext_resource type="Texture2D" uid="uid://b8fyjgrom73vv" path="res://Assets/Sprites/Clones/Norm Clone/norm_clone_win.png" id="6_u8y20"]
-[ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://Assets/Sprites/UI/buttonicon_down.png" id="7_v8fqy"]
-[ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://Assets/Sprites/UI/buttonicon_x.png" id="8_5hy7r"]
-[ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://Assets/Sprites/UI/buttonicon_z.png" id="9_hha0n"]
-[ext_resource type="Texture2D" uid="uid://daikahq1rhoqq" path="res://Assets/Sprites/UI/buttonicon_left.png" id="10_cktk1"]
-[ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://Assets/Sprites/UI/buttonicon_enter.png" id="11_rvck8"]
-[ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://Assets/Sprites/UI/buttonicon_right.png" id="12_fy3b2"]
-[ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://Assets/Sprites/UI/buttonicon_space.png" id="13_4ua12"]
-[ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://Assets/Sprites/UI/buttonicon_up.png" id="14_nkpmi"]
+[ext_resource type="Script" uid="uid://si4nrymeopfu" path="res://assets/Scripts/Clones/NormClone.cs" id="1_u8y20"]
+[ext_resource type="PackedScene" uid="uid://ddvu3cojc55cx" path="res://assets/Scenes/Effects/norm_kill_effect.tscn" id="2_jkpm8"]
+[ext_resource type="Texture2D" uid="uid://5lyminlohu51" path="res://assets/Sprites/Clones/Norm Clone/norm_clone_fall.png" id="2_jve7h"]
+[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="3_ryu68"]
+[ext_resource type="Texture2D" uid="uid://xepo5u7hepls" path="res://assets/Sprites/Clones/Norm Clone/norm_clone_idle.png" id="3_u8y20"]
+[ext_resource type="Texture2D" uid="uid://cfw44qhb6clhv" path="res://assets/Sprites/Clones/Norm Clone/norm_clone_jump.png" id="4_qlkyf"]
+[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_s5t7b"]
+[ext_resource type="Texture2D" uid="uid://dx7cwe85fx1sk" path="res://assets/Sprites/Clones/Norm Clone/norm_clone_walk.png" id="5_dh7bw"]
+[ext_resource type="Texture2D" uid="uid://b8fyjgrom73vv" path="res://assets/Sprites/Clones/Norm Clone/norm_clone_win.png" id="6_u8y20"]
+[ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="7_v8fqy"]
+[ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://assets/Sprites/UI/buttonicon_x.png" id="8_5hy7r"]
+[ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://assets/Sprites/UI/buttonicon_z.png" id="9_hha0n"]
+[ext_resource type="Texture2D" uid="uid://daikahq1rhoqq" path="res://assets/Sprites/UI/buttonicon_left.png" id="10_cktk1"]
+[ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://assets/Sprites/UI/buttonicon_enter.png" id="11_rvck8"]
+[ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://assets/Sprites/UI/buttonicon_right.png" id="12_fy3b2"]
+[ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://assets/Sprites/UI/buttonicon_space.png" id="13_4ua12"]
+[ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_nkpmi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pqihl"]
 atlas = ExtResource("7_v8fqy")
@@ -903,34 +906,35 @@ states/win/position = Vector2(827, 112.34979)
 transitions = ["jump", "rise", SubResource("AnimationNodeStateMachineTransition_4npl0"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_2byfh"), "rise", "fall", SubResource("AnimationNodeStateMachineTransition_uc81n"), "walk", "fall", SubResource("AnimationNodeStateMachineTransition_xxm30"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_hnq35"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_uwcej"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_siv36"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_ucodw"), "rise", "idle", SubResource("AnimationNodeStateMachineTransition_0e1d5"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_h1n27"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_r5xnx"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_6rpk1"), "fall", "walk", SubResource("AnimationNodeStateMachineTransition_ly2rs"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_lioqv"), "fall", "jump", SubResource("AnimationNodeStateMachineTransition_hag0k"), "jump", "kill", SubResource("AnimationNodeStateMachineTransition_u8y20"), "rise", "kill", SubResource("AnimationNodeStateMachineTransition_qlkyf"), "fall", "kill", SubResource("AnimationNodeStateMachineTransition_dh7bw"), "walk", "kill", SubResource("AnimationNodeStateMachineTransition_7ofm3"), "idle", "kill", SubResource("AnimationNodeStateMachineTransition_wl6gg"), "idle", "win", SubResource("AnimationNodeStateMachineTransition_c3xj7"), "kill", "win", SubResource("AnimationNodeStateMachineTransition_v4cpa"), "walk", "win", SubResource("AnimationNodeStateMachineTransition_w8qtc"), "fall", "win", SubResource("AnimationNodeStateMachineTransition_v8fqy"), "rise", "win", SubResource("AnimationNodeStateMachineTransition_5hy7r"), "jump", "win", SubResource("AnimationNodeStateMachineTransition_hha0n")]
 graph_offset = Vector2(54, -98.65021)
 
-[node name="norm_clone" type="CharacterBody2D"]
+[node name="norm_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
 collision_layer = 16384
 script = ExtResource("1_u8y20")
+killEffectScene = ExtResource("2_jkpm8")
+_jumpEffectScene = ExtResource("3_ryu68")
+_landEffectScene = ExtResource("4_s5t7b")
 
-[node name="indicator" type="AnimatedSprite2D" parent="."]
+[node name="indicator" type="AnimatedSprite2D" parent="." unique_id=1056569526]
 visible = false
 sprite_frames = SubResource("SpriteFrames_i3ifa")
 animation = &"up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -30)
 shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1588915662]
 sprite_frames = SubResource("SpriteFrames_k2sbu")
 animation = &"idle"
 autoplay = "idle"
 frame = 1
 offset = Vector2(0, -50)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ps2t6")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=801370026]
+libraries/ = SubResource("AnimationLibrary_ps2t6")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=744385596]
 tree_root = SubResource("AnimationNodeStateMachine_2byfh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false

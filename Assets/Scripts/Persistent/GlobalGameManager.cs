@@ -7,9 +7,10 @@ public partial class GlobalGameManager : Node2D
     private static GlobalGameManager instance;
 
     [Export] public int activeLevelIndex;
+    [Export] public Godot.Collections.Array<PackedScene> levelScenes = new(); // ← assign in Inspector
 
-    private Node2D activeLevel;                 // instantiated level root
-    public LocalGameManager localGM;            // per-level manager (read/write relationship)
+    private Node2D activeLevel;
+    public LocalGameManager localGM;
     private readonly List<PackedScene> levels = new();
 
     // === EVENTS ===
@@ -18,13 +19,9 @@ public partial class GlobalGameManager : Node2D
     public event Action OnFlush;
 
     public Gorgonzola gorgonzola;
-
     public bool levelCompleted = false;
-
     public bool gamePaused = false;
-
     public bool canPause = true;
-
     public bool canMove = true;
 
     // ------------------------------------------------------------
@@ -42,16 +39,21 @@ public partial class GlobalGameManager : Node2D
 
         instance = this;
 
-        LoadOrderedLevelScenes("res://assets/Levels");
+        // Copy exported array into internal list (preserves your index-ordered contract)
+        levels.Clear();
+        foreach (var scene in levelScenes)
+        {
+            if (scene != null)
+                levels.Add(scene);
+        }
 
         if (levels.Count == 0)
         {
-            GD.PrintErr("No level scenes found! GlobalGameManager cannot load anything.");
+            GD.PrintErr("No level scenes assigned! Drag them into the LevelScenes array in the Inspector.");
             return;
         }
 
         LoadLevel(0);
-
         await WaitForGameLoaded();
     }
     

@@ -2,8 +2,11 @@
 
 [ext_resource type="Script" uid="uid://co353gur3v72n" path="res://assets/Scripts/Clones/RevClone.cs" id="1_ci2bv"]
 [ext_resource type="Texture2D" uid="uid://bhl1k3pii5shf" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_fall.png" id="2_ci2bv"]
+[ext_resource type="PackedScene" uid="uid://b3ltxx026fhg0" path="res://assets/Scenes/Effects/rev_kill_effect.tscn" id="2_ygmg8"]
+[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="3_t7mes"]
 [ext_resource type="Texture2D" uid="uid://cpxm3tds8p4so" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_idle.png" id="3_vnly1"]
 [ext_resource type="Texture2D" uid="uid://dirlplpoj4mws" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_jump.png" id="4_c084s"]
+[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_dd10p"]
 [ext_resource type="Texture2D" uid="uid://cxvl8ca8iqdlf" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_walk.png" id="5_ci2bv"]
 [ext_resource type="Texture2D" uid="uid://dm0y8sstivi8x" path="res://assets/Sprites/Clones/Rev Clone/rev_clone_win.png" id="6_vnly1"]
 [ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="7_oj6kr"]
@@ -904,6 +907,9 @@ z_index = 10
 scale = Vector2(-1, 1)
 collision_layer = 32768
 script = ExtResource("1_ci2bv")
+killEffectScene = ExtResource("2_ygmg8")
+_jumpEffectScene = ExtResource("3_t7mes")
+_landEffectScene = ExtResource("4_dd10p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1115182824]
 position = Vector2(0, -30)
