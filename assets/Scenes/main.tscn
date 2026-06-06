@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://rhb6mualyteu"]
 
 [ext_resource type="Script" uid="uid://dp0d1epso522" path="res://assets/Scripts/Persistent/GlobalGameManager.cs" id="1_dwccm"]
+[ext_resource type="PackedScene" uid="uid://drdv1jot5wed7" path="res://assets/Levels/0.tscn" id="2_naort"]
 [ext_resource type="PackedScene" uid="uid://qiaoiwvifwhi" path="res://assets/Scenes/UI/level_cleared_menu.tscn" id="2_w34p4"]
+[ext_resource type="PackedScene" uid="uid://d227yw68ef152" path="res://assets/Levels/1.tscn" id="3_ci4bg"]
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
+[ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
 [ext_resource type="PackedScene" uid="uid://dvf1hvt32xcao" path="res://assets/Scenes/UI/fade_panel.tscn" id="4_xomjc"]
+[ext_resource type="PackedScene" uid="uid://cp20547sq05x2" path="res://assets/Levels/3.tscn" id="5_0ub6i"]
 
 [node name="main" type="Node2D" unique_id=371858062]
 
 [node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
 process_mode = 3
 script = ExtResource("1_dwccm")
+levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_0ub6i")])
 
 [node name="level_cleared_menu" parent="." unique_id=1866334340 instance=ExtResource("2_w34p4")]
 process_mode = 3
