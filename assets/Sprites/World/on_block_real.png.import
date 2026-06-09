@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dnfbsk0b0xibc"
 path.s3tc="res://.godot/imported/on_block_real.png-620d66e639201b641a0338ab3040148c.s3tc.ctex"
+path.etc2="res://.godot/imported/on_block_real.png-620d66e639201b641a0338ab3040148c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Sprites/World/on_block_real.png"
-dest_files=["res://.godot/imported/on_block_real.png-620d66e639201b641a0338ab3040148c.s3tc.ctex"]
+dest_files=["res://.godot/imported/on_block_real.png-620d66e639201b641a0338ab3040148c.s3tc.ctex", "res://.godot/imported/on_block_real.png-620d66e639201b641a0338ab3040148c.etc2.ctex"]
 
 [params]
 
