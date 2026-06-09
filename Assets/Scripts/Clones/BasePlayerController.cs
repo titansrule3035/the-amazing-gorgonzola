@@ -61,6 +61,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             MainPlayerKilled += OnMainPlayerKilled;
         }
+
+        animationTree.Active = true;
     }
 
     private async Task WireSignalsAsync()

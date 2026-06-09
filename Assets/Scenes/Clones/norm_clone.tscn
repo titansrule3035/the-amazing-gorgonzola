@@ -935,6 +935,7 @@ offset = Vector2(0, -50)
 libraries/ = SubResource("AnimationLibrary_ps2t6")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=744385596]
+active = false
 tree_root = SubResource("AnimationNodeStateMachine_2byfh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
