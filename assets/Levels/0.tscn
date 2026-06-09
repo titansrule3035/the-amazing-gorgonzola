@@ -46,10 +46,10 @@ tracks/0/path = NodePath("Control/TextureRect3:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"times": PackedFloat32Array(0, 0.1, 0.19999999),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [ExtResource("5_3otin"), ExtResource("3_nft5b"), ExtResource("6_kbh3w")]
+"values": [ExtResource("3_nft5b"), ExtResource("5_3otin"), ExtResource("6_kbh3w")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_at7ji"]
