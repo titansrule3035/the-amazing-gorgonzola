@@ -2,7 +2,7 @@ using Godot;
 
 public partial class RevClone : BasePlayerController
 {
-    private PackedScene killEffectScene = GD.Load<PackedScene>("res://Assets/Scenes/Effects/rev_kill_effect.tscn");
+    [Export] private PackedScene killEffectScene;
     protected override float GetMovementInput()
     {
         return Input.GetAxis("move_right", "move_left"); // Reversed

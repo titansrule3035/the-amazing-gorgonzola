@@ -8,7 +8,7 @@ public partial class Gorgonzola : BasePlayerController
 
     public event Action? OnKilled;
 
-    private PackedScene carcassEffectScene = GD.Load<PackedScene>("res://Assets/Scenes/Effects/gorg_carcass.tscn");
+    [Export] private PackedScene carcassEffectScene;
 
     public bool doorMoveTriggered = false;
 

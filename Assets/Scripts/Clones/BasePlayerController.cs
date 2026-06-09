@@ -12,8 +12,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
     [Export] public float MaxFallSpeed = 800f;
 
     // === EFFECTS ===
-    private readonly PackedScene _jumpEffectScene = GD.Load<PackedScene>("res://Assets/Scenes/Effects/jump_effect.tscn");
-    private readonly PackedScene _landEffectScene = GD.Load<PackedScene>("res://Assets/Scenes/Effects/land_effect.tscn");
+    [Export] private PackedScene _jumpEffectScene;
+    [Export] private PackedScene _landEffectScene;
 
     // === NODES ===
     public AnimatedSprite2D sprite;
@@ -61,6 +61,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             MainPlayerKilled += OnMainPlayerKilled;
         }
+
+        animationTree.Active = true;
     }
 
     private async Task WireSignalsAsync()
@@ -275,6 +277,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             hasKey = false;
             Door.GetInstance()?.Close();
+            Key.GetInstance().BlackenUIElement();
         }
     }
 
