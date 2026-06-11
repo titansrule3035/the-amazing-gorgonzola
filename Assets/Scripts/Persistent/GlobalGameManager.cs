@@ -6,7 +6,7 @@ public partial class GlobalGameManager : Node2D
 {
     private static GlobalGameManager instance;
 
-    [Export] public int activeLevelIndex;
+    [Export] public int activeLevelIndex = 0;
     [Export] public Godot.Collections.Array<PackedScene> levelScenes = new(); // ← assign in Inspector
 
     private Node2D activeLevel;
@@ -23,6 +23,12 @@ public partial class GlobalGameManager : Node2D
     public bool gamePaused = false;
     public bool canPause = true;
     public bool canMove = true;
+
+    // === USER STATE ===
+    public int completedWorlds = 0;
+    public int deaths = 0;
+    public int clonesKilled = 0;
+    public List<string> collectibles = new();
 
     // ------------------------------------------------------------
     //  LIFECYCLE
@@ -55,8 +61,16 @@ public partial class GlobalGameManager : Node2D
 
         LoadLevel(0);
         await WaitForGameLoaded();
+
+        // gather saved data
+        SaveData saveData = SaveManager.LoadGame();
+
+        completedWorlds = saveData?.completedWorlds ?? 0;
+        deaths = saveData?.deaths ?? 0;
+        clonesKilled = saveData?.clonesKilled ?? 0;
+        collectibles = saveData?.collectibles ?? new();
     }
-    
+
     public override void _Process(double delta)
     {
         if (!levelCompleted)
@@ -162,7 +176,6 @@ public partial class GlobalGameManager : Node2D
         activeLevel = levels[activeLevelIndex].Instantiate<Node2D>();
         GetTree().Root.CallDeferred("add_child", activeLevel);
 
-        // LocalGameManager handshake (your read/write relationship)
         localGM = activeLevel.GetNodeOrNull<LocalGameManager>("LocalGameManager");
 
         if (localGM != null)
@@ -176,14 +189,22 @@ public partial class GlobalGameManager : Node2D
         DeloadLevel();
 
         activeLevelIndex = levelIndex;
+
         InstantiateActiveLevel();
+    }
+
+    public void LoadLevelFromSaveFile()
+    {
+        SaveData saveData = SaveManager.LoadGame();
+        int savedLevelIndex = saveData?.activeLevelIndex ?? 0;
+        LoadLevel(savedLevelIndex);
     }
 
     public void LoadNextLevel()
     {
         DeloadLevel();
 
-        activeLevelIndex = (activeLevelIndex + 1) % levels.Count;
+        activeLevelIndex++;
 
         InstantiateActiveLevel();
     }
@@ -196,6 +217,11 @@ public partial class GlobalGameManager : Node2D
 
     private void DeloadLevel()
     {
+        if (activeLevelIndex != 0)
+        {
+            SaveManager.SaveGame(this);
+        }
+
         // Clear gameplay references safely
         gorgonzola = null;
 

@@ -44,7 +44,17 @@ public partial class MainMenu : Control
     }
     void OnFadeOut()
     {
-        GlobalGameManager.GetInstance().LoadNextLevel();
+        GlobalGameManager ggm = GlobalGameManager.GetInstance();
+        int levelIndex = SaveManager.LoadCompletedLevels();
+
+        if (levelIndex != 0 && levelIndex != ggm.GetLevelCount() - 1)
+        {
+            ggm.LoadLevelFromSaveFile();
+        }
+        else
+        {
+            GlobalGameManager.GetInstance().LoadNextLevel();
+        }
         CanvasEffects.GetInstance().FadeIn();
     }
 

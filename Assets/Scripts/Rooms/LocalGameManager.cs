@@ -45,7 +45,6 @@ public abstract partial class LocalGameManager : Node2D
     {
         if (flush)
         {
-            GD.Print("Flush triggered");
             OnFlush?.Invoke();
 
             // Start fade out only once
@@ -69,7 +68,6 @@ public abstract partial class LocalGameManager : Node2D
 
     protected void HandleLevelCompleted()
     {
-        GD.Print("Level completed");
         if (!GlobalGameManager.GetInstance().IsLastLevel())
         {
             GlobalGameManager.GetInstance().LoadNextLevel();
@@ -94,7 +92,6 @@ public abstract partial class LocalGameManager : Node2D
 
     private void HandleGorgKilled()
     {
-        GD.Print("Gorg killed");
         flush = true;
     }
 
