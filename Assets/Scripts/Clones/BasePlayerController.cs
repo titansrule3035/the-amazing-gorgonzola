@@ -21,7 +21,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     protected AnimationTree animationTree;
 
     // === ANIMATION PARAMS ===
-    private readonly string[] _animationParams = { "idle", "isMoving", "isFalling", "jump", "kill", "levelCompleted" };
+    private readonly string[] _animationParams = { "idle", "isMoving", "isFalling", "jump", "kill", "levelCompleted", "enter_door" };
 
     // === INDICATOR OBJECTS
     [Export] public float offset;
@@ -51,7 +51,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         if (animationPlayer != null)
         {
-            animationPlayer.AnimationFinished += HandleAnimationFinished;
+            animationTree.AnimationFinished += OnAnimationFinished;
         }
         indicator = GetNode<AnimatedSprite2D>("indicator");
 
@@ -229,7 +229,14 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
         else if (GlobalGameManager.GetInstance().canMove)
         {
-            PlayAnimation("levelCompleted");
+            if(this is Gorgonzola)
+            {
+                PlayAnimation("enter_door");
+            }
+            else
+            {
+                PlayAnimation("levelCompleted");
+            }
             Gorgonzola.GetInstance().doorMoveTriggered = true;
         }
     }
@@ -266,9 +273,13 @@ public abstract partial class BasePlayerController : CharacterBody2D
     }
 
     // === Utility & Cleanup ===
-    private void HandleAnimationFinished(StringName animName) => OnAnimationFinished(animName);
-
-    protected virtual void OnAnimationFinished(StringName animName) { }
+    private void OnAnimationFinished(StringName animName)
+    {
+        if (animName == "enter_door")
+        {
+            GlobalGameManager.GetInstance().ShowVictoryMenu(true);
+        }
+    }
     protected abstract float GetMovementInput();
     public virtual bool ShouldFlipSprite(float direction) => direction < 0f;
     public virtual void Kill()
@@ -307,7 +318,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         if (animationPlayer != null)
         {
-            animationPlayer.AnimationFinished -= HandleAnimationFinished;
+            animationTree.AnimationFinished -= OnAnimationFinished;
         }
 
         base._ExitTree();

@@ -238,7 +238,7 @@ public partial class GlobalGameManager : Node2D
 
     public void ShowVictoryMenu(bool condition)
     {
-        LevelClearedMenu.GetInstance().Visible |= condition;
+        LevelClearedMenu.GetInstance().Visible = condition;
     }
 
     public bool IsLastLevel()
