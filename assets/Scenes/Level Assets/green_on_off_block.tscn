@@ -147,6 +147,7 @@ script = ExtResource("1_e6bhs")
 green = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=31101476]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_pdnaw")
 animation = &"open"
 

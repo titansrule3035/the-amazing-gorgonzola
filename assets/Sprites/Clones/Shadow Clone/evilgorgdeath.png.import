@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1i4xy1caoy6"
-path="res://.godot/imported/enter_door.png-a0a4d4b5459630ed4488df12366eca50.ctex"
+uid="uid://b87qpxhdflsa0"
+path="res://.godot/imported/evilgorgdeath.png-8e3564f3daf005eebed7cde46d9cd7d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/enter_door.png"
-dest_files=["res://.godot/imported/enter_door.png-a0a4d4b5459630ed4488df12366eca50.ctex"]
+source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgdeath.png"
+dest_files=["res://.godot/imported/evilgorgdeath.png-8e3564f3daf005eebed7cde46d9cd7d4.ctex"]
 
 [params]
 

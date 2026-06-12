@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b34x4sm6hy1uk"
-path="res://.godot/imported/gorg_head.png-10dd177c9ea3a488c98d741fcb0f3a23.ctex"
+uid="uid://y43fdcp3wn3c"
+path="res://.godot/imported/norm_clone_pallette.png-96219e251bed43de5221973f0567e01c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Player/gorg_head.png"
-dest_files=["res://.godot/imported/gorg_head.png-10dd177c9ea3a488c98d741fcb0f3a23.ctex"]
+source_file="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png"
+dest_files=["res://.godot/imported/norm_clone_pallette.png-96219e251bed43de5221973f0567e01c.ctex"]
 
 [params]
 

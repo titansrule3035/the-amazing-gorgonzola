@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chq7kar3xu38b"
-path="res://.godot/imported/clone_pallette.png-21dfa54d65916b2480828cf6a3ad38e0.ctex"
+uid="uid://cpb5rbqqg6f30"
+path="res://.godot/imported/evilgorgfall.png-711326905f4dddba975dfa97f2ffce9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/clone_pallette.png"
-dest_files=["res://.godot/imported/clone_pallette.png-21dfa54d65916b2480828cf6a3ad38e0.ctex"]
+source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgfall.png"
+dest_files=["res://.godot/imported/evilgorgfall.png-711326905f4dddba975dfa97f2ffce9c.ctex"]
 
 [params]
 

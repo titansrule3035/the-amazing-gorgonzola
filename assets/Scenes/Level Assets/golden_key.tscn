@@ -74,6 +74,7 @@ size = Vector2(24, 29)
 script = ExtResource("1_iahil")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=441089175]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_q2avx")
 autoplay = "default"
 frame_progress = 0.897747

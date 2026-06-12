@@ -1,8 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://chwp3j7nqf0g3"]
+[gd_scene format=3 uid="uid://chwp3j7nqf0g3"]
 
-[ext_resource type="Texture2D" uid="uid://dh8obka4fynom" path="res://Assets/Sprites/World/laboratorydoorclose.png" id="1_i2bu2"]
-[ext_resource type="Script" uid="uid://b6a7xr3d4w1x8" path="res://Assets/Scripts/Level Assets/Door.cs" id="1_x6ynr"]
-[ext_resource type="Texture2D" uid="uid://mgy5rx8bpdod" path="res://Assets/Sprites/World/laboratorydooropen.png" id="2_x6ynr"]
+[ext_resource type="Texture2D" uid="uid://dh8obka4fynom" path="res://assets/Sprites/World/laboratorydoorclose.png" id="1_i2bu2"]
+[ext_resource type="Script" uid="uid://b6a7xr3d4w1x8" path="res://assets/Scripts/Level Assets/Door.cs" id="1_x6ynr"]
+[ext_resource type="Texture2D" uid="uid://mgy5rx8bpdod" path="res://assets/Sprites/World/laboratorydooropen.png" id="2_x6ynr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnlo3"]
 atlas = ExtResource("1_i2bu2")
@@ -262,32 +262,31 @@ graph_offset = Vector2(-159, -25)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x6ynr"]
 size = Vector2(88, 84)
 
-[node name="lab_door" type="Node2D"]
+[node name="lab_door" type="Node2D" unique_id=1004153032]
 script = ExtResource("1_x6ynr")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=47400751]
+z_index = 1
 position = Vector2(0, -75)
 sprite_frames = SubResource("SpriteFrames_py00c")
 animation = &"close"
 frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=492697454]
 root_node = NodePath("../AnimatedSprite2D")
-libraries = {
-&"": SubResource("AnimationLibrary_5d3gc")
-}
-autoplay = "default"
+libraries/ = SubResource("AnimationLibrary_5d3gc")
+autoplay = &"default"
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=363347170]
 root_node = NodePath("../AnimatedSprite2D")
 tree_root = SubResource("AnimationNodeStateMachine_spvk3")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/close = false
 parameters/conditions/open = false
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=2017743023]
 collision_mask = 8192
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1014116706]
 position = Vector2(4, -42)
 shape = SubResource("RectangleShape2D_x6ynr")

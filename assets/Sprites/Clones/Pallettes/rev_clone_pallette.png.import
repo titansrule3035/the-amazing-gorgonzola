@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl0gnj24k5a3l"
-path="res://.godot/imported/gorg_leg_r.png-208548629b4e35ef5dc4ba1c037b0e0d.ctex"
+uid="uid://d1q2escmf2ll6"
+path="res://.godot/imported/rev_clone_pallette.png-1ae0920e8b1feb46f62dc708b52e6201.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Player/gorg_leg_r.png"
-dest_files=["res://.godot/imported/gorg_leg_r.png-208548629b4e35ef5dc4ba1c037b0e0d.ctex"]
+source_file="res://assets/Sprites/Clones/Pallettes/rev_clone_pallette.png"
+dest_files=["res://.godot/imported/rev_clone_pallette.png-1ae0920e8b1feb46f62dc708b52e6201.ctex"]
 
 [params]
 

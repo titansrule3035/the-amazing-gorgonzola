@@ -149,6 +149,7 @@ size = Vector2(32, 32)
 script = ExtResource("1_41uos")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=919745402]
+z_index = 1
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_6j0hu")
 animation = &"turn_off"

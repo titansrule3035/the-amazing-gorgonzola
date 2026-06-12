@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cp20547sq05x2"]
 
-[ext_resource type="Script" uid="uid://cycx3x81sq1mp" path="res://assets/Scripts/Rooms/r2.cs" id="1_6cuxv"]
+[ext_resource type="Script" uid="uid://cycx3x81sq1mp" path="res://assets/Scripts/Levels/r2.cs" id="1_6cuxv"]
 [ext_resource type="Texture2D" uid="uid://nu8f8ejfwu7o" path="res://assets/Sprites/World/test_tileset_nw.png" id="1_xmwhe"]
 [ext_resource type="Texture2D" uid="uid://m1fdhk5qf8fv" path="res://assets/Sprites/World/test_bg_2.png" id="3_p5nbd"]
 

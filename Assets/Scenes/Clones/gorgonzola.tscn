@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cxhnti2lcb1qg" path="res://assets/Scenes/Effects/gorg_carcass.tscn" id="3_vu6sa"]
 [ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="4_f6qrw"]
 [ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="5_eaw70"]
-[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/clone_pallette.png" id="5_x63qt"]
-[ext_resource type="Texture2D" uid="uid://dfsy38nu0nxe0" path="res://assets/Sprites/Clones/gorgonzola_pallette.png" id="6_l1rba"]
+[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="5_x63qt"]
+[ext_resource type="Texture2D" uid="uid://dfsy38nu0nxe0" path="res://assets/Sprites/Clones/Pallettes/gorgonzola_pallette.png" id="6_l1rba"]
 [ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://assets/Sprites/UI/buttonicon_x.png" id="7_7o5j1"]
-[ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/enter_door.png" id="7_lvr6n"]
+[ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="7_lvr6n"]
 [ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="7_qkku6"]
 [ext_resource type="Texture2D" uid="uid://cl4t2kps0i0sm" path="res://assets/Sprites/Clones/fall.png" id="8_e1xwk"]
 [ext_resource type="Texture2D" uid="uid://de03v5wxdme7k" path="res://assets/Sprites/UI/buttonicon_z.png" id="9_2c0lj"]
@@ -872,21 +872,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_lioqv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="Animation" id="Animation_dk3xr"]
 resource_name = "enter_door"
 length = 5.0
@@ -1088,7 +1073,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvr6n"]
 _data = {
-&"RESET": SubResource("Animation_lioqv"),
 &"enter_door": SubResource("Animation_dk3xr"),
 &"fall": SubResource("Animation_ly2rs"),
 &"idle": SubResource("Animation_ps2t6"),
@@ -1387,13 +1371,13 @@ debug_color = Color(0, 0.644446, 0.280746, 0.42)
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1731162412]
 material = SubResource("ShaderMaterial_x63qt")
 sprite_frames = SubResource("SpriteFrames_l1rba")
-animation = &"enter_door"
+animation = &"idle"
 autoplay = "idle"
-frame = 1
 offset = Vector2(0, -50)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=364986925]
 libraries/ = SubResource("AnimationLibrary_lvr6n")
+autoplay = &"idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1735717041]
 active = false

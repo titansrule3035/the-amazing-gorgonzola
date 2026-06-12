@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bcb4xwnp7jfmg" path="res://assets/Sprites/Clones/jump.png" id="4_qlkyf"]
 [ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_s5t7b"]
 [ext_resource type="Texture2D" uid="uid://2bva0llm5q12" path="res://assets/Sprites/Clones/walk.png" id="5_dh7bw"]
+[ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png" id="6_dk3xr"]
 [ext_resource type="Texture2D" uid="uid://bofoc25jmfx4y" path="res://assets/Sprites/Clones/win.png" id="6_u8y20"]
 [ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="7_v8fqy"]
 [ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://assets/Sprites/UI/buttonicon_x.png" id="8_5hy7r"]
@@ -16,10 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://assets/Sprites/UI/buttonicon_enter.png" id="11_rvck8"]
 [ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://assets/Sprites/UI/buttonicon_right.png" id="12_fy3b2"]
 [ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://assets/Sprites/UI/buttonicon_space.png" id="13_4ua12"]
-[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/clone_pallette.png" id="13_dk3xr"]
-[ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/norm_clone_pallette.png" id="14_4qigl"]
+[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="13_dk3xr"]
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_nkpmi"]
-[ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/enter_door.png" id="15_dk3xr"]
+[ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="15_dk3xr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
 size = Vector2(30, 60)
@@ -48,7 +48,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ryu68"]
 shader = SubResource("Shader_dk3xr")
 shader_parameter/palette_texture = ExtResource("13_dk3xr")
-shader_parameter/swap_texture = ExtResource("14_4qigl")
+shader_parameter/swap_texture = ExtResource("6_dk3xr")
 shader_parameter/palette_size = 10
 shader_parameter/threshold = 0.01
 
@@ -853,21 +853,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_lioqv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="Animation" id="Animation_dk3xr"]
 resource_name = "enter_door"
 length = 5.0
@@ -1069,7 +1054,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ps2t6"]
 _data = {
-&"RESET": SubResource("Animation_lioqv"),
 &"enter_door": SubResource("Animation_dk3xr"),
 &"fall": SubResource("Animation_ly2rs"),
 &"idle": SubResource("Animation_ps2t6"),
@@ -1366,13 +1350,13 @@ debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1588915662]
 material = SubResource("ShaderMaterial_ryu68")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
-animation = &"fall"
+animation = &"idle"
 autoplay = "idle"
-frame = 1
 offset = Vector2(0, -50)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=801370026]
 libraries/ = SubResource("AnimationLibrary_ps2t6")
+autoplay = &"idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=744385596]
 active = false

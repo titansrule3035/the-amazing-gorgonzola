@@ -105,6 +105,7 @@ uiElementPos = Vector2(112, 720)
 displayInUI = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1944789571]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_r0ync")
 autoplay = "default"
 

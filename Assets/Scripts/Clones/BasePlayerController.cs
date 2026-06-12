@@ -229,7 +229,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
         else if (GlobalGameManager.GetInstance().canMove)
         {
-            if(this is Gorgonzola)
+            if (this is Gorgonzola)
             {
                 PlayAnimation("enter_door");
             }
@@ -278,6 +278,11 @@ public abstract partial class BasePlayerController : CharacterBody2D
         if (animName == "enter_door")
         {
             GlobalGameManager.GetInstance().ShowVictoryMenu(true);
+            Visible = false;
+        }
+        else if (animName == "levelCompleted")
+        {
+            Visible = false;
         }
     }
     protected abstract float GetMovementInput();

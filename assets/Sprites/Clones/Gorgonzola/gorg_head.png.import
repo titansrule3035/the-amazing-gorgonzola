@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dse3iclhdaob4"
-path="res://.godot/imported/gorg_leg_l.png-44664041e7b9c18f75e9f4d797050c41.ctex"
+uid="uid://b34x4sm6hy1uk"
+path="res://.godot/imported/gorg_head.png-524cb45d07ed25f12342602abbdb41bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Player/gorg_leg_l.png"
-dest_files=["res://.godot/imported/gorg_leg_l.png-44664041e7b9c18f75e9f4d797050c41.ctex"]
+source_file="res://assets/Sprites/Clones/Gorgonzola/gorg_head.png"
+dest_files=["res://.godot/imported/gorg_head.png-524cb45d07ed25f12342602abbdb41bb.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y43fdcp3wn3c"
-path="res://.godot/imported/norm_clone_pallette.png-a59c1c45edc1fa2cb5fb44612cab0443.ctex"
+uid="uid://btwyg03xrhofc"
+path="res://.godot/imported/evilgorgwalk.png-fa03a6f89326eb6003873ca6893ce118.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/norm_clone_pallette.png"
-dest_files=["res://.godot/imported/norm_clone_pallette.png-a59c1c45edc1fa2cb5fb44612cab0443.ctex"]
+source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgwalk.png"
+dest_files=["res://.godot/imported/evilgorgwalk.png-fa03a6f89326eb6003873ca6893ce118.ctex"]
 
 [params]
 

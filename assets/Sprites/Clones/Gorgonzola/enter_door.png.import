@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu3b33fts3v4i"
-path="res://.godot/imported/gorg_torso.png-139208d614c4823f4074f1b72832bd53.ctex"
+uid="uid://cx1i4xy1caoy6"
+path="res://.godot/imported/enter_door.png-01628c91036ec9ff104c9cf12dd5875b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Player/gorg_torso.png"
-dest_files=["res://.godot/imported/gorg_torso.png-139208d614c4823f4074f1b72832bd53.ctex"]
+source_file="res://assets/Sprites/Clones/Gorgonzola/enter_door.png"
+dest_files=["res://.godot/imported/enter_door.png-01628c91036ec9ff104c9cf12dd5875b.ctex"]
 
 [params]
 
