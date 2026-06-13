@@ -30,6 +30,10 @@ window/hdr_2d=true
 
 project/assembly_name="The Amazing Gorgonzola"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GodotInk/plugin.cfg")
+
 [input]
 
 move_left={
