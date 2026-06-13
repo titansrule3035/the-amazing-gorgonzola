@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4hvuqofnymp6"
-path="res://.godot/imported/norm_clone_kill.png-933eb786033beb551ec170e1ad1e5a4f.ctex"
+uid="uid://brcmxb0xap4tw"
+path="res://.godot/imported/default_kill_effect_pallette.png-36bc569c84805904586ee68317a953d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Effects/norm_clone_kill.png"
-dest_files=["res://.godot/imported/norm_clone_kill.png-933eb786033beb551ec170e1ad1e5a4f.ctex"]
+source_file="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png"
+dest_files=["res://.godot/imported/default_kill_effect_pallette.png-36bc569c84805904586ee68317a953d7.ctex"]
 
 [params]
 

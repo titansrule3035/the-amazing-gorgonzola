@@ -1,9 +1,8 @@
-[gd_scene format=3 uid="uid://ddvu3cojc55cx"]
+[gd_scene format=3 uid="uid://c0be85jmbtdoh"]
 
-[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_ehsxq"]
-[ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_lk3o4"]
-[ext_resource type="Texture2D" uid="uid://ceqk7ysle2ds7" path="res://assets/Sprites/Effects/Pallettes/norm_kill_effect_pallette.png" id="3_3rjt1"]
-[ext_resource type="Texture2D" uid="uid://bb1uv8r8xi150" path="res://assets/Sprites/Effects/default_clone_kill.png" id="4_lk3o4"]
+[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_7h7ie"]
+[ext_resource type="Texture2D" uid="uid://bb1uv8r8xi150" path="res://assets/Sprites/Effects/default_clone_kill.png" id="2_7h7ie"]
+[ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_rrq2s"]
 
 [sub_resource type="Shader" id="Shader_tki4n"]
 code = "shader_type canvas_item;
@@ -26,64 +25,64 @@ void fragment() {
   }
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnv43"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwfgy"]
 shader = SubResource("Shader_tki4n")
-shader_parameter/palette_texture = ExtResource("2_lk3o4")
-shader_parameter/swap_texture = ExtResource("3_3rjt1")
+shader_parameter/palette_texture = ExtResource("2_rrq2s")
+shader_parameter/swap_texture = ExtResource("2_rrq2s")
 shader_parameter/palette_size = 1
 shader_parameter/threshold = 0.01
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3rjt1"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrq2s"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(0, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fnv43"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tki4n"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(100, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s06o7"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwfgy"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(200, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u1nn1"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_npds1"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(300, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r8vtg"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytx5f"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(400, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7q50"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs6bn"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(500, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hr31v"]
-atlas = ExtResource("4_lk3o4")
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5cil"]
+atlas = ExtResource("2_7h7ie")
 region = Rect2(600, 0, 100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_shvlf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3rjt1")
+"texture": SubResource("AtlasTexture_rrq2s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fnv43")
+"texture": SubResource("AtlasTexture_tki4n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s06o7")
+"texture": SubResource("AtlasTexture_mwfgy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u1nn1")
+"texture": SubResource("AtlasTexture_npds1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r8vtg")
+"texture": SubResource("AtlasTexture_ytx5f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h7q50")
+"texture": SubResource("AtlasTexture_fs6bn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hr31v")
+"texture": SubResource("AtlasTexture_r5cil")
 }],
 "loop": false,
 "name": &"default",
@@ -139,16 +138,16 @@ _data = {
 &"default": SubResource("Animation_x3sha")
 }
 
-[node name="norm_kill_effect2" type="Node2D" unique_id=959619661]
-script = ExtResource("1_ehsxq")
+[node name="norm_kill_effect" type="Node2D" unique_id=424745670]
+script = ExtResource("1_7h7ie")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1221015124]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056703331]
 z_index = 10
-material = SubResource("ShaderMaterial_fnv43")
+material = SubResource("ShaderMaterial_mwfgy")
 position = Vector2(0, -50)
 sprite_frames = SubResource("SpriteFrames_shvlf")
 frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2092109933]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=454587192]
 libraries/ = SubResource("AnimationLibrary_4wq4l")
 autoplay = &"default"

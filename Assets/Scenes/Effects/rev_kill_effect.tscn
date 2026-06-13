@@ -1,59 +1,91 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3ltxx026fhg0"]
+[gd_scene format=3 uid="uid://b3ltxx026fhg0"]
 
-[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://Assets/Scripts/Effects/Effect.cs" id="1_4d6xv"]
-[ext_resource type="Texture2D" uid="uid://if7vnc0dbo04" path="res://Assets/Sprites/Effects/rev_clone_kill.png" id="2_pp416"]
+[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_4d6xv"]
+[ext_resource type="Texture2D" uid="uid://dj86lwd3ngllf" path="res://assets/Sprites/Effects/Pallettes/rev_kill_effect_pallette.png" id="2_7v1eh"]
+[ext_resource type="Texture2D" uid="uid://bb1uv8r8xi150" path="res://assets/Sprites/Effects/default_clone_kill.png" id="3_3cjef"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w3etk"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="Shader" id="Shader_tki4n"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette_texture; // 1D texture: original colors
+uniform sampler2D swap_texture;    // 1D texture: replacement colors
+uniform int palette_size = 8;
+uniform float threshold = 0.01;
+
+void fragment() {
+  vec4 pixel = texture(TEXTURE, UV);
+  COLOR = pixel;
+  for (int i = 0; i < palette_size; i++) {
+    vec2 uv = vec2((float(i) + 0.5) / float(palette_size), 0.5);
+    vec4 orig = texture(palette_texture, uv);
+    if (length(pixel.rgb - orig.rgb) < threshold) {
+      COLOR = vec4(texture(swap_texture, uv).rgb, pixel.a);
+      break;
+    }
+  }
+}"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3jc4s"]
+load_path = "res://.godot/imported/default_kill_effect_pallette.png-36bc569c84805904586ee68317a953d7.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpor3"]
+shader = SubResource("Shader_tki4n")
+shader_parameter/palette_texture = SubResource("CompressedTexture2D_3jc4s")
+shader_parameter/swap_texture = ExtResource("2_7v1eh")
+shader_parameter/palette_size = 1
+shader_parameter/threshold = 0.01
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55f5j"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(0, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v5tpe"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7vid"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(100, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w6ija"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp85y"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(200, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rjv2u"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="AtlasTexture" id="AtlasTexture_grvc4"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(300, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_isxiv"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5uyk"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(400, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wnta0"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocvmi"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(500, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v0kxh"]
-atlas = ExtResource("2_pp416")
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqmhw"]
+atlas = ExtResource("3_3cjef")
 region = Rect2(600, 0, 100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ocbwu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w3etk")
+"texture": SubResource("AtlasTexture_55f5j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v5tpe")
+"texture": SubResource("AtlasTexture_b7vid")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w6ija")
+"texture": SubResource("AtlasTexture_cp85y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rjv2u")
+"texture": SubResource("AtlasTexture_grvc4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_isxiv")
+"texture": SubResource("AtlasTexture_v5uyk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wnta0")
+"texture": SubResource("AtlasTexture_ocvmi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v0kxh")
+"texture": SubResource("AtlasTexture_pqmhw")
 }],
 "loop": false,
 "name": &"default",
@@ -109,19 +141,18 @@ _data = {
 &"default": SubResource("Animation_5vrov")
 }
 
-[node name="rev_kill_effect" type="Node2D"]
+[node name="rev_kill_effect" type="Node2D" unique_id=272156147]
 script = ExtResource("1_4d6xv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=446653582]
 z_index = 10
+material = SubResource("ShaderMaterial_xpor3")
 position = Vector2(0, -50)
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_ocbwu")
 autoplay = "default"
 frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_s1qj7")
-}
-autoplay = "default"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=981160703]
+libraries/ = SubResource("AnimationLibrary_s1qj7")
+autoplay = &"default"
