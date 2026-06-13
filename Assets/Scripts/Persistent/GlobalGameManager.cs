@@ -13,6 +13,9 @@ public partial class GlobalGameManager : Node2D
     public LocalGameManager localGM;
     private readonly List<PackedScene> levels = new();
 
+    private readonly HashSet<object> pauseLocks = new();
+    public bool pauseLocked => pauseLocks.Count == 0;
+
     // === EVENTS ===
     public event Action OnFirstFrame;
     public event Action OnLevelLoaded;
@@ -82,9 +85,12 @@ public partial class GlobalGameManager : Node2D
             }
         }
 
-        if (Input.IsActionJustPressed("pause") && canPause && canMove)
+        if (!pauseLocked)
         {
-            gamePaused = GetTree().Paused = !gamePaused;
+            if (Input.IsActionJustPressed("pause") && canPause && canMove)
+            {
+                gamePaused = GetTree().Paused = !gamePaused;
+            }
         }
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
         base._Process(delta);
@@ -254,5 +260,25 @@ public partial class GlobalGameManager : Node2D
     public Node2D GetActiveLevel()
     {
         return activeLevel;
+    }
+    public void RegisterLGM(LocalGameManager lgm, bool allowPausing)
+    {
+        localGM = lgm;
+        AddPauseLock(localGM);
+    }
+    public void UnregisterLGM()
+    {
+        RemovePauseLock(localGM);
+        localGM = null;
+    }
+
+    public void AddPauseLock(object owner)
+    {
+        pauseLocks.Add(owner);
+    }
+
+    public void RemovePauseLock(object owner)
+    {
+        pauseLocks.Remove(owner);
     }
 }

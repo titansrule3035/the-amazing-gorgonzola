@@ -3,7 +3,6 @@ using System;
 
 public partial class r2 : LocalGameManager
 {
-
     public override void _Ready()
     {
         MoveToTitle();

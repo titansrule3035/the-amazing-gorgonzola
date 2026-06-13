@@ -10,6 +10,9 @@ public abstract partial class LocalGameManager : Node2D
     // === EVENTS ===
     public event Action OnFlush;
 
+    // === RULES ===
+    [Export] bool allowPausing = true;
+
     // === FADE COLORS ===
     private Color dieColor = new Color(96f / 255f, 0f, 0f, 1f);
 
@@ -36,7 +39,7 @@ public abstract partial class LocalGameManager : Node2D
             SpawnGorg.GetInstance().GorgSpawned += HandleGorgSpawned;
         }
 
-        GlobalGameManager.GetInstance().localGM = this;
+        GlobalGameManager.GetInstance().RegisterLGM(this, allowPausing);
 
         GlobalGameManager.GetInstance().canMove = false;
     }
@@ -121,7 +124,7 @@ public abstract partial class LocalGameManager : Node2D
             SpawnGorg.GetInstance().GorgSpawned -= HandleGorgSpawned;
         }
 
-        GlobalGameManager.GetInstance().localGM = null;
+        GlobalGameManager.GetInstance().UnregisterLGM();
 
         base._ExitTree();
     }

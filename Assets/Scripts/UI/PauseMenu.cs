@@ -3,7 +3,7 @@ using System;
 
 public partial class PauseMenu : Panel
 {
-    Button nextButton;
+    Button resumeButton;
     Button quitButton;
 
     private static PauseMenu instance;
@@ -18,15 +18,17 @@ public partial class PauseMenu : Panel
         {
             QueueFree();
         }
-        base._Ready();
-        nextButton = GetNode<Button>("Button1");
+
+        resumeButton = GetNode<Button>("Button1");
         quitButton = GetNode<Button>("Button2");
 
-        nextButton.Pressed += NextButtonPressed;
+        resumeButton.Pressed += ResumeButtonPressed;
         quitButton.Pressed += QuitButtonPressed;
+        
+        base._Ready();
     }
 
-    void NextButtonPressed()
+    void ResumeButtonPressed()
     {
         GlobalGameManager.GetInstance().gamePaused = false;
         Engine.TimeScale = 1;
@@ -34,8 +36,11 @@ public partial class PauseMenu : Panel
 
     void QuitButtonPressed()
     {
-        CanvasEffects.GetInstance().FadeOut(Colors.Black);
-        CanvasEffects.GetInstance().OnFadeOut += MainMenu;
+        resumeButton.Disabled = quitButton.Disabled = false;
+        CanvasEffects canvas = CanvasEffects.GetInstance();
+        GlobalGameManager.GetInstance().canPause = false;
+        canvas.FadeOut(Colors.Black);
+        canvas.OnFadeOut += MainMenu;
     }
 
     public static PauseMenu GetInstance()
@@ -45,8 +50,9 @@ public partial class PauseMenu : Panel
 
     public void MainMenu()
     {
-        GlobalGameManager.GetInstance().LoadLevel(0);
+        GlobalGameManager ggm = GlobalGameManager.GetInstance();
+        ggm.LoadLevel(0);
         CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
-        GlobalGameManager.GetInstance().gamePaused = false;
+        ggm.gamePaused = false;
     }
 }
