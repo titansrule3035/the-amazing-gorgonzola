@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://bb35lxiir0anc"
+path="res://.godot/imported/lixe_dialogue_1.ink-7dd259b90be680024cbf6347ffaeb914.res"
+
+[deps]
+
+source_file="res://assets/Dialogue/Lixe/lixe_dialogue_1.ink"
+dest_files=["res://.godot/imported/lixe_dialogue_1.ink-7dd259b90be680024cbf6347ffaeb914.res"]
+
+[params]
+
+is_main_file=false
+compress=true
