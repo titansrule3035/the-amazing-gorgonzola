@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://7oy4amvytdht"
+path="res://.godot/imported/lowercase_c.png-dc8c7749a82f510024febb70522aeb8e.image"
+
+[deps]
+
+source_file="res://assets/Sprites/UI/Font/lowercase_c.png"
+dest_files=["res://.godot/imported/lowercase_c.png-dc8c7749a82f510024febb70522aeb8e.image"]
+
+[params]
+

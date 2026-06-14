@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://coxibx8kestug"
+path="res://.godot/imported/punctuation_quotation_open.png-5e7ba07f6ae1e79e62bfeb0349840fc8.image"
+
+[deps]
+
+source_file="res://assets/Sprites/UI/Font/punctuation_quotation_open.png"
+dest_files=["res://.godot/imported/punctuation_quotation_open.png-5e7ba07f6ae1e79e62bfeb0349840fc8.image"]
+
+[params]
+

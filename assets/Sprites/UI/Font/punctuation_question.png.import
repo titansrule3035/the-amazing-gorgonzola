@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://beej3ep1di3gd"
+path="res://.godot/imported/punctuation_question.png-b2c524220b82a5bdc4fac790129228df.image"
+
+[deps]
+
+source_file="res://assets/Sprites/UI/Font/punctuation_question.png"
+dest_files=["res://.godot/imported/punctuation_question.png-b2c524220b82a5bdc4fac790129228df.image"]
+
+[params]
+

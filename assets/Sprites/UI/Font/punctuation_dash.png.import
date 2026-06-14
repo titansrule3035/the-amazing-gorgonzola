@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://b6sanl88chj81"
+path="res://.godot/imported/punctuation_dash.png-9bd68dc3d2fb77677191d96919a91db1.image"
+
+[deps]
+
+source_file="res://assets/Sprites/UI/Font/punctuation_dash.png"
+dest_files=["res://.godot/imported/punctuation_dash.png-9bd68dc3d2fb77677191d96919a91db1.image"]
+
+[params]
+
