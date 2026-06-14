@@ -9,11 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
 [ext_resource type="PackedScene" uid="uid://dvf1hvt32xcao" path="res://assets/Scenes/UI/fade_panel.tscn" id="4_xomjc"]
 [ext_resource type="PackedScene" uid="uid://cp20547sq05x2" path="res://assets/Levels/3.tscn" id="5_0ub6i"]
+[ext_resource type="Script" uid="uid://bjs036688coai" path="res://assets/Scripts/Level Assets/DialogueTrigger.cs" id="10_cbung"]
 
 [node name="main" type="Node2D" unique_id=371858062]
 
-[node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836]
+[node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel")]
 script = ExtResource("1_ci4bg")
+dialoguePanel = NodePath("../dialogue_panel")
+textLabel = NodePath("../dialogue_panel/label")
 
 [node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
 process_mode = 3
@@ -39,3 +42,22 @@ offset_bottom = -172.0
 visible = false
 position = Vector2(0, 32)
 scale = Vector2(1.5, 1.5)
+
+[node name="dialogue_panel" type="Panel" parent="." unique_id=1685860740]
+visible = false
+z_index = 5
+offset_left = -384.0
+offset_top = -464.0
+offset_right = 384.0
+offset_bottom = -172.0
+
+[node name="label" type="Label" parent="dialogue_panel" unique_id=644852165]
+layout_mode = 0
+offset_left = 80.0
+offset_right = 688.0
+offset_bottom = 292.0
+theme_override_font_sizes/font_size = 31
+
+[node name="test_dialogue_trigger" type="Node2D" parent="." unique_id=642710080]
+script = ExtResource("10_cbung")
+inkJsonPath = "res://assets/Dialogue/Test/DummyDialogue.json"
