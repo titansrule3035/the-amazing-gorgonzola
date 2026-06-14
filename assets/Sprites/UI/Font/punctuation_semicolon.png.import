@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://debp1a4rb3qr3"
+path="res://.godot/imported/punctuation_semicolon.png-6e78665c2b71d59cec53f99b4b5d8248.image"
+
+[deps]
+
+source_file="res://assets/Sprites/UI/Font/punctuation_semicolon.png"
+dest_files=["res://.godot/imported/punctuation_semicolon.png-6e78665c2b71d59cec53f99b4b5d8248.image"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://cthuq7hwrjujm"
+path="res://.godot/imported/punctuation_comma.png-80906c5be761805082fe6230a5195afa.image"
+
+[deps]
+
+source_file="res://assets/Sprites/UI/Font/punctuation_comma.png"
+dest_files=["res://.godot/imported/punctuation_comma.png-80906c5be761805082fe6230a5195afa.image"]
+
+[params]
+
