@@ -5,6 +5,7 @@ I heard you can multiply by either "pressing ENTER, or X". I personally wouldn't
 
 
 Did you know there are secret levels in The Amazing Gorgonzola? Yeah, you missed 'em all. You suck!
+// [2-5] is the criteria to get this message
 You missed [2-5] secret levels. Oops!
 Hey, you missed a secret level. Bet you feel pretty silly.
 Woah, you found all the secret levels on your first try! Good job!
@@ -24,6 +25,7 @@ I don't have anything to say right now to be honest.
 You smell! At least that's what I would assume. I don't have a nose.
 Aw man, I think I may have left the oven on.
 Just wanted to say hi!
+// should only have a chance to play after line 25
 I take it back, you don't smell! Still no nose, though, so I can't prove anything.
 So let me get this straight. You are a magician named Gorgonzola, which is a type of cheese, and you are here trying to save your magic pet bunny named Pasghetti which is a common mispronunciation of "spaghetti"? Did you name your bunny after a food because you're also named after a food? Are you stupid and don't know how to say "spaghetti" correctly? He talks, doesn't he? Did he name himself instead? Did he name himself Pasghetti because he's a dumb animal that will never be smarter than a fifth grader? Why did your parents name you that? Did they even love you? Have you ever tried rabbit? I heard it tastes okay.
 SPHINX OF BLACK QUARTZ JUDGE MY VOW
@@ -32,13 +34,16 @@ What, was that weird? Okay. I'll just shut up then! You think you're so â€œcoolâ
 That's not enough to win you over? (Shucks...) :broken_heart:
 Well, I'll just leave you alone now. :sparkles:
 One last thing before I go, though. Here's my favorite word:
-
 Fuddy-duddy
 Noun
 A person who is old-fashioned and fussy.
+// can only play on the moon
 Since the moon's apparently made of cheese, wouldn't this be like a family reunion of sorts?
+// also moon only
 Maybe the real The Amazing Gorgonzola was the friends we made along the way.
+// moon
 Oh yeah, you can press space to jump. Did I already tell you that? Oops. I guess I forgot. Well, either way, I think we need some space. Get it?
+// world 5 and beyond
 Your taking too long!
 My nose itches. Wait--I don't have a nose. Something itches.
 Erm, what the Amazing?
