@@ -37,12 +37,19 @@ public partial class Gorgonzola : BasePlayerController
 
     public override void _Process(double delta)
     {
+        if (doorMoveTriggered)
+        {
+            doorMoveTriggered = false;
+            MoveToDoor();
+        }
         base._Process(delta);
     }
 
-    public void MoveToDoor()
+    public async void MoveToDoor()
     {
-        Vector2 endPos = new Vector2(Door.GetInstance().GetColliderPos().X, GlobalPosition.Y);
+        await ToSignal(GetTree().CreateTimer(3.0f), SceneTreeTimer.SignalName.Timeout);
+
+        Vector2 endPos = new Vector2(Door.GetInstance().GlobalPosition.X, GlobalPosition.Y);
 
         float moveTime = .4f;
 
@@ -101,5 +108,4 @@ public partial class Gorgonzola : BasePlayerController
             spawn.GorgSpawned -= OnSpawnPointFound;
         }
     }
-    public void ShowVictoryMenu(bool condition) => GlobalGameManager.GetInstance().ShowVictoryMenu(condition);
 }

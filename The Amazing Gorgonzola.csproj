@@ -4,4 +4,5 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>TheAmazingGorgonzola</RootNamespace>
   </PropertyGroup>
+  <Import Project="addons\GodotInk\GodotInk.props" />
 </Project>

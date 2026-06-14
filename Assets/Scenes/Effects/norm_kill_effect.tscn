@@ -1,64 +1,109 @@
-[gd_scene load_steps=14 format=3 uid="uid://ddvu3cojc55cx"]
+[gd_scene format=3 uid="uid://ddvu3cojc55cx"]
 
-[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://Assets/Scripts/Effects/Effect.cs" id="1_ehsxq"]
-[ext_resource type="Texture2D" uid="uid://c4hvuqofnymp6" path="res://Assets/Sprites/Effects/norm_clone_kill.png" id="2_evmch"]
+[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_ehsxq"]
+[ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_lk3o4"]
+[ext_resource type="Texture2D" uid="uid://ceqk7ysle2ds7" path="res://assets/Sprites/Effects/Pallettes/norm_kill_effect_pallette.png" id="3_3rjt1"]
+[ext_resource type="Texture2D" uid="uid://bb1uv8r8xi150" path="res://assets/Sprites/Effects/default_clone_kill.png" id="4_lk3o4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvpaw"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="Shader" id="Shader_tki4n"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette_texture; // 1D texture: original colors
+uniform sampler2D swap_texture;    // 1D texture: replacement colors
+uniform int palette_size = 8;
+uniform float threshold = 0.01;
+
+void fragment() {
+  vec4 pixel = texture(TEXTURE, UV);
+  COLOR = pixel;
+  for (int i = 0; i < palette_size; i++) {
+    vec2 uv = vec2((float(i) + 0.5) / float(palette_size), 0.5);
+    vec4 orig = texture(palette_texture, uv);
+    if (length(pixel.rgb - orig.rgb) < threshold) {
+      COLOR = vec4(texture(swap_texture, uv).rgb, pixel.a);
+      break;
+    }
+  }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fnv43"]
+shader = SubResource("Shader_tki4n")
+shader_parameter/palette_texture = ExtResource("2_lk3o4")
+shader_parameter/swap_texture = ExtResource("3_3rjt1")
+shader_parameter/palette_size = 1
+shader_parameter/threshold = 0.01
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rjt1"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(0, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n1cyw"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnv43"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(100, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gtni1"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="AtlasTexture" id="AtlasTexture_s06o7"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(200, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3f4i"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1nn1"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(300, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4lym"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8vtg"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(400, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3sivm"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7q50"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(500, 0, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uh0df"]
-atlas = ExtResource("2_evmch")
+[sub_resource type="AtlasTexture" id="AtlasTexture_hr31v"]
+atlas = ExtResource("4_lk3o4")
 region = Rect2(600, 0, 100, 100)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_shvlf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dvpaw")
+"texture": SubResource("AtlasTexture_3rjt1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n1cyw")
+"texture": SubResource("AtlasTexture_fnv43")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gtni1")
+"texture": SubResource("AtlasTexture_s06o7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y3f4i")
+"texture": SubResource("AtlasTexture_u1nn1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l4lym")
+"texture": SubResource("AtlasTexture_r8vtg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3sivm")
+"texture": SubResource("AtlasTexture_h7q50")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uh0df")
+"texture": SubResource("AtlasTexture_hr31v")
 }],
 "loop": false,
 "name": &"default",
 "speed": 10.0
 }]
+
+[sub_resource type="Animation" id="Animation_lk3r2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_x3sha"]
 resource_name = "default"
@@ -88,38 +133,22 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_lk3r2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4wq4l"]
 _data = {
 &"RESET": SubResource("Animation_lk3r2"),
 &"default": SubResource("Animation_x3sha")
 }
 
-[node name="norm_kill_effect" type="Node2D"]
+[node name="norm_kill_effect2" type="Node2D" unique_id=959619661]
 script = ExtResource("1_ehsxq")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1221015124]
 z_index = 10
+material = SubResource("ShaderMaterial_fnv43")
 position = Vector2(0, -50)
 sprite_frames = SubResource("SpriteFrames_shvlf")
 frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4wq4l")
-}
-autoplay = "default"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2092109933]
+libraries/ = SubResource("AnimationLibrary_4wq4l")
+autoplay = &"default"

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://rhb6mualyteu"]
 
+[ext_resource type="Script" uid="uid://dgdnlxcqx3jd7" path="res://assets/Scripts/Persistent/DialogueManager.cs" id="1_ci4bg"]
 [ext_resource type="Script" uid="uid://dp0d1epso522" path="res://assets/Scripts/Persistent/GlobalGameManager.cs" id="1_dwccm"]
 [ext_resource type="PackedScene" uid="uid://drdv1jot5wed7" path="res://assets/Levels/0.tscn" id="2_naort"]
 [ext_resource type="PackedScene" uid="uid://qiaoiwvifwhi" path="res://assets/Scenes/UI/level_cleared_menu.tscn" id="2_w34p4"]
@@ -10,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://cp20547sq05x2" path="res://assets/Levels/3.tscn" id="5_0ub6i"]
 
 [node name="main" type="Node2D" unique_id=371858062]
+
+[node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836]
+script = ExtResource("1_ci4bg")
 
 [node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
 process_mode = 3

@@ -6,6 +6,8 @@ public partial class LevelClearedMenu : Panel
     Button nextButton;
     Button quitButton;
 
+    private bool lastVisible;
+
     private static LevelClearedMenu instance;
 
     public override void _Ready()
@@ -18,12 +20,33 @@ public partial class LevelClearedMenu : Panel
         {
             QueueFree();
         }
-            base._Ready();
         nextButton = GetNode<Button>("Button1");
         quitButton = GetNode<Button>("Button2");
 
         nextButton.Pressed += NextButtonPressed;
         quitButton.Pressed += QuitButtonPressed;
+        
+        base._Ready();
+    }
+
+
+    public override void _Process(double delta)
+    {
+        if (Visible != lastVisible)
+        {
+            var ggm = GlobalGameManager.GetInstance();
+
+            if (Visible)
+            {
+                ggm.AddPauseLock(this);
+            }
+            else
+            {
+                ggm.RemovePauseLock(this);
+            }
+
+            lastVisible = Visible;
+        }
     }
 
     void NextButtonPressed()
@@ -34,8 +57,11 @@ public partial class LevelClearedMenu : Panel
 
     void QuitButtonPressed()
     {
-        CanvasEffects.GetInstance().FadeOut(Colors.Black);
-        CanvasEffects.GetInstance().OnFadeOut += MainMenu;
+        nextButton.Disabled = quitButton.Disabled = false;
+        CanvasEffects canvas = CanvasEffects.GetInstance();
+        GlobalGameManager.GetInstance().canPause = false;
+        canvas.FadeOut(Colors.Black);
+        canvas.OnFadeOut += MainMenu;
     }
 
     public void MainMenu()

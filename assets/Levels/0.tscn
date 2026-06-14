@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://drdv1jot5wed7"]
 
-[ext_resource type="Script" uid="uid://bv60s3bvbr1i" path="res://assets/Scripts/UI/MainMenu.cs" id="1_wdlxv"]
+[ext_resource type="Script" uid="uid://bv60s3bvbr1i" path="res://assets/Scripts/Levels/MainMenu.cs" id="1_wdlxv"]
 [ext_resource type="Texture2D" uid="uid://dneetot10hqqd" path="res://assets/Sprites/UI/Title Screen/titlescreen_bg.png" id="2_b1o7a"]
 [ext_resource type="Texture2D" uid="uid://eolw5m46olpt" path="res://assets/Sprites/UI/Title Screen/TAGlogo.png" id="3_b1o7a"]
-[ext_resource type="Texture2D" uid="uid://gmgcr2mut4eh" path="res://assets/Sprites/UI/Title Screen/Lab/titlescreen_lab_2.png" id="3_nft5b"]
-[ext_resource type="Texture2D" uid="uid://ckyii0pbrwlci" path="res://assets/Sprites/UI/Title Screen/Lab/titlescreen_lab_1.png" id="5_3otin"]
+[ext_resource type="Texture2D" uid="uid://cmpf3paxgq0dk" path="res://assets/Sprites/UI/Title Screen/Lab/monolith_0.png" id="3_nft5b"]
+[ext_resource type="Texture2D" uid="uid://b1yow57hrwafr" path="res://assets/Sprites/UI/Title Screen/Lab/monolith_1.png" id="5_3otin"]
 [ext_resource type="Texture2D" uid="uid://qqmp6l766is8" path="res://assets/Sprites/UI/Title Screen/Buttons/play.png" id="5_j3iwk"]
-[ext_resource type="Texture2D" uid="uid://efbyib8mq1yu" path="res://assets/Sprites/UI/Title Screen/Lab/titlescreen_lab_3.png" id="6_kbh3w"]
+[ext_resource type="Texture2D" uid="uid://2hycohwvi0x7" path="res://assets/Sprites/UI/Title Screen/Lab/monolith_2.png" id="6_kbh3w"]
 [ext_resource type="Texture2D" uid="uid://d16ovi81popy5" path="res://assets/Sprites/UI/Title Screen/Buttons/play_pressed.png" id="6_my4w0"]
 [ext_resource type="Texture2D" uid="uid://bn1on4kmdrqvr" path="res://assets/Sprites/UI/Title Screen/Buttons/play_hover.png" id="7_6gh7j"]
 [ext_resource type="Texture2D" uid="uid://feyk6fdcfnwe" path="res://assets/Sprites/UI/Title Screen/Buttons/play_disabled.png" id="8_23tc7"]
@@ -46,10 +46,10 @@ tracks/0/path = NodePath("Control/TextureRect3:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.19999999),
+"times": PackedFloat32Array(0, 0.1, 0.19999999),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [ExtResource("5_3otin"), ExtResource("3_nft5b"), ExtResource("6_kbh3w")]
+"values": [ExtResource("3_nft5b"), ExtResource("5_3otin"), ExtResource("6_kbh3w")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_at7ji"]
@@ -62,11 +62,13 @@ _data = {
 
 [node name="Control" type="Control" parent="." unique_id=604902363]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("1_wdlxv")
 
 [node name="TextureRect" type="TextureRect" parent="Control" unique_id=1653349488]

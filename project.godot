@@ -30,6 +30,10 @@ window/hdr_2d=true
 
 project/assembly_name="The Amazing Gorgonzola"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GodotInk/plugin.cfg")
+
 [input]
 
 move_left={
@@ -78,4 +82,3 @@ up={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-viewport/hdr_2d=true

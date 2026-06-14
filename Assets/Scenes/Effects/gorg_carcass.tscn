@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxhnti2lcb1qg"]
+[gd_scene format=3 uid="uid://cxhnti2lcb1qg"]
 
-[ext_resource type="Script" uid="uid://5kkolkcl288e" path="res://Assets/Scripts/Effects/GorgCarcass.cs" id="1_5upmx"]
-[ext_resource type="Texture2D" uid="uid://dq67g8gw3eoi5" path="res://Assets/Sprites/Clones/Player/gorg_hat.png" id="2_vm5pn"]
-[ext_resource type="Texture2D" uid="uid://bu3b33fts3v4i" path="res://Assets/Sprites/Clones/Player/gorg_torso.png" id="3_vfvi2"]
-[ext_resource type="Texture2D" uid="uid://b34x4sm6hy1uk" path="res://Assets/Sprites/Clones/Player/gorg_head.png" id="4_g2t1o"]
-[ext_resource type="Texture2D" uid="uid://dse3iclhdaob4" path="res://Assets/Sprites/Clones/Player/gorg_leg_l.png" id="5_qofew"]
-[ext_resource type="Texture2D" uid="uid://bl0gnj24k5a3l" path="res://Assets/Sprites/Clones/Player/gorg_leg_r.png" id="6_pdo80"]
+[ext_resource type="Script" uid="uid://5kkolkcl288e" path="res://assets/Scripts/Effects/GorgCarcass.cs" id="1_5upmx"]
+[ext_resource type="Texture2D" uid="uid://dq67g8gw3eoi5" path="res://assets/Sprites/Clones/Gorgonzola/gorg_hat.png" id="2_vm5pn"]
+[ext_resource type="Texture2D" uid="uid://bu3b33fts3v4i" path="res://assets/Sprites/Clones/Gorgonzola/gorg_torso.png" id="3_vfvi2"]
+[ext_resource type="Texture2D" uid="uid://b34x4sm6hy1uk" path="res://assets/Sprites/Clones/Gorgonzola/gorg_head.png" id="4_g2t1o"]
+[ext_resource type="Texture2D" uid="uid://dse3iclhdaob4" path="res://assets/Sprites/Clones/Gorgonzola/gorg_leg_l.png" id="5_qofew"]
+[ext_resource type="Texture2D" uid="uid://bl0gnj24k5a3l" path="res://assets/Sprites/Clones/Gorgonzola/gorg_leg_r.png" id="6_pdo80"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sl1cg"]
 radius = 7.195
@@ -24,63 +24,73 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_i6ug7"]
 radius = 10.0499
 
-[node name="gorg_carcass" type="Node2D"]
+[node name="gorg_carcass" type="Node2D" unique_id=793742236]
 script = ExtResource("1_5upmx")
 
-[node name="gorg_hat" type="RigidBody2D" parent="."]
+[node name="gorg_hat" type="RigidBody2D" parent="." unique_id=296375000]
 position = Vector2(0, -69)
 collision_layer = 0
 collision_mask = 3
 
-[node name="sprite" type="Sprite2D" parent="gorg_hat"]
+[node name="sprite" type="Sprite2D" parent="gorg_hat" unique_id=1082569193]
+z_index = 1
 texture = ExtResource("2_vm5pn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_hat"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_hat" unique_id=1687600058]
 position = Vector2(-4, -2)
 shape = SubResource("CapsuleShape2D_sl1cg")
+debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
 
-[node name="gorg_torso" type="RigidBody2D" parent="."]
+[node name="gorg_torso" type="RigidBody2D" parent="." unique_id=1863137341]
 position = Vector2(9, -22)
 collision_layer = 0
 collision_mask = 3
 
-[node name="sprite" type="Sprite2D" parent="gorg_torso"]
+[node name="sprite" type="Sprite2D" parent="gorg_torso" unique_id=1785851830]
+z_index = 1
 texture = ExtResource("3_vfvi2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_torso"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_torso" unique_id=957755893]
 position = Vector2(0, 1.485)
 shape = SubResource("CircleShape2D_lonr7")
+debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
 
-[node name="gorg_head" type="RigidBody2D" parent="."]
+[node name="gorg_head" type="RigidBody2D" parent="." unique_id=2126265482]
 position = Vector2(7, -42)
 collision_layer = 0
 collision_mask = 3
 
-[node name="sprite" type="Sprite2D" parent="gorg_head"]
+[node name="sprite" type="Sprite2D" parent="gorg_head" unique_id=672153812]
+z_index = 1
 texture = ExtResource("4_g2t1o")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_head"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_head" unique_id=1565248067]
 shape = SubResource("CapsuleShape2D_uw0wt")
+debug_color = Color(0.22510132, 0.63874537, 0, 0.41960785)
 
-[node name="gorg_leg_l" type="RigidBody2D" parent="."]
+[node name="gorg_leg_l" type="RigidBody2D" parent="." unique_id=1456452294]
 position = Vector2(4, -6)
 collision_layer = 0
 collision_mask = 3
 
-[node name="sprite" type="Sprite2D" parent="gorg_leg_l"]
+[node name="sprite" type="Sprite2D" parent="gorg_leg_l" unique_id=609685456]
+z_index = 1
 texture = ExtResource("5_qofew")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_leg_l"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_leg_l" unique_id=226788567]
 shape = SubResource("CircleShape2D_s8pno")
+debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
 
-[node name="gorg_leg_r" type="RigidBody2D" parent="."]
+[node name="gorg_leg_r" type="RigidBody2D" parent="." unique_id=2007831498]
 position = Vector2(25, -16)
 collision_layer = 0
 collision_mask = 3
 
-[node name="sprite" type="Sprite2D" parent="gorg_leg_r"]
+[node name="sprite" type="Sprite2D" parent="gorg_leg_r" unique_id=1240538129]
+z_index = 1
 texture = ExtResource("6_pdo80")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_leg_r"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gorg_leg_r" unique_id=1679423455]
 position = Vector2(-5, 0)
 shape = SubResource("CircleShape2D_i6ug7")
+debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
