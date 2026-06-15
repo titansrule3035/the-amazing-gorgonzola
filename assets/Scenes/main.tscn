@@ -66,18 +66,18 @@ _data = {
 
 [node name="main" type="Node2D" unique_id=371858062]
 
+[node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
+process_mode = 3
+script = ExtResource("1_dwccm")
+levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_0ub6i")])
+mouseIcons = Array[Texture2D]([ExtResource("10_jquie"), ExtResource("9_2a1od"), ExtResource("7_oylag"), ExtResource("8_5dr3y")])
+
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
 z_index = 5
 script = ExtResource("1_ci4bg")
 dialoguePanel = NodePath("../dialogue_panel")
 textLabel = NodePath("../dialogue_panel/text")
 dialogueArrow = NodePath("../dialogue_panel/aspect_ratio_container/dialogue_arrow")
-
-[node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
-process_mode = 3
-script = ExtResource("1_dwccm")
-levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_0ub6i")])
-mouseIcons = Array[Texture2D]([ExtResource("7_oylag"), ExtResource("9_2a1od"), ExtResource("10_jquie"), ExtResource("8_5dr3y")])
 
 [node name="level_cleared_menu" parent="." unique_id=1866334340 instance=ExtResource("2_w34p4")]
 process_mode = 3
@@ -102,6 +102,7 @@ position = Vector2(0, 32)
 scale = Vector2(1.5, 1.5)
 
 [node name="dialogue_panel" type="NinePatchRect" parent="." unique_id=258622127]
+visible = false
 z_index = 264
 offset_left = -512.0
 offset_top = -800.0
@@ -153,4 +154,4 @@ autoplay = &"default"
 
 [node name="test_dialogue_trigger" type="Node2D" parent="." unique_id=642710080]
 script = ExtResource("10_cbung")
-inkJsonPath = "res://assets/Dialogue/Lixe/lixe_dialogue_18.json"
+inkJsonPath = "res://assets/Dialogue/Lixe/lixe_dialogue_19.json"
