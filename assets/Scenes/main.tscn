@@ -70,7 +70,7 @@ _data = {
 process_mode = 3
 script = ExtResource("1_dwccm")
 levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_0ub6i")])
-mouseIcons = Array[Texture2D]([ExtResource("10_jquie"), ExtResource("9_2a1od"), ExtResource("7_oylag"), ExtResource("8_5dr3y")])
+mouseIcons = Array[Texture2D]([ExtResource("7_oylag"), ExtResource("9_2a1od"), ExtResource("10_jquie"), ExtResource("8_5dr3y")])
 
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
 z_index = 5

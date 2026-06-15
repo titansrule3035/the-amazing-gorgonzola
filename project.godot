@@ -18,6 +18,7 @@ config/name="The Amazing Gorgonzola"
 run/main_scene="uid://rhb6mualyteu"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="uid://d3h6goqxjmujb"
+config/custom_image="uid://drpd6x2gcjpea"
 
 [display]
 
