@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d227yw68ef152" path="res://assets/Levels/1.tscn" id="3_ci4bg"]
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
 [ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
+[ext_resource type="PackedScene" uid="uid://dvf1hvt32xcao" path="res://assets/Scenes/UI/fade_panel.tscn" id="4_xomjc"]
 [ext_resource type="PackedScene" uid="uid://cp20547sq05x2" path="res://assets/Levels/3.tscn" id="5_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://drpd6x2gcjpea" path="res://assets/Sprites/UI/tagcursor0.png" id="7_oylag"]
 [ext_resource type="Texture2D" uid="uid://c8rrr4rk5kxmk" path="res://assets/Sprites/UI/tagcursor1.png" id="8_5dr3y"]
@@ -94,6 +95,11 @@ offset_left = -206.0
 offset_top = -464.0
 offset_right = 194.0
 offset_bottom = -176.0
+
+[node name="fade_panel" parent="." unique_id=1773837399 instance=ExtResource("4_xomjc")]
+visible = false
+position = Vector2(0, 32)
+scale = Vector2(1.5, 1.5)
 
 [node name="dialogue_panel" type="NinePatchRect" parent="." unique_id=258622127]
 visible = false
