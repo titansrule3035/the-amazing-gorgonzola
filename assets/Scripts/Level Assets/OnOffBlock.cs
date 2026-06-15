@@ -11,7 +11,7 @@ public partial class OnOffBlock : Node2D
     private AnimatedSprite2D sprite;
     private CollisionShape2D body;
 
-    #region Godot lifecycle
+    // Lifecycle
     public override void _Ready()
     {
         // Cache nodes for quicker access
@@ -34,9 +34,8 @@ public partial class OnOffBlock : Node2D
 
         base._ExitTree();
     }
-    #endregion
 
-    #region State handling
+    // State handling
     // Called when the global on/off state changes
     void OnStateChanged(bool on)
     {
@@ -108,5 +107,4 @@ public partial class OnOffBlock : Node2D
         }
         UpdateBody(state);
     }
-    #endregion
 }

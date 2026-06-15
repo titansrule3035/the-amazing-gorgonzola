@@ -6,26 +6,20 @@ public partial class CanvasEffects : Node2D
     // Singleton instance
     private static CanvasEffects instance;
 
-    #region Events
     // Events raised on fade operations
     public event Action? OnFadeOut;
     public event Action<bool>? OnFadeIn;
     public event Action? OnLevelCompleteFadeOut;
-    #endregion
 
-    #region Exported Settings
     // Default timings for fade in/out (editable in the inspector)
     [Export] public float fadeinTime = 0.5f;
     [Export] public float fadeoutTime = 1.5f;
-    #endregion
 
-    #region Node References
     // Cached node references
     private ColorRect colorRect;
     private Tween tween;
-    #endregion
 
-    #region Lifecycle
+    // Lifecycle
     public override void _Ready()
     {
         Show();
@@ -45,9 +39,8 @@ public partial class CanvasEffects : Node2D
 
         colorRect.Visible = false;
     }
-    #endregion
 
-    #region Public API
+    // Public API
     // Public method to fade in with explicit duration
     public void FadeIn(float duration)
     {
@@ -76,9 +69,8 @@ public partial class CanvasEffects : Node2D
     {
         return instance;
     }
-    #endregion
 
-    #region Internal helpers
+    // Internal helpers
     // Starts the fade out tween and invokes the appropriate events when finished.
     private void StartFadingOut(float duration, Color fadeToColor)
     {
@@ -114,5 +106,4 @@ public partial class CanvasEffects : Node2D
             colorRect.Visible = false;
         };
     }
-    #endregion
 }

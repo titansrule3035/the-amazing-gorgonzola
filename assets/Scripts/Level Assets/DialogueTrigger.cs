@@ -3,16 +3,15 @@ using System.Threading.Tasks;
 
 public partial class DialogueTrigger : Node2D
 {
-    #region Editor Exports
+    // Editor exports
     // Audio clip played when this trigger starts a dialogue.
     [Export] public AudioStream speechClip;
     // Path to the Ink JSON file used by the DialogueManager.
     [Export(PropertyHint.File, "*.json")] public string inkJsonPath;
     // Optional transitions to other DialogueTrigger nodes in the scene.
     [Export] public DialogueTrigger[] transitions = System.Array.Empty<DialogueTrigger>();
-    #endregion
 
-    #region Runtime
+    // Runtime
     // Name of this trigger, set during _Ready().
     public string triggerName { get; private set; }
     // True if at least one valid transition is assigned.
@@ -20,7 +19,6 @@ public partial class DialogueTrigger : Node2D
 
     // Simple lock to prevent re-entrancy when triggering dialogues.
     private bool lockBool;
-    #endregion
     
     public override void _Ready()
     {

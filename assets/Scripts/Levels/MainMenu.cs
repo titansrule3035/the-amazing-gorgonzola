@@ -5,12 +5,9 @@ using System.Linq;
 public partial class MainMenu : Control
 {
     // Node references used by the main menu
-    #region Nodes
     public TextureButton[] buttons;
-    #endregion
 
-    // Lifecycle methods
-    #region Lifecycle
+    // Lifecycle 
     public override void _Ready()
     {
         // Cache button nodes and hook up their events
@@ -40,10 +37,8 @@ public partial class MainMenu : Control
         GlobalGameManager.GetInstance().canPause = true;
         base._ExitTree();
     }
-    #endregion
 
     // Button handlers
-    #region Button Handlers
     void PlayButtonPressed()
     {
         // Prevent further interaction while transitioning
@@ -64,10 +59,8 @@ public partial class MainMenu : Control
     {
         GetTree().Quit();
     }
-    #endregion
 
     // Fade callbacks
-    #region Fade Callbacks
     void OnFadeOut()
     {
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
@@ -91,5 +84,4 @@ public partial class MainMenu : Control
         GlobalGameManager.GetInstance().gamePaused = false;
         CanvasEffects.GetInstance().OnFadeIn -= OnFadeIn;
     }
-    #endregion
 }
