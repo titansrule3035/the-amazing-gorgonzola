@@ -13,10 +13,6 @@
 * Make temporary level select UI
 * Work on options menu
 * Add the "spotlight" thing when you beat a level
-* Add cursor functionality
-* Add text support with the custom font
-* Get designer to write Lixe's dialogue
-* Add Lixe's dialogue
 * Add Lixe's entrance animation
 
 ---
