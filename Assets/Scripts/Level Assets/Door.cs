@@ -82,7 +82,7 @@ public partial class Door : Node2D
             UpdateIndicator();
         }
 
-        if (opened && inRange && Input.IsActionJustPressed("interact"))
+        if (opened && inRange && Input.IsActionJustPressed("interact") && grounded)
         {
             GlobalGameManager.GetInstance().levelCompleted = true;
             UpdateIndicator();
