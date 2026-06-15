@@ -5,6 +5,7 @@ public partial class r2 : LocalGameManager
 {
     public override void _Ready()
     {
+        // Trigger the title transition after level start
         MoveToTitle();
 
         base._Ready();

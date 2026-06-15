@@ -3,12 +3,19 @@ using System;
 
 public partial class Key : Node2D
 {
+    // Node references
     AnimatedSprite2D animatedSprite2D;
     Area2D area;
+
+    // UI element shown in the HUD when collected
     TextureRect uiElement;
+
+    // Exported editor properties
     [Export] public float uiElementSize;
     [Export] public Vector2 uiElementPos;
     [Export] public bool displayInUI = true;
+
+    // Singleton instance for easy access
     private static Key instance;
 
     public override void _Ready()

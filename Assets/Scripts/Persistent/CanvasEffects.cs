@@ -3,24 +3,29 @@ using System;
 
 public partial class CanvasEffects : Node2D
 {
+    // Singleton instance
     private static CanvasEffects instance;
 
-    // Events for fade out (screen covered) and fade in (screen cleared)
+    #region Events
+    // Events raised on fade operations
     public event Action? OnFadeOut;
     public event Action<bool>? OnFadeIn;
     public event Action? OnLevelCompleteFadeOut;
+    #endregion
 
-    // === FADE TIMING (IN SECONDS) ===
+    #region Exported Settings
+    // Default timings for fade in/out (editable in the inspector)
     [Export] public float fadeinTime = 0.5f;
     [Export] public float fadeoutTime = 1.5f;
+    #endregion
 
-    // Optional: you can keep this if you want a unified event after each fade completes
-    // public event Action<bool>? OnFadeCompleted;
-
-    // == NODE RESOURCES ===
+    #region Node References
+    // Cached node references
     private ColorRect colorRect;
     private Tween tween;
+    #endregion
 
+    #region Lifecycle
     public override void _Ready()
     {
         Show();
@@ -35,28 +40,33 @@ public partial class CanvasEffects : Node2D
         instance = this;
         colorRect = GetNode<ColorRect>("CanvasLayer/ColorRect");
 
-        // Start fully clear (transparent)
         Color rectColor = colorRect.Color;
         colorRect.Color = new Color(rectColor.R, rectColor.G, rectColor.B, 0);
 
-        colorRect.Visible = false; // hide until needed
+        colorRect.Visible = false;
     }
+    #endregion
 
+    #region Public API
+    // Public method to fade in with explicit duration
     public void FadeIn(float duration)
     {
         StartFadingIn(duration);
     }
 
+    // Public method to fade in using the exported default duration
     public void FadeIn()
     {
         StartFadingIn(fadeinTime);
     }
 
+    // Public method to fade out with explicit duration and color
     public void FadeOut(float duration, Color fadeToColor)
     {
         StartFadingOut(duration, fadeToColor);
     }
 
+    // Public method to fade out using the exported default duration
     public void FadeOut(Color fadeToColor)
     {
         StartFadingOut(fadeoutTime, fadeToColor);
@@ -66,14 +76,17 @@ public partial class CanvasEffects : Node2D
     {
         return instance;
     }
+    #endregion
 
+    #region Internal helpers
+    // Starts the fade out tween and invokes the appropriate events when finished.
     private void StartFadingOut(float duration, Color fadeToColor)
     {
-        colorRect.Visible = true; // ensure it's visible for the fade
-        // Start transparent
+        colorRect.Visible = true;
+
         colorRect.Color = new Color(fadeToColor.R, fadeToColor.G, fadeToColor.B, 0);
 
-        tween?.Kill(); // cancel previous tweens if any
+        tween?.Kill();
         tween = CreateTween();
         tween.TweenProperty(colorRect, "color", fadeToColor, duration);
         tween.Finished += () =>
@@ -85,20 +98,21 @@ public partial class CanvasEffects : Node2D
             }
         };
     }
+
+    // Starts the fade in tween and invokes the appropriate events when finished.
     private void StartFadingIn(float duration)
     {
-        colorRect.Visible = true; // ensure it's visible for the fade
-        // Fade from opaque to transparent
+        colorRect.Visible = true;
         Color endResult = new Color(colorRect.Color.R, colorRect.Color.G, colorRect.Color.B, 0);
 
-        tween?.Kill(); // cancel previous tweens if any
+        tween?.Kill();
         tween = CreateTween();
         tween.TweenProperty(colorRect, "color", endResult, duration);
         tween.Finished += () =>
         {
             OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
-            colorRect.Visible = false; // hide after fade in completes
-            // Optionally: OnFadeCompleted?.Invoke(levelPassed);
+            colorRect.Visible = false;
         };
     }
+    #endregion
 }

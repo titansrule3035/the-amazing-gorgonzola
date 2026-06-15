@@ -4,43 +4,42 @@ using System.Threading.Tasks;
 
 public abstract partial class BasePlayerController : CharacterBody2D
 {
-    // === MOVEMENT TUNING ===
+    // Exported tunables
     [Export] public float AscendMultiplier = 1.5f;
     [Export] public float MoveSpeed = 250f;
     [Export] public float JumpVelocity = 350f;
     [Export] public float FallMultiplier = 2.25f;
     [Export] public float MaxFallSpeed = 800f;
+    [Export] public float offset;
+    [Export] public bool shouldFlip;
+    [Export] public bool isFalling;
+    [Export] public bool hasKey = false;
+    [Export] public float JumpBufferTime = 0.15f;
 
-    // === EFFECTS ===
-    [Export] private PackedScene _jumpEffectScene;
-    [Export] private PackedScene _landEffectScene;
+    // Scenes / resources
+    [Export] private PackedScene jumpEffectScene;
+    [Export] private PackedScene landEffectScene;
 
-    // === NODES ===
+    // Node references
     public AnimatedSprite2D sprite;
+    private AnimatedSprite2D indicator;
     protected AnimationPlayer animationPlayer;
     protected AnimationTree animationTree;
 
-    // === ANIMATION PARAMS ===
-    private readonly string[] _animationParams = { "idle", "isMoving", "isFalling", "jump", "kill", "levelCompleted", "enter_door" };
+    // Animation settings
+    private readonly string[] animationParams = { "idle", "isMoving", "isFalling", "jump", "kill", "levelCompleted", "enter_door" };
 
-    // === INDICATOR OBJECTS
-    [Export] public float offset;
-    private AnimatedSprite2D indicator;
+    // Internal state
+    private bool isLanded = false;
+    private float jumpBufferTimer = 0f;
 
-    // === STATE ===
-    [Export] public bool shouldFlip;
-    private bool _isLanded = false;
-    [Export] public bool isFalling;
-    [Export] public bool hasKey = false;
-
-    // === JUMP BUFFERING ===
-    [Export] public float JumpBufferTime = 0.15f;
-    private float _jumpBufferTimer = 0f;
-
-    // === SIGNAL BUS ===
+    // Events
     public static event Action MainPlayerKilled;
 
-
+    /// <summary>
+    /// Called when the node is added to the scene. Initializes node references, wires signals,
+    /// and sets up animation and event subscriptions.
+    /// </summary>
     public override void _Ready()
     {
         ZIndex = 10;
@@ -65,6 +64,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
         animationTree.Active = true;
     }
 
+    /// <summary>
+    /// Waits until the LocalGameManager instance is available and then wires the Flush event.
+    /// This runs asynchronously so the node can finish initializing without blocking.
+    /// </summary>
     private async Task WireSignalsAsync()
     {
         while (LocalGameManager.GetInstance() == null && IsInsideTree())
@@ -80,9 +83,12 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
     }
 
+    /// <summary>
+    /// Physics update loop. Handles input, movement, gravity application, and animation updates.
+    /// </summary>
+    /// <param name="delta">Frame time in seconds.</param>
     public override void _PhysicsProcess(double delta)
     {
-        isFalling = Velocity.Y >= 0f;
         float dt = (float)delta;
         Vector2 velocity = Velocity;
 
@@ -108,55 +114,62 @@ public abstract partial class BasePlayerController : CharacterBody2D
         indicator.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - offset);
     }
 
-    // === Jump Logic ===
+    /// <summary>
+    /// Processes jump input including buffering and spawns the jump effect when a jump occurs.
+    /// </summary>
+    /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
+    /// <param name="dt">Delta time in seconds.</param>
     private void HandleJump(ref Vector2 velocity, float dt)
     {
-        // --- JUMP BUFFER ---
         if (Input.IsActionJustPressed("jump") && GlobalGameManager.GetInstance().canMove)
         {
-            _jumpBufferTimer = JumpBufferTime;
+            jumpBufferTimer = JumpBufferTime;
         }
         else
         {
-            _jumpBufferTimer -= dt;
+            jumpBufferTimer -= dt;
         }
 
-        // --- START JUMP ---
-        if (_jumpBufferTimer > 0f && IsOnFloor())
+        if (jumpBufferTimer > 0f && IsOnFloor())
         {
-            _jumpBufferTimer = 0f;
+            jumpBufferTimer = 0f;
 
             velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
 
-            SpawnEffect(_jumpEffectScene, GlobalPosition);
+            SpawnEffect(jumpEffectScene, GlobalPosition);
         }
     }
 
+    /// <summary>
+    /// Applies gravity to the character taking into account ascent and fall multipliers
+    /// and clamps the fall speed to MaxFallSpeed. Plays landing effect when touching the floor.
+    /// </summary>
+    /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
+    /// <param name="dt">Delta time in seconds.</param>
     private void ApplyGravity(ref Vector2 velocity, float dt)
     {
         if (IsOnFloor())
         {
-            if (!_isLanded)
+            if (!isLanded)
             {
-                SpawnEffect(_landEffectScene, GlobalPosition);
-                _isLanded = true;
+                SpawnEffect(landEffectScene, GlobalPosition);
+                isLanded = true;
             }
             return;
         }
 
-        _isLanded = false;
+        isLanded = false;
 
         float gravity = Math.Abs(GetGravity().Y);
 
-        // --- NORMAL ASCENT ---
-        if (velocity.Y < 0f) // This condition now handles all upward movement
+        if (velocity.Y < 0f)
         {
             velocity.Y += gravity * AscendMultiplier * dt;
         }
-        // --- FALLING ---
         else if (velocity.Y > 0f)
         {
             velocity.Y += gravity * FallMultiplier * dt;
+            isFalling = true;
         }
         else
         {
@@ -169,7 +182,11 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
     }
 
-    // === Horizontal Movement ===
+    /// <summary>
+    /// Handles horizontal movement input and flipping the sprite if necessary.
+    /// </summary>
+    /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
+    /// <param name="direction">Normalized horizontal input direction (-1..1).</param>
     private void HandleHorizontalMovement(ref Vector2 velocity, float direction)
     {
         if (!GlobalGameManager.GetInstance().levelCompleted && GlobalGameManager.GetInstance().canMove)
@@ -194,7 +211,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
     }
 
-    // === Animation ===
+    /// <summary>
+    /// Updates the animation state machine based on movement and game state.
+    /// </summary>
+    /// <param name="velocity">Current character velocity.</param>
     private void UpdateAnimation(Vector2 velocity)
     {
         if (animationTree == null)
@@ -241,6 +261,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
     }
 
+    /// <summary>
+    /// Activates the named animation parameter while deactivating others.
+    /// </summary>
+    /// <param name="activeParam">The animation parameter to set active.</param>
     protected void PlayAnimation(string activeParam)
     {
         if (animationTree == null)
@@ -248,13 +272,17 @@ public abstract partial class BasePlayerController : CharacterBody2D
             return;
         }
 
-        foreach (string param in _animationParams)
+        foreach (string param in animationParams)
         {
             animationTree.Set($"parameters/conditions/{param}", param == activeParam);
         }
     }
 
-    // === Effects ===
+    /// <summary>
+    /// Instantiates a particle/visual effect scene at the given world position and adds it to the tree.
+    /// </summary>
+    /// <param name="scene">PackedScene for the effect.</param>
+    /// <param name="position">Global position to place the effect.</param>
     protected void SpawnEffect(PackedScene scene, Vector2 position)
     {
         if (scene == null) return;
@@ -272,21 +300,41 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
     }
 
-    // === Utility & Cleanup ===
+    /// <summary>
+    /// Called when an animation on the AnimationPlayer finishes. Handles transitions for
+    /// enter door and level completed animations.
+    /// </summary>
+    /// <param name="animName">Name of the finished animation.</param>
     private void OnAnimationFinished(StringName animName)
     {
         if (animName == "enter_door")
         {
-            GlobalGameManager.GetInstance().ShowVictoryMenu(true);
-            Visible = false;
+            if (GlobalGameManager.GetInstance().levelCompleted)
+            {
+                GlobalGameManager.GetInstance().ShowVictoryMenu(true);
+                Visible = false;
+            }
+            GlobalGameManager.GetInstance().canMove = false;
         }
         else if (animName == "levelCompleted")
         {
             Visible = false;
         }
     }
+    /// <summary>
+    /// Implement in derived classes to provide a horizontal movement input value (-1..1).
+    /// </summary>
+    /// <returns>Horizontal input direction.</returns>
     protected abstract float GetMovementInput();
+    /// <summary>
+    /// Determines whether the sprite should be flipped based on movement direction.
+    /// </summary>
+    /// <param name="direction">Horizontal direction value.</param>
+    /// <returns>True if sprite should be flipped horizontally.</returns>
     public virtual bool ShouldFlipSprite(float direction) => direction < 0f;
+    /// <summary>
+    /// Handles logic when this player/controller is killed. Releases keys and updates UI.
+    /// </summary>
     public virtual void Kill()
     {
         if (hasKey)
@@ -297,17 +345,32 @@ public abstract partial class BasePlayerController : CharacterBody2D
         }
     }
 
+    /// <summary>
+    /// Called on game flush/reset. Resets transient state and queues the node for freeing.
+    /// </summary>
     protected virtual void Flush()
     {
-        _isLanded = false;
-        _jumpBufferTimer = 0f;
+        isLanded = false;
+        jumpBufferTimer = 0f;
         QueueFree();
     }
 
+    /// <summary>
+    /// Local handler that responds to the static MainPlayerKilled event by calling Kill().
+    /// </summary>
     private void OnMainPlayerKilled() => Kill();
+    /// <summary>
+    /// Broadcasts the static MainPlayerKilled event to notify all listeners.
+    /// </summary>
     public static void BroadcastMainPlayerKilled() => MainPlayerKilled?.Invoke();
+    /// <summary>
+    /// Convenience helper to broadcast that all clones should be killed.
+    /// </summary>
     public static void KillAllClones() => BroadcastMainPlayerKilled();
 
+    /// <summary>
+    /// Cleans up event subscriptions when the node exits the scene tree.
+    /// </summary>
     public override void _ExitTree()
     {
         var gm = LocalGameManager.GetInstance();
@@ -329,11 +392,19 @@ public abstract partial class BasePlayerController : CharacterBody2D
         base._ExitTree();
     }
 
+    /// <summary>
+    /// Shows or hides the indicator AnimatedSprite2D.
+    /// </summary>
+    /// <param name="visible">Whether the indicator should be visible.</param>
     public void SetIndicatorVisibility(bool visible)
     {
         indicator.Visible = visible;
     }
 
+    /// <summary>
+    /// Plays the given animation on the indicator sprite.
+    /// </summary>
+    /// <param name="param">Animation name to play on the indicator.</param>
     public void ChangeIndicator(string param)
     {
         indicator.Play(param);

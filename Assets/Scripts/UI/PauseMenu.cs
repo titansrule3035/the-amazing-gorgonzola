@@ -3,11 +3,16 @@ using System;
 
 public partial class PauseMenu : Panel
 {
+    // UI nodes
     Button resumeButton;
     Button quitButton;
 
+    // Singleton
     private static PauseMenu instance;
 
+    /// <summary>
+    /// Initialize the pause menu and wire button callbacks.
+    /// </summary>
     public override void _Ready()
     {
         if (instance == null)
@@ -24,7 +29,7 @@ public partial class PauseMenu : Panel
 
         resumeButton.Pressed += ResumeButtonPressed;
         quitButton.Pressed += QuitButtonPressed;
-        
+
         base._Ready();
     }
 

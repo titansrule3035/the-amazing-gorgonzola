@@ -7,13 +7,10 @@ public abstract partial class LocalGameManager : Node2D
 
     [Export] public Vector2 levelOrigin;
 
-    // === EVENTS ===
     public event Action OnFlush;
 
-    // === RULES ===
     [Export] bool allowPausing = true;
 
-    // === FADE COLORS ===
     private Color dieColor = new Color(96f / 255f, 0f, 0f, 1f);
 
     private bool flush;
@@ -29,7 +26,6 @@ public abstract partial class LocalGameManager : Node2D
 
         instance = this;
 
-        // Connect signals instead of direct calls
         CanvasEffects.GetInstance().OnFadeIn += HandleFadeIn;
         CanvasEffects.GetInstance().OnFadeOut += HandleFadeOut;
         CanvasEffects.GetInstance().OnLevelCompleteFadeOut += HandleLevelCompleted;
@@ -50,7 +46,6 @@ public abstract partial class LocalGameManager : Node2D
         {
             OnFlush?.Invoke();
 
-            // Start fade out only once
             CanvasEffects.GetInstance().FadeOut(dieColor);
             flush = false;
         }
@@ -89,7 +84,6 @@ public abstract partial class LocalGameManager : Node2D
 
     private void HandleGorgSpawned(Gorgonzola gorg)
     {
-        // Subscribe Gorgonzola’s kill event
         gorg.OnKilled += HandleGorgKilled;
     }
 

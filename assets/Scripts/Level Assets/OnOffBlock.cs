@@ -4,22 +4,40 @@ using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 
 public partial class OnOffBlock : Node2D
 {
+    // Exported properties (tweakable in the editor)
     [Export] public bool green;
-    AnimatedSprite2D sprite;
-    CollisionShape2D body;
 
+    // Cached child node references
+    private AnimatedSprite2D sprite;
+    private CollisionShape2D body;
+
+    #region Godot lifecycle
     public override void _Ready()
     {
+        // Cache nodes for quicker access
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         body = GetNode<StaticBody2D>("StaticBody2D").GetNode<CollisionShape2D>("CollisionShape2D");
 
+        // Listen for global on/off state changes
         OnOffManager.OnStateChanged += OnStateChanged;
 
+        // Initialize visuals/collision based on current state
         CheckState();
 
         base._Ready();
     }
 
+    public override void _ExitTree()
+    {
+        // Unsubscribe to avoid dangling event handlers
+        OnOffManager.OnStateChanged -= OnStateChanged;
+
+        base._ExitTree();
+    }
+    #endregion
+
+    #region State handling
+    // Called when the global on/off state changes
     void OnStateChanged(bool on)
     {
         UpdateBody(on);
@@ -33,6 +51,7 @@ public partial class OnOffBlock : Node2D
         }
     }
 
+    // Enable or disable the collision shape according to color and global state
     private void UpdateBody(bool on)
     {
         if (on)
@@ -58,13 +77,8 @@ public partial class OnOffBlock : Node2D
             }
         }
     }
-    public override void _ExitTree()
-    {
-        OnOffManager.OnStateChanged -= OnStateChanged;
 
-        base._ExitTree();
-    }
-
+    // Set initial animation and collision to match current global state
     void CheckState()
     {
         bool state = OnOffManager.GetState();
@@ -94,4 +108,5 @@ public partial class OnOffBlock : Node2D
         }
         UpdateBody(state);
     }
+    #endregion
 }

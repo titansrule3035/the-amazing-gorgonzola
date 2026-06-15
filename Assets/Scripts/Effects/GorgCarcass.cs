@@ -3,30 +3,33 @@ using System;
 
 public partial class GorgCarcass : Node2D
 {
+    // Public config
     public bool flip;
 
+    // Node parts
     private RigidBody2D[] bodies = new RigidBody2D[5];
     private Sprite2D[] sprites = new Sprite2D[5];
-    private Random rand = new Random();
 
-    // General body part launch ranges
-    private Vector2 launchMin = new Vector2(-100, -250); 
-    private Vector2 launchMax = new Vector2(100, -100);
+    // Randomness / launch ranges
+    private Random rand = new();
 
-    // Hat launch values when not randomized
-    [Export] public Vector2 leftHatLaunch = new Vector2(-130, -120);
-    [Export] public Vector2 rightHatLaunch = new Vector2(130, -120);
+    private Vector2 launchMin = new(-100, -250); 
+    private Vector2 launchMax = new(100, -100);
 
+    [Export] public Vector2 leftHatLaunch = new(-130, -120);
+    [Export] public Vector2 rightHatLaunch = new(130, -120);
+
+    /// <summary>
+    /// Initializes body parts, applies flip adjustments and random launch velocities, and wires flush handlers.
+    /// </summary>
     public override async void _Ready()
     {
-        // Load body nodes
         bodies[0] = GetNode<RigidBody2D>("gorg_hat");
         bodies[1] = GetNode<RigidBody2D>("gorg_head");
         bodies[2] = GetNode<RigidBody2D>("gorg_torso");
         bodies[3] = GetNode<RigidBody2D>("gorg_leg_l");
         bodies[4] = GetNode<RigidBody2D>("gorg_leg_r");
 
-        // Set positions and flip sprites if necessary
         for (int i = 0; i < bodies.Length; i++)
         {
             sprites[i] = bodies[i].GetNode<Sprite2D>("sprite");
@@ -35,7 +38,6 @@ public partial class GorgCarcass : Node2D
             {
                 sprites[i].FlipH = true;
 
-                // Manually set positions when flipped
                 switch (bodies[i].Name)
                 {
                     case "gorg_hat":
@@ -57,28 +59,24 @@ public partial class GorgCarcass : Node2D
             }
         }
 
-        // Launch logic (randomized for all parts including hat)
         for (int i = 0; i < bodies.Length; i++)
         {
             Vector2 launchVelocity;
 
             if (bodies[i].Name == "gorg_hat")
             {
-                // Use hat-specific vector as center, with slight randomness
                 Vector2 baseHatLaunch = flip ? rightHatLaunch : leftHatLaunch;
-                float variationX = (float)(rand.NextDouble() * baseHatLaunch.X); // +/-10 range
+                float variationX = (float)(rand.NextDouble() * baseHatLaunch.X); 
                 float variationY = (float)(rand.NextDouble() *  baseHatLaunch.Y);
                 launchVelocity = baseHatLaunch + new Vector2(variationX, variationY);
             }
             else
             {
-                // Random velocity within defined min and max range
                 float randX = (float)(rand.NextDouble() * (launchMax.X - launchMin.X) + launchMin.X);
                 float randY = (float)(rand.NextDouble() * (launchMax.Y - launchMin.Y) + launchMin.Y);
                 launchVelocity = new Vector2(randX, randY);
             }
 
-            // Apply velocity to the body part
             bodies[i].LinearVelocity = launchVelocity;
         }
 
@@ -91,12 +89,19 @@ public partial class GorgCarcass : Node2D
         GlobalGameManager.GetInstance().OnFlush += Flush;
     }
 
+    /// <summary>
+    /// Flush handler to unhook events and free this node.
+    /// </summary>
     void Flush()
     {
         CanvasEffects.GetInstance().OnFadeOut -= Flush;
         GlobalGameManager.GetInstance().OnFlush -= Flush;
         QueueFree();
     }
+
+    /// <summary>
+    /// Overload that accepts a levelCompleted flag and delegates to Flush().
+    /// </summary>
     void Flush(bool levelCompleted)
     {
         Flush();

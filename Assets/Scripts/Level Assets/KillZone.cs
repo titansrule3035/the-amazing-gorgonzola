@@ -4,14 +4,15 @@ using System.Collections.Generic;
 
 public partial class KillZone : Node2D
 {
-    private Area2D _area;
-    private HashSet<Node> processedBodies = new HashSet<Node>();
+    // Node references
+    private Area2D area;
+    private HashSet<Node> processedBodies = new();
 
     public override void _Ready()
     {
-        _area = GetNode<Area2D>("Area2D");
-        _area.BodyEntered += OnBodyEntered;
-        _area.BodyExited += OnBodyExited;
+        area = GetNode<Area2D>("Area2D");
+        area.BodyEntered += OnBodyEntered;
+        area.BodyExited += OnBodyExited;
     }
 
     private void OnBodyEntered(Node body)

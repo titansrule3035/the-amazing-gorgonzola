@@ -7,7 +7,7 @@ public partial class GlobalGameManager : Node2D
     private static GlobalGameManager instance;
 
     [Export] public int activeLevelIndex = 0;
-    [Export] public Godot.Collections.Array<PackedScene> levelScenes = new(); // ← assign in Inspector
+    [Export] public Godot.Collections.Array<PackedScene> levelScenes = new();
 
     private Node2D activeLevel;
     public LocalGameManager localGM;
@@ -16,7 +16,6 @@ public partial class GlobalGameManager : Node2D
     private readonly HashSet<object> pauseLocks = new();
     public bool pauseLocked => pauseLocks.Count == 0;
 
-    // === EVENTS ===
     public event Action OnFirstFrame;
     public event Action OnLevelLoaded;
     public event Action OnFlush;
@@ -27,22 +26,16 @@ public partial class GlobalGameManager : Node2D
     public bool canPause = true;
     public bool canMove = true;
 
-    // === USER STATE ===
     public int completedWorlds = 0;
     public int deaths = 0;
     public int clonesKilled = 0;
     public List<string> collectibles = new();
 
-    // === CURSOR STATE ===
     [Export] public Texture2D[] mouseIcons;
     private int currentCursorFrame = 0;
     private bool isCursorAnimating = false;
     private double cursorTimer = 0.0;
-    [Export] public float FrameDuration = 0.06f; // Seconds per frame
-
-    // ------------------------------------------------------------
-    //  LIFECYCLE
-    // ------------------------------------------------------------
+    [Export] public float FrameDuration = 0.06f;
 
     public override async void _Ready()
     {
@@ -55,12 +48,13 @@ public partial class GlobalGameManager : Node2D
 
         instance = this;
 
-        // Copy exported array into internal list (preserves your index-ordered contract)
         levels.Clear();
         foreach (var scene in levelScenes)
         {
             if (scene != null)
+            {
                 levels.Add(scene);
+            }
         }
 
         if (levels.Count == 0)
@@ -72,7 +66,6 @@ public partial class GlobalGameManager : Node2D
         LoadLevel(0);
         await WaitForGameLoaded();
 
-        // gather saved data
         SaveData saveData = SaveManager.LoadGame();
 
         completedWorlds = saveData?.completedWorlds ?? 0;
@@ -114,7 +107,6 @@ public partial class GlobalGameManager : Node2D
                 cursorTimer -= FrameDuration;
                 currentCursorFrame++;
 
-                // Animation done — lock to frame 0
                 if (currentCursorFrame >= mouseIcons.Length)
                 {
                     currentCursorFrame = 0;
@@ -123,7 +115,6 @@ public partial class GlobalGameManager : Node2D
             }
         }
 
-        // Draw the current frame as the cursor
         if (mouseIcons.Length > 0 && mouseIcons[currentCursorFrame] != null)
         {
             Input.SetCustomMouseCursor(mouseIcons[currentCursorFrame]);
@@ -133,7 +124,6 @@ public partial class GlobalGameManager : Node2D
 
     public override void _Input(InputEvent @event)
     {
-        // Trigger animation on left click press
         if (@event is InputEventMouseButton mb &&
             mb.ButtonIndex == MouseButton.Left &&
             mb.Pressed &&
@@ -166,10 +156,6 @@ public partial class GlobalGameManager : Node2D
         gorgonzola = Gorgonzola.GetInstance();
         OnFirstFrame?.Invoke();
     }
-
-    // ------------------------------------------------------------
-    //  LEVEL LOADING
-    // ------------------------------------------------------------
 
     private void LoadOrderedLevelScenes(string directoryPath)
     {
@@ -245,8 +231,6 @@ public partial class GlobalGameManager : Node2D
 
         activeLevelIndex = levelIndex;
 
-        DialogueManager.GetInstance().HidePanel();
-
         InstantiateActiveLevel();
     }
 
@@ -279,7 +263,6 @@ public partial class GlobalGameManager : Node2D
             SaveManager.SaveGame(this);
         }
 
-        // Clear gameplay references safely
         gorgonzola = null;
 
         if (activeLevel != null && activeLevel.IsInsideTree())

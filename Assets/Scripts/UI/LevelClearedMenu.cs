@@ -3,11 +3,14 @@ using System;
 
 public partial class LevelClearedMenu : Panel
 {
+    // UI nodes
     Button nextButton;
     Button quitButton;
 
+    // State
     private bool lastVisible;
 
+    // Singleton
     private static LevelClearedMenu instance;
 
     public override void _Ready()
@@ -25,7 +28,7 @@ public partial class LevelClearedMenu : Panel
 
         nextButton.Pressed += NextButtonPressed;
         quitButton.Pressed += QuitButtonPressed;
-        
+
         base._Ready();
     }
 
