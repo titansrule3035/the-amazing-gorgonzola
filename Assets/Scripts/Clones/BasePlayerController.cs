@@ -112,7 +112,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private void HandleJump(ref Vector2 velocity, float dt)
     {
         // --- JUMP BUFFER ---
-        if (Input.IsActionJustPressed("jump"))
+        if (Input.IsActionJustPressed("jump") && GlobalGameManager.GetInstance().canMove)
         {
             _jumpBufferTimer = JumpBufferTime;
         }

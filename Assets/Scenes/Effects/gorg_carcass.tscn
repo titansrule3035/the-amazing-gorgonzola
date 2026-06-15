@@ -25,6 +25,7 @@ radius = 7.0
 radius = 10.0499
 
 [node name="gorg_carcass" type="Node2D" unique_id=793742236]
+z_index = 5
 script = ExtResource("1_5upmx")
 
 [node name="gorg_hat" type="RigidBody2D" parent="." unique_id=296375000]

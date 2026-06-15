@@ -33,6 +33,13 @@ public partial class GlobalGameManager : Node2D
     public int clonesKilled = 0;
     public List<string> collectibles = new();
 
+    // === CURSOR STATE ===
+    [Export] public Texture2D[] mouseIcons;
+    private int currentCursorFrame = 0;
+    private bool isCursorAnimating = false;
+    private double cursorTimer = 0.0;
+    [Export] public float FrameDuration = 0.06f; // Seconds per frame
+
     // ------------------------------------------------------------
     //  LIFECYCLE
     // ------------------------------------------------------------
@@ -72,6 +79,7 @@ public partial class GlobalGameManager : Node2D
         deaths = saveData?.deaths ?? 0;
         clonesKilled = saveData?.clonesKilled ?? 0;
         collectibles = saveData?.collectibles ?? new();
+
     }
 
     public override void _Process(double delta)
@@ -92,8 +100,49 @@ public partial class GlobalGameManager : Node2D
                 gamePaused = GetTree().Paused = !gamePaused;
             }
         }
+        Input.SetDefaultCursorShape(Input.CursorShape.PointingHand);
+
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
         base._Process(delta);
+
+        if (isCursorAnimating)
+        {
+            cursorTimer += delta;
+
+            if (cursorTimer >= FrameDuration)
+            {
+                cursorTimer -= FrameDuration;
+                currentCursorFrame++;
+
+                // Animation done — lock to frame 0
+                if (currentCursorFrame >= mouseIcons.Length)
+                {
+                    currentCursorFrame = 0;
+                    isCursorAnimating = false;
+                }
+            }
+        }
+
+        // Draw the current frame as the cursor
+        if (mouseIcons.Length > 0 && mouseIcons[currentCursorFrame] != null)
+        {
+            Input.SetCustomMouseCursor(mouseIcons[currentCursorFrame]);
+        }
+
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        // Trigger animation on left click press
+        if (@event is InputEventMouseButton mb &&
+            mb.ButtonIndex == MouseButton.Left &&
+            mb.Pressed &&
+            !isCursorAnimating)
+        {
+            isCursorAnimating = true;
+            currentCursorFrame = 0;
+            cursorTimer = 0.0;
+        }
     }
 
     public override void _ExitTree()
@@ -195,6 +244,8 @@ public partial class GlobalGameManager : Node2D
         DeloadLevel();
 
         activeLevelIndex = levelIndex;
+
+        DialogueManager.GetInstance().HidePanel();
 
         InstantiateActiveLevel();
     }

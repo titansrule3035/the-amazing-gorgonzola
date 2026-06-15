@@ -1354,7 +1354,7 @@ animations = [{
 }]
 
 [node name="gorgonzola" type="CharacterBody2D" unique_id=1190956393]
-z_index = 10
+z_index = 5
 material = SubResource("ShaderMaterial_h4t2g")
 collision_layer = 8192
 script = ExtResource("1_jve7h")

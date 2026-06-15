@@ -10,12 +10,14 @@ public partial class DialogueManager : Node
     // -------------------------------------------------------------------------
     [Export] public Control dialoguePanel;
     [Export] public Label textLabel;
+    [Export] public Control dialogueArrow;
     [Export] public AudioStreamPlayer speechBlip;
-    [Export] public float textSpeedDelay = 0.04f;
+    [Export] public float textSpeedDelay = 0.025f;
 
     // -------------------------------------------------------------------------
     // Public state
     // -------------------------------------------------------------------------
+    [Export] public int lineLimit = 31;
     public bool useTriggerPersistant { get; set; }
     public DialogueTrigger dialogueTrigger { get; set; }
 
@@ -29,6 +31,7 @@ public partial class DialogueManager : Node
     // -------------------------------------------------------------------------
     // Private state
     // -------------------------------------------------------------------------
+    private string displayText = "";
     private Story currentStory;
     private bool grabLine;
     private Label[] choicesLabels;
@@ -50,8 +53,7 @@ public partial class DialogueManager : Node
         }
         else
         {
-            GD.PrintErr("More than one instance of InkDialogueManager found! " +
-                        "Please ensure there is no other dialogue manager in the scene.");
+            GD.PrintErr("More than one instance of DialogueManager found! " + "Please ensure there is no other dialogue manager in the scene.");
         }
 
         grabLine = false;
@@ -65,9 +67,11 @@ public partial class DialogueManager : Node
     {
         if (!dialogueIsPlaying) return;
 
+        dialoguePanel.Size = new Vector2(dialoguePanel.Size.X, textLabel.Size.Y + 34);
+
         if (!grabLine)
         {
-            if (Input.IsActionJustPressed("interact"))
+            if (Input.IsActionJustPressed("mouse_click_left"))
             {
                 CheckSkipMode();
             }
@@ -85,7 +89,7 @@ public partial class DialogueManager : Node
         file.Close();
         currentStory = new Story(inkJsonContents);
         dialogueIsPlaying = true;
-        dialoguePanel.Visible = true;
+        ShowPanel();
         grabLine = true;
         speechBlip.Stream = audioClip;
         useTriggerPersistant = false;
@@ -104,7 +108,7 @@ public partial class DialogueManager : Node
         file.Close();
         currentStory = new Story(inkJsonContents);
         dialogueIsPlaying = true;
-        dialoguePanel.Visible = true;
+        ShowPanel();
         grabLine = true;
         useTriggerPersistant = false;
         currentDialogueMode = DialogueMode.Script;
@@ -122,7 +126,7 @@ public partial class DialogueManager : Node
         file.Close();
         currentStory = new Story(inkJsonContents);
         dialogueIsPlaying = true;
-        dialoguePanel.Visible = true;
+        ShowPanel();
         grabLine = true;
         speechBlip.Stream = audioClip;
         useTriggerPersistant = false;
@@ -157,8 +161,10 @@ public partial class DialogueManager : Node
     // -------------------------------------------------------------------------
     public void ContinueStory()
     {
+        dialogueArrow.Visible = false;
         if (currentStory.canContinue)
         {
+            displayText = WrapText(currentStory.Continue(), lineLimit);
             typingCancelled = true;   // cancel any running typing task
             grabLine = true;
             dialogueNo++;
@@ -196,7 +202,8 @@ public partial class DialogueManager : Node
 
         if (skipMode)
         {
-            textLabel.Text = currentStory.currentText;
+            dialogueArrow.Visible = true;
+            textLabel.Text = displayText;
             skipMode = false;
         }
         else
@@ -208,41 +215,76 @@ public partial class DialogueManager : Node
     // -------------------------------------------------------------------------
     // Typewriter effect (async, replaces Unity coroutine)
     // -------------------------------------------------------------------------
+    int typingGeneration = 0;
     private async Task TypeSentenceAsync()
     {
+        int myGeneration = ++typingGeneration;
         typingCancelled = false;
         skipMode = false;
         textLabel.Text = "";
 
-        string line = currentStory.Continue();
-
-        foreach (char letter in line)
+        for (int i = 0; i < displayText.Length; i++)
         {
-            if (typingCancelled)
-            {
+            if (myGeneration != typingGeneration || typingCancelled)
                 return;
-            }
-            textLabel.Text += letter;
-            grabLine = false;
 
-            /*if (textLabel.Text.Length % 2 == 0)
+            textLabel.Text += displayText[i];
+
+            if (displayText[i] == '!' || displayText[i] == '?' || displayText[i] == '.')
             {
-                if (speechBlip.Stream != null)
-                {
-                    speechBlip.Play();
-                }
-                skipMode = true;
-            }*/
-            if (typingCancelled)
+                await ToSignal(GetTree().CreateTimer(textSpeedDelay * 10), SceneTreeTimer.SignalName.Timeout);
+            } else if (displayText[i] == ',')
             {
-                return;
+                await ToSignal(GetTree().CreateTimer(textSpeedDelay * 5), SceneTreeTimer.SignalName.Timeout);
             }
+
+            grabLine = false;
             skipMode = true;
-            await ToSignal(GetTree().CreateTimer(textSpeedDelay), SceneTreeTimer.SignalName.Timeout);
+
+            await ToSignal(
+                GetTree().CreateTimer(textSpeedDelay),
+                SceneTreeTimer.SignalName.Timeout);
+
+            if (myGeneration != typingGeneration || typingCancelled)
+                return;
         }
 
+        dialogueArrow.Visible = true;
         skipMode = false;
     }
+
+    // -------------------------------------------------------------------------
+    // Wrap text
+    // -------------------------------------------------------------------------
+    private string WrapText(string text, int lineLimit)
+    {
+        string[] words = text.Split(' ');
+        string result = "";
+        int currentLineLength = 0;
+
+        foreach (string word in words)
+        {
+            // If the word won't fit on the current line, start a new one.
+            if (currentLineLength > 0 &&
+                currentLineLength + 1 + word.Length > lineLimit)
+            {
+                result += "\n";
+                currentLineLength = 0;
+            }
+            // Otherwise add a space if this isn't the start of a line.
+            else if (currentLineLength > 0)
+            {
+                result += " ";
+                currentLineLength++;
+            }
+
+            result += word;
+            currentLineLength += word.Length;
+        }
+
+        return result;
+    }
+
     public static DialogueManager GetInstance()
     {
         if (instance != null)
@@ -252,4 +294,15 @@ public partial class DialogueManager : Node
 
         return null;
     }
+
+    public void HidePanel()
+    {
+        dialoguePanel.Visible = false;
+    }
+
+    public void ShowPanel()
+    {
+        dialoguePanel.Visible = true;
+    }
+
 }
