@@ -148,6 +148,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <param name="dt">Delta time in seconds.</param>
     private void ApplyGravity(ref Vector2 velocity, float dt)
     {
+        isFalling = Velocity.Y >= 0f;
         if (IsOnFloor())
         {
             if (!isLanded)
@@ -169,7 +170,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
         else if (velocity.Y > 0f)
         {
             velocity.Y += gravity * FallMultiplier * dt;
-            isFalling = true;
         }
         else
         {

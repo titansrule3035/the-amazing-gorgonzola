@@ -34,8 +34,7 @@ public partial class CanvasEffects : Node2D
         instance = this;
         colorRect = GetNode<ColorRect>("CanvasLayer/ColorRect");
 
-        Color rectColor = colorRect.Color;
-        colorRect.Color = new Color(rectColor.R, rectColor.G, rectColor.B, 0);
+        colorRect.Color = new Color(255, 255, 255, 0);
 
         colorRect.Visible = false;
     }
