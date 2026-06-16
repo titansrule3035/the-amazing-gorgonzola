@@ -9,9 +9,9 @@
 
 ### [Developers:](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo)
 
+* Work on options menu
 * Finish up final title screen
 * Make temporary level select UI
-* Work on options menu
 * Add the "spotlight" thing when you beat a level
 * Add Lixe's entrance animation
 
