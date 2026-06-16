@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://eolw5m46olpt"
-path="res://.godot/imported/TAGlogo.png-c1ce9e618ae0516c13215b70f887168d.ctex"
+uid="uid://2hycohwvi0x7"
+path="res://.godot/imported/monolith_2.png-70a632d0ba168b8704250e462f39c74c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/TAGlogo.png"
-dest_files=["res://.godot/imported/TAGlogo.png-c1ce9e618ae0516c13215b70f887168d.ctex"]
+source_file="res://assets/Sprites/UI/Title Screen/Title/Lab/monolith_2.png"
+dest_files=["res://.godot/imported/monolith_2.png-70a632d0ba168b8704250e462f39c74c.ctex"]
 
 [params]
 

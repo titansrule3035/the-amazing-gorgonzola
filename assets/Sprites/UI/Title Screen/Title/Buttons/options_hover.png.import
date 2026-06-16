@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ot0pglcbufjv"
-path="res://.godot/imported/TAGlogo_piece_1.png-e77684804013c943fcfdc1d3e110e8e7.ctex"
+uid="uid://dkqfw46bl1ia3"
+path="res://.godot/imported/options_hover.png-eb80dd1b0e8bca2dc7818117d35abad2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/TAGlogo_piece_1.png"
-dest_files=["res://.godot/imported/TAGlogo_piece_1.png-e77684804013c943fcfdc1d3e110e8e7.ctex"]
+source_file="res://assets/Sprites/UI/Title Screen/Title/Buttons/options_hover.png"
+dest_files=["res://.godot/imported/options_hover.png-eb80dd1b0e8bca2dc7818117d35abad2.ctex"]
 
 [params]
 

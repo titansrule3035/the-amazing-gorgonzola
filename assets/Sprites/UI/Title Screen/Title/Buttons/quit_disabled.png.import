@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmpf3paxgq0dk"
-path="res://.godot/imported/monolith_0.png-ec980b378c2d6f59720a39ec1446916c.ctex"
+uid="uid://cy2jrwaupujme"
+path="res://.godot/imported/quit_disabled.png-21138e1ecf805e065f35f4332ecabc7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/Lab/monolith_0.png"
-dest_files=["res://.godot/imported/monolith_0.png-ec980b378c2d6f59720a39ec1446916c.ctex"]
+source_file="res://assets/Sprites/UI/Title Screen/Title/Buttons/quit_disabled.png"
+dest_files=["res://.godot/imported/quit_disabled.png-21138e1ecf805e065f35f4332ecabc7c.ctex"]
 
 [params]
 

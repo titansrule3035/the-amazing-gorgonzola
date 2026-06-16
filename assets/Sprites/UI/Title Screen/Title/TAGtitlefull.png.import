@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn1on4kmdrqvr"
-path="res://.godot/imported/play_hover.png-30a6f021d3d2f132d6f047b3c1ae797e.ctex"
+uid="uid://b0g3nln5u6mtl"
+path="res://.godot/imported/TAGtitlefull.png-814ce5b083449ac79bbfb3e1faa98a92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/Buttons/play_hover.png"
-dest_files=["res://.godot/imported/play_hover.png-30a6f021d3d2f132d6f047b3c1ae797e.ctex"]
+source_file="res://assets/Sprites/UI/Title Screen/Title/TAGtitlefull.png"
+dest_files=["res://.godot/imported/TAGtitlefull.png-814ce5b083449ac79bbfb3e1faa98a92.ctex"]
 
 [params]
 

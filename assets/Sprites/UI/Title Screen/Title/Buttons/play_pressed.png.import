@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0g3nln5u6mtl"
-path="res://.godot/imported/TAGtitlefull.png-ba31f9a41751f8fa527c7f537639cece.ctex"
+uid="uid://d16ovi81popy5"
+path="res://.godot/imported/play_pressed.png-146c4385aaf29f0b278bd26f2c987002.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/TAGtitlefull.png"
-dest_files=["res://.godot/imported/TAGtitlefull.png-ba31f9a41751f8fa527c7f537639cece.ctex"]
+source_file="res://assets/Sprites/UI/Title Screen/Title/Buttons/play_pressed.png"
+dest_files=["res://.godot/imported/play_pressed.png-146c4385aaf29f0b278bd26f2c987002.ctex"]
 
 [params]
 
