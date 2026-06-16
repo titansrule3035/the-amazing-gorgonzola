@@ -9,11 +9,20 @@
 
 ### [Developers:](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo)
 
-* Work on options menu
+* Add level menu
 * Finish up final title screen
-* Make temporary level select UI
+* - Add options menu
+* - Add clone frame "orbiting" animations to the main screen
+* - Get designers to create level select menu
+* - Make temporary level select UI
+* Edit dialogue manager
+* - Finish line drawing
+* - Add Lixe's animations
+* - Add Lixe's smearing
+* - Add Lixe's entrance animation
+* Add shadow clone
+* Cleanup key UI calling
 * Add the "spotlight" thing when you beat a level
-* Add Lixe's entrance animation
 
 ---
 © 2026 [JM3035](https://github.com/titansrule3035) & [Enchanted Shears](https://github.com/eshears) | Licensing can be found in LICENSE.md
