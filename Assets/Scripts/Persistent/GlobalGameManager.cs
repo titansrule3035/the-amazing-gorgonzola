@@ -31,12 +31,6 @@ public partial class GlobalGameManager : Node2D
     public int clonesKilled = 0;
     public List<string> collectibles = new();
 
-    [Export] public Texture2D[] mouseIcons;
-    private int currentCursorFrame = 0;
-    private bool isCursorAnimating = false;
-    private double cursorTimer = 0.0;
-    [Export] public float FrameDuration = 0.06f;
-
     public override async void _Ready()
     {
         if (instance != null)
@@ -93,46 +87,10 @@ public partial class GlobalGameManager : Node2D
                 gamePaused = GetTree().Paused = !gamePaused;
             }
         }
-        Input.SetDefaultCursorShape(Input.CursorShape.PointingHand);
 
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
         base._Process(delta);
 
-        if (isCursorAnimating)
-        {
-            cursorTimer += delta;
-
-            if (cursorTimer >= FrameDuration)
-            {
-                cursorTimer -= FrameDuration;
-                currentCursorFrame++;
-
-                if (currentCursorFrame >= mouseIcons.Length)
-                {
-                    currentCursorFrame = 0;
-                    isCursorAnimating = false;
-                }
-            }
-        }
-
-        if (mouseIcons.Length > 0 && mouseIcons[currentCursorFrame] != null)
-        {
-            Input.SetCustomMouseCursor(mouseIcons[currentCursorFrame]);
-        }
-
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mb &&
-            mb.ButtonIndex == MouseButton.Left &&
-            mb.Pressed &&
-            !isCursorAnimating)
-        {
-            isCursorAnimating = true;
-            currentCursorFrame = 0;
-            cursorTimer = 0.0;
-        }
     }
 
     public override void _ExitTree()
