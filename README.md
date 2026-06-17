@@ -1,5 +1,5 @@
 # THE AMAZING GORGONZOLA
-## To-Do List:
+## [To-Do List:](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo)
 
 ### Designers:
 * Design the level select UI
@@ -7,7 +7,7 @@
 * Design more levels!!!!!!!
 * Design Pause Menu and Level Cleared Menu
 
-### [Developers:](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo)
+### Developers
 
 * Add level menu
 * Finish up final title screen
