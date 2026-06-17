@@ -1894,9 +1894,6 @@ sprite_frames = SubResource("SpriteFrames_ybgmm")
 autoplay = "default"
 frame_progress = 0.0900363
 
-[node name="key_card" parent="." unique_id=2108054528 instance=ExtResource("5_nw3ek")]
-position = Vector2(480, -672)
-
 [node name="tiles" type="Node2D" parent="." unique_id=1276836820]
 
 [node name="Background" type="TileMapLayer" parent="tiles" unique_id=1453247180]
@@ -1918,9 +1915,6 @@ use_parent_material = true
 tile_set = SubResource("TileSet_tit20")
 
 [node name="level_assets" type="Node2D" parent="." unique_id=838366010]
-
-[node name="lab_door" parent="level_assets" unique_id=774187305 instance=ExtResource("12_mhfc5")]
-position = Vector2(-448, -256)
 
 [node name="kill_zones" type="Node2D" parent="level_assets" unique_id=868441466]
 position = Vector2(432, -352)
@@ -1983,3 +1977,11 @@ position = Vector2(-304, -464)
 
 [node name="red_on_off_block9" parent="level_assets/on_offs" unique_id=1408077688 instance=ExtResource("15_dl2o1")]
 position = Vector2(-304, -496)
+
+[node name="clear_conditions" type="Node2D" parent="level_assets" unique_id=1404819583]
+
+[node name="key_card" parent="level_assets/clear_conditions" unique_id=2108054528 instance=ExtResource("5_nw3ek")]
+position = Vector2(480, -672)
+
+[node name="lab_door" parent="level_assets/clear_conditions" unique_id=774187305 instance=ExtResource("12_mhfc5")]
+position = Vector2(-448, -256)

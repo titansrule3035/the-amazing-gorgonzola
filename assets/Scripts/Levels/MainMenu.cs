@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Text.Json;
 
 public partial class MainMenu : Control
 {
@@ -27,6 +28,20 @@ public partial class MainMenu : Control
         GlobalGameManager.GetInstance().canPause = false;
 
         base._Ready();
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsKeyPressed(Godot.Key.F5))
+        {
+            GlobalGameManager ggm = GlobalGameManager.GetInstance();
+            for (int i = 1; i < ggm.levelScenes.Count - 1; i++)
+            {
+                ggm.ExportLevel(ggm.levelScenes[i].Instantiate(), i.ToString());
+            }
+        }
+
+        base._Process(delta);
     }
 
     public override void _ExitTree()

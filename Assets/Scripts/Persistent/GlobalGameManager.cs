@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 public partial class GlobalGameManager : Node2D
 {
@@ -272,5 +273,77 @@ public partial class GlobalGameManager : Node2D
     public void RemovePauseLock(object owner)
     {
         pauseLocks.Remove(owner);
+    }
+
+    // Level importing and exporting for level editor
+    public void ExportLevel(Node levelRoot, string exportName)
+    {
+        LevelData data = new();
+
+        foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
+        {
+            if (tileMapLayer is not TileMapLayer layer)
+                continue;
+
+            LayerData layerData = new()
+            {
+                Name = layer.Name
+            };
+
+            foreach (Vector2I cell in layer.GetUsedCells())
+            {
+                Vector2I atlas = layer.GetCellAtlasCoords(cell);
+
+                layerData.Tiles.Add(new TileData
+                {
+                    X = cell.X,
+                    Y = cell.Y,
+                    SourceId = layer.GetCellSourceId(cell),
+                    AtlasX = atlas.X,
+                    AtlasY = atlas.Y,
+                    Alternative = layer.GetCellAlternativeTile(cell)
+                });
+            }
+
+            data.Layers.Add(layerData);
+        }
+
+        Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
+
+        foreach (Node2D kill_zones in assetsRoot.GetNode<Node2D>("kill_zones").GetChildren())
+        {
+            data.KillZones.Add(new ObjectData(kill_zones.Name, new Vector2(kill_zones.Position.X, kill_zones.Position.Y)));
+        }
+
+        foreach (Node2D clone in assetsRoot.GetNode<Node2D>("clones").GetChildren())
+        {
+            data.Clones.Add(new ObjectData(clone.Name, new Vector2(clone.Position.X, clone.Position.Y)));
+        }
+
+        foreach (Node2D on_off_asset in assetsRoot.GetNode<Node2D>("on_offs").GetChildren())
+        {
+            data.OnOffs.Add(new ObjectData(on_off_asset.Name, new Vector2(on_off_asset.Position.X, on_off_asset.Position.Y)));
+        }
+
+        foreach (Node2D level_essential in assetsRoot.GetNode<Node2D>("clear_conditions").GetChildren())
+        {
+            data.ClearConditions.Add(new ObjectData(level_essential.Name, new Vector2(level_essential.Position.X, level_essential.Position.Y)));
+        }
+
+
+        string json =
+            JsonSerializer.Serialize(
+                data,
+                new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                });
+
+        using FileAccess file =
+            FileAccess.Open(
+                $"user://{exportName}.json",
+                FileAccess.ModeFlags.Write);
+
+        file.StoreString(json);
     }
 }

@@ -46,8 +46,8 @@ public partial class SpawnGorg : Area2D
         {
             gorg = gorgonzolaScene.Instantiate<Gorgonzola>();
 
-            Node levelRoot = GetTree().CurrentScene;
-            levelRoot.CallDeferred("add_child", gorg);
+            Node2D root = GetTree().Root.GetNode<Node2D>("level/level_assets/clones");
+            root.CallDeferred("add_child", gorg);
         }
     }
 
