@@ -7,15 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://d227yw68ef152" path="res://assets/Levels/1.tscn" id="3_ci4bg"]
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
 [ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
-[ext_resource type="PackedScene" uid="uid://dvf1hvt32xcao" path="res://assets/Scenes/UI/fade_panel.tscn" id="4_xomjc"]
 [ext_resource type="PackedScene" uid="uid://cp20547sq05x2" path="res://assets/Levels/3.tscn" id="5_0ub6i"]
-[ext_resource type="Texture2D" uid="uid://drpd6x2gcjpea" path="res://assets/Sprites/UI/tagcursor0.png" id="7_oylag"]
-[ext_resource type="Texture2D" uid="uid://c8rrr4rk5kxmk" path="res://assets/Sprites/UI/tagcursor1.png" id="8_5dr3y"]
-[ext_resource type="Texture2D" uid="uid://bafpamydbfmlh" path="res://assets/Sprites/UI/tagcursor2.png" id="9_2a1od"]
 [ext_resource type="FontFile" uid="uid://c3ye6uwpt8qn1" path="res://assets/Sprites/UI/Dialogue/font_sheet.png" id="10_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
 [ext_resource type="Script" uid="uid://bjs036688coai" path="res://assets/Scripts/Level Assets/DialogueTrigger.cs" id="10_cbung"]
-[ext_resource type="Texture2D" uid="uid://bp4rk71nkrrtv" path="res://assets/Sprites/UI/tagcursor3.png" id="10_jquie"]
 [ext_resource type="Texture2D" uid="uid://mg6px6ioaj6t" path="res://assets/Sprites/UI/Dialogue/dialoguearrow2.png" id="12_p35w6"]
 [ext_resource type="Texture2D" uid="uid://b4rndu1wk7lbp" path="res://assets/Sprites/UI/Dialogue/dialoguearrow1.png" id="12_u0il3"]
 [ext_resource type="Texture2D" uid="uid://buno87hlsn0rl" path="res://assets/Sprites/UI/Dialogue/dialoguearrow3.png" id="14_jvcvf"]
@@ -24,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://c1yrq8rf8seue" path="res://assets/Sprites/UI/Dialogue/dialoguearrow6.png" id="17_oylag"]
 [ext_resource type="Texture2D" uid="uid://b7l5dm2gatkh0" path="res://assets/Sprites/UI/Dialogue/dialoguearrow7.png" id="18_5dr3y"]
 [ext_resource type="Texture2D" uid="uid://34vic87pj005" path="res://assets/Sprites/UI/Dialogue/dialoguearrow8.png" id="19_2a1od"]
+[ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="19_p35w6"]
 
 [sub_resource type="Animation" id="Animation_jquie"]
 length = 0.001
@@ -70,7 +66,6 @@ _data = {
 process_mode = 3
 script = ExtResource("1_dwccm")
 levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_0ub6i")])
-mouseIcons = Array[Texture2D]([ExtResource("7_oylag"), ExtResource("9_2a1od"), ExtResource("10_jquie"), ExtResource("8_5dr3y")])
 
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
 z_index = 5
@@ -95,11 +90,6 @@ offset_left = -206.0
 offset_top = -464.0
 offset_right = 194.0
 offset_bottom = -176.0
-
-[node name="fade_panel" parent="." unique_id=1773837399 instance=ExtResource("4_xomjc")]
-visible = false
-position = Vector2(0, 32)
-scale = Vector2(1.5, 1.5)
 
 [node name="dialogue_panel" type="NinePatchRect" parent="." unique_id=258622127]
 visible = false
@@ -151,6 +141,8 @@ texture = ExtResource("12_p35w6")
 root_node = NodePath("../dialogue_arrow")
 libraries/ = SubResource("AnimationLibrary_54tem")
 autoplay = &"default"
+
+[node name="canvas_effects" parent="." unique_id=1666193912 instance=ExtResource("19_p35w6")]
 
 [node name="test_dialogue_trigger" type="Node2D" parent="." unique_id=642710080]
 script = ExtResource("10_cbung")
