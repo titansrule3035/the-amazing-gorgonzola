@@ -122,7 +122,7 @@ public partial class InkStoryImporter : EditorImportPlugin
         }
     }
 
-    private const string CACHE_FILE = "user://ink_cache.json";
+    private const string CACHE_FILE = "user://ink/ink_cache.json";
 
     public static void UpdateCache(string sourceFile, List<string> dependencies)
     {
