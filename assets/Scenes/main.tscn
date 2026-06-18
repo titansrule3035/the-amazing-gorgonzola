@@ -7,12 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://d227yw68ef152" path="res://assets/Levels/1.tscn" id="3_ci4bg"]
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
 [ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
-[ext_resource type="PackedScene" uid="uid://cvvndmvjdck00" path="res://assets/Levels/3.tscn" id="5_0ub6i"]
-[ext_resource type="Script" uid="uid://cycx3x81sq1mp" path="res://assets/Scripts/Levels/r2.cs" id="6_jquie"]
-[ext_resource type="Texture2D" uid="uid://nu8f8ejfwu7o" path="res://assets/Sprites/World/test_tileset_nw.png" id="7_exsfb"]
+[ext_resource type="PackedScene" uid="uid://bfh6pikgv3ub3" path="res://assets/Levels/final.tscn" id="5_5dr3y"]
 [ext_resource type="Texture2D" uid="uid://drpd6x2gcjpea" path="res://assets/Sprites/UI/tagcursor0.png" id="7_oylag"]
 [ext_resource type="Texture2D" uid="uid://c8rrr4rk5kxmk" path="res://assets/Sprites/UI/tagcursor1.png" id="8_5dr3y"]
-[ext_resource type="Texture2D" uid="uid://m1fdhk5qf8fv" path="res://assets/Sprites/World/test_bg_2.png" id="8_54tem"]
 [ext_resource type="Texture2D" uid="uid://bafpamydbfmlh" path="res://assets/Sprites/UI/tagcursor2.png" id="9_2a1od"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="10_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
@@ -28,29 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://34vic87pj005" path="res://assets/Sprites/UI/Dialogue/dialoguearrow8.png" id="19_2a1od"]
 [ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="19_p35w6"]
 [ext_resource type="Script" uid="uid://cnt46eiglsgue" path="res://assets/Scripts/UI/Filter.cs" id="28_exsfb"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmwhe"]
-texture = ExtResource("7_exsfb")
-texture_region_size = Vector2i(32, 32)
-
-[sub_resource type="TileSet" id="TileSet_8se8v"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_xmwhe")
-
-[sub_resource type="PackedScene" id="PackedScene_mj8o6"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"id_paths": [PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
-"names": PackedStringArray("level", "Node2D", "script", "allowPausing", "TileMap", "TileMap", "tile_set", "format", "TestBg2", "Sprite2D", "position", "scale", "texture", "Camera2D", "Camera2D", "Label", "Label", "offset_left", "offset_top", "offset_right", "offset_bottom", "theme_override_colors/font_color", "theme_override_font_sizes/font_size", "text", "horizontal_alignment"),
-"node_count": 5,
-"node_ids": PackedInt32Array(565139785, 1945548673, 1221020426, 1221955001, 728221128),
-"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath(".")],
-"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0, 1073741824, 0, 5, 4, -1, 2, 6, 2, 7, 3, 0, 1073741825, 0, 9, 8, -1, 3, 10, 4, 11, 5, 12, 6, 0, 1073741826, 0, 14, 13, -1, 0, 0, 1073741827, 0, 16, 15, -1, 8, 17, 7, 18, 8, 19, 9, 20, 10, 21, 11, 22, 12, 23, 13, 24, 14, 0),
-"variants": [ExtResource("6_jquie"), false, SubResource("TileSet_8se8v"), 2, Vector2(3.8146973e-05, -3.8146973e-06), Vector2(1.5600001, 1.3), ExtResource("8_54tem"), -480.0, -432.0, 477.0, -331.0, Color(0, 0, 0, 1), 64, "thanks for playing!!!!!!!!!!!!!!!!", 1],
-"version": 3
-}
 
 [sub_resource type="Animation" id="Animation_jquie"]
 length = 0.001
@@ -96,7 +70,7 @@ _data = {
 [node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
 process_mode = 3
 script = ExtResource("1_dwccm")
-levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_0ub6i"), SubResource("PackedScene_mj8o6")])
+levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_5dr3y")])
 
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
 z_index = 5
