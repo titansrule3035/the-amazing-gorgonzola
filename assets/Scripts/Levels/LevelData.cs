@@ -6,15 +6,12 @@ using Godot.Collections;
 public class LevelData
 {
     public const int TileSize = 32;
-
     public List<LayerData> Layers { get; set; } = new();
-    public List<ObjectData> Objects { get; set; } = new();
-
     public List<ObjectData> Clones { get; set; } = new();
     public List<ObjectData> KillZones { get; set; } = new();
-
     public List<ObjectData> OnOffs {  get; set; } = new();
     public List<ObjectData> ClearConditions {  get; set; } = new();
+    public List<ObjectData> SemiSolidTiles { get; set; } = new();
 }
 
 public class LayerData

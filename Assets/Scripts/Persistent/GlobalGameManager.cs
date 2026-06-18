@@ -309,27 +309,51 @@ public partial class GlobalGameManager : Node2D
         }
 
         Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
+        Node2D kill_zones = assetsRoot.GetNodeOrNull<Node2D>("kill_zones");
+        Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
+        Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
+        Node2D clear_conditions = assetsRoot.GetNodeOrNull<Node2D>("clear_conditions");
+        Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
 
-        foreach (Node2D kill_zones in assetsRoot.GetNode<Node2D>("kill_zones").GetChildren())
+        if (kill_zones != null)
         {
-            data.KillZones.Add(new ObjectData(kill_zones.Name, new Vector2(kill_zones.Position.X, kill_zones.Position.Y)));
+            foreach (Node2D kill_zone in kill_zones.GetChildren())
+            {
+                data.KillZones.Add(new ObjectData(kill_zone.Name, new Vector2(kill_zone.Position.X, kill_zone.Position.Y)));
+            }
         }
 
-        foreach (Node2D clone in assetsRoot.GetNode<Node2D>("clones").GetChildren())
+        if (clones != null)
         {
-            data.Clones.Add(new ObjectData(clone.Name, new Vector2(clone.Position.X, clone.Position.Y)));
+            foreach (Node2D clone in clones.GetChildren())
+            {
+                data.Clones.Add(new ObjectData(clone.Name, new Vector2(clone.Position.X, clone.Position.Y)));
+            }
         }
 
-        foreach (Node2D on_off_asset in assetsRoot.GetNode<Node2D>("on_offs").GetChildren())
+        if (on_off_assets != null)
         {
-            data.OnOffs.Add(new ObjectData(on_off_asset.Name, new Vector2(on_off_asset.Position.X, on_off_asset.Position.Y)));
+            foreach (Node2D on_off_asset in on_off_assets.GetChildren())
+            {
+                data.OnOffs.Add(new ObjectData(on_off_asset.Name, new Vector2(on_off_asset.Position.X, on_off_asset.Position.Y)));
+            }
         }
 
-        foreach (Node2D level_essential in assetsRoot.GetNode<Node2D>("clear_conditions").GetChildren())
+        if (clear_conditions != null)
         {
-            data.ClearConditions.Add(new ObjectData(level_essential.Name, new Vector2(level_essential.Position.X, level_essential.Position.Y)));
+            foreach (Node2D level_essential in clear_conditions.GetChildren())
+            {
+                data.ClearConditions.Add(new ObjectData(level_essential.Name, new Vector2(level_essential.Position.X, level_essential.Position.Y)));
+            }
         }
 
+        if (semi_solid_tiles != null)
+        {
+            foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
+            {
+                data.SemiSolidTiles.Add(new ObjectData(semi_solid_tile.Name, new Vector2(semi_solid_tile.Position.X, semi_solid_tile.Position.Y)));
+            }
+        }
 
         string json =
             JsonSerializer.Serialize(
@@ -339,10 +363,7 @@ public partial class GlobalGameManager : Node2D
                     WriteIndented = true
                 });
 
-        using FileAccess file =
-            FileAccess.Open(
-                $"user://{exportName}.json",
-                FileAccess.ModeFlags.Write);
+        using FileAccess file = FileAccess.Open($"user://level_jsons/{exportName}.json", FileAccess.ModeFlags.Write);
 
         file.StoreString(json);
     }
