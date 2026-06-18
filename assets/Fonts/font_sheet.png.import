@@ -3,12 +3,12 @@
 importer="font_data_image"
 type="FontFile"
 uid="uid://sy8gc53buru6"
-path="res://.godot/imported/font_sheet_light.png-8887fe83cb1785ba805f2177694b2585.fontdata"
+path="res://.godot/imported/font_sheet.png-e55fd1d1b3bc98d7a9f1f1e510ca42ee.fontdata"
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Dialogue/font_sheet_light.png"
-dest_files=["res://.godot/imported/font_sheet_light.png-8887fe83cb1785ba805f2177694b2585.fontdata"]
+source_file="res://assets/Fonts/font_sheet.png"
+dest_files=["res://.godot/imported/font_sheet.png-e55fd1d1b3bc98d7a9f1f1e510ca42ee.fontdata"]
 
 [params]
 
