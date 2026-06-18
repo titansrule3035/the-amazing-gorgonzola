@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 public partial class OptionsMenu : Control
 {
@@ -27,6 +28,14 @@ public partial class OptionsMenu : Control
         foreach (Button button in GetNode<Control>("color_buttons").GetChildren())
         {
             colorButtons.Add(button);
+            button.Pressed += () =>
+            {
+                if (button.GetThemeStylebox("normal") is StyleBoxFlat flatStyleBox)
+                {
+                    Godot.Color buttonColor = flatStyleBox.BgColor;
+                    ColorButtonPressed(buttonColor);
+                }
+            };
         }
 
         backButton.Pressed += () => backButtonPressed?.Invoke();
@@ -35,7 +44,7 @@ public partial class OptionsMenu : Control
 
     public override void _Process(double delta)
     {
-        GlobalGameManager.GetInstance().UpdateBusVolume("Master", (float) volumeSlider.Value);
+        GlobalGameManager.GetInstance().UpdateBusVolume("Master", (float)volumeSlider.Value);
 
         base._Process(delta);
     }
@@ -58,5 +67,23 @@ public partial class OptionsMenu : Control
 
         backButton.Disabled = false;
         Visible = true;
+    }
+
+    void ColorButtonPressed(Godot.Color color)
+    {
+        Filter filter = Filter.GetInstance();
+
+        Godot.Color filterColor = new();
+
+        if (color.R == 1 && color.G == 1 && color.B == 1)
+        {
+            filterColor = new Godot.Color(0, 0, 0, 0);
+        }
+        else
+        {
+            filterColor = new(color.R * 255, color.G * 255, color.B * 255, .5f);
+        }
+        
+        filter.SetPanelColor(filterColor);
     }
 }

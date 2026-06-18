@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://b7l5dm2gatkh0" path="res://assets/Sprites/UI/Dialogue/dialoguearrow7.png" id="18_5dr3y"]
 [ext_resource type="Texture2D" uid="uid://34vic87pj005" path="res://assets/Sprites/UI/Dialogue/dialoguearrow8.png" id="19_2a1od"]
 [ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="19_p35w6"]
+[ext_resource type="Script" uid="uid://cnt46eiglsgue" path="res://assets/Scripts/UI/Filter.cs" id="28_exsfb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmwhe"]
 texture = ExtResource("7_exsfb")
@@ -178,3 +179,13 @@ mouseIcons = Array[Texture2D]([ExtResource("7_oylag"), ExtResource("8_5dr3y"), E
 [node name="test_dialogue_trigger" type="Node2D" parent="." unique_id=642710080]
 script = ExtResource("10_cbung")
 inkJsonPath = "res://assets/Dialogue/Lixe/lixe_dialogue_19.json"
+
+[node name="filter" type="ColorRect" parent="." unique_id=1526998638]
+z_index = 100
+offset_left = -5728.0
+offset_top = -5536.0
+offset_right = 8832.0
+offset_bottom = 5552.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("28_exsfb")
