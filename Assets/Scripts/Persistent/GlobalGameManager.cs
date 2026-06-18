@@ -346,4 +346,15 @@ public partial class GlobalGameManager : Node2D
 
         file.StoreString(json);
     }
+
+    // Game control
+    // Set audio volume
+    public void UpdateBusVolume(string busName, float linearVolume)
+    {
+        int busIndex = AudioServer.GetBusIndex(busName);
+
+        float dbVolume = Mathf.LinearToDb(linearVolume);
+
+        AudioServer.SetBusVolumeDb(busIndex, dbVolume);
+    }
 }

@@ -7,17 +7,18 @@ public partial class MainMenu : Control
 {
     // Node references used by the main menu
     public TextureButton[] buttons;
+    [Export] public OptionsMenu optionsMenu;
 
     // Lifecycle 
     public override void _Ready()
     {
         // Cache button nodes and hook up their events
         buttons = new TextureButton[3];
-        buttons[0] = GetNode<TextureButton>("CenterContainer/VBoxContainer/Play");
+        buttons[0] = GetNode<TextureButton>("center_container/v_box_container/play");
         buttons[0].Pressed += PlayButtonPressed;
-        buttons[1] = GetNode<TextureButton>("CenterContainer/VBoxContainer/Options");
+        buttons[1] = GetNode<TextureButton>("center_container/v_box_container/options");
         buttons[1].Pressed += OptionsButtonPressed;
-        buttons[2] = GetNode<TextureButton>("CenterContainer/VBoxContainer/Quit");
+        buttons[2] = GetNode<TextureButton>("center_container/v_box_container/quit");
         buttons[2].Pressed += QuitButtonPressed;
 
         // Subscribe to canvas fade events
@@ -26,6 +27,17 @@ public partial class MainMenu : Control
 
         // Disable pausing while in the main menu
         GlobalGameManager.GetInstance().canPause = false;
+
+
+        // Subscribe to options' back button
+        optionsMenu.backButtonPressed += () => 
+        {
+            ShowMenu();
+            optionsMenu.HideMenu();
+        };
+
+        optionsMenu.HideMenu();
+        ShowMenu();
 
         base._Ready();
     }
@@ -56,23 +68,40 @@ public partial class MainMenu : Control
     // Button handlers
     void PlayButtonPressed()
     {
-        // Prevent further interaction while transitioning
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            buttons[i].Disabled = true;
-        }
         Color col = new Color(0, 0, 0, 1);
         CanvasEffects.GetInstance().FadeOut(col);
     }
 
     void OptionsButtonPressed()
     {
-        // Options not implemented yet
+        HideMenu();
+        optionsMenu.ShowMenu();
     }
 
     void QuitButtonPressed()
     {
         GetTree().Quit();
+    }
+
+    // Prevent further interaction while transitioning
+    bool DisableButtonsState(bool state)
+    {
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].Disabled = state;
+        }
+        return state;
+    }
+
+    // Menu controls
+    void ShowMenu()
+    {
+        this.Visible = !DisableButtonsState(false);
+    }
+
+    void HideMenu()
+    {
+        this.Visible = !DisableButtonsState(true);
     }
 
     // Fade callbacks
@@ -99,4 +128,5 @@ public partial class MainMenu : Control
         GlobalGameManager.GetInstance().gamePaused = false;
         CanvasEffects.GetInstance().OnFadeIn -= OnFadeIn;
     }
+
 }
