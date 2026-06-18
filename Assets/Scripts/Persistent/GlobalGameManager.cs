@@ -355,13 +355,12 @@ public partial class GlobalGameManager : Node2D
             }
         }
 
-        string json =
-            JsonSerializer.Serialize(
-                data,
-                new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                });
+        string json = JsonSerializer.Serialize(data,
+        new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            IncludeFields = true
+        });
 
         using FileAccess file = FileAccess.Open($"user://level_jsons/{exportName}.json", FileAccess.ModeFlags.Write);
 
