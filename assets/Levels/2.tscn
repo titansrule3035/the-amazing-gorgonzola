@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/Level Assets/key_card.tscn" id="5_nw3ek"]
 [ext_resource type="PackedScene" uid="uid://k1nk5gsufp6b" path="res://assets/Scenes/Level Assets/semi_solid.tscn" id="6_ncvmg"]
 [ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Clones/norm_clone.tscn" id="7_4ks8u"]
-[ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://assets/Scenes/Level Assets/gorg_spawn.tscn" id="9_52r7t"]
+[ext_resource type="PackedScene" uid="uid://bs53y7p28fn3b" path="res://assets/Scenes/Clones/gorg_spawn.tscn" id="9_52r7t"]
 [ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="9_cnkvj"]
 [ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/Level Assets/lab_door.tscn" id="12_mhfc5"]
 [ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="12_yb6iy"]
