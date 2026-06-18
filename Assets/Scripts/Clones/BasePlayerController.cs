@@ -290,7 +290,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         var effect = scene.Instantiate<Node2D>();
         if (effect == null) return;
 
-        GetTree().Root.GetNode<Node2D>("level/gorgonzola").AddChild(effect);
+        GetTree().Root.GetNode<Node2D>("level/clones").AddChild(effect);
         effect.GlobalPosition = position;
 
         var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
