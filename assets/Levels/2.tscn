@@ -1956,7 +1956,7 @@ position = Vector2(-336, -320)
 [node name="norm_clone2" parent="level_assets/clones" unique_id=1493012658 instance=ExtResource("7_4ks8u")]
 position = Vector2(544, 0)
 
-[node name="garg_spawn" parent="level_assets/clones" unique_id=959056846 instance=ExtResource("9_52r7t")]
+[node name="gorg_spawn" parent="level_assets/clones" unique_id=959056846 instance=ExtResource("9_52r7t")]
 position = Vector2(-336, -160)
 direction = 1
 
@@ -2065,39 +2065,39 @@ scale = Vector2(4, 1)
 position = Vector2(448, -592)
 scale = Vector2(2, 1)
 
-[node name="on_offs" type="Node2D" parent="level_assets" unique_id=2026314136]
+[node name="on_off_assets" type="Node2D" parent="level_assets" unique_id=2026314136]
 position = Vector2(384, 288)
 
-[node name="on_off_switch_master" parent="level_assets/on_offs" unique_id=1283040908 instance=ExtResource("12_yb6iy")]
+[node name="on_off_switch_master" parent="level_assets/on_off_assets" unique_id=1283040908 instance=ExtResource("12_yb6iy")]
 position = Vector2(-528, -720)
 opened = true
 
-[node name="green_on_off_block" parent="level_assets/on_offs" unique_id=1389461285 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block" parent="level_assets/on_off_assets" unique_id=1389461285 instance=ExtResource("9_cnkvj")]
 position = Vector2(-528, -272)
 
-[node name="green_on_off_block2" parent="level_assets/on_offs" unique_id=65428266 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block2" parent="level_assets/on_off_assets" unique_id=65428266 instance=ExtResource("9_cnkvj")]
 position = Vector2(-560, -272)
 
-[node name="green_on_off_block3" parent="level_assets/on_offs" unique_id=552394504 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block3" parent="level_assets/on_off_assets" unique_id=552394504 instance=ExtResource("9_cnkvj")]
 position = Vector2(-560, -240)
 
-[node name="green_on_off_block4" parent="level_assets/on_offs" unique_id=1142577149 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block4" parent="level_assets/on_off_assets" unique_id=1142577149 instance=ExtResource("9_cnkvj")]
 position = Vector2(-528, -240)
 
-[node name="green_on_off_block5" parent="level_assets/on_offs" unique_id=1964940989 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block5" parent="level_assets/on_off_assets" unique_id=1964940989 instance=ExtResource("9_cnkvj")]
 position = Vector2(-528, -208)
 
-[node name="green_on_off_block6" parent="level_assets/on_offs" unique_id=1243303683 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block6" parent="level_assets/on_off_assets" unique_id=1243303683 instance=ExtResource("9_cnkvj")]
 position = Vector2(-560, -208)
 
-[node name="green_on_off_block7" parent="level_assets/on_offs" unique_id=94228804 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block7" parent="level_assets/on_off_assets" unique_id=94228804 instance=ExtResource("9_cnkvj")]
 position = Vector2(-560, -176)
 
-[node name="green_on_off_block8" parent="level_assets/on_offs" unique_id=21969005 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block8" parent="level_assets/on_off_assets" unique_id=21969005 instance=ExtResource("9_cnkvj")]
 position = Vector2(-528, -176)
 
-[node name="green_on_off_block9" parent="level_assets/on_offs" unique_id=762781315 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block9" parent="level_assets/on_off_assets" unique_id=762781315 instance=ExtResource("9_cnkvj")]
 position = Vector2(-560, -144)
 
-[node name="green_on_off_block10" parent="level_assets/on_offs" unique_id=1120934262 instance=ExtResource("9_cnkvj")]
+[node name="green_on_off_block10" parent="level_assets/on_off_assets" unique_id=1120934262 instance=ExtResource("9_cnkvj")]
 position = Vector2(-528, -144)
