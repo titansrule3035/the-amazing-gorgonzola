@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -132,6 +133,70 @@ internal static class SaveManager
         {
             File.Delete(SAVE_PATH);
         }
+    }
+
+    public static string Encode(object input)
+    {
+        string text = input.ToString() ?? "";
+
+        // UTF8 -> binary string
+        byte[] utf8Bytes = Encoding.UTF8.GetBytes(text);
+
+        StringBuilder binary1 = new();
+
+        foreach (byte b in utf8Bytes)
+        {
+            binary1.Append(Convert.ToString(b, 2).PadLeft(8, '0'));
+        }
+
+        string r1 = binary1.ToString();
+
+        // Binary string -> Base64
+        string r2 = Convert.ToBase64String(
+            Encoding.UTF8.GetBytes(r1)
+        );
+
+        // Base64 -> binary string
+        byte[] base64Bytes = Encoding.UTF8.GetBytes(r2);
+
+        StringBuilder binary2 = new();
+
+        foreach (byte b in base64Bytes)
+        {
+            binary2.Append(Convert.ToString(b, 2).PadLeft(8, '0'));
+        }
+
+        return binary2.ToString();
+    }
+    public static string Decode(string encoded)
+    {
+        // Binary string -> Base64 string
+        byte[] base64Bytes = new byte[encoded.Length / 8];
+
+        for (int i = 0; i < base64Bytes.Length; i++)
+        {
+            string chunk = encoded.Substring(i * 8, 8);
+            base64Bytes[i] = Convert.ToByte(chunk, 2);
+        }
+
+        string base64 = Encoding.UTF8.GetString(base64Bytes);
+
+        // Base64 -> binary string
+        string binaryString = Encoding.UTF8.GetString(
+            Convert.FromBase64String(base64)
+        );
+
+        // Binary string -> UTF8 bytes
+        byte[] utf8Bytes = new byte[binaryString.Length / 8];
+
+        for (int i = 0; i < utf8Bytes.Length; i++)
+        {
+            string chunk = binaryString.Substring(i * 8, 8);
+            utf8Bytes[i] = Convert.ToByte(chunk, 2);
+        }
+
+        // UTF8 bytes -> original text
+        return Encoding.UTF8.GetString(utf8Bytes);
     }
 }
 

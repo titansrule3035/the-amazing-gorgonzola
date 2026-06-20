@@ -319,7 +319,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D kill_zone in kill_zones.GetChildren())
             {
-                data.KillZones.Add(new ObjectData(kill_zone.Name, new Vector2(kill_zone.Position.X, kill_zone.Position.Y)));
+                data.KillZones.Add(new KillZoneData(StripTrailingNumber(kill_zone.Name), kill_zone.Name, new Vector2(kill_zone.GlobalPosition.X, kill_zone.GlobalPosition.Y), new Vector2(kill_zone.Scale.X, kill_zone.Scale.Y)));
             }
         }
 
@@ -327,7 +327,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D clone in clones.GetChildren())
             {
-                data.Clones.Add(new ObjectData(clone.Name, new Vector2(clone.Position.X, clone.Position.Y)));
+                data.Clones.Add(new ObjectData(StripTrailingNumber(clone.Name), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
             }
         }
 
@@ -335,7 +335,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D on_off_asset in on_off_assets.GetChildren())
             {
-                data.OnOffs.Add(new ObjectData(on_off_asset.Name, new Vector2(on_off_asset.Position.X, on_off_asset.Position.Y)));
+                data.OnOffs.Add(new ObjectData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
             }
         }
 
@@ -343,7 +343,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D level_essential in clear_conditions.GetChildren())
             {
-                data.ClearConditions.Add(new ObjectData(level_essential.Name, new Vector2(level_essential.Position.X, level_essential.Position.Y)));
+                data.ClearConditions.Add(new ObjectData(StripTrailingNumber(level_essential.Name), level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
             }
         }
 
@@ -351,7 +351,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
             {
-                data.SemiSolidTiles.Add(new ObjectData(semi_solid_tile.Name, new Vector2(semi_solid_tile.Position.X, semi_solid_tile.Position.Y)));
+                data.SemiSolidTiles.Add(new ObjectData(StripTrailingNumber(semi_solid_tile.Name), semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y)));
             }
         }
 
@@ -362,9 +362,18 @@ public partial class GlobalGameManager : Node2D
             IncludeFields = true
         });
 
-        using FileAccess file = FileAccess.Open($"user://level_jsons/{exportName}.json", FileAccess.ModeFlags.Write);
+        using FileAccess file = FileAccess.Open($"user://level_jsons/{exportName}.taglevel", FileAccess.ModeFlags.Write);
 
-        file.StoreString(json);
+        file.StoreString(SaveManager.Encode(json));
+    }
+
+    // Helper to strip trailing numbers from object names
+    private static string StripTrailingNumber(string name)
+    {
+        int i = name.Length;
+        while (i > 0 && char.IsDigit(name[i - 1]))
+            i--;
+        return name[..i];
     }
 
     // Game control
