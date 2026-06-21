@@ -68,8 +68,8 @@ public partial class MainMenu : Control
     // Button handlers
     void PlayButtonPressed()
     {
-        Color col = new Color(0, 0, 0, 1);
-        CanvasEffects.GetInstance().FadeOut(col);
+        CanvasEffects.GetInstance().FadeOut(new(0, 0, 0, 1));
+        DisableButtonsState(true);
     }
 
     void OptionsButtonPressed()
