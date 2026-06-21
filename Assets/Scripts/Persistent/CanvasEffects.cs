@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class CanvasEffects : Node2D
+public partial class CanvasEffects : Control
 {
     // Singleton instance
     private static CanvasEffects instance;
