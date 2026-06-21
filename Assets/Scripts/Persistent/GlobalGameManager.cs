@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
+using System.Threading;
 
 public partial class GlobalGameManager : Node2D
 {
@@ -274,8 +276,6 @@ public partial class GlobalGameManager : Node2D
     {
         pauseLocks.Remove(owner);
     }
-
-    // Level importing and exporting for level editor
     public void ExportLevel(Node levelRoot, string exportName)
     {
         LevelData data = new();
@@ -327,7 +327,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D clone in clones.GetChildren())
             {
-                data.Clones.Add(new ObjectData(StripTrailingNumber(clone.Name), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
+                data.Clones.Add(new ObjectData(StripTrailingNumber(clone.Name).ToString(), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
             }
         }
 
@@ -335,7 +335,20 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D on_off_asset in on_off_assets.GetChildren())
             {
-                data.OnOffs.Add(new ObjectData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                if (on_off_asset.Name == "on_off_switch_master")
+                {
+                    OnOffSwitchMaster switchMaster = on_off_asset as OnOffSwitchMaster;
+                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y), switchMaster.opened);
+                }
+                else if (StripTrailingNumber(on_off_asset.Name) == "on_off_block_switch")
+                {
+                    OnOffSwitch switchNormal = on_off_asset as OnOffSwitch;
+                    data.OnOffs.OnOffSwitches.Add(new ObjectData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                }
+                else if (StripTrailingNumber(on_off_asset.Name) == "green_on_off_block" || StripTrailingNumber(on_off_asset.Name) == "red_on_off_block")
+                {
+                    data.OnOffs.OnOffBlocks.Add(new ObjectData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                }
             }
         }
 
@@ -351,7 +364,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
             {
-                data.SemiSolidTiles.Add(new ObjectData(StripTrailingNumber(semi_solid_tile.Name), semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y)));
+                data.SemiSolidTiles.Add(new SemiSolidTileData(StripTrailingNumber(semi_solid_tile.Name), semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y), semi_solid_tile.Scale));
             }
         }
 

@@ -9,7 +9,6 @@ public partial class Gorgonzola : BasePlayerController
 
     // Events
     public event Action? OnKilled;
-    public static event Action? OnMovementUpdated;
 
     // Scenes / resources
     [Export] private PackedScene carcassEffectScene;
@@ -39,11 +38,7 @@ public partial class Gorgonzola : BasePlayerController
         {
             spawn.GorgSpawned += OnSpawnPointFound;
         }
-
-        if (useGGM)
-        {
-            GlobalGameManager.GetInstance().OnFlush += Flush;
-        }
+        GlobalGameManager.GetInstance().OnFlush += Flush;
     }
 
 
@@ -100,14 +95,7 @@ public partial class Gorgonzola : BasePlayerController
         /// </summary>
         OnKilled?.Invoke();
         BasePlayerController.KillAllClones();
-        if (useGGM)
-        {
-            GlobalGameManager.GetInstance().canMove = false;
-        }
-        else
-        {
-            BasePlayerController.SetCloneMovement(false);
-        }
+        GlobalGameManager.GetInstance().canMove = false;
         GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
         effect.flip = shouldFlip;
         GetTree().Root.AddChild(effect);
