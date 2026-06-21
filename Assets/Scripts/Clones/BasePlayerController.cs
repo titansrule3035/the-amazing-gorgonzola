@@ -290,7 +290,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
         var effect = scene.Instantiate<Node2D>();
         if (effect == null) return;
 
-        GetTree().Root.GetNode<Node2D>("level/level_assets/clones").AddChild(effect);
+        GetParent<Node2D>().AddChild(effect);
+
         effect.GlobalPosition = position;
 
         var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
@@ -309,12 +310,12 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         if (animName == "enter_door")
         {
-            if (GlobalGameManager.GetInstance().levelCompleted)
+            GlobalGameManager ggm = GlobalGameManager.GetInstance();
+            if (ggm.levelCompleted)
             {
-                GlobalGameManager.GetInstance().ShowVictoryMenu(true);
                 Visible = false;
             }
-            GlobalGameManager.GetInstance().canMove = false;
+            ggm.canMove = false;
         }
         else if (animName == "levelCompleted")
         {
@@ -352,7 +353,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         isLanded = false;
         jumpBufferTimer = 0f;
-        QueueFree();
+        if (this is not Gorgonzola)
+        {
+            QueueFree();
+        }
     }
 
     /// <summary>
