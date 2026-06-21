@@ -19,14 +19,6 @@ public partial class CanvasEffects : Control
     private ColorRect colorRect;
     private Tween tween;
 
-    // Cursor (Yes, I know this doesn't count as a "canvas effect" bite me)
-    [Export] public Texture2D[] mouseIcons;
-    private int currentCursorFrame = 0;
-    private bool isCursorAnimating = false;
-    private double cursorTimer = 0.0;
-    [Export] public float FrameDuration = 0.06f;
-    [Export] public Vector2 cursorOffset = new Vector2(25, 10);
-
     // Lifecycle
     public override void _Ready()
     {
@@ -40,7 +32,7 @@ public partial class CanvasEffects : Control
         }
 
         instance = this;
-        colorRect = GetNode<ColorRect>("CanvasLayer/ColorRect");
+        colorRect = GetNode<ColorRect>("ColorRect");
 
         colorRect.Color = new Color(255, 255, 255, 0);
 
@@ -49,40 +41,7 @@ public partial class CanvasEffects : Control
 
     public override void _Process(double delta)
     {
-        if (isCursorAnimating)
-        {
-            cursorTimer += delta;
 
-            if (cursorTimer >= FrameDuration)
-            {
-                cursorTimer -= FrameDuration;
-                currentCursorFrame++;
-
-                if (currentCursorFrame >= mouseIcons.Length)
-                {
-                    currentCursorFrame = 0;
-                    isCursorAnimating = false;
-                }
-            }
-        }
-
-        if (mouseIcons.Length > 0 && mouseIcons[currentCursorFrame] != null)
-        {
-            Input.SetCustomMouseCursor(mouseIcons[currentCursorFrame], Input.GetCurrentCursorShape(), cursorOffset);
-        }
-    }
-
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mb &&
-            mb.ButtonIndex == MouseButton.Left &&
-            mb.Pressed &&
-            !isCursorAnimating)
-        {
-            isCursorAnimating = true;
-            currentCursorFrame = 0;
-            cursorTimer = 0.0;
-        }
     }
 
 
