@@ -11,9 +11,9 @@ public class LevelData
     public List<LayerData> Layers { get; set; } = new();
     public List<ObjectData> Clones { get; set; } = new();
     public List<KillZoneData> KillZones { get; set; } = new();
-    public List<ObjectData> OnOffs {  get; set; } = new();
-    public List<ObjectData> ClearConditions {  get; set; } = new();
-    public List<ObjectData> SemiSolidTiles { get; set; } = new();
+    public OnOffAssetData OnOffs { get; set; } = new();
+    public List<ObjectData> ClearConditions { get; set; } = new();
+    public List<SemiSolidTileData> SemiSolidTiles { get; set; } = new();
 
     public static string Encode(object input)
     {
@@ -116,18 +116,47 @@ public class ObjectData
     }
 }
 
-public class KillZoneData
+public class KillZoneData : ObjectData
+{
+    public Godot.Vector2 Scale { get; set; } = Godot.Vector2.One;
+
+    public KillZoneData(string type, string name, Godot.Vector2 position, Godot.Vector2 scale) : base(type, name, position)
+    {
+        Scale = scale;
+    }
+}
+
+public class SemiSolidTileData
 {
     public string Type { get; set; } = "";      // normalized — used for scene lookup
     public string Name { get; set; } = "";       // original node name — for identity if needed
     public Godot.Vector2 Position { get; set; } = Godot.Vector2.Zero;
     public Godot.Vector2 Scale { get; set; } = Godot.Vector2.One;
 
-    public KillZoneData(string type, string name, Godot.Vector2 position, Godot.Vector2 scale)
+    public SemiSolidTileData(string type, string name, Godot.Vector2 position, Godot.Vector2 scale)
     {
         Type = type;
         Name = name;
         Position = position;
         Scale = scale;
     }
+
+}
+public class OnOffSwitchMasterData : ObjectData
+{
+    public bool Opened { get; set; } = false;
+
+    public OnOffSwitchMasterData(string type, string name, Godot.Vector2 position, bool opened) : base(type, name, position)
+    {
+        Opened = opened;
+    }
+}
+
+public class OnOffAssetData
+{
+    public OnOffSwitchMasterData OnOffSwitchMaster { get; set; }
+
+    public List<ObjectData> OnOffSwitches { get; set; } = new();
+
+    public List<ObjectData> OnOffBlocks { get; set; } = new();
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class CanvasEffects : Node2D
+public partial class CanvasEffects : Control
 {
     // Singleton instance
     private static CanvasEffects instance;
@@ -26,6 +26,7 @@ public partial class CanvasEffects : Node2D
     private double cursorTimer = 0.0;
     [Export] public float FrameDuration = 0.06f;
     [Export] public Vector2 cursorOffset = new Vector2(25, 10);
+    
 
     // Lifecycle
     public override void _Ready()
@@ -40,7 +41,7 @@ public partial class CanvasEffects : Node2D
         }
 
         instance = this;
-        colorRect = GetNode<ColorRect>("CanvasLayer/ColorRect");
+        colorRect = GetNode<ColorRect>("ColorRect");
 
         colorRect.Color = new Color(255, 255, 255, 0);
 
