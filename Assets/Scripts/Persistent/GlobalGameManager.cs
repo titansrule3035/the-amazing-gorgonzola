@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -309,17 +310,17 @@ public partial class GlobalGameManager : Node2D
         }
 
         Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
-        Node2D kill_zones = assetsRoot.GetNodeOrNull<Node2D>("kill_zones");
-        Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
-        Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
         Node2D clear_conditions = assetsRoot.GetNodeOrNull<Node2D>("clear_conditions");
+        Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
+        Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
+        Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
         Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
 
-        if (kill_zones != null)
+        if (clear_conditions != null)
         {
-            foreach (Node2D kill_zone in kill_zones.GetChildren())
+            foreach (Node2D level_essential in clear_conditions.GetChildren())
             {
-                data.KillZones.Add(new KillZoneData(StripTrailingNumber(kill_zone.Name), kill_zone.Name, new Vector2(kill_zone.GlobalPosition.X, kill_zone.GlobalPosition.Y), new Vector2(kill_zone.Scale.X, kill_zone.Scale.Y)));
+                data.ClearConditions.Add(new ObjectData(level_essential.GetType().Name, level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
             }
         }
 
@@ -327,7 +328,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D clone in clones.GetChildren())
             {
-                data.Clones.Add(new ObjectData(StripTrailingNumber(clone.Name).ToString(), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
+                data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
             }
         }
 
@@ -335,28 +336,33 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D on_off_asset in on_off_assets.GetChildren())
             {
-                if (on_off_asset.Name == "on_off_switch_master")
+                string asset_type = on_off_asset.GetType().Name;
+                if (asset_type == "OnOffSwitchMaster")
                 {
                     OnOffSwitchMaster switchMaster = on_off_asset as OnOffSwitchMaster;
-                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y), switchMaster.opened);
+                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y), switchMaster.opened);
                 }
-                else if (StripTrailingNumber(on_off_asset.Name) == "on_off_block_switch")
+                else if (asset_type == "OnOffBlockSwitch")
                 {
                     OnOffSwitch switchNormal = on_off_asset as OnOffSwitch;
-                    data.OnOffs.OnOffSwitches.Add(new ObjectData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                    data.OnOffs.OnOffSwitches.Add(new ObjectData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
                 }
-                else if (StripTrailingNumber(on_off_asset.Name) == "green_on_off_block" || StripTrailingNumber(on_off_asset.Name) == "red_on_off_block")
+                else if (StripTrailingNumber(on_off_asset.Name) == "green_on_off_block")
                 {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData(StripTrailingNumber(on_off_asset.Name), on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                    data.OnOffs.OnOffBlocks.Add(new ObjectData("GreenOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                }
+                else if (StripTrailingNumber(on_off_asset.Name) == "red_on_off_block")
+                {
+                    data.OnOffs.OnOffBlocks.Add(new ObjectData("RedOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
                 }
             }
         }
 
-        if (clear_conditions != null)
+        if (hazards != null)
         {
-            foreach (Node2D level_essential in clear_conditions.GetChildren())
+            foreach (Node2D hazard in hazards.GetChildren())
             {
-                data.ClearConditions.Add(new ObjectData(StripTrailingNumber(level_essential.Name), level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
+                data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.Name, new Vector2(hazard.GlobalPosition.X, hazard.GlobalPosition.Y)));
             }
         }
 
@@ -364,7 +370,7 @@ public partial class GlobalGameManager : Node2D
         {
             foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
             {
-                data.SemiSolidTiles.Add(new SemiSolidTileData(StripTrailingNumber(semi_solid_tile.Name), semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y), semi_solid_tile.Scale));
+                data.SemiSolidTiles.Add(new SemiSolidTileData(semi_solid_tile.GetType().Name, semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y), semi_solid_tile.Scale));
             }
         }
 
@@ -375,7 +381,14 @@ public partial class GlobalGameManager : Node2D
             IncludeFields = true
         });
 
-        using FileAccess file = FileAccess.Open($"user://TAGLEVELs/{exportName}.taglevel", FileAccess.ModeFlags.Write);
+        string newFile = $"TAGLEVELs/{exportName}.taglevel";
+
+        if (!DirAccess.DirExistsAbsolute(Path.GetDirectoryName(newFile)))
+        {
+            DirAccess.MakeDirAbsolute(Path.GetDirectoryName(newFile));
+        }
+
+        using Godot.FileAccess file = Godot.FileAccess.Open(newFile, Godot.FileAccess.ModeFlags.Write);
 
         file.StoreString(SaveManager.Encode(json));
     }
