@@ -10,9 +10,9 @@ public class LevelData
     public const int TileSize = 32;
     public List<LayerData> Layers { get; set; } = new();
     public List<ObjectData> Clones { get; set; } = new();
-    public List<KillZoneData> KillZones { get; set; } = new();
-    public OnOffAssetData OnOffs { get; set; } = new();
     public List<ObjectData> ClearConditions { get; set; } = new();
+    public List<ObjectData> Hazards { get; set; } = new();
+    public OnOffAssetData OnOffs { get; set; } = new();
     public List<SemiSolidTileData> SemiSolidTiles { get; set; } = new();
 
     public static string Encode(object input)
@@ -113,16 +113,6 @@ public class ObjectData
         this.Type = type;
         this.Name = name;
         this.Position = position;
-    }
-}
-
-public class KillZoneData : ObjectData
-{
-    public Godot.Vector2 Scale { get; set; } = Godot.Vector2.One;
-
-    public KillZoneData(string type, string name, Godot.Vector2 position, Godot.Vector2 scale) : base(type, name, position)
-    {
-        Scale = scale;
     }
 }
 
