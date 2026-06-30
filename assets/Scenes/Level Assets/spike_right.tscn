@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bv2ddx00m3f3w"]
+
+[ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/spike_up.tscn" id="1_f5toh"]
+[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="2_1xk24"]
+[ext_resource type="Script" uid="uid://n2b7fndh2yeq" path="res://assets/Scripts/Level Assets/SpikeRight.cs" id="3_1xk24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbgmn"]
+atlas = ExtResource("2_1xk24")
+region = Rect2(384, 224, 32, 32)
+
+[node name="spike_right" unique_id=208165850 instance=ExtResource("1_f5toh")]
+texture = SubResource("AtlasTexture_mbgmn")
+script = ExtResource("3_1xk24")
