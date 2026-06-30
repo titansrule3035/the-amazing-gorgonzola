@@ -19,7 +19,7 @@ public partial class OptionsMenu : Control
     {
         backButton = GetNode<TextureButton>("center_container/v_box_container/back");
 
-        volumeSlider = GetNode<Slider>("nine_patch_rect/h_slider");
+        volumeSlider = GetNode<Slider>("h_slider");
         volumeSlider.MinValue = 0;
         volumeSlider.MaxValue = 100;
 
