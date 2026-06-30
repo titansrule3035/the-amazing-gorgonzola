@@ -20,14 +20,13 @@
 [ext_resource type="Texture2D" uid="uid://cy2jrwaupujme" path="res://assets/Sprites/UI/Title Screen/Title/Buttons/quit_disabled.png" id="16_0bsmd"]
 [ext_resource type="Script" uid="uid://chddfpth3j20y" path="res://assets/Scripts/UI/OptionsMenu.cs" id="19_0bsmd"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="19_wgx0f"]
-[ext_resource type="Texture2D" uid="uid://c84gxdwb6hdtn" path="res://assets/Sprites/UI/Title Screen/Options/box.png" id="20_0bsmd"]
 
 [sub_resource type="Animation" id="Animation_5ogbb"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("main_menu/lab_silhouette:texture")
+tracks/0/path = NodePath("lab_silhouette:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -45,7 +44,7 @@ step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("main_menu/lab_silhouette:texture")
+tracks/0/path = NodePath("lab_silhouette:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -99,7 +98,15 @@ offset_right = 1248.0
 offset_bottom = 832.0
 texture = ExtResource("2_b1o7a")
 
+[node name="lab_silhouette" type="TextureRect" parent="." unique_id=1094582089]
+texture_filter = 2
+texture_repeat = 1
+offset_right = 1248.0
+offset_bottom = 832.0
+texture = ExtResource("3_nft5b")
+
 [node name="main_menu" type="Control" parent="." unique_id=604902363 node_paths=PackedStringArray("optionsMenu")]
+visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -110,14 +117,6 @@ grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_wdlxv")
 optionsMenu = NodePath("../options_menu")
-
-[node name="lab_silhouette" type="TextureRect" parent="main_menu" unique_id=1094582089]
-texture_filter = 2
-texture_repeat = 1
-layout_mode = 0
-offset_right = 1248.0
-offset_bottom = 832.0
-texture = ExtResource("3_nft5b")
 
 [node name="v_box_container" type="VBoxContainer" parent="main_menu" unique_id=622336845]
 layout_mode = 0
@@ -169,7 +168,6 @@ libraries/ = SubResource("AnimationLibrary_at7ji")
 autoplay = &"default"
 
 [node name="options_menu" type="Control" parent="." unique_id=416373605]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -179,6 +177,12 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("19_0bsmd")
+
+[node name="color_rect" type="ColorRect" parent="options_menu" unique_id=1114417630]
+layout_mode = 0
+offset_right = 1248.0
+offset_bottom = 832.0
+color = Color(0.3779188, 0.37791887, 0.37791884, 0.4509804)
 
 [node name="title" type="Label" parent="options_menu" unique_id=552049899]
 layout_mode = 0
@@ -190,33 +194,24 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="nine_patch_rect" type="NinePatchRect" parent="options_menu" unique_id=1400874915]
+[node name="volume" type="Label" parent="options_menu" unique_id=930449882]
 layout_mode = 0
 offset_left = 112.0
 offset_top = 208.0
 offset_right = 1136.0
-offset_bottom = 640.0
-texture = ExtResource("20_0bsmd")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
-
-[node name="title" type="Label" parent="options_menu/nine_patch_rect" unique_id=930449882]
-layout_mode = 0
-offset_right = 1024.0
-offset_bottom = 64.0
+offset_bottom = 272.0
 theme_override_fonts/font = ExtResource("19_wgx0f")
 theme_override_font_sizes/font_size = 37
 text = "Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="h_slider" type="HSlider" parent="options_menu/nine_patch_rect" unique_id=769194678]
+[node name="h_slider" type="HSlider" parent="options_menu" unique_id=769194678]
 layout_mode = 0
-offset_left = 256.0
-offset_right = 768.0
-offset_bottom = 160.0
+offset_left = 368.0
+offset_top = 208.0
+offset_right = 880.0
+offset_bottom = 368.0
 tick_count = 100
 
 [node name="buttons" type="Label" parent="options_menu" unique_id=472245914]
