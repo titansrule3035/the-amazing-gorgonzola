@@ -29,5 +29,17 @@ namespace TheAmazingGorgonzola.assets.Scripts.Level_Assets
             on = state;
             OnStateChanged?.Invoke(on);
         }
+
+        public static void UpdateAllBlocks()
+        {
+            var nodes = OnOffSwitchMaster.GetInstance().GetParent().GetChildren();
+            foreach (var n in nodes)
+            {
+                if (n is OnOffBlock block)
+                {
+                    block.RefreshState();
+                }
+            }
+        }
     }
 }

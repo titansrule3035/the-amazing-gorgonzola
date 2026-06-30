@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c4pntgdl3uqjt"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_2nf8a"]
+[ext_resource type="Texture2D" uid="uid://h5op61kvws6w" path="res://assets/Sprites/Clones/rev_clone.png" id="2_m4dki"]
+[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Clones/rev_clone.tscn" id="3_m4dki"]
+
+[node name="ItemRevClone" unique_id=1663939762 instance=ExtResource("1_2nf8a")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_m4dki")
+flip_h = true
+itemType = 0
+instantiationType = 0
+ThisScene = ExtResource("3_m4dki")

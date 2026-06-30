@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://pwd8fl32wv07"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_bslof"]
+[ext_resource type="Texture2D" uid="uid://6fs4ibuhc67b" path="res://assets/Sprites/Clones/gorgonzola.png" id="2_nfaau"]
+[ext_resource type="Script" uid="uid://c07v1mm4j4uc8" path="res://assets/Scripts/Level Editor/Items/ItemGorgonzola.cs" id="3_nfaau"]
+[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Clones/gorgonzola.tscn" id="4_xnpsc"]
+
+[node name="ItemGorgonzola" unique_id=1663939762 instance=ExtResource("1_bslof")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_nfaau")
+script = ExtResource("3_nfaau")
+itemType = 0
+instantiationType = 1
+ThisScene = ExtResource("4_xnpsc")

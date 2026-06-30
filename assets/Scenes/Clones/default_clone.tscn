@@ -1343,6 +1343,7 @@ shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1588915662]
+texture_filter = 1
 material = SubResource("ShaderMaterial_k1s2y")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
 animation = &"idle"

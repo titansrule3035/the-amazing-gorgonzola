@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cusgpa2tw78m8" path="res://assets/Scripts/Persistent/CanvasEffects.cs" id="1_25vxv"]
 
-[node name="canvas_effects" type="Control" unique_id=1900329152]
+[node name="CanvasEffects" type="Control" unique_id=1212739994]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1248.0
+offset_bottom = 832.0
+mouse_filter = 2
 script = ExtResource("1_25vxv")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1294107581]

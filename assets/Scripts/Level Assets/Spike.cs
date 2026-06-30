@@ -6,7 +6,7 @@ public partial class Spike : Sprite2D
 {
     public override void _Ready()
     {
-        TileMapLayer tileMapForeground = GetTree().Root.GetNode<TileMapLayer>("level/tiles/Foreground");
+        TileMapLayer tileMapForeground = GetTree().CurrentScene.GetNode<TileMapLayer>("level/tiles/Foreground");
 
         Vector2 local = tileMapForeground.ToLocal(GlobalPosition);
 

@@ -21,21 +21,12 @@ public partial class Door : Node2D
 
     public override async void _Ready()
     {
-        if (instance != null)
-        {
-            GD.PrintErr("Another Door instance exists! Deleting this one...");
-            QueueFree();
-            return;
-        }
-
         instance = this;
 
         while (GlobalGameManager.GetInstance() == null && IsInsideTree())
         {
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         }
-
-        GlobalGameManager.GetInstance().OnFlush += OnFlush;
 
         animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -44,6 +35,8 @@ public partial class Door : Node2D
         area = GetNode<Area2D>("Area2D");
         area.BodyEntered += OnAreaEntered;
         area.BodyExited += OnAreaExited;
+
+        ((Main) GetTree().CurrentScene).RegisterDoor(this);
     }
 
     private void OnAreaEntered(Node2D body)
@@ -113,10 +106,9 @@ public partial class Door : Node2D
 
     public override void _ExitTree()
     {
-        if (instance == this)
-            instance = null;
+        instance = null;
 
-        base._ExitTree();
+        ((Main) GetTree().CurrentScene).UnregisterDoor();
     }
 
     private void UpdateIndicator()

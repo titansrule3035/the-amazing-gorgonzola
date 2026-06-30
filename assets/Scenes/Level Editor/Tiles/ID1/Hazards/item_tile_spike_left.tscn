@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://daw8b8yyqitqu"]
+
+[ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="1_tgcfv"]
+[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="2_usdrv"]
+[ext_resource type="PackedScene" uid="uid://cdjhcvnksu6fx" path="res://assets/Scenes/Level Assets/spike_left.tscn" id="3_oj08f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kwgg"]
+atlas = ExtResource("2_usdrv")
+region = Rect2(384, 256, 32, 32)
+
+[node name="ItemTileSpikeLeft" unique_id=1663939762 instance=ExtResource("1_tgcfv")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_5kwgg")
+ThisScene = ExtResource("3_oj08f")

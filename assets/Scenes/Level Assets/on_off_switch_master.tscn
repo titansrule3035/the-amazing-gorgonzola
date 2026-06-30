@@ -152,7 +152,7 @@ script = ExtResource("1_41uos")
 z_index = 1
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_6j0hu")
-animation = &"turn_off"
+animation = &"on"
 autoplay = "off"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1970173867]

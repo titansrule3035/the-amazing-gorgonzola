@@ -20,6 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cy2jrwaupujme" path="res://assets/Sprites/UI/Title Screen/Title/Buttons/quit_disabled.png" id="16_0bsmd"]
 [ext_resource type="Script" uid="uid://chddfpth3j20y" path="res://assets/Scripts/UI/OptionsMenu.cs" id="19_0bsmd"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="19_wgx0f"]
+[ext_resource type="Texture2D" uid="uid://brxyx5fcm2yd" path="res://assets/Sprites/UI/Title Screen/Options/Buttons/back.png" id="21_vlob5"]
+[ext_resource type="Texture2D" uid="uid://bwfm74gnjru2s" path="res://assets/Sprites/UI/Title Screen/Options/Buttons/back_pressed.png" id="22_3uyvt"]
+[ext_resource type="Texture2D" uid="uid://5lpq7p338dps" path="res://assets/Sprites/UI/Title Screen/Options/Buttons/back_hover.png" id="23_07vwa"]
+[ext_resource type="Texture2D" uid="uid://cuo47h06ls7mj" path="res://assets/Sprites/UI/Title Screen/Options/Buttons/back_disabled.png" id="24_6ll5u"]
 
 [sub_resource type="Animation" id="Animation_5ogbb"]
 length = 0.001
@@ -106,7 +110,6 @@ offset_bottom = 832.0
 texture = ExtResource("3_nft5b")
 
 [node name="main_menu" type="Control" parent="." unique_id=604902363 node_paths=PackedStringArray("optionsMenu")]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -168,6 +171,7 @@ libraries/ = SubResource("AnimationLibrary_at7ji")
 autoplay = &"default"
 
 [node name="options_menu" type="Control" parent="." unique_id=416373605]
+visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -290,7 +294,7 @@ theme_override_constants/separation = 18
 
 [node name="back" type="TextureButton" parent="options_menu/center_container/v_box_container" unique_id=1526733628]
 layout_mode = 2
-texture_normal = ExtResource("11_0bsmd")
-texture_pressed = ExtResource("12_3vrmg")
-texture_hover = ExtResource("13_xtvsg")
-texture_disabled = ExtResource("16_0bsmd")
+texture_normal = ExtResource("21_vlob5")
+texture_pressed = ExtResource("22_3uyvt")
+texture_hover = ExtResource("23_07vwa")
+texture_disabled = ExtResource("24_6ll5u")

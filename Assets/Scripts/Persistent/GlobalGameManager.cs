@@ -1,4 +1,5 @@
 using Godot;
+using GodotPlugins.Game;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +24,8 @@ public partial class GlobalGameManager : Node2D
     public event Action OnFirstFrame;
     public event Action OnLevelLoaded;
     public event Action OnFlush;
+    public event Action? OnGorgFound;
+    public event Action? OnGorgUnregistered;
 
     public Gorgonzola gorgonzola;
     public bool levelCompleted = false;
@@ -35,8 +38,21 @@ public partial class GlobalGameManager : Node2D
     public int clonesKilled = 0;
     public List<string> collectibles = new();
 
+    public Main editorMain;
+
+    [Export] public bool editorMode = false;
+    [Export] public PackedScene editorScene;
+
     public override async void _Ready()
     {
+        if (editorMode)
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            GetTree().ChangeSceneToPacked(editorScene);
+            return;
+        }
+
+
         if (instance != null)
         {
             GD.Print("More than one GlobalGameManager exists! Deleting this one...");
@@ -411,5 +427,20 @@ public partial class GlobalGameManager : Node2D
         float dbVolume = Mathf.LinearToDb(linearVolume);
 
         AudioServer.SetBusVolumeDb(busIndex, dbVolume);
+    }
+
+    public void RegisterGorg(Gorgonzola gorgonzola)
+    {
+        this.gorgonzola = gorgonzola;
+        editorMain = GetTree().CurrentScene as Main;
+        gorgonzola.OnKilled += editorMain.OnGorgKilled;
+        OnGorgFound?.Invoke();
+    }
+
+    public void UnregisterGorg()
+    {
+        gorgonzola.OnKilled -= editorMain.OnGorgKilled;
+        gorgonzola = null;
+        OnGorgUnregistered?.Invoke();
     }
 }

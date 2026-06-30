@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://co353gur3v72n" path="res://assets/Scripts/Clones/RevClone.cs" id="1_ci2bv"]
 [ext_resource type="PackedScene" uid="uid://b3ltxx026fhg0" path="res://assets/Scenes/Effects/rev_kill_effect.tscn" id="2_ygmg8"]
-[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="3_t7mes"]
-[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_dd10p"]
 [ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="5_vir5c"]
 [ext_resource type="Texture2D" uid="uid://d1q2escmf2ll6" path="res://assets/Sprites/Clones/Pallettes/rev_clone_pallette.png" id="6_646g3"]
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="7_naxwc"]
@@ -1340,8 +1338,6 @@ scale = Vector2(-1, 1)
 collision_layer = 32768
 script = ExtResource("1_ci2bv")
 killEffectScene = ExtResource("2_ygmg8")
-_jumpEffectScene = ExtResource("3_t7mes")
-_landEffectScene = ExtResource("4_dd10p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1115182824]
 position = Vector2(0, -30)
@@ -1349,6 +1345,7 @@ shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(1, 0.494118, 0.494118, 0.611765)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=512251734]
+texture_filter = 1
 material = SubResource("ShaderMaterial_mfs6l")
 sprite_frames = SubResource("SpriteFrames_0kxfl")
 animation = &"idle"

@@ -40,6 +40,8 @@ public partial class Key : Node2D
 
         instance = this;
 
+        ((Main) GetTree().CurrentScene).RegisterKey(this);
+
         base._Ready();
     }
     private void OpenDoor()
@@ -67,6 +69,9 @@ public partial class Key : Node2D
         {
             uiElement.Modulate = Colors.White;
         }
+
+        ((Main)GetTree().CurrentScene).UnregisterKey();
+
         base._ExitTree();
     }
 

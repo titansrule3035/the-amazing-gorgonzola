@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://beheqwali40kg"]
+
+[ext_resource type="Texture2D" uid="uid://d2gf4vci3tk1n" path="res://assets/Sprites/Level Editor/ItemBGDisabled.png" id="1_bgkya"]
+[ext_resource type="Texture2D" uid="uid://dwlgqmvpto5wg" path="res://assets/Sprites/Level Editor/ItemBG.png" id="1_x54yb"]
+[ext_resource type="Script" uid="uid://b37a551o7knnq" path="res://assets/Scripts/Level Editor/UI/EditorItemObject.cs" id="2_jy0h8"]
+[ext_resource type="Texture2D" uid="uid://ci3inxjevxkdg" path="res://assets/Sprites/Level Editor/ItemBGSelected.png" id="3_wnyfm"]
+
+[sub_resource type="Animation" id="Animation_bgkya"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_x54yb")]
+}
+
+[sub_resource type="Animation" id="Animation_kj7cm"]
+resource_name = "disabled"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_bgkya")]
+}
+
+[sub_resource type="Animation" id="Animation_fqurw"]
+resource_name = "selected"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_wnyfm")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kj7cm"]
+_data = {
+&"default": SubResource("Animation_bgkya"),
+&"disabled": SubResource("Animation_kj7cm"),
+&"selected": SubResource("Animation_fqurw")
+}
+
+[node name="ItemBg" type="TextureRect" unique_id=1663939762]
+process_mode = 3
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+offset_right = 96.0
+offset_bottom = 96.0
+texture = ExtResource("1_x54yb")
+stretch_mode = 4
+
+[node name="ItemTexture" type="TextureRect" parent="." unique_id=1896539650]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062000003
+anchor_top = 0.062000003
+anchor_right = 0.93700004
+anchor_bottom = 0.93700004
+offset_left = 0.04799986
+offset_top = 0.04799986
+offset_right = 0.04799652
+offset_bottom = 0.04799652
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_jy0h8")
+itemType = 4
+instantiationType = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=939757834]
+libraries/ = SubResource("AnimationLibrary_kj7cm")
+autoplay = &"default"

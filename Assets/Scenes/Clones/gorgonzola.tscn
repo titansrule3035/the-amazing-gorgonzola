@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://conswvwcv6458" path="res://assets/Scripts/Clones/Gorgonzola.cs" id="1_jve7h"]
 [ext_resource type="PackedScene" uid="uid://cxhnti2lcb1qg" path="res://assets/Scenes/Effects/gorg_carcass.tscn" id="3_vu6sa"]
-[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="4_f6qrw"]
-[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="5_eaw70"]
 [ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="5_x63qt"]
 [ext_resource type="Texture2D" uid="uid://dfsy38nu0nxe0" path="res://assets/Sprites/Clones/Pallettes/gorgonzola_pallette.png" id="6_l1rba"]
 [ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://assets/Sprites/UI/buttonicon_x.png" id="7_7o5j1"]
@@ -1359,8 +1357,6 @@ material = SubResource("ShaderMaterial_h4t2g")
 collision_layer = 8192
 script = ExtResource("1_jve7h")
 carcassEffectScene = ExtResource("3_vu6sa")
-_jumpEffectScene = ExtResource("4_f6qrw")
-_landEffectScene = ExtResource("5_eaw70")
 offset = 96.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=648897750]
@@ -1369,6 +1365,7 @@ shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0, 0.644446, 0.280746, 0.42)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1731162412]
+texture_filter = 1
 material = SubResource("ShaderMaterial_x63qt")
 sprite_frames = SubResource("SpriteFrames_l1rba")
 animation = &"idle"

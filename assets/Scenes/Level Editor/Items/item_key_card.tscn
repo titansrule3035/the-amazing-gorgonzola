@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://1gscoiqbtax4"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_hfpn5"]
+[ext_resource type="Texture2D" uid="uid://bhmg02w0l46pu" path="res://assets/Sprites/World/keycard.png" id="2_mw5kf"]
+[ext_resource type="Script" uid="uid://06mfvyk3bikm" path="res://assets/Scripts/Level Editor/Items/ItemKey.cs" id="3_ce5y2"]
+[ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/Level Assets/key_card.tscn" id="4_qe1rg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc4o2"]
+atlas = ExtResource("2_mw5kf")
+region = Rect2(0, 0, 32, 32)
+
+[node name="ItemKeyCard" unique_id=1663939762 instance=ExtResource("1_hfpn5")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_nc4o2")
+script = ExtResource("3_ce5y2")
+itemType = 5
+instantiationType = 1
+ThisScene = ExtResource("4_qe1rg")

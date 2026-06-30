@@ -14,6 +14,8 @@ public partial class OnOffBlock : Node2D
     // Lifecycle
     public override void _Ready()
     {
+        // Ensure this block is discoverable via groups so switches can refresh all blocks
+        AddToGroup("OnOffBlock");
         // Cache nodes for quicker access
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         body = GetNode<StaticBody2D>("StaticBody2D").GetNode<CollisionShape2D>("CollisionShape2D");
@@ -39,15 +41,7 @@ public partial class OnOffBlock : Node2D
     // Called when the global on/off state changes
     void OnStateChanged(bool on)
     {
-        UpdateBody(on);
-        if (on)
-        {
-            sprite.Play(green ? "close" : "open");
-        }
-        else
-        {
-            sprite.Play(green ? "open" : "close");
-        }
+        CheckState();
     }
 
     // Enable or disable the collision shape according to color and global state
@@ -106,5 +100,11 @@ public partial class OnOffBlock : Node2D
             }
         }
         UpdateBody(state);
+    }
+
+    // Public helper so external objects (like switches) can force a refresh of this block's visuals/collision
+    public void RefreshState()
+    {
+        CheckState();
     }
 }

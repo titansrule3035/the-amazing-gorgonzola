@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c1jt7bh4kmxc1"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_54v0c"]
+[ext_resource type="Texture2D" uid="uid://cxl34vjc3u20n" path="res://assets/Sprites/World/door_closed.png" id="2_wxt3m"]
+[ext_resource type="Script" uid="uid://hdfy41e0hgg" path="res://assets/Scripts/Level Editor/Items/ItemDoor.cs" id="3_2w46o"]
+[ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/Level Assets/lab_door.tscn" id="4_o8veg"]
+
+[node name="ItemDoor" unique_id=1663939762 instance=ExtResource("1_54v0c")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_wxt3m")
+script = ExtResource("3_2w46o")
+itemType = 5
+instantiationType = 1
+ThisScene = ExtResource("4_o8veg")

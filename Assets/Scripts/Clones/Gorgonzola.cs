@@ -8,7 +8,7 @@ public partial class Gorgonzola : BasePlayerController
     private static Gorgonzola instance;
 
     // Events
-    public event Action? OnKilled;
+    public event Action OnKilled;
 
     // Scenes / resources
     [Export] private PackedScene carcassEffectScene;
@@ -24,12 +24,6 @@ public partial class Gorgonzola : BasePlayerController
         /// <summary>
         /// Initialize the singleton instance, wire spawn signals and game manager flush handlers, and call base Ready.
         /// </summary>
-        if (instance != null)
-        {
-            GD.PrintErr("More than one Gorgonzola instances exist! Deleting this one...");
-            QueueFree();
-            return;
-        }
         instance = this;
         base._Ready();
 
@@ -38,7 +32,10 @@ public partial class Gorgonzola : BasePlayerController
         {
             spawn.GorgSpawned += OnSpawnPointFound;
         }
-        GlobalGameManager.GetInstance().OnFlush += Flush;
+
+        Gorgonzola gorgonzola = this;
+        GlobalGameManager.GetInstance()?.RegisterGorg(gorgonzola);
+        EditorGameManager.GetInstance()?.RegisterGorg(gorgonzola);
     }
 
 
@@ -87,8 +84,6 @@ public partial class Gorgonzola : BasePlayerController
         shouldFlip = (direction < 0);
         return shouldFlip;
     }
-    //prevent dupe carcass instantiation
-    bool killed = false;
     public override void Kill()
     {
         /// <summary>
@@ -100,9 +95,10 @@ public partial class Gorgonzola : BasePlayerController
             OnKilled?.Invoke();
             BasePlayerController.KillAllClones();
             GlobalGameManager.GetInstance().canMove = false;
+            EditorGameManager.GetInstance().canMove = false;
             GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
             effect.flip = shouldFlip;
-            GetTree().Root.AddChild(effect);
+            GetTree().CurrentScene.AddChild(effect);
             effect.GlobalPosition = GlobalPosition;
             QueueFree();
 
@@ -120,6 +116,8 @@ public partial class Gorgonzola : BasePlayerController
 
     public override void _ExitTree()
     {
+        GlobalGameManager.GetInstance().UnregisterGorg();
+        EditorGameManager.GetInstance().UnregisterGorg();
         if (instance == this)
         {
             instance = null;

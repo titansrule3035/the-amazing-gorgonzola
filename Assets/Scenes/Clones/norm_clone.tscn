@@ -3,10 +3,8 @@
 [ext_resource type="Script" uid="uid://si4nrymeopfu" path="res://assets/Scripts/Clones/NormClone.cs" id="1_u8y20"]
 [ext_resource type="PackedScene" uid="uid://ddvu3cojc55cx" path="res://assets/Scenes/Effects/norm_kill_effect.tscn" id="2_jkpm8"]
 [ext_resource type="Texture2D" uid="uid://cl4t2kps0i0sm" path="res://assets/Sprites/Clones/fall.png" id="2_jve7h"]
-[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="3_ryu68"]
 [ext_resource type="Texture2D" uid="uid://cg7vixk0fswyf" path="res://assets/Sprites/Clones/idle.png" id="3_u8y20"]
 [ext_resource type="Texture2D" uid="uid://bcb4xwnp7jfmg" path="res://assets/Sprites/Clones/jump.png" id="4_qlkyf"]
-[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_s5t7b"]
 [ext_resource type="Texture2D" uid="uid://2bva0llm5q12" path="res://assets/Sprites/Clones/walk.png" id="5_dh7bw"]
 [ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png" id="6_dk3xr"]
 [ext_resource type="Texture2D" uid="uid://bofoc25jmfx4y" path="res://assets/Sprites/Clones/win.png" id="6_u8y20"]
@@ -1339,8 +1337,6 @@ z_index = 10
 collision_layer = 16384
 script = ExtResource("1_u8y20")
 killEffectScene = ExtResource("2_jkpm8")
-_jumpEffectScene = ExtResource("3_ryu68")
-_landEffectScene = ExtResource("4_s5t7b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -30)
@@ -1348,6 +1344,7 @@ shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1588915662]
+texture_filter = 1
 material = SubResource("ShaderMaterial_ryu68")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
 animation = &"idle"

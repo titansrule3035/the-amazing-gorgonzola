@@ -94,15 +94,35 @@ public abstract partial class BasePlayerController : CharacterBody2D
         Vector2 velocity = Velocity;
 
         float direction = 0f;
-        if (!GlobalGameManager.GetInstance().levelCompleted && !GlobalGameManager.GetInstance().gamePaused)
+
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+
+        if (ggm != null)
         {
-            direction = GetMovementInput();
-            HandleHorizontalMovement(ref velocity, direction);
-            HandleJump(ref velocity, dt);
+            if (!ggm.levelCompleted && !ggm.gamePaused)
+            {
+                direction = GetMovementInput();
+                HandleHorizontalMovement(ref velocity, direction);
+                HandleJump(ref velocity, dt);
+            }
+            else
+            {
+                velocity = new Vector2(0, velocity.Y);
+            }
         }
         else
         {
-            velocity = new Vector2(0, velocity.Y);
+            if (!egm.levelCompleted && !egm.gamePaused)
+            {
+                direction = GetMovementInput();
+                HandleHorizontalMovement(ref velocity, direction);
+                HandleJump(ref velocity, dt);
+            }
+            else
+            {
+                velocity = new Vector2(0, velocity.Y);
+            }
         }
 
         ApplyGravity(ref velocity, dt);
@@ -190,25 +210,55 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <param name="direction">Normalized horizontal input direction (-1..1).</param>
     private void HandleHorizontalMovement(ref Vector2 velocity, float direction)
     {
-        if (!GlobalGameManager.GetInstance().levelCompleted && GlobalGameManager.GetInstance().canMove)
+
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+
+        if (ggm != null)
         {
-            float accel = MoveSpeed;
-            if (direction != 0f)
+            if (!ggm.levelCompleted && ggm.canMove)
             {
-                velocity.X = direction * accel;
-                if (sprite != null)
+                float accel = MoveSpeed;
+                if (direction != 0f)
                 {
-                    sprite.FlipH = ShouldFlipSprite(direction);
+                    velocity.X = direction * accel;
+                    if (sprite != null)
+                    {
+                        sprite.FlipH = ShouldFlipSprite(direction);
+                    }
+                }
+                else
+                {
+                    velocity.X = Mathf.MoveToward(velocity.X, 0f, accel);
                 }
             }
             else
             {
-                velocity.X = Mathf.MoveToward(velocity.X, 0f, accel);
+                velocity.X = 0;
             }
         }
         else
         {
-            velocity.X = 0;
+            if (!egm.levelCompleted && egm.canMove)
+            {
+                float accel = MoveSpeed;
+                if (direction != 0f)
+                {
+                    velocity.X = direction * accel;
+                    if (sprite != null)
+                    {
+                        sprite.FlipH = ShouldFlipSprite(direction);
+                    }
+                }
+                else
+                {
+                    velocity.X = Mathf.MoveToward(velocity.X, 0f, accel);
+                }
+            }
+            else
+            {
+                velocity.X = 0;
+            }
         }
     }
 
@@ -223,42 +273,88 @@ public abstract partial class BasePlayerController : CharacterBody2D
             return;
         }
 
-        if (!GlobalGameManager.GetInstance().levelCompleted && GlobalGameManager.GetInstance().canMove)
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+
+        if (ggm != null)
         {
-            if (IsOnFloor())
+            if (!ggm.levelCompleted && ggm.canMove)
             {
-                if (Mathf.Abs(velocity.X) > 1f)
+                if (IsOnFloor())
                 {
-                    PlayAnimation("isMoving");
+                    if (Mathf.Abs(velocity.X) > 1f)
+                    {
+                        PlayAnimation("isMoving");
+                    }
+                    else
+                    {
+                        PlayAnimation("idle");
+                    }
                 }
                 else
                 {
-                    PlayAnimation("idle");
+                    if (velocity.Y > 0f)
+                    {
+                        PlayAnimation("isFalling");
+                    }
+                    else
+                    {
+                        PlayAnimation("jump");
+                    }
                 }
             }
-            else
+            else if (ggm.canMove)
             {
-                if (velocity.Y > 0f)
+                if (this is Gorgonzola)
                 {
-                    PlayAnimation("isFalling");
+                    PlayAnimation("enter_door");
                 }
                 else
                 {
-                    PlayAnimation("jump");
+                    PlayAnimation("levelCompleted");
                 }
+                Gorgonzola.GetInstance().doorMoveTriggered = true;
             }
         }
-        else if (GlobalGameManager.GetInstance().canMove)
+        else
         {
-            if (this is Gorgonzola)
+            if (!egm.levelCompleted && egm.canMove)
             {
-                PlayAnimation("enter_door");
+                if (IsOnFloor())
+                {
+                    if (Mathf.Abs(velocity.X) > 1f)
+                    {
+                        PlayAnimation("isMoving");
+                    }
+                    else
+                    {
+                        PlayAnimation("idle");
+                    }
+                }
+                else
+                {
+                    if (velocity.Y > 0f)
+                    {
+                        PlayAnimation("isFalling");
+                    }
+                    else
+                    {
+                        PlayAnimation("jump");
+                    }
+                }
             }
-            else
+            else if (egm.canMove)
             {
-                PlayAnimation("levelCompleted");
+                if (this is Gorgonzola)
+                {
+                    PlayAnimation("enter_door");
+                }
+                else
+                {
+                    PlayAnimation("levelCompleted");
+                }
+                Gorgonzola.GetInstance().doorMoveTriggered = true;
             }
-            Gorgonzola.GetInstance().doorMoveTriggered = true;
         }
     }
 
@@ -291,7 +387,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
         var effect = scene.Instantiate<Node2D>();
         if (effect == null) return;
 
-        GetTree().Root.GetNode<Node2D>("level/level_assets/clones").AddChild(effect);
+        GetParent<Node2D>().AddChild(effect);
+
         effect.GlobalPosition = position;
 
         var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
@@ -310,12 +407,12 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         if (animName == "enter_door")
         {
-            if (GlobalGameManager.GetInstance().levelCompleted)
+            GlobalGameManager ggm = GlobalGameManager.GetInstance();
+            if (ggm.levelCompleted)
             {
-                GlobalGameManager.GetInstance().ShowVictoryMenu(true);
                 Visible = false;
             }
-            GlobalGameManager.GetInstance().canMove = false;
+            ggm.canMove = false;
         }
         else if (animName == "levelCompleted")
         {
@@ -353,7 +450,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         isLanded = false;
         jumpBufferTimer = 0f;
-        QueueFree();
+        if (this is not Gorgonzola)
+        {
+            QueueFree();
+        }
     }
 
     /// <summary>

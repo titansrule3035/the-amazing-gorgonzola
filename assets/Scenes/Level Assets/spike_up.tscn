@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dv65cgaa385tt"]
 
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="1_jsw0n"]
-[ext_resource type="Script" uid="uid://bsnpwexe55gc0" path="res://assets/Scripts/Level Assets/SpikeUp.cs" id="2_ankcp"]
+[ext_resource type="Script" uid="uid://dwayfptldiofb" path="res://assets/Scripts/Level Assets/SpikeUp.cs" id="2_ankcp"]
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/kill_zone.tscn" id="2_gcl76"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4buv"]
@@ -9,7 +9,6 @@ atlas = ExtResource("1_jsw0n")
 region = Rect2(384, 192, 32, 32)
 
 [node name="spike_up" type="Sprite2D" unique_id=208165850]
-z_index = 1
 texture_filter = 1
 texture_repeat = 1
 texture = SubResource("AtlasTexture_m4buv")

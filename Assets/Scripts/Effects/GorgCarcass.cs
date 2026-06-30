@@ -86,7 +86,6 @@ public partial class GorgCarcass : Node2D
         }
 
         CanvasEffects.GetInstance().OnFadeOut += Flush;
-        GlobalGameManager.GetInstance().OnFlush += Flush;
     }
 
     /// <summary>
@@ -95,7 +94,6 @@ public partial class GorgCarcass : Node2D
     void Flush()
     {
         CanvasEffects.GetInstance().OnFadeOut -= Flush;
-        GlobalGameManager.GetInstance().OnFlush -= Flush;
         QueueFree();
     }
 

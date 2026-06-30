@@ -44,15 +44,6 @@ public partial class MainMenu : Control
 
     public override void _Process(double delta)
     {
-        if (Input.IsKeyPressed(Godot.Key.F5))
-        {
-            GlobalGameManager ggm = GlobalGameManager.GetInstance();
-            for (int i = 1; i < ggm.levelScenes.Count - 1; i++)
-            {
-                ggm.ExportLevel(ggm.levelScenes[i].Instantiate(), i.ToString());
-            }
-        }
-
         base._Process(delta);
     }
 
@@ -68,8 +59,8 @@ public partial class MainMenu : Control
     // Button handlers
     void PlayButtonPressed()
     {
-        CanvasEffects.GetInstance().FadeOut(new(0, 0, 0, 1));
-        DisableButtonsState(true);
+        Color col = new Color(0, 0, 0, 1);
+        CanvasEffects.GetInstance().FadeOut(col);
     }
 
     void OptionsButtonPressed()
