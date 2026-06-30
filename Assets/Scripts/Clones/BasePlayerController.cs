@@ -32,6 +32,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     // Internal state
     private bool isLanded = false;
     private float jumpBufferTimer = 0f;
+    public bool killed = false;
 
     // Events
     public static event Action MainPlayerKilled;

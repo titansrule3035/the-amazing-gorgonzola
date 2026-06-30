@@ -31,10 +31,13 @@ public partial class RevClone : BasePlayerController
     /// </summary>
     public override void Kill()
     {
-        SpawnEffect(killEffectScene, GlobalPosition);
-        QueueFree();
+        if (!killed)
+        {
+            killed = true;
+            SpawnEffect(killEffectScene, GlobalPosition);
+            QueueFree();
 
-        base.Kill();
-
+            base.Kill();
+        }
     }
 }

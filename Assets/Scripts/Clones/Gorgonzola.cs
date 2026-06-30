@@ -87,22 +87,27 @@ public partial class Gorgonzola : BasePlayerController
         shouldFlip = (direction < 0);
         return shouldFlip;
     }
-
+    //prevent dupe carcass instantiation
+    bool killed = false;
     public override void Kill()
     {
         /// <summary>
         /// Handles main player death: notifies listeners, kills clones, spawns carcass effect and frees this node.
         /// </summary>
-        OnKilled?.Invoke();
-        BasePlayerController.KillAllClones();
-        GlobalGameManager.GetInstance().canMove = false;
-        GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
-        effect.flip = shouldFlip;
-        GetTree().Root.AddChild(effect);
-        effect.GlobalPosition = GlobalPosition;
-        QueueFree();
+        if (!killed)
+        {
+            killed = true;
+            OnKilled?.Invoke();
+            BasePlayerController.KillAllClones();
+            GlobalGameManager.GetInstance().canMove = false;
+            GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
+            effect.flip = shouldFlip;
+            GetTree().Root.AddChild(effect);
+            effect.GlobalPosition = GlobalPosition;
+            QueueFree();
 
-        base.Kill();
+            base.Kill();
+        }
     }
 
     public static Gorgonzola GetInstance()
