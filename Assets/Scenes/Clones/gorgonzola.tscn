@@ -658,7 +658,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6btvm")
 }],
-"loop": false,
+"loop": 0,
 "name": &"enter_door",
 "speed": 10.0
 }, {
@@ -675,7 +675,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v4cpa")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fall",
 "speed": 10.0
 }, {
@@ -698,7 +698,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rvck8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -718,7 +718,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hfhl6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump",
 "speed": 10.0
 }, {
@@ -735,7 +735,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sfnws")
 }],
-"loop": true,
+"loop": 1,
 "name": &"rise",
 "speed": 10.0
 }, {
@@ -770,7 +770,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f8d5d")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 10.0
 }, {
@@ -865,7 +865,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jwq0i")
 }],
-"loop": false,
+"loop": 0,
 "name": &"win",
 "speed": 10.0
 }]
@@ -1290,7 +1290,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pqihl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"down",
 "speed": 5.0
 }, {
@@ -1298,7 +1298,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_16wqw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"interact",
 "speed": 5.0
 }, {
@@ -1306,7 +1306,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_02bgc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -1314,7 +1314,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_isyh3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"left",
 "speed": 5.0
 }, {
@@ -1322,7 +1322,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lrmv5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"return",
 "speed": 5.0
 }, {
@@ -1330,7 +1330,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5wara")
 }],
-"loop": true,
+"loop": 1,
 "name": &"right",
 "speed": 5.0
 }, {
@@ -1338,7 +1338,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rdd36")
 }],
-"loop": true,
+"loop": 1,
 "name": &"spacebar",
 "speed": 5.0
 }, {
@@ -1346,12 +1346,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gmfq6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"up",
 "speed": 5.0
 }]
 
-[node name="gorgonzola" type="CharacterBody2D" unique_id=1190956393]
+[node name="gorgonzola" type="CharacterBody2D" unique_id=1190956393 groups=["editor_placeable"]]
 z_index = 5
 material = SubResource("ShaderMaterial_h4t2g")
 collision_layer = 8192
