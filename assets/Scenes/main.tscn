@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
 [ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
 [ext_resource type="PackedScene" uid="uid://bfh6pikgv3ub3" path="res://assets/Levels/final.tscn" id="5_5dr3y"]
-[ext_resource type="PackedScene" uid="uid://dtkkypel8chuv" path="res://assets/Scenes/Level Editor/main.tscn" id="6_enx2f"]
+[ext_resource type="PackedScene" uid="uid://dtkkypel8chuv" path="res://assets/Scenes/Level Editor/Editor.tscn" id="6_enx2f"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="10_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
 [ext_resource type="Script" uid="uid://bjs036688coai" path="res://assets/Scripts/Level Assets/DialogueTrigger.cs" id="10_cbung"]
