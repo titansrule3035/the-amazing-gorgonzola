@@ -4,11 +4,11 @@ using System.Runtime.CompilerServices;
 
 public partial class EditorItemObject : TextureRect
 {
-    public enum ItemType { Clone, Enemy, Tile, TileObj, Hazard, EndPoint, Null }
+    public enum ItemType { Clone, Enemy, Tile, TileObj, Hazard, LevelMechanic, Null }
     [Export] public ItemType itemType;
     [Export] public PackedScene ThisScene { get; set; }
     public AnimationPlayer Player;
-    bool selected = false;
+    public bool selected = false;
     public bool disabled = false;
 
     public static Action<EditorItemObject> ChangeTexture;
@@ -137,7 +137,7 @@ public partial class EditorItemObject : TextureRect
 
     public string GetGroupDestination()
     {
-        // ItemType { Clone, Enemy, Tile, TileObj, EndPoint, Hazard, Null }
+        // ItemType { Clone, Enemy, Tile, TileObj, LevelMechanic, Hazard, Null }
 
         string group = "";
         switch (itemType)
@@ -151,15 +151,15 @@ public partial class EditorItemObject : TextureRect
                 break;
 
             case ItemType.TileObj:
-                group = "tiles";
+                group = "level_mechanics";
                 break;
 
             case ItemType.Hazard:
                 group = "hazards";
                 break;
 
-            case ItemType.EndPoint:
-                group = "clear_conditions";
+            case ItemType.LevelMechanic:
+                group = "level_mechanics";
                 break;
 
         }
