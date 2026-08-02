@@ -10,26 +10,19 @@ public partial class FileButton : ToolBarButton
     public Action<string>? filePicked;
     public Action<string>? fileSaved;
 
-    public ColorRect blockMouse;
-
     public override void _Ready()
     {
         GetTree().CurrentScene.GetNode<QuitMenu>("CanvasLayer/UI/QuitMenu").cancelButton.Pressed += HideMenuAndEnableClicks;
 
-        menuButtons[0] = menu.GetNode<Button>("NewButton/Button");
-        menuButtons[1] = menu.GetNode<Button>("OpenButton/Button");
-        menuButtons[2] = menu.GetNode<Button>("SaveButton/Button");
-        menuButtons[3] = menu.GetNode<Button>("SaveAsButton/Button");
-        menuButtons[4] = menu.GetNode<Button>("CloseButton/Button");
-        menuButtons[5] = menu.GetNode<Button>("QuitButton/Button");
+        menuButtons[0] = menu.GetNode<Button>("OpenButton/Button");
+        menuButtons[1] = menu.GetNode<Button>("SaveButton/Button");
+        menuButtons[2] = menu.GetNode<Button>("SaveAsButton/Button");
+        menuButtons[3] = menu.GetNode<Button>("CloseButton/Button");
 
-        menuButtons[0].Pressed += NewButtonPressed;
-        menuButtons[1].Pressed += OpenButtonPressed;
-        menuButtons[2].Pressed += SaveButtonPressed;
-        menuButtons[3].Pressed += SaveAsButtonPressed;
-        menuButtons[4].Pressed += CloseButtonPressed;
-        menuButtons[5].Pressed += QuitButtonPressed;
-
+        menuButtons[0].Pressed += OpenButtonPressed;
+        menuButtons[1].Pressed += SaveButtonPressed;
+        menuButtons[2].Pressed += SaveAsButtonPressed;
+        menuButtons[3].Pressed += CloseButtonPressed;
         importDialog = GetTree().CurrentScene.GetNode<FileDialog>("CanvasLayer/UI/ImportDialog");
 
         importDialog.FileSelected += OnFileSelected;
@@ -79,10 +72,6 @@ public partial class FileButton : ToolBarButton
     {
         if (Input.IsActionPressed("ctrl"))
         {
-            if (Input.IsActionJustPressed("n"))
-            {
-                NewButtonPressed();
-            }
             if (Input.IsActionJustPressed("o"))
             {
                 OpenButtonPressed();
@@ -110,11 +99,6 @@ public partial class FileButton : ToolBarButton
         }
         base._Process(delta);
     }
-
-    void NewButtonPressed()
-    {
-
-    }
     void OpenButtonPressed()
     {
         blockMouse.MouseFilter = MouseFilterEnum.Stop;
@@ -132,16 +116,12 @@ public partial class FileButton : ToolBarButton
     }
     void CloseButtonPressed()
     {
+        UpdateMenuAndButton(false);
         Main main = (GetTree().CurrentScene as Main);
         GetParent().GetNode<Label>("ToolBarLabel").Text = "Untitled (Unsaved)";
         main.filePath = "";
         main.ClearGroups();
         main.SetGameState(true);
-    }
-    void QuitButtonPressed()
-    {
-        blockMouse.MouseFilter = MouseFilterEnum.Stop;
-        GetTree().CurrentScene.GetNode<QuitMenu>("CanvasLayer/UI/QuitMenu").ShowMenu();
     }
     void OnFileSelected(string path)
     {
