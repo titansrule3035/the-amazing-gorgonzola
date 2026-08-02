@@ -30,7 +30,7 @@ public partial class MainMenu : Control
 
 
         // Subscribe to options' back button
-        optionsMenu.backButtonPressed += () => 
+        optionsMenu.backButtonPressed += () =>
         {
             ShowMenu();
             optionsMenu.HideMenu();
@@ -45,6 +45,17 @@ public partial class MainMenu : Control
     public override void _Process(double delta)
     {
         base._Process(delta);
+
+        if (Input.IsKeyPressed(Godot.Key.F5))
+        {
+            for (int i = 0; i < GlobalGameManager.GetInstance().GetLevelCount(); i++)
+            {
+                if (i != 0 && i != GlobalGameManager.GetInstance().GetLevelCount() - 1)
+                {
+                    GlobalGameManager.GetInstance().ExportLevel(GlobalGameManager.GetInstance().levelScenes[i].Instantiate(), GlobalGameManager.GetInstance().levelScenes[i].ResourcePath.GetFile().GetBaseName());
+                }
+            }
+        }
     }
 
     public override void _ExitTree()
@@ -59,6 +70,7 @@ public partial class MainMenu : Control
     // Button handlers
     void PlayButtonPressed()
     {
+        DisableButtonsState(true);
         Color col = new Color(0, 0, 0, 1);
         CanvasEffects.GetInstance().FadeOut(col);
     }
