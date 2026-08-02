@@ -8,13 +8,13 @@ public partial class Door : Node2D
     [Export] public bool opened = false;
 
     private AnimatedSprite2D animatedSprite;
-    private AnimationPlayer animPlayer;
-    private AnimationTree animTree;
+    [Export] private AnimationPlayer animPlayer;
+    [Export] private AnimationTree animTree;
 
     private Area2D area;
     private bool inRange;
 
-    private readonly string[] animationParams = { "open", "close" };
+    private string[] animationParams = { "open", "close" };
 
     private Gorgonzola gorg;
     private bool lastGroundedState;
@@ -36,7 +36,12 @@ public partial class Door : Node2D
         area.BodyEntered += OnAreaEntered;
         area.BodyExited += OnAreaExited;
 
-        ((Main) GetTree().CurrentScene).RegisterDoor(this);
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+
+        if (ggm == null)
+        {
+            ((Main)GetTree().CurrentScene).RegisterDoor(this);
+        }
     }
 
     private void OnAreaEntered(Node2D body)
@@ -99,7 +104,9 @@ public partial class Door : Node2D
     private void PlayAnimation(string activeParam)
     {
         foreach (string param in animationParams)
+        {
             animTree.Set($"parameters/conditions/{param}", param == activeParam);
+        }
     }
 
     public static Door GetInstance() => instance;
