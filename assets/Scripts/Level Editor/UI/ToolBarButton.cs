@@ -8,14 +8,22 @@ using static Godot.WebSocketPeer;
 public partial class ToolBarButton : Button
 {
     public Action<ToolBarButton>? toolBarButtonPressed;
+    public Action<ToolBarButton>? toolBarButtonHovered;
+
     [Export] public bool showMenu = false;
-    [Export] public Control menu;
+    [Export] public ToolBarMenu menu;
     [Export] public Godot.Collections.Array<Button> menuButtons;
     Godot.Color fill;
+    public ColorRect blockMouse;
 
     public override void _Ready()
     {
         Pressed += ToolBarButtonPressed;
+        MouseEntered += ToolBarButtonHovered;
+
+        blockMouse = GetTree().CurrentScene.GetNode<ColorRect>("CanvasLayer/UI/BlockMouse");
+
+        menu.parentButton = this;
 
         menu.Visible = false;
         showMenu = false;
@@ -43,5 +51,10 @@ public partial class ToolBarButton : Button
     public void ToolBarButtonPressed()
     {
         toolBarButtonPressed.Invoke(this);
+    }
+
+    private void ToolBarButtonHovered()
+    {
+        toolBarButtonHovered.Invoke(this);
     }
 }
