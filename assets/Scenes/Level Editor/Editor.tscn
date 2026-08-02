@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/kill_zone.tscn" id="21_x1w6y"]
 [ext_resource type="Script" uid="uid://cigia10ol51ab" path="res://assets/Scripts/Level Editor/Editor/EditorObject.cs" id="22_07x1x"]
 [ext_resource type="Script" uid="uid://bquphp5j7gww7" path="res://assets/Scripts/Level Editor/UI/Grid.cs" id="23_5qh5s"]
+[ext_resource type="Texture2D" uid="uid://dn26l57lcnxgy" path="res://assets/Sprites/Level Editor/Eraser.png" id="23_osp0y"]
 [ext_resource type="Script" uid="uid://bjuxwcce1ffw5" path="res://assets/Scripts/Level Editor/UI/Ui.cs" id="24_3ar2r"]
 [ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="25_5yjj6"]
 [ext_resource type="Script" uid="uid://cdkcaip0x2d4n" path="res://assets/Scripts/Level Editor/UI/ToolBar.cs" id="26_miwel"]
@@ -50,8 +51,10 @@
 [ext_resource type="PackedScene" uid="uid://ck86k773p7lc7" path="res://assets/Scenes/Level Editor/Tiles/ID1/Hazards/item_tile_spike_right.tscn" id="48_gwxgc"]
 [ext_resource type="PackedScene" uid="uid://bwjeam3o5kvn5" path="res://assets/Scenes/Level Editor/Tiles/ID1/Hazards/item_tile_spike_down.tscn" id="49_n2ci5"]
 [ext_resource type="PackedScene" uid="uid://1gscoiqbtax4" path="res://assets/Scenes/Level Editor/Items/item_key_card.tscn" id="50_t3qxf"]
+[ext_resource type="PackedScene" uid="uid://d3o4cpx0kwkpe" path="res://assets/Scenes/Level Editor/Items/item_semi_solid.tscn" id="51_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://c1jt7bh4kmxc1" path="res://assets/Scenes/Level Editor/Items/item_lab_door.tscn" id="51_voii0"]
 [ext_resource type="Script" uid="uid://bb48444pii2fi" path="res://assets/Scripts/Level Editor/UI/GameControlsMenu.cs" id="52_8ul77"]
+[ext_resource type="Script" uid="uid://baktb4st420aq" path="res://assets/Scripts/Level Editor/UI/ToolBarMenu.cs" id="53_h4shr"]
 [ext_resource type="Script" uid="uid://cnebv16m11afh" path="res://assets/Scripts/Level Editor/UI/QuitMenu.cs" id="53_tbr8v"]
 [ext_resource type="Texture2D" uid="uid://dm1ve5n7hm2qw" path="res://assets/Sprites/Level Editor/warning.png" id="54_0e44q"]
 
@@ -1961,7 +1964,7 @@ tile_set = SubResource("TileSet_tit20")
 
 [node name="level_assets" type="Node2D" parent="level" unique_id=1543714749]
 
-[node name="clear_conditions" type="Node2D" parent="level/level_assets" unique_id=33367219]
+[node name="level_mechanics" type="Node2D" parent="level/level_assets" unique_id=33367219]
 
 [node name="clones" type="Node2D" parent="level/level_assets" unique_id=533796095]
 
@@ -1978,7 +1981,7 @@ scale = Vector2(350.455, 1)
 [node name="EditorObject" type="Node2D" parent="." unique_id=838321855]
 process_mode = 3
 script = ExtResource("22_07x1x")
-itemType = 4
+EraserTexture = ExtResource("23_osp0y")
 
 [node name="Sprite" type="Sprite2D" parent="EditorObject" unique_id=24487047]
 z_index = 100
@@ -2038,7 +2041,6 @@ offset_top = 2.0
 offset_right = 1726.0
 offset_bottom = 30.0
 mouse_filter = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
 
 [node name="ToolBarLabel" type="Label" parent="CanvasLayer/UI/ToolBar" unique_id=1695420679]
 layout_mode = 1
@@ -2081,7 +2083,6 @@ offset_top = 0.015999913
 offset_right = -0.46400452
 offset_bottom = 0.01599884
 mouse_filter = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/FileButton" unique_id=731033202]
 layout_mode = 0
@@ -2121,7 +2122,6 @@ offset_top = 0.015999913
 offset_right = 0.039993286
 offset_bottom = 0.01599884
 mouse_filter = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/WindowButton" unique_id=908977366]
 layout_mode = 0
@@ -2147,7 +2147,7 @@ focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qdlv5")
 script = ExtResource("30_ll6sc")
 menu = NodePath("../../EditorMenu")
-menuButtons = []
+menuButtons = [null, null, null, null, null]
 
 [node name="ButtonForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=400297462]
 layout_mode = 1
@@ -2161,7 +2161,6 @@ offset_top = 0.015999913
 offset_right = 0.0019989014
 offset_bottom = 0.01599884
 mouse_filter = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=2100602292]
 layout_mode = 0
@@ -2192,6 +2191,7 @@ oversampling_override = 1.0
 title = "Save Level"
 position = Vector2i(0, 36)
 ok_button_text = "Save Level"
+access = 2
 filters = PackedStringArray("*.taglevel ; TAGLEVEL Files")
 folder_creation_enabled = false
 favorites_enabled = false
@@ -2203,6 +2203,7 @@ oversampling_override = 1.0
 title = "Save Level As File"
 position = Vector2i(0, 36)
 ok_button_text = "Save File"
+access = 2
 folder_creation_enabled = false
 favorites_enabled = false
 layout_toggle_enabled = false
@@ -2215,8 +2216,8 @@ offset_top = 33.0
 offset_right = 480.0
 offset_bottom = 65.0
 script = ExtResource("31_464bi")
-scrollButtonMenus = [NodePath("../ClonesMenu"), NodePath("../TilesMenu"), NodePath("../LevelEndPointsMenu")]
-scrollButtonMenuNames = Array[String](["Clones", "Tiles", "Level End Points"])
+scrollButtonMenus = [NodePath("../ClonesMenu"), NodePath("../TilesMenu"), NodePath("../LevelMechanicsMenu")]
+scrollButtonMenuNames = Array[String](["Clones", "Tiles", "Level Mechanics"])
 
 [node name="LeftButton" type="Button" parent="CanvasLayer/UI/ScrollButton" unique_id=1857499759]
 process_mode = 3
@@ -2254,7 +2255,6 @@ offset_top = 0.007999957
 offset_right = -0.08001709
 offset_bottom = -0.0080013275
 mouse_filter = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
 
 [node name="TitleLabel" type="Label" parent="CanvasLayer/UI/ScrollButton" unique_id=599683389]
 layout_mode = 1
@@ -2298,6 +2298,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ClonesMenu" type="Control" parent="CanvasLayer/UI" unique_id=594398989]
+visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -2323,7 +2324,7 @@ offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
+color = Color(0, 0.29803923, 0.043137256, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ClonesMenu" unique_id=1051830274]
 layout_mode = 1
@@ -2370,7 +2371,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
-visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -2396,7 +2396,7 @@ offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
+color = Color(0, 0.29803923, 0.043137256, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/TilesMenu" unique_id=879181758]
 layout_mode = 1
@@ -2489,7 +2489,15 @@ alignment = 1
 [node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer6" unique_id=170586311 instance=ExtResource("49_n2ci5")]
 layout_mode = 2
 
-[node name="LevelEndPointsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
+[node name="TilesItemContainer7" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=864938905]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemBg" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer7" unique_id=518054047 instance=ExtResource("51_5j6bi")]
+layout_mode = 2
+
+[node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
 visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
@@ -2503,7 +2511,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="AssetsForeground" type="ColorRect" parent="CanvasLayer/UI/LevelEndPointsMenu" unique_id=543983774]
+[node name="AssetsForeground" type="ColorRect" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=543983774]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.004
@@ -2516,10 +2524,10 @@ offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.70980394, 0.8901961, 1)
+color = Color(0, 0.29803923, 0.043137256, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelEndPointsMenu" unique_id=266085711]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=266085711]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -2528,85 +2536,48 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/LevelEndPointsMenu/ScrollContainer" unique_id=1758838027]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer" unique_id=1758838027]
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/LevelEndPointsMenu/ScrollContainer/CenterContainer" unique_id=2139236424]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer" unique_id=2139236424]
 custom_minimum_size = Vector2(0, 245)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="EndPointsItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/LevelEndPointsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=480333744]
+[node name="EndPointsItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=480333744]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelEndPointsMenu/ScrollContainer/CenterContainer/VBoxContainer/EndPointsItemContainer" unique_id=328486715 instance=ExtResource("50_t3qxf")]
+[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/EndPointsItemContainer" unique_id=328486715 instance=ExtResource("50_t3qxf")]
 layout_mode = 2
 
-[node name="ItemDoor" parent="CanvasLayer/UI/LevelEndPointsMenu/ScrollContainer/CenterContainer/VBoxContainer/EndPointsItemContainer" unique_id=1534183261 instance=ExtResource("51_voii0")]
+[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/EndPointsItemContainer" unique_id=1534183261 instance=ExtResource("51_voii0")]
 layout_mode = 2
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
 visible = false
-anchors_preset = 0
-offset_top = 32.0
+layout_mode = 1
+anchor_top = 0.037
+anchor_bottom = 0.037
+offset_top = 0.031999588
 offset_right = 480.0
-offset_bottom = 272.0
+offset_bottom = 190.032
+script = ExtResource("53_h4shr")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/UI/FileMenu" unique_id=1560260179]
 layout_mode = 0
 offset_right = 480.0
-offset_bottom = 286.0
+offset_bottom = 190.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="NewButton" type="Control" parent="CanvasLayer/UI/FileMenu" unique_id=230328980]
-anchors_preset = 0
-offset_right = 424.0
-offset_bottom = 48.0
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/FileMenu/NewButton" unique_id=247214383]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0050000004
-anchor_top = 0.042000003
-anchor_right = 1.1270001
-anchor_bottom = 0.95800006
-offset_left = -0.120000124
-offset_top = -0.01600027
-offset_right = 0.15194702
-offset_bottom = 0.01599884
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/FileMenu/NewButton" unique_id=1777897084]
-layout_mode = 0
-offset_right = 480.0
-offset_bottom = 48.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 12
-text = "New (Ctrl/Command + N)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="CanvasLayer/UI/FileMenu/NewButton" unique_id=1112912602]
-process_mode = 3
-layout_mode = 0
-offset_right = 480.0
-offset_bottom = 48.0
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
-
 [node name="OpenButton" type="Control" parent="CanvasLayer/UI/FileMenu" unique_id=1640148016]
 anchors_preset = 0
-offset_top = 48.0
 offset_right = 480.0
-offset_bottom = 96.0
+offset_bottom = 48.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/FileMenu/OpenButton" unique_id=1529947266]
 layout_mode = 1
@@ -2644,9 +2615,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
 [node name="SaveButton" type="Control" parent="CanvasLayer/UI/FileMenu" unique_id=396486781]
 anchors_preset = 0
-offset_top = 96.0
+offset_top = 48.0
 offset_right = 480.0
-offset_bottom = 144.0
+offset_bottom = 96.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/FileMenu/SaveButton" unique_id=79281780]
 layout_mode = 1
@@ -2684,9 +2655,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
 [node name="SaveAsButton" type="Control" parent="CanvasLayer/UI/FileMenu" unique_id=1207017178]
 anchors_preset = 0
-offset_top = 144.0
+offset_top = 96.0
 offset_right = 480.0
-offset_bottom = 192.0
+offset_bottom = 144.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/FileMenu/SaveAsButton" unique_id=209520679]
 layout_mode = 1
@@ -2725,9 +2696,9 @@ vertical_alignment = 1
 
 [node name="CloseButton" type="Control" parent="CanvasLayer/UI/FileMenu" unique_id=1212005611]
 anchors_preset = 0
-offset_top = 190.0
+offset_top = 142.0
 offset_right = 480.0
-offset_bottom = 238.0
+offset_bottom = 190.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/FileMenu/CloseButton" unique_id=1824045712]
 layout_mode = 1
@@ -2766,52 +2737,13 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
-[node name="QuitButton" type="Control" parent="CanvasLayer/UI/FileMenu" unique_id=816072622]
-anchors_preset = 0
-offset_top = 238.0
-offset_right = 480.0
-offset_bottom = 286.0
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/FileMenu/QuitButton" unique_id=1090717685]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.042000003
-anchor_right = 0.99600005
-anchor_bottom = 0.95800006
-offset_left = 0.07999992
-offset_top = -0.01600027
-offset_right = -0.08001709
-offset_bottom = 0.01599884
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/FileMenu/QuitButton" unique_id=1453119694]
-layout_mode = 0
-offset_right = 480.0
-offset_bottom = 48.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 12
-text = "Quit (Ctrl/Command + Q)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="CanvasLayer/UI/FileMenu/QuitButton" unique_id=542421149]
-process_mode = 3
-layout_mode = 0
-offset_right = 480.0
-offset_bottom = 48.0
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
-
 [node name="WindowMenu" type="Control" parent="CanvasLayer/UI" unique_id=1529720700]
 visible = false
 anchors_preset = 0
 offset_top = 32.0
 offset_right = 480.0
 offset_bottom = 272.0
+script = ExtResource("53_h4shr")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/UI/WindowMenu" unique_id=1586759092]
 layout_mode = 0
@@ -3029,6 +2961,7 @@ anchor_bottom = 0.31500003
 offset_top = 0.031999588
 offset_right = -0.3840332
 offset_bottom = -0.16003418
+script = ExtResource("53_h4shr")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/UI/EditorMenu" unique_id=1059990030]
 layout_mode = 0
