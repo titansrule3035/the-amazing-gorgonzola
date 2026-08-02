@@ -40,7 +40,11 @@ public partial class Key : Node2D
 
         instance = this;
 
-        ((Main) GetTree().CurrentScene).RegisterKey(this);
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        if (ggm == null)
+        {
+            ((Main)GetTree().CurrentScene).RegisterKey(this);
+        }
 
         base._Ready();
     }
@@ -84,7 +88,7 @@ public partial class Key : Node2D
     }
 
     public static Key GetInstance()
-    { 
+    {
         return instance;
     }
 }

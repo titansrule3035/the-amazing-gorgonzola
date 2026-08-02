@@ -142,22 +142,48 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <param name="dt">Delta time in seconds.</param>
     private void HandleJump(ref Vector2 velocity, float dt)
     {
-        if (Input.IsActionJustPressed("jump") && GlobalGameManager.GetInstance().canMove)
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+
+        if (ggm != null)
         {
-            jumpBufferTimer = JumpBufferTime;
+            if (Input.IsActionJustPressed("jump") && ggm.canMove)
+            {
+                jumpBufferTimer = JumpBufferTime;
+            }
+            else
+            {
+                jumpBufferTimer -= dt;
+            }
+
+            if (jumpBufferTimer > 0f && IsOnFloor())
+            {
+                jumpBufferTimer = 0f;
+
+                velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
+
+                SpawnEffect(jumpEffectScene, GlobalPosition);
+            }
         }
         else
         {
-            jumpBufferTimer -= dt;
-        }
+            if (Input.IsActionJustPressed("jump") && egm.canMove)
+            {
+                jumpBufferTimer = JumpBufferTime;
+            }
+            else
+            {
+                jumpBufferTimer -= dt;
+            }
 
-        if (jumpBufferTimer > 0f && IsOnFloor())
-        {
-            jumpBufferTimer = 0f;
+            if (jumpBufferTimer > 0f && IsOnFloor())
+            {
+                jumpBufferTimer = 0f;
 
-            velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
+                velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
 
-            SpawnEffect(jumpEffectScene, GlobalPosition);
+                SpawnEffect(jumpEffectScene, GlobalPosition);
+            }
         }
     }
 

@@ -38,7 +38,6 @@ public partial class Gorgonzola : BasePlayerController
         EditorGameManager.GetInstance()?.RegisterGorg(gorgonzola);
     }
 
-
     public override void _Process(double delta)
     {
         /// <summary>
@@ -94,8 +93,17 @@ public partial class Gorgonzola : BasePlayerController
             killed = true;
             OnKilled?.Invoke();
             BasePlayerController.KillAllClones();
-            GlobalGameManager.GetInstance().canMove = false;
-            EditorGameManager.GetInstance().canMove = false;
+
+            GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+
+            if (ggm != null)
+            {
+                GlobalGameManager.GetInstance().canMove = false;
+            }
+            else
+            {
+                EditorGameManager.GetInstance().canMove = false;
+            }
             GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
             effect.flip = shouldFlip;
             GetTree().CurrentScene.AddChild(effect);
@@ -116,8 +124,18 @@ public partial class Gorgonzola : BasePlayerController
 
     public override void _ExitTree()
     {
-        GlobalGameManager.GetInstance().UnregisterGorg();
-        EditorGameManager.GetInstance().UnregisterGorg();
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+
+        if (ggm != null)
+        {
+            ggm.UnregisterGorg();
+        }
+        else
+        {
+            egm.UnregisterGorg();
+        }
+
         if (instance == this)
         {
             instance = null;
