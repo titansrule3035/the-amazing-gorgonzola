@@ -75,6 +75,7 @@ public partial class OnOffBlock : Node2D
     void CheckState()
     {
         bool state = OnOffManager.GetState();
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         if (state)
         {
             if (green)

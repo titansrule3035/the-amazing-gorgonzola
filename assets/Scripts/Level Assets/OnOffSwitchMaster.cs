@@ -66,4 +66,9 @@ public partial class OnOffSwitchMaster : OnOffSwitch
     {
         return instance;
     }
+
+    public override void _ExitTree()
+    {
+        instance = null;
+    }
 }

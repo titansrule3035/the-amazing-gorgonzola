@@ -57,7 +57,6 @@ public partial class OnOffSwitch : Node2D
 
     public override void _ExitTree()
     {
-        collisionArea.BodyEntered -= OnBodyEntered;
         OnOffManager.OnStateChanged -= ChangeState;
 
         base._ExitTree();
