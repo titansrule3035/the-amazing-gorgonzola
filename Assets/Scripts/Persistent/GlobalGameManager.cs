@@ -52,6 +52,18 @@ public partial class GlobalGameManager : Node2D
             return;
         }
 
+        // change resolution to match editor requirements
+        /*
+         Window window = GetWindow();
+
+        Vector2I newRes = new(1248, 832);
+
+        window.Size = newRes;
+
+        window.ContentScaleSize = newRes;
+
+        window.Position = (DisplayServer.ScreenGetSize(window.CurrentScreen) - window.Size) / 2;
+        */
 
         if (instance != null)
         {
@@ -124,6 +136,11 @@ public partial class GlobalGameManager : Node2D
     public static GlobalGameManager GetInstance()
     {
         return instance;
+    }
+
+    void ResetInstance()
+    {
+        instance = this;
     }
 
     private async System.Threading.Tasks.Task WaitForGameLoaded()
@@ -397,7 +414,7 @@ public partial class GlobalGameManager : Node2D
             IncludeFields = true
         });
 
-        string newFile = $"TAGLEVELs/{exportName}.taglevel";
+        string newFile = $"C:\\Users\\Princ\\source\\repos\\C#\\Godot Projects\\the-amazing-gorgonzola\\TAGLEVELs\\{exportName}.taglevel";
 
         if (!DirAccess.DirExistsAbsolute(Path.GetDirectoryName(newFile)))
         {
@@ -433,13 +450,11 @@ public partial class GlobalGameManager : Node2D
     {
         this.gorgonzola = gorgonzola;
         editorMain = GetTree().CurrentScene as Main;
-        gorgonzola.OnKilled += editorMain.OnGorgKilled;
         OnGorgFound?.Invoke();
     }
 
     public void UnregisterGorg()
     {
-        gorgonzola.OnKilled -= editorMain.OnGorgKilled;
         gorgonzola = null;
         OnGorgUnregistered?.Invoke();
     }
