@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://k1nk5gsufp6b"]
 
+[ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="1_f210m"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_018v2"]
 size = Vector2(32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq7ac"]
+atlas = ExtResource("1_f210m")
+region = Rect2(224, 992, 32, 32)
 
 [node name="semi_solid" type="StaticBody2D" unique_id=16047266]
 
@@ -10,3 +16,6 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_018v2")
 one_way_collision = true
 debug_color = Color(0.07047827, 0.22811922, 0, 0.41960785)
+
+[node name="sprite_2d" type="Sprite2D" parent="." unique_id=1157735519]
+texture = SubResource("AtlasTexture_iq7ac")
