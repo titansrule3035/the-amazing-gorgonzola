@@ -22,7 +22,7 @@ public partial class GorgCarcass : Node2D
     /// <summary>
     /// Initializes body parts, applies flip adjustments and random launch velocities, and wires flush handlers.
     /// </summary>
-    public override async void _Ready()
+    public override void _Ready()
     {
         bodies[0] = GetNode<RigidBody2D>("gorg_hat");
         bodies[1] = GetNode<RigidBody2D>("gorg_head");
@@ -80,11 +80,6 @@ public partial class GorgCarcass : Node2D
             bodies[i].LinearVelocity = launchVelocity;
         }
 
-        while (GlobalGameManager.GetInstance() == null)
-        {
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        }
-
         CanvasEffects.GetInstance().OnFadeOut += Flush;
     }
 
@@ -95,13 +90,5 @@ public partial class GorgCarcass : Node2D
     {
         CanvasEffects.GetInstance().OnFadeOut -= Flush;
         QueueFree();
-    }
-
-    /// <summary>
-    /// Overload that accepts a levelCompleted flag and delegates to Flush().
-    /// </summary>
-    void Flush(bool levelCompleted)
-    {
-        Flush();
     }
 }
