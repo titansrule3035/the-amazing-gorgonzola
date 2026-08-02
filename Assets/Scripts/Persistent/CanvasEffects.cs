@@ -41,7 +41,7 @@ public partial class CanvasEffects : Control
 
     public override void _Process(double delta)
     {
-        
+
     }
 
 
@@ -89,9 +89,14 @@ public partial class CanvasEffects : Control
         tween.Finished += () =>
         {
             OnFadeOut?.Invoke();
-            if (GlobalGameManager.GetInstance().levelCompleted)
+
+            GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+            if (ggm != null)
             {
-                OnLevelCompleteFadeOut?.Invoke();
+                if (ggm.levelCompleted)
+                {
+                    OnLevelCompleteFadeOut?.Invoke();
+                }
             }
         };
     }
@@ -107,8 +112,18 @@ public partial class CanvasEffects : Control
         tween.TweenProperty(colorRect, "color", endResult, duration);
         tween.Finished += () =>
         {
-            OnFadeIn?.Invoke(GlobalGameManager.GetInstance().levelCompleted);
+            GlobalGameManager ggm = GlobalGameManager.GetInstance();
+            if (ggm != null)
+            {
+                OnFadeIn?.Invoke(ggm.levelCompleted);
+            }
             colorRect.Visible = false;
         };
+    }
+
+    public override void _ExitTree()
+    {
+        instance = null;
+        base._ExitTree();
     }
 }
