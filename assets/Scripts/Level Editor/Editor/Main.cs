@@ -60,11 +60,7 @@ public partial class Main : Node2D
 
         CanvasEffects canvasEffects = CanvasEffects.GetInstance();
 
-        canvasEffects.OnLevelCompleteFadeOut += OnLevelCompleted;
-
         canvasEffects.OnFadeOut += OnFadeOut;
-
-        canvasEffects.OnFadeIn += OnFadeIn;
 
         scrollButton = GetNode<ScrollButtonMenusController>("CanvasLayer/UI/ScrollButton");
 
@@ -73,15 +69,15 @@ public partial class Main : Node2D
         GetWindow().FocusExited += GetNode<ToolBar>("CanvasLayer/UI/ToolBar").CloseMenus;
 
         // change resolution to match editor requirements
-        Window window = GetWindow();
+        //Window window = GetWindow();
 
-        Vector2I newRes = new(1728, 864);
+        //Vector2I newRes = new(1728, 864);
 
-        window.Size = newRes;
+        //window.Size = newRes;
 
-        window.ContentScaleSize = newRes;
+        //window.ContentScaleSize = newRes;
 
-        window.Position = (DisplayServer.ScreenGetSize(window.CurrentScreen) - window.Size) / 2;
+        //window.Position = (DisplayServer.ScreenGetSize(window.CurrentScreen) - window.Size) / 2;
     }
 
     public override void _Process(double delta)
@@ -288,16 +284,12 @@ public partial class Main : Node2D
         // so apparently queuefree waits until the end of the frame to dispose of an object,
         // which is pretty bad for our use case.
         // fix? make the method async and wait a frame before importing anything
-
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
         level = data;
 
         ImportTiles(levelRoot, data);
         ImportObjects(levelRoot, data);
-
-        ggm.levelCompleted = false;
-        ggm.canMove = true;
 
         SetGameState(true);
 
@@ -363,6 +355,8 @@ public partial class Main : Node2D
             instance.GlobalPosition = new Vector2(obj.Position.X, obj.Position.Y);
 
             groupNode.AddChild(instance);
+
+            instance.AddToGroup("editor_placeable");
         }
     }
 
@@ -390,6 +384,10 @@ public partial class Main : Node2D
             instance.Scale = semi_solid_tile.Scale;
 
             groupNode.AddChild(instance);
+
+            GD.Print(instance.GetType());
+
+            instance.AddToGroup("editor_placeable");
         }
     }
 
@@ -418,6 +416,8 @@ public partial class Main : Node2D
 
             groupNode.AddChild(master);
 
+            master.AddToGroup("editor_placeable");
+
             (master as OnOffSwitchMaster).SetState(asset.OnOffSwitchMaster.Opened);
         }
 
@@ -436,6 +436,8 @@ public partial class Main : Node2D
             onOffSwitch.GlobalPosition = switchData.Position;
 
             groupNode.AddChild(onOffSwitch);
+
+            onOffSwitch.AddToGroup("editor_placeable");
         }
 
         // Blocks
@@ -456,6 +458,8 @@ public partial class Main : Node2D
 
                 groupNode.AddChild(block);
 
+                block.AddToGroup("editor_placeable");
+
                 (block as OnOffBlock).RefreshState();
             }
         }
@@ -472,26 +476,13 @@ public partial class Main : Node2D
         CanvasEffects.GetInstance().FadeOut(new(96f / 255f, 0f, 0f, 1f));
     }
 
-    public void OnLevelCompleted()
+    public async void OnFadeOut()
     {
-        GlobalGameManager ggm = GlobalGameManager.GetInstance();
-
-        ggm.canMove = false;
-    }
-
-    public void OnFadeOut()
-    {
-        GlobalGameManager ggm = GlobalGameManager.GetInstance();
-
         ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
 
+        ((Main)GetTree().CurrentScene).GetNode<Camera2D>("Camera2D").GlobalPosition = new(-224, -400);
+
         CanvasEffects.GetInstance().FadeIn();
-
-    }
-
-    public void OnFadeIn(bool levelCompleted)
-    {
-        GlobalGameManager.GetInstance().canMove = true;
     }
 
     public void SetGameState(bool paused)
