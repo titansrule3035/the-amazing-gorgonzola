@@ -43,11 +43,19 @@ public partial class GameControlsMenu : Control
                 DirAccess.MakeDirAbsolute("user://tmp");
             }
 
-            ((Main) GetTree().CurrentScene).FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
+            main.FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
+
+            EditorGameManager.GetInstance().canMove = true;
+
+            main.GetNode<CameraDrag>("Camera2D").StorePos();
         }
         else
         {
-            ((Main) GetTree().CurrentScene).ImportLevel(GetTree().CurrentScene.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+            main.ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+
+            EditorGameManager.GetInstance().canMove = false;
+
+            main.GetNode<CameraDrag>("Camera2D").RestorePos();
         }
     }
 
