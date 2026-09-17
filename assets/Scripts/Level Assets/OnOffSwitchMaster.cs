@@ -30,7 +30,7 @@ public partial class OnOffSwitchMaster : OnOffSwitch
         OnOffManager.UpdateAllBlocks();
 
         base._Ready();
-    }
+    } 
 
     public override void _Process(double delta)
     {
@@ -70,5 +70,7 @@ public partial class OnOffSwitchMaster : OnOffSwitch
     public override void _ExitTree()
     {
         instance = null;
+
+        base._ExitTree();
     }
 }

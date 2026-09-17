@@ -22,10 +22,14 @@ config/custom_image="uid://drpd6x2gcjpea"
 
 [display]
 
-window/size/viewport_width=1728
-window/size/viewport_height=864
-window/stretch/mode="viewport"
-mouse_cursor/custom_image="uid://drpd6x2gcjpea"
+window/size/viewport_width=1248
+window/size/viewport_height=832
+window/size/resizable=false
+window/size/maximize_disabled=true
+window/size/window_width_override=1728
+window/size/window_height_override=864
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 mouse_cursor/tooltip_position_offset=Vector2(0, 0)
 window/hdr_2d=true
 

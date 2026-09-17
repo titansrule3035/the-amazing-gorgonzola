@@ -11,5 +11,4 @@
 texture = ExtResource("2_nfaau")
 script = ExtResource("3_nfaau")
 itemType = 0
-instantiationType = 1
 ThisScene = ExtResource("4_xnpsc")

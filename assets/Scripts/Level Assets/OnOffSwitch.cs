@@ -5,7 +5,6 @@ using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 public partial class OnOffSwitch : Node2D
 {
     // Node references
-    public Area2D collisionArea;
     public AnimatedSprite2D sprite;
 
     // Exported state
@@ -15,11 +14,9 @@ public partial class OnOffSwitch : Node2D
     public override void _Ready()
     {
         // Cache node references
-        collisionArea = GetNode<Area2D>("Area2D");
-        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
         // Connect signals
-        collisionArea.BodyEntered += OnBodyEntered;
+        GetNode<Area2D>("Area2D").BodyEntered += OnBodyEntered;
         OnOffManager.OnStateChanged += ChangeState;
 
         // Initialize visual state
@@ -46,17 +43,21 @@ public partial class OnOffSwitch : Node2D
     protected virtual void ChangeState(bool on)
     {
         opened = on;
-        sprite.Play(on ? "turn_on" : "turn_off");
+
+        string state = "turn_" + (on ? "on" : "off");
+
+        PlayAnimation(state);
     }
 
     // Play a local animation
     protected virtual void PlayAnimation(string animation)
     {
-        sprite.Play(animation);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play(animation);
     }
 
     public override void _ExitTree()
     {
+        GetNode<Area2D>("Area2D").BodyEntered -= OnBodyEntered;
         OnOffManager.OnStateChanged -= ChangeState;
 
         base._ExitTree();

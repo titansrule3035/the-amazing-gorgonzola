@@ -54,17 +54,23 @@ public partial class LevelClearedMenu : Panel
 
     void NextButtonPressed()
     {
+        DisableButtons();
         Color col = new Color(0, 0, 0, 1);
         CanvasEffects.GetInstance().FadeOut(col);
     }
 
     void QuitButtonPressed()
     {
-        nextButton.Disabled = quitButton.Disabled = false;
+        DisableButtons();
         CanvasEffects canvas = CanvasEffects.GetInstance();
         GlobalGameManager.GetInstance().canPause = false;
         canvas.FadeOut(Colors.Black);
         canvas.OnFadeOut += MainMenu;
+    }
+
+    void DisableButtons()
+    {
+        nextButton.Disabled = quitButton.Disabled = true;
     }
 
     public void MainMenu()

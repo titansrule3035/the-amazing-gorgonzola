@@ -37,7 +37,7 @@ public partial class Main : Node2D
 
     // Map each object's "Type" (the original node Name) to the scene that should be instantiated.
     // Populate these from the Editor or load them by convention, e.g. res://objects/{type}.tscn
-    [Export] public Godot.Collections.Dictionary<string, PackedScene> ClearConditionScenes { get; set; } = new();
+    [Export] public Godot.Collections.Dictionary<string, PackedScene> LevelMechanicScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> CloneScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> HazardScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> OnOffScenes { get; set; } = new();
@@ -68,6 +68,8 @@ public partial class Main : Node2D
 
         GetWindow().FocusExited += GetNode<ToolBar>("CanvasLayer/UI/ToolBar").CloseMenus;
 
+        Input.SetCustomMouseCursor(null, Input.CursorShape.Arrow, new(0, 0));
+
         // change resolution to match editor requirements
         //Window window = GetWindow();
 
@@ -85,6 +87,14 @@ public partial class Main : Node2D
         if (gorgonzola != null)
         {
             Gorgonzola.GetInstance().OnKilled += OnGorgKilled;
+        }
+
+        if (Input.IsActionPressed("ctrl"))
+        {
+            if (Input.IsActionJustPressed("interact"))
+            {
+                ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+            }
         }
     }
 
@@ -149,17 +159,17 @@ public partial class Main : Node2D
         }
 
         Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
-        Node2D clear_conditions = assetsRoot.GetNodeOrNull<Node2D>("clear_conditions");
+        Node2D level_mechanics = assetsRoot.GetNodeOrNull<Node2D>("level_mechanics");
         Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
         Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
         Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
         Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
 
-        if (clear_conditions != null)
+        if (level_mechanics != null)
         {
-            foreach (Node2D level_essential in clear_conditions.GetChildren())
+            foreach (Node2D level_essential in level_mechanics.GetChildren())
             {
-                data.ClearConditions.Add(new ObjectData(level_essential.GetType().Name, level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
+                data.LevelMechanics.Add(new ObjectData(level_essential.GetType().Name, level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
             }
         }
 
@@ -244,12 +254,12 @@ public partial class Main : Node2D
         return name[..i];
     }
 
-    public void ClearGroups()
+    public async Task ClearGroups()
     {
         Node levelRoot = GetNode("level/level_assets");
         foreach (Node node in levelRoot.GetChildren())
         {
-            if (node.Name == "clones" || node.Name == "hazards" || node.Name == "on_off_assets" || node.Name == "clear_conditions" || node.Name == "semi_solid_tiles")
+            if (node.Name == "clones" || node.Name == "hazards" || node.Name == "on_off_assets" || node.Name == "level_mechanics" || node.Name == "semi_solid_tiles")
             {
                 foreach (Node node2 in node.GetChildren())
                 {
@@ -279,7 +289,7 @@ public partial class Main : Node2D
             return;
         }
 
-        ClearGroups();
+        await ClearGroups();
 
         // so apparently queuefree waits until the end of the frame to dispose of an object,
         // which is pretty bad for our use case.
@@ -310,7 +320,7 @@ public partial class Main : Node2D
                 continue;
             }
 
-            // Clear existing cells so re-importing doesn't leave stale tiles behind.
+            // Clear existing cells so re-importing doesn't leave stale tiles behind
             layer.Clear();
 
             foreach (TileData tile in layerData.Tiles)
@@ -325,11 +335,11 @@ public partial class Main : Node2D
     {
         Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
 
-        ImportObjectGroup(assetsRoot, "clear_conditions", data.ClearConditions, ClearConditionScenes);
+        ImportObjectGroup(assetsRoot, "level_mechanics", data.LevelMechanics, LevelMechanicScenes);
         ImportObjectGroup(assetsRoot, "clones", data.Clones, CloneScenes);
         ImportObjectGroup(assetsRoot, "hazards", data.Hazards, HazardScenes);
         ImportOnOffGroup(assetsRoot, "on_off_assets", data.OnOffs, OnOffScenes);
-        ImportSemiSolidGroup(assetsRoot, "semi_solid_tiles", data.SemiSolidTiles, SemiSolidTileScenes);
+        ImportSemiSolidGroup(assetsRoot, "level_mechanics", data.SemiSolidTiles, LevelMechanicScenes);
     }
 
     private void ImportObjectGroup(Node2D assetsRoot, string groupNodeName, List<ObjectData> objects, Godot.Collections.Dictionary<string, PackedScene> sceneMap)
@@ -384,8 +394,6 @@ public partial class Main : Node2D
             instance.Scale = semi_solid_tile.Scale;
 
             groupNode.AddChild(instance);
-
-            GD.Print(instance.GetType());
 
             instance.AddToGroup("editor_placeable");
         }
@@ -481,6 +489,8 @@ public partial class Main : Node2D
         ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
 
         ((Main)GetTree().CurrentScene).GetNode<Camera2D>("Camera2D").GlobalPosition = new(-224, -400);
+
+        SetGameState(true);
 
         CanvasEffects.GetInstance().FadeIn();
     }

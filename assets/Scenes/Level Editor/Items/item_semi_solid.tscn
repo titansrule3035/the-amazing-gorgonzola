@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fm07t"]
 atlas = ExtResource("2_i23ft")
-region = Rect2(224, 992, 32, 16)
+region = Rect2(224, 992, 32, 32)
 
 [node name="ItemBg" unique_id=1663939762 instance=ExtResource("1_uycbr")]
 
@@ -14,3 +14,4 @@ region = Rect2(224, 992, 32, 16)
 texture = SubResource("AtlasTexture_fm07t")
 itemType = 3
 ThisScene = ExtResource("3_y68cp")
+cursorOffset = Vector2(0, -16)

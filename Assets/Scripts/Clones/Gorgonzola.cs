@@ -36,7 +36,21 @@ public partial class Gorgonzola : BasePlayerController
         Gorgonzola gorgonzola = this;
         GlobalGameManager.GetInstance()?.RegisterGorg(gorgonzola);
         EditorGameManager.GetInstance()?.RegisterGorg(gorgonzola);
+
+        //animationPlayer.AnimationFinished += HandleWinAnimation;
     }
+
+    /*async void HandleWinAnimation(StringName animName)
+    {
+        /// <summary>
+        /// Handles the win animation finishing by triggering the level complete sequence.
+        /// </summary>
+        GD.Print(animName + "ended");
+        if (animName == "win")
+        {
+            
+        }
+    }*/
 
     public override void _Process(double delta)
     {
@@ -65,6 +79,10 @@ public partial class Gorgonzola : BasePlayerController
         Tween tween = CreateTween();
 
         tween.TweenProperty(this, "global_position", endPos, moveTime);
+
+        await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
+
+        GlobalGameManager.GetInstance()?.ShowVictoryMenu(true);
     }
 
     protected override float GetMovementInput()
@@ -125,7 +143,6 @@ public partial class Gorgonzola : BasePlayerController
     public override void _ExitTree()
     {
         GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        EditorGameManager? egm = EditorGameManager.GetInstance();
 
         if (ggm != null)
         {
@@ -133,7 +150,7 @@ public partial class Gorgonzola : BasePlayerController
         }
         else
         {
-            egm.UnregisterGorg();
+            EditorGameManager.GetInstance()?.UnregisterGorg();
         }
 
         if (instance == this)

@@ -11,6 +11,8 @@ public partial class EditorItemObject : TextureRect
     public bool selected = false;
     public bool disabled = false;
 
+    [Export] public Vector2 cursorOffset = Vector2.Zero;
+
     public static Action<EditorItemObject> ChangeTexture;
 
     public override void _Ready()
@@ -117,6 +119,13 @@ public partial class EditorItemObject : TextureRect
         {
             Player.Play("disabled");
             selected = false;
+        }
+
+        if (item == null)
+        {
+            EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+            editor.itemObject = null;
+            editor.itemType = EditorItemObject.ItemType.Null;
         }
     }
 

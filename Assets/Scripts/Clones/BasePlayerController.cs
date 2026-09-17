@@ -292,7 +292,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// Updates the animation state machine based on movement and game state.
     /// </summary>
     /// <param name="velocity">Current character velocity.</param>
-    private void UpdateAnimation(Vector2 velocity)
+    private async void UpdateAnimation(Vector2 velocity)
     {
         if (animationTree == null)
         {
@@ -331,15 +331,15 @@ public abstract partial class BasePlayerController : CharacterBody2D
             }
             else if (ggm.canMove)
             {
-                if (this is Gorgonzola)
+                if (this is Gorgonzola gorgonzola)
                 {
                     PlayAnimation("enter_door");
+                    gorgonzola.doorMoveTriggered = true;
                 }
                 else
                 {
                     PlayAnimation("levelCompleted");
                 }
-                Gorgonzola.GetInstance().doorMoveTriggered = true;
             }
         }
         else

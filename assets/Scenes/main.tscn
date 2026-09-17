@@ -68,7 +68,6 @@ _data = {
 process_mode = 3
 script = ExtResource("1_dwccm")
 levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_5dr3y")])
-editorMode = true
 editorScene = ExtResource("6_enx2f")
 
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
@@ -170,3 +169,4 @@ script = ExtResource("28_exsfb")
 [node name="canvas_layer" type="CanvasLayer" parent="." unique_id=150370656]
 
 [node name="canvas_effects" parent="canvas_layer" unique_id=1900329152 instance=ExtResource("19_p35w6")]
+process_mode = 3

@@ -41,7 +41,7 @@ public partial class PauseMenu : Panel
 
     void QuitButtonPressed()
     {
-        resumeButton.Disabled = quitButton.Disabled = false;
+        resumeButton.Disabled = quitButton.Disabled = true;
         CanvasEffects canvas = CanvasEffects.GetInstance();
         GlobalGameManager.GetInstance().canPause = false;
         canvas.FadeOut(Colors.Black);

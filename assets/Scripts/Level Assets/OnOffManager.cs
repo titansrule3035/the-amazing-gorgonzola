@@ -8,8 +8,6 @@ namespace TheAmazingGorgonzola.assets.Scripts.Level_Assets
     {
         // Current state
         public static bool on = false;
-        // Registered switches (not currently used but kept for future use)
-        public static HashSet<OnOffSwitch> Switches = new HashSet<OnOffSwitch>();
         // Event raised when the state changes
         public static Action<bool> OnStateChanged;
 

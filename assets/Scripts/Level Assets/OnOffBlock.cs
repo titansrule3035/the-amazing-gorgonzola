@@ -9,7 +9,6 @@ public partial class OnOffBlock : Node2D
 
     // Cached child node references
     private AnimatedSprite2D sprite;
-    private CollisionShape2D body;
 
     // Lifecycle
     public override void _Ready()
@@ -18,7 +17,6 @@ public partial class OnOffBlock : Node2D
         AddToGroup("OnOffBlock");
         // Cache nodes for quicker access
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        body = GetNode<StaticBody2D>("StaticBody2D").GetNode<CollisionShape2D>("CollisionShape2D");
 
         // Listen for global on/off state changes
         OnOffManager.OnStateChanged += OnStateChanged;
@@ -47,6 +45,8 @@ public partial class OnOffBlock : Node2D
     // Enable or disable the collision shape according to color and global state
     private void UpdateBody(bool on)
     {
+        CollisionShape2D body = GetNode<StaticBody2D>("StaticBody2D").GetNode<CollisionShape2D>("CollisionShape2D");
+
         if (on)
         {
             if (green)

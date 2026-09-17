@@ -10,5 +10,4 @@
 texture = ExtResource("2_m4dki")
 flip_h = true
 itemType = 0
-instantiationType = 0
 ThisScene = ExtResource("3_m4dki")

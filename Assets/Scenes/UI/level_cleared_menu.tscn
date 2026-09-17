@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://qiaoiwvifwhi"]
+[gd_scene format=3 uid="uid://qiaoiwvifwhi"]
 
-[ext_resource type="Script" uid="uid://bocx52prmctxo" path="res://Assets/Scripts/UI/LevelClearedMenu.cs" id="2_vdtov"]
+[ext_resource type="Script" uid="uid://bocx52prmctxo" path="res://assets/Scripts/UI/LevelClearedMenu.cs" id="2_vdtov"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvpo4"]
 bg_color = Color(1, 0.43, 0.100000024, 1)
@@ -11,7 +11,7 @@ bg_color = Color(2.4546682e-06, 0.72518116, 0.20955053, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3x44"]
 bg_color = Color(1, 0, 0, 1)
 
-[node name="level_cleared_menu" type="Panel"]
+[node name="level_cleared_menu" type="Panel" unique_id=830085598]
 offset_left = -200.0
 offset_top = -146.0
 offset_right = 200.0
@@ -19,7 +19,8 @@ offset_bottom = 146.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cvpo4")
 script = ExtResource("2_vdtov")
 
-[node name="Button1" type="Button" parent="."]
+[node name="Button1" type="Button" parent="." unique_id=397122565]
+process_mode = 3
 layout_mode = 0
 offset_left = 124.0
 offset_top = 94.0
@@ -29,7 +30,8 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_sa586")
 text = "next level"
 
-[node name="Button2" type="Button" parent="."]
+[node name="Button2" type="Button" parent="." unique_id=913908028]
+process_mode = 3
 layout_mode = 0
 offset_left = 124.0
 offset_top = 190.0
@@ -39,7 +41,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_i3x44")
 text = "quit"
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=270300346]
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 78.0

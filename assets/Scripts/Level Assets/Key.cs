@@ -41,6 +41,7 @@ public partial class Key : Node2D
         instance = this;
 
         GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+
         if (ggm == null)
         {
             ((Main)GetTree().CurrentScene).RegisterKey(this);
@@ -74,7 +75,10 @@ public partial class Key : Node2D
             uiElement.Modulate = Colors.White;
         }
 
-        ((Main)GetTree().CurrentScene).UnregisterKey();
+        if (GetTree().CurrentScene is Main main)
+        {
+            main.UnregisterKey();
+        }
 
         base._ExitTree();
     }

@@ -55,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4ks8u")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 10.0
 }]
@@ -1939,7 +1939,7 @@ tile_set = SubResource("TileSet_cnkvj")
 [node name="Foreground" type="TileMapLayer" parent="tiles" unique_id=1395085343]
 z_index = 2
 use_parent_material = true
-tile_map_data = PackedByteArray("AADt/+f/AgARABcAAADt/+j/AgANABIAAADt/+n/AgANABIAAADt/+r/AgANABIAAADt/+v/AgANABIAAADt/+z/AgACAB4AAADt/+3/AgANABIAAADt/+7/AgANABIAAADt/+//AgANABIAAADt//H/AgANABIAAADt//L/AgANABIAAADt//P/AgANABIAAADt//T/AgANABIAAADt//X/AgANABIAAADt//b/AgANABIAAADt//f/AgANABIAAADt//j/AgANABIAAADt//n/AgANABIAAADt//r/AgANABIAAADt//v/AgANABIAAADt//z/AgANABIAAADt//3/AgANABIAAADt//7/AgANABIAAADt////AgANABIAAADt/wAAAgANABUAAAATAOf/AgARABcAAAATAOj/AgARABQAAAATAOn/AgARABQAAAATAOr/AgARABQAAAATAOv/AgARABQAAAATAOz/AgARABQAAAATAO3/AgARABQAAAATAO7/AgARABQAAAATAO//AgARABQAAAATAPD/AgARABQAAAATAPH/AgARABQAAAATAPL/AgARABQAAAATAPP/AgARABQAAAATAPT/AgARABQAAAATAPX/AgARABQAAAATAPb/AgARABQAAAATAPf/AgARABQAAAATAPj/AgARABQAAAATAPn/AgARABQAAAATAPr/AgARABQAAAATAPv/AgARABQAAAATAPz/AgARABQAAAATAP3/AgARABQAAAATAP7/AgARABQAAAATAP//AgARABQAAAATAAAAAgARABUAAADt//D/AgANABIAAADu/wAAAgAOABUAAADv/wAAAgAOABUAAAD0////AgAaAB4AAAD1////AgAaAB4AAAD2////AgAaAB4AAAD3////AgAaAB4AAAD4////AgAaAB4AAAD5////AgAaAB4AAAD6////AgAaAB4AAAD7////AgAaAB4AAAD8////AgAaAB4AAAD9////AgAaAB4AAAD+////AgAaAB4AAAD/////AgAaAB4AAAD//wAAAgAOABUAAAAAAAAAAgAOABUAAAABAAAAAgAOABUAAAACAAAAAgAOABUAAAADAAAAAgAOABUAAAAEAAAAAgAOABUAAAAFAAAAAgAOABUAAAAGAAAAAgAOABUAAAAHAAAAAgAOABUAAAAIAAAAAgAOABUAAAAJAAAAAgAOABUAAAAKAAAAAgAOABUAAAALAAAAAgAOABUAAAAMAAAAAgAOABUAAAANAAAAAgAOABUAAAAOAAAAAgAOABUAAAAPAAAAAgAOABUAAAAQAAAAAgAOABUAAAALAP//AgAKAA8AAAAKAP//AgAaABIAAAACAP//AgAeABIAAAABAP//AgAaAB4AAAAAAP//AgAaAB4AAAD+/wAAAgAOABUAAAD9/wAAAgAOABUAAAD8/wAAAgAOABUAAAD7/wAAAgAOABUAAAD6/wAAAgAOABUAAAD5/wAAAgAOABUAAAD4/wAAAgAOABUAAAD3/wAAAgAOABUAAAD2/wAAAgAOABUAAAD1/wAAAgAOABUAAAD0/wAAAgAOABUAAADz/wAAAgAOABUAAADy/wAAAgAOABUAAADx/wAAAgAOABUAAADw/wAAAgAOABUAAAARAAAAAgAOABUAAAASAAAAAgAOABUAAADw//H/AgAaABQAAADw//L/AgAaABUAAADw//P/AgAaABUAAADw//T/AgAaABUAAADw//X/AgAaABYAAADw//b/AgAJABcAAADw//f/AgAJAA4AAADw//j/AgAJAA4AAADw//n/AgAJAA4AAADw//r/AgAJAA8AAADx//H/AgAGAB8AAADx//L/AgAcABUAAADx//P/AgAcABUAAADx//T/AgAcABUAAADx//X/AgAcABYAAADx//b/AgAKABcAAADx//j/AgAWABcAAADx//n/AgAOAA4AAADx//r/AgAKAA8AAADy//H/AgAQABEAAADy//b/AgAFAA8AAADy//f/AgAFABAAAADy//j/AgAFABAAAADy//n/AgAFABAAAADy//r/AgAFABEAAADz//H/AgAQABEAAADz//b/AgAJABIAAAD0//H/AgAQABEAAAD0//b/AgAEABMAAAD0//v/AgAeABgAAAD0//3/AgAbABAAAAD0//7/AgAbABEAAAD1//H/AgAQABEAAAD1//b/AQAEABMAAAD1//v/AgAeABgAAAD1//3/AgAbABAAAAD1//7/AgAbABEAAAD2//H/AgAQABEAAAD2//b/AQAEABMAAAD2//v/AgAeABgAAAD2//3/AgAbABAAAAD2//7/AgAbABEAAAD3//H/AgARABEAAAD3//b/AgAOABMAAAD3//v/AgAeABgAAAD3//3/AgAcABAAAAD3//7/AgAcABEAAAD4//b/AgAOABMAAAD4//v/AgAeABgAAAD4//3/AgAcABAAAAD4//7/AgAcABEAAAD5//b/AgAOABMAAAD5//v/AgAeABgAAAD5//3/AgAcABAAAAD5//7/AgAcABEAAAD6//b/AgALABIAAAD6//v/AgAeABgAAAD6//3/AgAcABAAAAD6//7/AgAcABEAAAD7//b/AgAaABYAAAD7//v/AgAeABgAAAD7//3/AgAcABAAAAD7//7/AgAcABEAAAD8//b/AgAbABYAAAD8//v/AgAeABgAAAD8//3/AgAcABAAAAD8//7/AgAcABEAAAD9//b/AgAbABYAAAD9//v/AgAeABgAAAD9//3/AgAcABAAAAD9//7/AgAcABEAAAD+//v/AgAeABgAAAD+//3/AgAcABAAAAD+//7/AgAcABEAAAD///v/AgAcAA4AAAD///3/AgAcABAAAAD///7/AgAcABEAAAAAAPb/AgAOABMAAAAAAPv/AgAcAA4AAAAAAP3/AgAcABAAAAAAAP7/AgAcABEAAAABAPb/AgAOABMAAAABAPv/AgAeABgAAAABAP3/AgAdABAAAAABAP7/AgAdABEAAAACAPH/AgAFAB4AAAACAPb/AgAOABMAAAACAPv/AgAeAA4AAAACAP3/AgAfAB0AAAACAP7/AgAfAB0AAAADAPH/AgAbABYAAAADAPb/AgARABEAAAADAPf/AgAHAA8AAAADAPv/AgAJABIAAAAEAPH/AgAbABYAAAAEAPv/AgAOABEAAAAFAPH/AgAbABYAAAAFAPv/AgALABIAAAAGAPH/AgAbABYAAAAHAPH/AgAbABYAAAAIAPH/AgAbABYAAAAIAPr/AgAaABQAAAAIAPv/AgAaABYAAAAJAPH/AgAbABYAAAAJAPr/AgAcABQAAAAJAPv/AgAcABYAAAAKAPH/AgAbABYAAAAKAPj/AgAaAA4AAAAKAPn/AgAJABgAAAAKAPr/AgAJABgAAAAKAPv/AgAJABgAAAAKAPz/AgAJABgAAAAKAP3/AgAJABgAAAAKAP7/AgAJABgAAAALAPH/AgAbABYAAAALAPj/AgAOABcAAAALAPn/AgAKABgAAAALAPr/AgAWABcAAAALAPv/AgAWABcAAAALAPz/AgAWABcAAAALAP3/AgAWABcAAAALAP7/AgAOAA4AAAAMAP//AgAeABIAAAAMAP7/AgALABgAAAAMAP3/AgALABgAAAAMAPz/AgALABgAAAAMAPv/AgALABgAAAAMAPr/AgALABgAAAAMAPn/AgALABgAAAAMAPj/AgAeAA4AAAAMAPf/AgAKABMAAAAMAPb/AgARABgAAAAMAPX/AgARABgAAAAMAPT/AgARABgAAAAMAPP/AgARABgAAAAMAPL/AgARABgAAAAMAPH/AgAGAB4AAADx//f/AgAKABgAAAD0//z/AgAbABAAAAD1//z/AgAbABAAAAD2//z/AgAbABAAAAD3//z/AgAcABAAAAD4//z/AgAcABAAAAD5//z/AgAcABAAAAD6//z/AgAcABAAAAD7//z/AgAcABAAAAD8//z/AgAcABAAAAD9//z/AgAcABAAAAD+//z/AgAcABAAAAD///z/AgAcABAAAAAAAPz/AgAcABAAAAABAPz/AgAdABAAAAACAPz/AgAfAB0AAAALAPb/AgAHAB8AAAAKAPb/AgAHAB8AAAAJAPb/AgAHAB8AAAAIAPb/AgAHAB8AAAAHAPb/AgAHAB8AAAAGAPb/AgAHAB8AAAAFAPb/AgAHAB8AAAAEAPb/AgAHAB8AAAABAPH/AgAHAB8AAAAAAPH/AgAHAB8AAAD///H/AgAHAB8AAAD+//H/AgAHAB8AAAD9//H/AgAHAB8AAAD8//H/AgAHAB8AAAD7//H/AgAHAB8AAAD6//H/AgAHAB8AAAD5//H/AgAHAB8AAAD4//H/AgAHAB8AAADy//v/AgAaAA4AAADy//z/AgAZABsAAADy//3/AgAZABsAAADy//7/AgAZABsAAADy////AgAaABIAAADz//v/AgAeABgAAADz//z/AgAbABAAAADz//3/AgAbABAAAADz//7/AgAbABEAAADz////AgAaAB4AAAAMAO//AgAcABUAAAAMAPD/AgAcABUAAAALAO//AgAbABUAAAAKAO//AgAbABUAAAAJAO//AgAbABUAAAAIAO//AgAbABUAAAAHAO//AgAbABUAAAAGAO//AgAbABUAAAAFAO//AgAbABUAAAAEAO//AgAbABUAAAADAO//AgAbABUAAAACAO//AgAaABUAAAACAPD/AgAaABUAAAADAPD/AgAbABUAAAAEAPD/AgAbABUAAAAFAPD/AgAbABUAAAAGAPD/AgAbABUAAAAHAPD/AgAbABUAAAAIAPD/AgAbABUAAAAJAPD/AgAbABUAAAAKAPD/AgAbABUAAAALAPD/AgAbABUAAAALAO7/AgAbABUAAAAMAO7/AgAcABUAAAACAO7/AgAaABUAAAADAO7/AgAbABUAAAAEAO7/AgAbABUAAAAFAO7/AgAbABUAAAAGAO7/AgAbABUAAAAJAO7/AgAbABUAAAAKAO7/AgAbABUAAAAIAO7/AgAbABUAAAAHAO7/AgAbABUAAAACAO3/AgAaABUAAAADAO3/AgAbABUAAAAEAO3/AgAbABUAAAAFAO3/AgAbABUAAAAGAO3/AgAbABUAAAAHAO3/AgAbABUAAAAIAO3/AgAbABUAAAAJAO3/AgAbABUAAAAKAO3/AgAbABUAAAALAO3/AgAbABUAAAAMAO3/AgAcABUAAADu/+z/AgAEABMAAADv/+z/AgAEABMAAADw/+z/AgAEABMAAADx/+z/AgAEABMAAADy/+z/AgAEABMAAADz/+z/AgAEABMAAAD0/+z/AgAEABMAAAD1/+z/AgAEABMAAAD2/+z/AgAEABMAAAD3/+z/AgAEABMAAAD4/+z/AgAEABMAAAD5/+z/AgAEABMAAAD6/+z/AgAEABMAAAD7/+z/AgAEABMAAAD8/+z/AgAEABMAAAD9/+z/AgAEABMAAAD+/+z/AgAEABMAAAD//+z/AgAEABMAAAAAAOz/AgAEABMAAAABAOz/AgAEABMAAAACAOz/AgABAB4AAAADAOz/AgAbABQAAAAEAOz/AgAbABQAAAAFAOz/AgAbABQAAAAGAOz/AgAbABQAAAAHAOz/AgAbABQAAAAIAOz/AgAbABQAAAAJAOz/AgAbABQAAAAKAOz/AgAbABQAAAALAOz/AgAbABQAAAAMAOz/AgAEAB4AAAD+//b/AgAcABYAAAD///b/AgAJABIAAAD7//P/AgAHAB8AAAD8//P/AgAHAB8AAAAOAP7/AgAHAB8AAAANAP7/AgAHAB8AAAARAPz/AgAHAB8AAAASAPz/AgAHAB8AAAAOAPr/AgAHAB8AAAANAPr/AgAHAB8AAAARAPj/AgAHAB8AAAASAPj/AgAHAB8AAAAOAPb/AgAHAB8AAAANAPb/AgAHAB8AAAARAPT/AgAHAB8AAAASAPT/AgAHAB8AAAAOAPL/AgAHAB8AAAANAPL/AgAHAB8AAAARAPD/AgAHAB8AAAASAPD/AgAHAB8AAAAOAO7/AgAHAB8AAAANAO7/AgAHAB8AAAD9//P/AgAHAB8AAAD+//P/AgAHAB8AAAD7//X/AgAaABQAAAD8//X/AgAbABQAAAD9//X/AgAbABQAAAD+//X/AgAcABQAAAD3//L/AgAHAA8AAAACAPL/AgAHAA8AAAAOAOz/AgAHAB8AAAANAOz/AgAHAB8AAAAMAOv/AgAKABEAAAA=")
+tile_map_data = PackedByteArray("AADt/+f/AgARABcAAADt/+j/AgANABIAAADt/+n/AgANABIAAADt/+r/AgANABIAAADt/+v/AgANABIAAADt/+z/AgACAB4AAADt/+3/AgANABIAAADt/+7/AgANABIAAADt/+//AgANABIAAADt//H/AgANABIAAADt//L/AgANABIAAADt//P/AgANABIAAADt//T/AgANABIAAADt//X/AgANABIAAADt//b/AgANABIAAADt//f/AgANABIAAADt//j/AgANABIAAADt//n/AgANABIAAADt//r/AgANABIAAADt//v/AgANABIAAADt//z/AgANABIAAADt//3/AgANABIAAADt//7/AgANABIAAADt////AgANABIAAADt/wAAAgANABUAAAATAOf/AgARABcAAAATAOj/AgARABQAAAATAOn/AgARABQAAAATAOr/AgARABQAAAATAOv/AgARABQAAAATAOz/AgARABQAAAATAO3/AgARABQAAAATAO7/AgARABQAAAATAO//AgARABQAAAATAPD/AgARABQAAAATAPH/AgARABQAAAATAPL/AgARABQAAAATAPP/AgARABQAAAATAPT/AgARABQAAAATAPX/AgARABQAAAATAPb/AgARABQAAAATAPf/AgARABQAAAATAPj/AgARABQAAAATAPn/AgARABQAAAATAPr/AgARABQAAAATAPv/AgARABQAAAATAPz/AgARABQAAAATAP3/AgARABQAAAATAP7/AgARABQAAAATAP//AgARABQAAAATAAAAAgARABUAAADt//D/AgANABIAAADu/wAAAgAOABUAAADv/wAAAgAOABUAAAD0////AgAaAB4AAAD1////AgAaAB4AAAD2////AgAaAB4AAAD3////AgAaAB4AAAD4////AgAaAB4AAAD5////AgAaAB4AAAD6////AgAaAB4AAAD7////AgAaAB4AAAD8////AgAaAB4AAAD9////AgAaAB4AAAD+////AgAaAB4AAAD/////AgAaAB4AAAD//wAAAgAOABUAAAAAAAAAAgAOABUAAAABAAAAAgAOABUAAAACAAAAAgAOABUAAAADAAAAAgAOABUAAAAEAAAAAgAOABUAAAAFAAAAAgAOABUAAAAGAAAAAgAOABUAAAAHAAAAAgAOABUAAAAIAAAAAgAOABUAAAAJAAAAAgAOABUAAAAKAAAAAgAOABUAAAALAAAAAgAOABUAAAAMAAAAAgAOABUAAAANAAAAAgAOABUAAAAOAAAAAgAOABUAAAAPAAAAAgAOABUAAAAQAAAAAgAOABUAAAALAP//AgAKAA8AAAAKAP//AgAaABIAAAACAP//AgAeABIAAAABAP//AgAaAB4AAAAAAP//AgAaAB4AAAD+/wAAAgAOABUAAAD9/wAAAgAOABUAAAD8/wAAAgAOABUAAAD7/wAAAgAOABUAAAD6/wAAAgAOABUAAAD5/wAAAgAOABUAAAD4/wAAAgAOABUAAAD3/wAAAgAOABUAAAD2/wAAAgAOABUAAAD1/wAAAgAOABUAAAD0/wAAAgAOABUAAADz/wAAAgAOABUAAADy/wAAAgAOABUAAADx/wAAAgAOABUAAADw/wAAAgAOABUAAAARAAAAAgAOABUAAAASAAAAAgAOABUAAADw//H/AgAaABQAAADw//L/AgAaABUAAADw//P/AgAaABUAAADw//T/AgAaABUAAADw//X/AgAaABYAAADw//b/AgAJABcAAADw//f/AgAJAA4AAADw//j/AgAJAA4AAADw//n/AgAJAA4AAADw//r/AgAJAA8AAADx//H/AgAGAB8AAADx//L/AgAcABUAAADx//P/AgAcABUAAADx//T/AgAcABUAAADx//X/AgAcABYAAADx//b/AgAKABcAAADx//j/AgAWABcAAADx//n/AgAOAA4AAADx//r/AgAKAA8AAADy//H/AgAQABEAAADy//b/AgAFAA8AAADy//f/AgAFABAAAADy//j/AgAFABAAAADy//n/AgAFABAAAADy//r/AgAFABEAAADz//H/AgAQABEAAADz//b/AgAJABIAAAD0//H/AgAQABEAAAD0//b/AgAEABMAAAD0//v/AgAeABgAAAD0//3/AgAbABAAAAD0//7/AgAbABEAAAD1//H/AgAQABEAAAD1//b/AQAEABMAAAD1//v/AgAeABgAAAD1//3/AgAbABAAAAD1//7/AgAbABEAAAD2//H/AgAQABEAAAD2//b/AQAEABMAAAD2//v/AgAeABgAAAD2//3/AgAbABAAAAD2//7/AgAbABEAAAD3//H/AgARABEAAAD3//b/AgAOABMAAAD3//v/AgAeABgAAAD3//3/AgAcABAAAAD3//7/AgAcABEAAAD4//b/AgAOABMAAAD4//v/AgAeABgAAAD4//3/AgAcABAAAAD4//7/AgAcABEAAAD5//b/AgAOABMAAAD5//v/AgAeABgAAAD5//3/AgAcABAAAAD5//7/AgAcABEAAAD6//b/AgALABIAAAD6//v/AgAeABgAAAD6//3/AgAcABAAAAD6//7/AgAcABEAAAD7//b/AgAaABYAAAD7//v/AgAeABgAAAD7//3/AgAcABAAAAD7//7/AgAcABEAAAD8//b/AgAbABYAAAD8//v/AgAeABgAAAD8//3/AgAcABAAAAD8//7/AgAcABEAAAD9//b/AgAbABYAAAD9//v/AgAeABgAAAD9//3/AgAcABAAAAD9//7/AgAcABEAAAD+//v/AgAeABgAAAD+//3/AgAcABAAAAD+//7/AgAcABEAAAD///v/AgAcAA4AAAD///3/AgAcABAAAAD///7/AgAcABEAAAAAAPb/AgAOABMAAAAAAPv/AgAcAA4AAAAAAP3/AgAcABAAAAAAAP7/AgAcABEAAAABAPb/AgAOABMAAAABAPv/AgAeABgAAAABAP3/AgAdABAAAAABAP7/AgAdABEAAAACAPH/AgAFAB4AAAACAPb/AgAOABMAAAACAPv/AgAeAA4AAAACAP3/AgAfAB0AAAACAP7/AgAfAB0AAAADAPH/AgAbABYAAAADAPb/AgARABEAAAADAPf/AgAHAA8AAAADAPv/AgAJABIAAAAEAPH/AgAbABYAAAAEAPv/AgAOABEAAAAFAPH/AgAbABYAAAAFAPv/AgALABIAAAAGAPH/AgAbABYAAAAHAPH/AgAbABYAAAAIAPH/AgAbABYAAAAIAPr/AgAaABQAAAAIAPv/AgAaABYAAAAJAPH/AgAbABYAAAAJAPr/AgAcABQAAAAJAPv/AgAcABYAAAAKAPH/AgAbABYAAAAKAPj/AgAaAA4AAAAKAPn/AgAJABgAAAAKAPr/AgAJABgAAAAKAPv/AgAJABgAAAAKAPz/AgAJABgAAAAKAP3/AgAJABgAAAAKAP7/AgAJABgAAAALAPH/AgAbABYAAAALAPj/AgAOABcAAAALAPn/AgAKABgAAAALAPr/AgAWABcAAAALAPv/AgAWABcAAAALAPz/AgAWABcAAAALAP3/AgAWABcAAAALAP7/AgAOAA4AAAAMAP//AgAeABIAAAAMAP7/AgALABgAAAAMAP3/AgALABgAAAAMAPz/AgALABgAAAAMAPv/AgALABgAAAAMAPr/AgALABgAAAAMAPn/AgALABgAAAAMAPj/AgAeAA4AAAAMAPf/AgAKABMAAAAMAPb/AgARABgAAAAMAPX/AgARABgAAAAMAPT/AgARABgAAAAMAPP/AgARABgAAAAMAPL/AgARABgAAAAMAPH/AgAGAB4AAADx//f/AgAKABgAAAD0//z/AgAbABAAAAD1//z/AgAbABAAAAD2//z/AgAbABAAAAD3//z/AgAcABAAAAD4//z/AgAcABAAAAD5//z/AgAcABAAAAD6//z/AgAcABAAAAD7//z/AgAcABAAAAD8//z/AgAcABAAAAD9//z/AgAcABAAAAD+//z/AgAcABAAAAD///z/AgAcABAAAAAAAPz/AgAcABAAAAABAPz/AgAdABAAAAACAPz/AgAfAB0AAADy//v/AgAaAA4AAADy//z/AgAZABsAAADy//3/AgAZABsAAADy//7/AgAZABsAAADy////AgAaABIAAADz//v/AgAeABgAAADz//z/AgAbABAAAADz//3/AgAbABAAAADz//7/AgAbABEAAADz////AgAaAB4AAAAMAO//AgAcABUAAAAMAPD/AgAcABUAAAALAO//AgAbABUAAAAKAO//AgAbABUAAAAJAO//AgAbABUAAAAIAO//AgAbABUAAAAHAO//AgAbABUAAAAGAO//AgAbABUAAAAFAO//AgAbABUAAAAEAO//AgAbABUAAAADAO//AgAbABUAAAACAO//AgAaABUAAAACAPD/AgAaABUAAAADAPD/AgAbABUAAAAEAPD/AgAbABUAAAAFAPD/AgAbABUAAAAGAPD/AgAbABUAAAAHAPD/AgAbABUAAAAIAPD/AgAbABUAAAAJAPD/AgAbABUAAAAKAPD/AgAbABUAAAALAPD/AgAbABUAAAALAO7/AgAbABUAAAAMAO7/AgAcABUAAAACAO7/AgAaABUAAAADAO7/AgAbABUAAAAEAO7/AgAbABUAAAAFAO7/AgAbABUAAAAGAO7/AgAbABUAAAAJAO7/AgAbABUAAAAKAO7/AgAbABUAAAAIAO7/AgAbABUAAAAHAO7/AgAbABUAAAACAO3/AgAaABUAAAADAO3/AgAbABUAAAAEAO3/AgAbABUAAAAFAO3/AgAbABUAAAAGAO3/AgAbABUAAAAHAO3/AgAbABUAAAAIAO3/AgAbABUAAAAJAO3/AgAbABUAAAAKAO3/AgAbABUAAAALAO3/AgAbABUAAAAMAO3/AgAcABUAAADu/+z/AgAEABMAAADv/+z/AgAEABMAAADw/+z/AgAEABMAAADx/+z/AgAEABMAAADy/+z/AgAEABMAAADz/+z/AgAEABMAAAD0/+z/AgAEABMAAAD1/+z/AgAEABMAAAD2/+z/AgAEABMAAAD3/+z/AgAEABMAAAD4/+z/AgAEABMAAAD5/+z/AgAEABMAAAD6/+z/AgAEABMAAAD7/+z/AgAEABMAAAD8/+z/AgAEABMAAAD9/+z/AgAEABMAAAD+/+z/AgAEABMAAAD//+z/AgAEABMAAAAAAOz/AgAEABMAAAABAOz/AgAEABMAAAACAOz/AgABAB4AAAADAOz/AgAbABQAAAAEAOz/AgAbABQAAAAFAOz/AgAbABQAAAAGAOz/AgAbABQAAAAHAOz/AgAbABQAAAAIAOz/AgAbABQAAAAJAOz/AgAbABQAAAAKAOz/AgAbABQAAAALAOz/AgAbABQAAAAMAOz/AgAEAB4AAAD+//b/AgAcABYAAAD///b/AgAJABIAAAD7//X/AgAaABQAAAD8//X/AgAbABQAAAD9//X/AgAbABQAAAD+//X/AgAcABQAAAD3//L/AgAHAA8AAAACAPL/AgAHAA8AAAAMAOv/AgAKABEAAAA=")
 tile_set = SubResource("TileSet_cnkvj")
 
 [node name="George" type="TileMapLayer" parent="tiles" unique_id=1500328041]
@@ -1950,11 +1950,11 @@ tile_set = SubResource("TileSet_cnkvj")
 [node name="level_assets" type="Node2D" parent="." unique_id=1976321477]
 position = Vector2(-384, -320)
 
-[node name="clear_conditions" type="Node2D" parent="level_assets" unique_id=594628754]
+[node name="level_mechanics" type="Node2D" parent="level_assets" unique_id=594628754]
 
-[node name="lab_door" parent="level_assets/clear_conditions" unique_id=774187305 instance=ExtResource("12_mhfc5")]
+[node name="lab_door" parent="level_assets/level_mechanics" unique_id=774187305 instance=ExtResource("12_mhfc5")]
 
-[node name="key_card" parent="level_assets/clear_conditions" unique_id=335912822 instance=ExtResource("5_nw3ek")]
+[node name="key_card" parent="level_assets/level_mechanics" unique_id=335912822 instance=ExtResource("5_nw3ek")]
 position = Vector2(-160, 256)
 
 [node name="clones" type="Node2D" parent="level_assets" unique_id=1703215037]
@@ -2048,6 +2048,21 @@ position = Vector2(336, -432)
 [node name="spike_down25" parent="level_assets/hazards" unique_id=77230803 instance=ExtResource("10_f5ppm")]
 position = Vector2(368, -432)
 
+[node name="spike_down26" parent="level_assets/hazards" unique_id=1378968600 instance=ExtResource("10_f5ppm")]
+position = Vector2(-432, -432)
+
+[node name="spike_down27" parent="level_assets/hazards" unique_id=659598301 instance=ExtResource("10_f5ppm")]
+position = Vector2(-400, -432)
+
+[node name="spike_down28" parent="level_assets/hazards" unique_id=87237375 instance=ExtResource("10_f5ppm")]
+position = Vector2(-368, -432)
+
+[node name="spike_down29" parent="level_assets/hazards" unique_id=384169111 instance=ExtResource("10_f5ppm")]
+position = Vector2(-336, -432)
+
+[node name="spike_down30" parent="level_assets/hazards" unique_id=204695630 instance=ExtResource("10_f5ppm")]
+position = Vector2(-304, -432)
+
 [node name="spike_right" parent="level_assets/hazards" unique_id=1393631549 instance=ExtResource("13_0pbto")]
 position = Vector2(112, -16)
 
@@ -2137,53 +2152,121 @@ position = Vector2(-528, -144)
 position = Vector2(384, 288)
 
 [node name="semi_solid" parent="level_assets/semi_solid_tiles" unique_id=16047266 instance=ExtResource("6_ncvmg")]
-position = Vector2(256, -272)
-scale = Vector2(8, 1)
+position = Vector2(144, -272)
+
+[node name="semi_solid14" parent="level_assets/semi_solid_tiles" unique_id=1769767331 instance=ExtResource("6_ncvmg")]
+position = Vector2(176, -272)
+
+[node name="semi_solid15" parent="level_assets/semi_solid_tiles" unique_id=458641184 instance=ExtResource("6_ncvmg")]
+position = Vector2(208, -272)
+
+[node name="semi_solid16" parent="level_assets/semi_solid_tiles" unique_id=1628992875 instance=ExtResource("6_ncvmg")]
+position = Vector2(240, -272)
+
+[node name="semi_solid17" parent="level_assets/semi_solid_tiles" unique_id=1688847629 instance=ExtResource("6_ncvmg")]
+position = Vector2(272, -272)
+
+[node name="semi_solid18" parent="level_assets/semi_solid_tiles" unique_id=75885805 instance=ExtResource("6_ncvmg")]
+position = Vector2(304, -272)
+
+[node name="semi_solid19" parent="level_assets/semi_solid_tiles" unique_id=2102322809 instance=ExtResource("6_ncvmg")]
+position = Vector2(336, -272)
+
+[node name="semi_solid20" parent="level_assets/semi_solid_tiles" unique_id=18530307 instance=ExtResource("6_ncvmg")]
+position = Vector2(368, -272)
 
 [node name="semi_solid2" parent="level_assets/semi_solid_tiles" unique_id=816988588 instance=ExtResource("6_ncvmg")]
-position = Vector2(-96, -432)
-scale = Vector2(10, 1)
+position = Vector2(-240, -432)
+
+[node name="semi_solid21" parent="level_assets/semi_solid_tiles" unique_id=738156489 instance=ExtResource("6_ncvmg")]
+position = Vector2(-208, -432)
+
+[node name="semi_solid22" parent="level_assets/semi_solid_tiles" unique_id=100111290 instance=ExtResource("6_ncvmg")]
+position = Vector2(-176, -432)
+
+[node name="semi_solid23" parent="level_assets/semi_solid_tiles" unique_id=205100437 instance=ExtResource("6_ncvmg")]
+position = Vector2(-144, -432)
+
+[node name="semi_solid24" parent="level_assets/semi_solid_tiles" unique_id=1619605170 instance=ExtResource("6_ncvmg")]
+position = Vector2(-112, -432)
+
+[node name="semi_solid25" parent="level_assets/semi_solid_tiles" unique_id=925001448 instance=ExtResource("6_ncvmg")]
+position = Vector2(-80, -432)
+
+[node name="semi_solid26" parent="level_assets/semi_solid_tiles" unique_id=1560829062 instance=ExtResource("6_ncvmg")]
+position = Vector2(-48, -432)
+
+[node name="semi_solid27" parent="level_assets/semi_solid_tiles" unique_id=1712288403 instance=ExtResource("6_ncvmg")]
+position = Vector2(-16, -432)
+
+[node name="semi_solid28" parent="level_assets/semi_solid_tiles" unique_id=340559213 instance=ExtResource("6_ncvmg")]
+position = Vector2(16, -432)
+
+[node name="semi_solid29" parent="level_assets/semi_solid_tiles" unique_id=470480843 instance=ExtResource("6_ncvmg")]
+position = Vector2(48, -432)
 
 [node name="semi_solid3" parent="level_assets/semi_solid_tiles" unique_id=1655785826 instance=ExtResource("6_ncvmg")]
-position = Vector2(448, -16)
-scale = Vector2(2, 1)
+position = Vector2(432, -16)
+
+[node name="semi_solid30" parent="level_assets/semi_solid_tiles" unique_id=124946905 instance=ExtResource("6_ncvmg")]
+position = Vector2(464, -16)
 
 [node name="semi_solid4" parent="level_assets/semi_solid_tiles" unique_id=1897451949 instance=ExtResource("6_ncvmg")]
-position = Vector2(576, -80)
-scale = Vector2(2, 1)
+position = Vector2(560, -80)
 
 [node name="semi_solid5" parent="level_assets/semi_solid_tiles" unique_id=73030431 instance=ExtResource("6_ncvmg")]
-position = Vector2(448, -144)
-scale = Vector2(2, 1)
+position = Vector2(432, -144)
 
 [node name="semi_solid6" parent="level_assets/semi_solid_tiles" unique_id=1586031657 instance=ExtResource("6_ncvmg")]
-position = Vector2(576, -208)
-scale = Vector2(2, 1)
+position = Vector2(560, -208)
 
 [node name="semi_solid7" parent="level_assets/semi_solid_tiles" unique_id=1211059338 instance=ExtResource("6_ncvmg")]
-position = Vector2(448, -272)
-scale = Vector2(2, 1)
+position = Vector2(432, -272)
 
 [node name="semi_solid8" parent="level_assets/semi_solid_tiles" unique_id=418282368 instance=ExtResource("6_ncvmg")]
-position = Vector2(576, -336)
-scale = Vector2(2, 1)
+position = Vector2(560, -336)
 
 [node name="semi_solid9" parent="level_assets/semi_solid_tiles" unique_id=464600901 instance=ExtResource("6_ncvmg")]
-position = Vector2(448, -400)
-scale = Vector2(2, 1)
+position = Vector2(432, -400)
 
 [node name="semi_solid10" parent="level_assets/semi_solid_tiles" unique_id=37986744 instance=ExtResource("6_ncvmg")]
-position = Vector2(576, -464)
-scale = Vector2(2, 1)
+position = Vector2(560, -464)
 
 [node name="semi_solid11" parent="level_assets/semi_solid_tiles" unique_id=1101798299 instance=ExtResource("6_ncvmg")]
-position = Vector2(448, -528)
-scale = Vector2(2, 1)
+position = Vector2(432, -528)
 
 [node name="semi_solid12" parent="level_assets/semi_solid_tiles" unique_id=1452887275 instance=ExtResource("6_ncvmg")]
-position = Vector2(-96, -368)
-scale = Vector2(4, 1)
+position = Vector2(-112, -368)
 
 [node name="semi_solid13" parent="level_assets/semi_solid_tiles" unique_id=957768783 instance=ExtResource("6_ncvmg")]
-position = Vector2(448, -592)
-scale = Vector2(2, 1)
+position = Vector2(432, -592)
+
+[node name="semi_solid31" parent="level_assets/semi_solid_tiles" unique_id=1459587908 instance=ExtResource("6_ncvmg")]
+position = Vector2(592, -80)
+
+[node name="semi_solid32" parent="level_assets/semi_solid_tiles" unique_id=1744449184 instance=ExtResource("6_ncvmg")]
+position = Vector2(464, -144)
+
+[node name="semi_solid33" parent="level_assets/semi_solid_tiles" unique_id=689776106 instance=ExtResource("6_ncvmg")]
+position = Vector2(592, -208)
+
+[node name="semi_solid34" parent="level_assets/semi_solid_tiles" unique_id=684055602 instance=ExtResource("6_ncvmg")]
+position = Vector2(464, -272)
+
+[node name="semi_solid35" parent="level_assets/semi_solid_tiles" unique_id=947246784 instance=ExtResource("6_ncvmg")]
+position = Vector2(592, -336)
+
+[node name="semi_solid36" parent="level_assets/semi_solid_tiles" unique_id=1928374124 instance=ExtResource("6_ncvmg")]
+position = Vector2(464, -400)
+
+[node name="semi_solid37" parent="level_assets/semi_solid_tiles" unique_id=1165725530 instance=ExtResource("6_ncvmg")]
+position = Vector2(592, -464)
+
+[node name="semi_solid38" parent="level_assets/semi_solid_tiles" unique_id=1012316227 instance=ExtResource("6_ncvmg")]
+position = Vector2(464, -528)
+
+[node name="semi_solid39" parent="level_assets/semi_solid_tiles" unique_id=1490516932 instance=ExtResource("6_ncvmg")]
+position = Vector2(-80, -368)
+
+[node name="semi_solid40" parent="level_assets/semi_solid_tiles" unique_id=1911626883 instance=ExtResource("6_ncvmg")]
+position = Vector2(464, -592)

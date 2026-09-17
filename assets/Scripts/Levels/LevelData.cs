@@ -10,7 +10,7 @@ public class LevelData
     public const int TileSize = 32;
     public List<LayerData> Layers { get; set; } = new();
     public List<ObjectData> Clones { get; set; } = new();
-    public List<ObjectData> ClearConditions { get; set; } = new();
+    public List<ObjectData> LevelMechanics { get; set; } = new();
     public List<ObjectData> Hazards { get; set; } = new();
     public OnOffAssetData OnOffs { get; set; } = new();
     public List<SemiSolidTileData> SemiSolidTiles { get; set; } = new();
@@ -132,6 +132,7 @@ public class SemiSolidTileData
     }
 
 }
+
 public class OnOffSwitchMasterData : ObjectData
 {
     public bool Opened { get; set; } = false;

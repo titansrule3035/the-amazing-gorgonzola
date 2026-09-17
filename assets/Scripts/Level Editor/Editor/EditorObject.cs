@@ -36,8 +36,8 @@ public partial class EditorObject : Node2D
     [Export] Godot.Collections.Array<Node2D> selectedObjects = new();
 
     // Editor State
-    EditorItemObject itemObject;
-    EditorItemObject.ItemType itemType;
+    public EditorItemObject itemObject;
+    public EditorItemObject.ItemType itemType;
 
     public bool hideCursor = false;
 
@@ -168,7 +168,7 @@ public partial class EditorObject : Node2D
 
             if (Input.IsActionPressed("mb_left"))
             {
-                selectBottomRight = cell; // update live, not just on release
+                selectBottomRight = cell;
                 QueueRedraw();
             }
 
@@ -182,24 +182,19 @@ public partial class EditorObject : Node2D
 
         if (currentCursorMode == CursorMode.Place)
         {
-            GlobalPosition = snappedWorld;
-            // eventually replace this and allow each item to set their own offset
+            // fix alignment, the cursor should be centered on the object (if not tile) by the BOTTOM of its sprite
+
+            float offset = 0f;
+
+            if (CursorSprite.Texture != null)
             {
-                Vector2 cursorOffset = new();
-
-                if (itemType == EditorItemObject.ItemType.Clone)
-                {
-                    cursorOffset = new(0, 10.076f);
-                }
-                else
-                {
-                    cursorOffset = Vector2.Zero;
-                }
-
-                CursorSprite.Position = cursorOffset;
+                offset = CursorSprite.GetRect().Size.Y / 2;
             }
 
-            if ((CurrentItem != null || CurrentTile != null) && GetTree().Paused)
+            GlobalPosition = snappedWorld + new Vector2(0, 16);
+            CursorSprite.GlobalPosition = GlobalPosition - new Vector2(0, offset);
+
+            if ((CurrentItem != null || CurrentTile != null) && itemObject != null && GetTree().Paused)
             {
                 if (itemObject.disabled)
                 {
@@ -208,12 +203,7 @@ public partial class EditorObject : Node2D
                     CurrentItem = null;
                 }
 
-                if (itemType == EditorItemObject.ItemType.Null)
-                {
-                    return;
-                }
-
-                if (results.Count != 0)
+                if (itemType == EditorItemObject.ItemType.Null || results.Count != 0)
                 {
                     foreach (Godot.Collections.Dictionary result in results)
                     {
@@ -227,90 +217,32 @@ public partial class EditorObject : Node2D
 
                 if (canPlace)
                 {
-                    // strange nesting ik, firstly im fried, secondly this is to avoid polliing when the input isn't needed to place the item
-                    if (itemType == EditorItemObject.ItemType.Tile)
+                    if (Input.IsActionPressed("mb_left"))
                     {
-                        if (Input.IsActionPressed("mb_left"))
+                        if (cell != _lastPlacedCell)
                         {
-                            if (cell != _lastPlacedCell)
-                            {
-                                _lastPlacedCell = cell;
-                            }
-                            else
-                            {
-                                return;
-                            }
-                            ItemPlaced?.Invoke();
-                            EditorTileObject tileObject = (EditorTileObject)itemObject;
-                            Vector2I atlasCoords = tileObject.GetAtlasCoords();
-                            tileMapForeground.SetCell(cell, tileObject.tileID, atlasCoords);
+                            _lastPlacedCell = cell;
                         }
-                    }
-
-                    if (itemType == EditorItemObject.ItemType.Hazard)
-                    {
-                        if (Input.IsActionPressed("mb_left"))
+                        else
                         {
-                            if (cell != _lastPlacedCell)
-                            {
-                                _lastPlacedCell = cell;
-                            }
-                            else
-                            {
-                                return;
-                            }
-                            Node2D NewItem = CurrentItem.Instantiate<Node2D>();
-                            Node2D parent = GetTree().CurrentScene.GetNode<Node2D>($"{levelRoot}/hazards");
-                            NewItem.GlobalPosition = snappedWorld;
-                            NewItem.AddToGroup("editor_placeable");
-                            parent.AddChild(NewItem);
+                            return;
                         }
-                    }
 
-                    if (itemType == EditorItemObject.ItemType.TileObj)
-                    {
-                        if (Input.IsActionPressed("mb_left"))
-                        {
-                            if (cell != _lastPlacedCell)
-                            {
-                                _lastPlacedCell = cell;
-                            }
-                            else
-                            {
-                                return;
-                            }
-                            Node2D NewItem = CurrentItem.Instantiate<Node2D>();
-                            GD.Print("TileObj instantiated");
-                            Node2D parent = GetTree().CurrentScene.GetNode<Node2D>($"{levelRoot}/{itemObject.GetGroupDestination()}");
-                            NewItem.GlobalPosition = snappedWorld;
-                            NewItem.AddToGroup("editor_placeable");
-                            parent.AddChild(NewItem);
-                        }
-                    }
-
-
-                    if (Input.IsActionJustReleased("mb_left"))
-                    {
                         ItemPlaced?.Invoke();
 
-                        if (itemType == EditorItemObject.ItemType.Clone)
+                        if (itemType == EditorItemObject.ItemType.Tile)
                         {
-                            Node2D NewItem = CurrentItem.Instantiate<Node2D>();
-                            Node2D parent = GetTree().CurrentScene.GetNode<Node2D>($"{levelRoot}/clones");
-                            Vector2 offset = new(snappedWorld.X, snappedWorld.Y + (CursorSprite.Texture.GetHeight() / 2) + 10.076f);
-
-                            NewItem.GlobalPosition = offset;
-                            NewItem.AddToGroup("editor_placeable");
-                            parent.AddChild(NewItem);
+                            EditorTileObject newTile = (EditorTileObject)itemObject;
+                            Vector2I atlasCoords = newTile.GetAtlasCoords();
+                            tileMapForeground.SetCell(cell, newTile.tileID, atlasCoords);
                         }
-
-                        if (itemType == EditorItemObject.ItemType.LevelMechanic)
+                        else
                         {
                             Node2D NewItem = CurrentItem.Instantiate<Node2D>();
-                            Node2D parent = GetTree().CurrentScene.GetNode<Node2D>($"{levelRoot}/level_mechanics");
-                            NewItem.GlobalPosition = snappedWorld;
+                            Node2D Parent = GetTree().CurrentScene.GetNode<Node2D>($"{levelRoot}/{itemObject.GetGroupDestination()}");
+                            NewItem.GlobalPosition = new Vector2(snappedWorld.X, snappedWorld.Y + 16 + itemObject.cursorOffset.Y);
                             NewItem.AddToGroup("editor_placeable");
-                            parent.AddChild(NewItem);
+                            Parent.AddChild(NewItem);
                         }
                     }
                 }
@@ -337,12 +269,12 @@ public partial class EditorObject : Node2D
                 // erase any objects touching the cursor area, if any
                 foreach (Godot.Collections.Dictionary result in results)
                 {
-                    CollisionObject2D collider = result["collider"].As<CollisionObject2D>();
+                    Node collider = result["collider"].As<Node>();
 
-                    if (collider != null)
-                    {
-                        GD.Print($"Erased {collider.Name}");
-                    }
+                    if (collider == null)
+                        continue;
+
+                    GD.Print($"Hit: {collider.Name} ({collider.GetType().Name})");
 
                     Node current = collider;
 
@@ -350,6 +282,7 @@ public partial class EditorObject : Node2D
                     {
                         if (current.IsInGroup("editor_placeable"))
                         {
+                            GD.Print($"Erased {current.Name}");
                             current.QueueFree();
                             break;
                         }
@@ -411,6 +344,12 @@ public partial class EditorObject : Node2D
 
     public void SetEditorItem(EditorItemObject editorItem)
     {
+        if (editorItem == null)
+        {
+            GD.PrintErr("EditorObject.SetEditorItem: editorItem is null");
+            return;
+        }
+
         itemObject = editorItem;
         itemType = editorItem.itemType;
 
@@ -423,10 +362,16 @@ public partial class EditorObject : Node2D
         else
         {
             SetTexture(editorItem.Texture, editorItem.FlipH);
+
+            if (editorItem.itemType == EditorItemObject.ItemType.Clone)
+            {
+                CursorSprite.Material = editorItem.Material;
+            }
+
             SetCurrentScene(editorItem.ThisScene, editorItem.itemType);
         }
 
-
+        CursorSprite.Modulate = new Color(1, 1, 1, 0.5f); // 50% transparent
     }
 
     public void SetCurrentTile(Texture2D tile)

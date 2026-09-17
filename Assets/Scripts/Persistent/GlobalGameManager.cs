@@ -47,23 +47,29 @@ public partial class GlobalGameManager : Node2D
     {
         if (editorMode)
         {
+            // TODO:
+            // The editor doesn't like swapping screen sizes back and forth
+            // we can have the game use the maximum width of the editor all of the time and use the borders viv drew to hide it during game time
+            // change viewport size in project settings accordingly, then delete this block
+            // ig brainstorm for how to get those 32 pixels back for the title bar though??
+            // also level cleared menu wont show, fix that
+            {
+                // change resolution to match editor requirements
+                Vector2I newSize = new Vector2I(1728, 864);
+
+                GD.Print($"Before: {DisplayServer.WindowGetSize()}");
+
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+                DisplayServer.WindowSetSize(newSize);
+
+                GD.Print($"After: {DisplayServer.WindowGetSize()}");
+            }
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
             GetTree().ChangeSceneToPacked(editorScene);
+
             return;
         }
-
-        // change resolution to match editor requirements
-        /*
-         Window window = GetWindow();
-
-        Vector2I newRes = new(1248, 832);
-
-        window.Size = newRes;
-
-        window.ContentScaleSize = newRes;
-
-        window.Position = (DisplayServer.ScreenGetSize(window.CurrentScreen) - window.Size) / 2;
-        */
 
         if (instance != null)
         {
@@ -343,17 +349,17 @@ public partial class GlobalGameManager : Node2D
         }
 
         Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
-        Node2D clear_conditions = assetsRoot.GetNodeOrNull<Node2D>("clear_conditions");
+        Node2D level_mechanics = assetsRoot.GetNodeOrNull<Node2D>("level_mechanics");
         Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
         Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
         Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
         Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
 
-        if (clear_conditions != null)
+        if (level_mechanics != null)
         {
-            foreach (Node2D level_essential in clear_conditions.GetChildren())
+            foreach (Node2D level_mechanic in level_mechanics.GetChildren())
             {
-                data.ClearConditions.Add(new ObjectData(level_essential.GetType().Name, level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
+                data.LevelMechanics.Add(new ObjectData(level_mechanic.GetType().Name, level_mechanic.Name, new Vector2(level_mechanic.GlobalPosition.X, level_mechanic.GlobalPosition.Y)));
             }
         }
 

@@ -122,6 +122,7 @@ public partial class FileButton : ToolBarButton
         main.filePath = "";
         main.ClearGroups();
         main.SetGameState(true);
+        main.GetNode<EditorObject>("EditorObject").itemObject?.SetActiveItem(null);
     }
     void OnFileSelected(string path)
     {

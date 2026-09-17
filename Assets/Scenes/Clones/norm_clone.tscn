@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://si4nrymeopfu" path="res://assets/Scripts/Clones/NormClone.cs" id="1_u8y20"]
 [ext_resource type="PackedScene" uid="uid://ddvu3cojc55cx" path="res://assets/Scenes/Effects/norm_kill_effect.tscn" id="2_jkpm8"]
 [ext_resource type="Texture2D" uid="uid://cl4t2kps0i0sm" path="res://assets/Sprites/Clones/fall.png" id="2_jve7h"]
+[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="3_dk3xr"]
 [ext_resource type="Texture2D" uid="uid://cg7vixk0fswyf" path="res://assets/Sprites/Clones/idle.png" id="3_u8y20"]
+[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_4qigl"]
 [ext_resource type="Texture2D" uid="uid://bcb4xwnp7jfmg" path="res://assets/Sprites/Clones/jump.png" id="4_qlkyf"]
 [ext_resource type="Texture2D" uid="uid://2bva0llm5q12" path="res://assets/Sprites/Clones/walk.png" id="5_dh7bw"]
 [ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png" id="6_dk3xr"]
@@ -639,7 +641,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6btvm")
 }],
-"loop": false,
+"loop": 0,
 "name": &"enter_door",
 "speed": 10.0
 }, {
@@ -656,7 +658,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v4cpa")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fall",
 "speed": 10.0
 }, {
@@ -679,7 +681,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rvck8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -699,7 +701,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hfhl6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump",
 "speed": 10.0
 }, {
@@ -716,7 +718,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sfnws")
 }],
-"loop": true,
+"loop": 1,
 "name": &"rise",
 "speed": 10.0
 }, {
@@ -751,7 +753,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f8d5d")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 10.0
 }, {
@@ -846,7 +848,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jwq0i")
 }],
-"loop": false,
+"loop": 0,
 "name": &"win",
 "speed": 10.0
 }]
@@ -1271,7 +1273,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pqihl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"down",
 "speed": 5.0
 }, {
@@ -1279,7 +1281,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_16wqw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"interact",
 "speed": 5.0
 }, {
@@ -1287,7 +1289,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_02bgc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -1295,7 +1297,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_isyh3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"left",
 "speed": 5.0
 }, {
@@ -1303,7 +1305,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lrmv5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"return",
 "speed": 5.0
 }, {
@@ -1311,7 +1313,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5wara")
 }],
-"loop": true,
+"loop": 1,
 "name": &"right",
 "speed": 5.0
 }, {
@@ -1319,7 +1321,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rdd36")
 }],
-"loop": true,
+"loop": 1,
 "name": &"spacebar",
 "speed": 5.0
 }, {
@@ -1327,7 +1329,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gmfq6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"up",
 "speed": 5.0
 }]
@@ -1337,6 +1339,8 @@ z_index = 10
 collision_layer = 16384
 script = ExtResource("1_u8y20")
 killEffectScene = ExtResource("2_jkpm8")
+jumpEffectScene = ExtResource("3_dk3xr")
+landEffectScene = ExtResource("4_4qigl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -30)

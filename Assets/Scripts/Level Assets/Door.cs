@@ -21,6 +21,12 @@ public partial class Door : Node2D
 
     public override async void _Ready()
     {
+        if (instance != null)
+        {
+            QueueFree(); 
+            return;
+        }
+
         instance = this;
 
         while (GlobalGameManager.GetInstance() == null && IsInsideTree())
@@ -30,7 +36,6 @@ public partial class Door : Node2D
 
         animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        animTree = GetNode<AnimationTree>("AnimationTree");
 
         area = GetNode<Area2D>("Area2D");
         area.BodyEntered += OnAreaEntered;
@@ -85,6 +90,11 @@ public partial class Door : Node2D
             GlobalGameManager.GetInstance().levelCompleted = true;
             UpdateIndicator();
         }
+
+        if (Input.IsActionJustPressed("interact"))
+        {
+            PlayAnimation("open");  
+        }
     }
 
     public void Open()
@@ -103,19 +113,29 @@ public partial class Door : Node2D
 
     private void PlayAnimation(string activeParam)
     {
+        //fix bug here, animation player is null???
+        //ok kinda, only triggered when clone touches the key
+        //we get a similar bug when a clone tries to flip an on/off switch
+
         foreach (string param in animationParams)
         {
-            animTree.Set($"parameters/conditions/{param}", param == activeParam);
+            GetNode<AnimationTree>("AnimationTree").Set($"parameters/conditions/{param}", param == activeParam);
         }
     }
 
-    public static Door GetInstance() => instance;
+    public static Door GetInstance()
+    {
+        return instance;
+    }
 
     public override void _ExitTree()
     {
         instance = null;
 
-        ((Main) GetTree().CurrentScene).UnregisterDoor();
+        if (GetTree().CurrentScene is Main main)
+        {
+            main.UnregisterDoor();
+        }
     }
 
     private void UpdateIndicator()

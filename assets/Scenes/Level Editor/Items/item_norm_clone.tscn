@@ -9,5 +9,4 @@
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = ExtResource("2_2rrou")
 itemType = 0
-instantiationType = 0
 ThisScene = ExtResource("3_2rrou")
