@@ -23,7 +23,7 @@ public partial class Door : Node2D
     {
         if (instance != null)
         {
-            QueueFree(); 
+            QueueFree();
             return;
         }
 
@@ -40,12 +40,10 @@ public partial class Door : Node2D
         area = GetNode<Area2D>("Area2D");
         area.BodyEntered += OnAreaEntered;
         area.BodyExited += OnAreaExited;
-
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-
-        if (ggm == null)
+        
+        if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            ((Main)GetTree().CurrentScene).RegisterDoor(this);
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").RegisterDoor(this);
         }
     }
 
@@ -93,7 +91,7 @@ public partial class Door : Node2D
 
         if (Input.IsActionJustPressed("interact"))
         {
-            PlayAnimation("open");  
+            PlayAnimation("open");
         }
     }
 
@@ -132,9 +130,9 @@ public partial class Door : Node2D
     {
         instance = null;
 
-        if (GetTree().CurrentScene is Main main)
+        if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            main.UnregisterDoor();
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").UnregisterDoor();
         }
     }
 

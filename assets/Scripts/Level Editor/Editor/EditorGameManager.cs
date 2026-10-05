@@ -32,7 +32,7 @@ public partial class EditorGameManager : Node2D
     public int clonesKilled = 0;
     public List<string> collectibles = new();
 
-    public Main main;
+    public LevelEditorMain main;
 
     public override async void _Ready()
     {
@@ -51,7 +51,7 @@ public partial class EditorGameManager : Node2D
 
     public override void _Process(double delta)
     {
-        main = GetTree().CurrentScene as Main;
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
 
         if (main.filePath != string.Empty)
         {
@@ -111,7 +111,7 @@ public partial class EditorGameManager : Node2D
     public void RegisterGorg(Gorgonzola gorgonzola)
     {
         this.gorgonzola = gorgonzola;
-        main = GetTree().CurrentScene as Main;
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         gorgonzola.OnKilled += main.OnGorgKilled;
         OnGorgFound?.Invoke();
     }

@@ -6,16 +6,15 @@ public partial class Spike : Sprite2D
 {
     public override void _Ready()
     {
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
         Node levelRoot;
 
-        if (ggm != null)
+        if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            levelRoot = GetTree().Root;
+            levelRoot = GetTree().CurrentScene.GetNode<Node2D>("editor/main");
         }
         else
         {
-            levelRoot = GetTree().CurrentScene;
+            levelRoot = GetTree().CurrentScene.GetNode<Node2D>("game/main");
         }
 
         TileMapLayer tileMapForeground = levelRoot.GetNode<TileMapLayer>("level/tiles/Foreground");

@@ -8,7 +8,7 @@ public partial class Grid : Node2D
 
     public override void _Ready()
     {
-        Main main = GetTree().CurrentScene as Main;
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
 
         main.OnGameStarted += () =>
         {
@@ -46,7 +46,7 @@ public partial class Grid : Node2D
         {
             return;
         }
-        TileMapLayer tileMapLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("level/tiles/Foreground");
+        TileMapLayer tileMapLayer = GetTree().CurrentScene.GetNode<TileMapLayer>("editor/main/level/tiles/Foreground");
 
         if (tileMapLayer == null)
         {

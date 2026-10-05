@@ -51,7 +51,7 @@ public abstract partial class LocalGameManager : Node2D
         }
     }
 
-    protected void HandleFadeOut()
+    protected void HandleFadeOut(bool gorgKilled)
     {
         OnFlush?.Invoke();
         if (!GlobalGameManager.GetInstance().levelCompleted && !GlobalGameManager.GetInstance().gamePaused)

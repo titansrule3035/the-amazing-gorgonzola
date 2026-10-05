@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://rhb6mualyteu"]
+[gd_scene format=3 uid="uid://pxv458yyxvm6"]
 
 [ext_resource type="Script" uid="uid://dgdnlxcqx3jd7" path="res://assets/Scripts/Persistent/DialogueManager.cs" id="1_ci4bg"]
 [ext_resource type="Script" uid="uid://dp0d1epso522" path="res://assets/Scripts/Persistent/GlobalGameManager.cs" id="1_dwccm"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
 [ext_resource type="PackedScene" uid="uid://x3gqidwcblyp" path="res://assets/Levels/2.tscn" id="4_cbung"]
 [ext_resource type="PackedScene" uid="uid://bfh6pikgv3ub3" path="res://assets/Levels/final.tscn" id="5_5dr3y"]
-[ext_resource type="PackedScene" uid="uid://dtkkypel8chuv" path="res://assets/Scenes/Level Editor/Editor.tscn" id="6_enx2f"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="10_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
 [ext_resource type="Script" uid="uid://bjs036688coai" path="res://assets/Scripts/Level Assets/DialogueTrigger.cs" id="10_cbung"]
@@ -20,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://c1yrq8rf8seue" path="res://assets/Sprites/UI/Dialogue/dialoguearrow6.png" id="17_oylag"]
 [ext_resource type="Texture2D" uid="uid://b7l5dm2gatkh0" path="res://assets/Sprites/UI/Dialogue/dialoguearrow7.png" id="18_5dr3y"]
 [ext_resource type="Texture2D" uid="uid://34vic87pj005" path="res://assets/Sprites/UI/Dialogue/dialoguearrow8.png" id="19_2a1od"]
-[ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="19_p35w6"]
 [ext_resource type="Script" uid="uid://cnt46eiglsgue" path="res://assets/Scripts/UI/Filter.cs" id="28_exsfb"]
 
 [sub_resource type="Animation" id="Animation_jquie"]
@@ -68,7 +66,6 @@ _data = {
 process_mode = 3
 script = ExtResource("1_dwccm")
 levelScenes = Array[PackedScene]([ExtResource("2_naort"), ExtResource("3_ci4bg"), ExtResource("4_cbung"), ExtResource("5_5dr3y")])
-editorScene = ExtResource("6_enx2f")
 
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
 z_index = 5
@@ -165,8 +162,3 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("28_exsfb")
-
-[node name="canvas_layer" type="CanvasLayer" parent="." unique_id=150370656]
-
-[node name="canvas_effects" parent="canvas_layer" unique_id=1900329152 instance=ExtResource("19_p35w6")]
-process_mode = 3

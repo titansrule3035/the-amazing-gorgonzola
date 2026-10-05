@@ -86,7 +86,7 @@ public partial class GorgCarcass : Node2D
     /// <summary>
     /// Flush handler to unhook events and free this node.
     /// </summary>
-    void Flush()
+    void Flush(bool gorgKilled)
     {
         CanvasEffects.GetInstance().OnFadeOut -= Flush;
         QueueFree();

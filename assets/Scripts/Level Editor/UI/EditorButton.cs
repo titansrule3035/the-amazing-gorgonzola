@@ -14,6 +14,6 @@ public partial class EditorButton : ToolBarButton
     void QuitButtonPressed()
     {
         blockMouse.MouseFilter = MouseFilterEnum.Stop;
-        GetTree().CurrentScene.GetNode<QuitMenu>("CanvasLayer/UI/QuitMenu").ShowMenu();
+        GetTree().CurrentScene.GetNode<QuitMenu>("editor/main/CanvasLayer/UI/QuitMenu").ShowMenu();
     }
 }

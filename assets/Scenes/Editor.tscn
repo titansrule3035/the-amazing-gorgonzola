@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtkkypel8chuv"]
 
-[ext_resource type="Script" uid="uid://bni2vnnwehdf" path="res://assets/Scripts/Level Editor/Editor/Main.cs" id="1_xuh87"]
+[ext_resource type="Script" uid="uid://bni2vnnwehdf" path="res://assets/Scripts/Level Editor/Editor/LevelEditorMain.cs" id="1_xuh87"]
 [ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/Level Assets/lab_door.tscn" id="2_osp0y"]
 [ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/Level Assets/key_card.tscn" id="3_h4shr"]
 [ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Clones/default_clone.tscn" id="4_271je"]
@@ -25,7 +25,6 @@
 [ext_resource type="Script" uid="uid://bquphp5j7gww7" path="res://assets/Scripts/Level Editor/UI/Grid.cs" id="23_5qh5s"]
 [ext_resource type="Texture2D" uid="uid://dn26l57lcnxgy" path="res://assets/Sprites/Level Editor/Eraser.png" id="23_osp0y"]
 [ext_resource type="Script" uid="uid://bjuxwcce1ffw5" path="res://assets/Scripts/Level Editor/UI/Ui.cs" id="24_3ar2r"]
-[ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="25_5yjj6"]
 [ext_resource type="Script" uid="uid://cdkcaip0x2d4n" path="res://assets/Scripts/Level Editor/UI/ToolBar.cs" id="26_miwel"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="27_v344w"]
 [ext_resource type="Script" uid="uid://mcq11oudr4ja" path="res://assets/Scripts/Level Editor/UI/FileButton.cs" id="28_vthxm"]
@@ -2001,13 +2000,6 @@ offset_right = 1728.0
 offset_bottom = 864.0
 script = ExtResource("24_3ar2r")
 quitMenu = NodePath("QuitMenu")
-
-[node name="CanvasEffects" parent="CanvasLayer/UI" unique_id=1212739994 instance=ExtResource("25_5yjj6")]
-layout_mode = 0
-offset_left = 480.0
-offset_top = 32.0
-offset_right = 1728.0
-offset_bottom = 864.0
 
 [node name="MenuBackdrop" type="ColorRect" parent="CanvasLayer/UI" unique_id=1930504820]
 layout_mode = 1

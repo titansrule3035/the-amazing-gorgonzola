@@ -6,6 +6,8 @@ public partial class CameraDrag : Camera2D
     [Export] public float DragSpeed = 1.0f;
     [Export] public float MoveSpeed = 500.0f;
 
+    [Export] public Vector2 startingPos = new(-224, -400);
+
     private bool _dragging = false;
     private Vector2 _dragStartMousePos;
     private Vector2 _dragStartCameraPos;
@@ -20,11 +22,13 @@ public partial class CameraDrag : Camera2D
     {
         instance = this;
 
+        GlobalPosition = startingPos;
+
         base._Ready();
     }
     public override void _Process(double delta)
     {
-        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
 
         Vector2 move = Vector2.Zero;
 
@@ -57,7 +61,7 @@ public partial class CameraDrag : Camera2D
 
         if (Input.IsKeyPressed(Godot.Key.F))
         {
-            GlobalPosition = new(-224, -400);
+            GlobalPosition = startingPos;
         }
 
         if (Input.IsActionJustPressed("spacebar") || Input.IsActionJustPressed("mb_middle"))

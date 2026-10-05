@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public partial class Ui : Control
 {
-    public Main main;
+    public LevelEditorMain main;
 
     public Label toolBarLabel;
 
@@ -20,7 +20,7 @@ public partial class Ui : Control
 
     public override void _Ready()
     {
-        main = GetTree().CurrentScene as Main;
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
 
         toolBarLabel = GetNode<Label>("ToolBar/ToolBarLabel");
 
@@ -72,14 +72,14 @@ public partial class Ui : Control
 
     private void OnMouseEntered()
     {
-        EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+        EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
         editor.canPlace = true;
         editor.hideCursor = false;
     }
 
     private void OnMouseExited()
     {
-        EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+        EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
         editor.canPlace = false;
         editor.hideCursor = true;
     }

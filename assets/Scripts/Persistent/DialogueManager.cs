@@ -251,4 +251,8 @@ public partial class DialogueManager : Node
         dialoguePanel.Visible = true;
     }
 
+    public override void _ExitTree()
+    {
+        instance = null;
+    }
 }

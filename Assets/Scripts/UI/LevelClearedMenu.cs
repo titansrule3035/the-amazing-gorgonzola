@@ -42,6 +42,7 @@ public partial class LevelClearedMenu : Panel
             if (Visible)
             {
                 ggm.AddPauseLock(this);
+                EnableButtons();
             }
             else
             {
@@ -73,8 +74,14 @@ public partial class LevelClearedMenu : Panel
         nextButton.Disabled = quitButton.Disabled = true;
     }
 
-    public void MainMenu()
+    void EnableButtons()
     {
+        nextButton.Disabled = quitButton.Disabled = false;
+    }
+
+    public void MainMenu(bool throwaway)
+    {
+        // every signal connected to fade out needs a flag, I don't have a use for this bool, but I need to have it in the signature to match the signal
         GlobalGameManager.GetInstance().LoadLevel(0);
         CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
         GlobalGameManager.GetInstance().gamePaused = false;
@@ -83,5 +90,12 @@ public partial class LevelClearedMenu : Panel
     public static LevelClearedMenu GetInstance()
     {
         return instance;
+    }
+
+    public override void _ExitTree()
+    {
+        instance = null;
+
+        base._ExitTree();
     }
 }

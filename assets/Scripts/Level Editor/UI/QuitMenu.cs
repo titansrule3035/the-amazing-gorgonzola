@@ -10,13 +10,12 @@ public partial class QuitMenu : Control
 
     public override void _Ready()
     {
-        quitButton.Pressed += () =>
-        {
-            GetTree().Quit();
-        };
+        quitButton.Disabled = cancelButton.Disabled = false;
+
+        quitButton.Pressed += QuitEditor;
 
         cancelButton.Pressed += CancelButtonPressed;
-        fileButton = GetTree().CurrentScene.GetNode<FileButton>("CanvasLayer/UI/ToolBar/FileButton");
+        fileButton = GetTree().CurrentScene.GetNode<FileButton>("editor/main/CanvasLayer/UI/ToolBar/FileButton");
     }
 
     private void CancelButtonPressed()
@@ -24,7 +23,7 @@ public partial class QuitMenu : Control
         HideMenu();
         quit = false;
 
-        if(GetParent() is Ui ui)
+        if (GetParent() is Ui ui)
         {
             ui.blockMouse.MouseFilter = MouseFilterEnum.Ignore;
             fileButton.UpdateMenuAndButton(false);
@@ -41,7 +40,7 @@ public partial class QuitMenu : Control
                 {
                     if (Input.IsActionJustPressed("q"))
                     {
-                        GetTree().Quit();
+                        QuitEditor();
                     }
                 }
             }
@@ -70,5 +69,12 @@ public partial class QuitMenu : Control
     {
         quitButton.Disabled = cancelButton.Disabled = !state;
         Visible = state;
+    }
+
+    void QuitEditor()
+    {
+        quitButton.Disabled = cancelButton.Disabled = true;
+
+        ((Runtime)GetTree().CurrentScene).SwitchToGame(true);
     }
 }

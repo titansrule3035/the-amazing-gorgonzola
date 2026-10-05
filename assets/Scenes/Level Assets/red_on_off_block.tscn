@@ -92,7 +92,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s0451")
 }],
-"loop": false,
+"loop": 0,
 "name": &"close",
 "speed": 15.0
 }, {
@@ -118,7 +118,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0h5ya")
 }],
-"loop": false,
+"loop": 0,
 "name": &"open",
 "speed": 15.0
 }, {
@@ -126,7 +126,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rg0v4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"start_close",
 "speed": 5.0
 }, {
@@ -134,7 +134,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yumn0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"start_open",
 "speed": 5.0
 }]
@@ -148,7 +148,7 @@ script = ExtResource("1_r0j76")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1284775789]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_eevlx")
-animation = &"open"
+animation = &"start_open"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=621230490]
 

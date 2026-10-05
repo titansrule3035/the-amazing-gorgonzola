@@ -42,8 +42,8 @@ namespace TAGLevelBuilder.assets.Scripts.Level_Editor
 
         public override void UpdateTextures(Texture2D texture, bool flipH, bool selected)
         {
-            Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("EditorObject/Sprite");
-            EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+            Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("editor/main/EditorObject/Sprite");
+            EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
 
             editorObject.SetEditorItem(this);
 

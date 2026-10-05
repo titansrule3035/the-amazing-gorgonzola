@@ -3,12 +3,12 @@ using System;
 
 public partial class ItemKey : EditorItemObject
 {
-    private Main main;
+    private LevelEditorMain main;
 
     public override void _Ready()
     {
         base._Ready();
-        main = ((Main)GetTree().CurrentScene);
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         main.OnKeyRegistered += OnKeyRegistered;
         main.OnKeyUnregistered += OnKeyUnregistered;
 

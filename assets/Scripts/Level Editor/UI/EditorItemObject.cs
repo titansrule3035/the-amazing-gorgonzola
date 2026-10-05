@@ -23,7 +23,7 @@ public partial class EditorItemObject : TextureRect
 
         ChangeTexture += SetActiveItem;
 
-        Main main = GetTree().CurrentScene as Main;
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
 
         main.OnGamePaused += OnGamePaused;
     }
@@ -68,8 +68,8 @@ public partial class EditorItemObject : TextureRect
 
     public virtual void UpdateTextures(Texture2D texture, bool flipH, bool selected)
     {
-        Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("EditorObject/Sprite");
-        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+        Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("editor/main/EditorObject/Sprite");
+        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
 
         SendItemToEditor();
 
@@ -88,8 +88,8 @@ public partial class EditorItemObject : TextureRect
 
     public virtual void SendItemToEditor()
     {
-        Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("EditorObject/Sprite");
-        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+        Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("editor/main/EditorObject/Sprite");
+        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
 
         editorObject.SetEditorItem(this);
     }
@@ -123,7 +123,7 @@ public partial class EditorItemObject : TextureRect
 
         if (item == null)
         {
-            EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("EditorObject");
+            EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
             editor.itemObject = null;
             editor.itemType = EditorItemObject.ItemType.Null;
         }

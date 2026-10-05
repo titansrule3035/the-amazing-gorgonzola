@@ -40,11 +40,9 @@ public partial class Key : Node2D
 
         instance = this;
 
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-
-        if (ggm == null)
+        if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            ((Main)GetTree().CurrentScene).RegisterKey(this);
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").RegisterKey(this);
         }
 
         base._Ready();
@@ -75,9 +73,9 @@ public partial class Key : Node2D
             uiElement.Modulate = Colors.White;
         }
 
-        if (GetTree().CurrentScene is Main main)
+        if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            main.UnregisterKey();
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").UnregisterKey();
         }
 
         base._ExitTree();

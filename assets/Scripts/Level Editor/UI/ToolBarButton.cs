@@ -21,7 +21,7 @@ public partial class ToolBarButton : Button
         Pressed += ToolBarButtonPressed;
         MouseEntered += ToolBarButtonHovered;
 
-        blockMouse = GetTree().CurrentScene.GetNode<ColorRect>("CanvasLayer/UI/BlockMouse");
+        blockMouse = GetTree().CurrentScene.GetNode<ColorRect>("editor/main/CanvasLayer/UI/BlockMouse");
 
         menu.parentButton = this;
 

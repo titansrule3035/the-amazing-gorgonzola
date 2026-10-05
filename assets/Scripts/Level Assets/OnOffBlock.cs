@@ -39,7 +39,33 @@ public partial class OnOffBlock : Node2D
     // Called when the global on/off state changes
     void OnStateChanged(bool on)
     {
-        CheckState();
+        bool state = OnOffManager.GetState();
+        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        if (state)
+        {
+            if (green)
+            {
+                sprite.Play("close");
+
+            }
+            else
+            {
+                sprite.Play("open");
+            }
+        }
+        else
+        {
+            if (green)
+            {
+                sprite.Play("open");
+
+            }
+            else
+            {
+                sprite.Play("close");
+            }
+        }
+        UpdateBody(state);
     }
 
     // Enable or disable the collision shape according to color and global state

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cwfwt51iy7wvn"]
+
+[ext_resource type="Script" uid="uid://dlngey8by3h4b" path="res://assets/Scripts/Persistent/Runtime.cs" id="1_pff64"]
+[ext_resource type="PackedScene" uid="uid://dtkkypel8chuv" path="res://assets/Scenes/Editor.tscn" id="2_6cu8n"]
+[ext_resource type="PackedScene" uid="uid://pxv458yyxvm6" path="res://assets/Scenes/Game.tscn" id="3_s7gb8"]
+[ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="4_6cu8n"]
+
+[node name="runtime" type="Node2D" unique_id=1780813959]
+script = ExtResource("1_pff64")
+editorScene = ExtResource("2_6cu8n")
+gameScene = ExtResource("3_s7gb8")
+
+[node name="game" type="Node2D" parent="." unique_id=1574767889]
+
+[node name="editor" type="Node2D" parent="." unique_id=212111951]
+
+[node name="canvas_layer" type="CanvasLayer" parent="." unique_id=2090702952]
+layer = 100
+
+[node name="canvas_effects" parent="canvas_layer" unique_id=1212739994 instance=ExtResource("4_6cu8n")]
+process_mode = 3

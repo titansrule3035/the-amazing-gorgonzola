@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 using static SemiSolidTileData;
 
-public partial class Main : Node2D
+public partial class LevelEditorMain : Node2D
 {
     LevelData level;
 
@@ -22,7 +22,7 @@ public partial class Main : Node2D
 
     public ScrollButtonMenusController scrollButton;
 
-    static Main instance;
+    static LevelEditorMain instance;
 
     public Door door = null;
     public Action? OnDoorRegistered;
@@ -128,7 +128,7 @@ public partial class Main : Node2D
     public void FileSaved(string filePath)
     {
         LevelData data = new();
-        Node2D levelRoot = GetTree().CurrentScene.GetNode<Node2D>("level");
+        Node2D levelRoot = GetTree().CurrentScene.GetNode<Node2D>("editor/main/level");
 
         foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
         {
@@ -267,7 +267,7 @@ public partial class Main : Node2D
                 }
             }
         }
-        Node2D tilesGroup = GetTree().CurrentScene.GetNode<Node2D>("level/tiles");
+        Node2D tilesGroup = GetTree().CurrentScene.GetNode<Node2D>("editor/main/level/tiles");
 
         foreach (TileMapLayer tileMapLayer in tilesGroup.GetChildren())
         {
@@ -484,15 +484,22 @@ public partial class Main : Node2D
         CanvasEffects.GetInstance().FadeOut(new(96f / 255f, 0f, 0f, 1f));
     }
 
-    public async void OnFadeOut()
+    public async void OnFadeOut(bool gorgKilled)
     {
-        ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+        if (gorgKilled && ((Runtime)GetTree().CurrentScene).editorMode)
+        {
+            ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
 
-        ((Main)GetTree().CurrentScene).GetNode<Camera2D>("Camera2D").GlobalPosition = new(-224, -400);
+            GetTree().CurrentScene.GetNode<Camera2D>("editor/main/Camera2D").GlobalPosition = new(-224, -400);
 
-        SetGameState(true);
+            SetGameState(true);
 
-        CanvasEffects.GetInstance().FadeIn();
+            CanvasEffects.GetInstance().FadeIn();
+        }
+        else
+        {
+            CanvasEffects.GetInstance().OnFadeOut -= OnFadeOut;
+        }
     }
 
     public void SetGameState(bool paused)

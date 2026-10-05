@@ -53,11 +53,18 @@ public partial class PauseMenu : Panel
         return instance;
     }
 
-    public void MainMenu()
+    public void MainMenu(bool throwaway)
     {
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
         ggm.LoadLevel(0);
         CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
         ggm.gamePaused = false;
+    }
+
+    public override void _ExitTree()
+    {
+        instance = null;
+
+        base._ExitTree();
     }
 }

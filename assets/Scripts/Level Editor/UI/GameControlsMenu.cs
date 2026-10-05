@@ -32,7 +32,7 @@ public partial class GameControlsMenu : Control
 
     private void PlayButtonPressed()
     {
-        Main main = GetTree().CurrentScene as Main;
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
 
         main.ToggleGameState();
 

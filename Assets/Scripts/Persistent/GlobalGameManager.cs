@@ -38,39 +38,8 @@ public partial class GlobalGameManager : Node2D
     public int clonesKilled = 0;
     public List<string> collectibles = new();
 
-    public Main editorMain;
-
-    [Export] public bool editorMode = false;
-    [Export] public PackedScene editorScene;
-
     public override async void _Ready()
     {
-        if (editorMode)
-        {
-            // TODO:
-            // The editor doesn't like swapping screen sizes back and forth
-            // we can have the game use the maximum width of the editor all of the time and use the borders viv drew to hide it during game time
-            // change viewport size in project settings accordingly, then delete this block
-            // ig brainstorm for how to get those 32 pixels back for the title bar though??
-            // also level cleared menu wont show, fix that
-            {
-                // change resolution to match editor requirements
-                Vector2I newSize = new Vector2I(1728, 864);
-
-                GD.Print($"Before: {DisplayServer.WindowGetSize()}");
-
-                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
-                DisplayServer.WindowSetSize(newSize);
-
-                GD.Print($"After: {DisplayServer.WindowGetSize()}");
-            }
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-            GetTree().ChangeSceneToPacked(editorScene);
-
-            return;
-        }
-
         if (instance != null)
         {
             GD.Print("More than one GlobalGameManager exists! Deleting this one...");
@@ -127,8 +96,8 @@ public partial class GlobalGameManager : Node2D
         }
 
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
-        base._Process(delta);
 
+        base._Process(delta);
     }
 
     public override void _ExitTree()
@@ -216,7 +185,7 @@ public partial class GlobalGameManager : Node2D
     private void InstantiateActiveLevel()
     {
         activeLevel = levels[activeLevelIndex].Instantiate<Node2D>();
-        GetTree().Root.CallDeferred("add_child", activeLevel);
+        GetTree().CurrentScene.GetNode<Node2D>("game/main").CallDeferred("add_child", activeLevel);
 
         localGM = activeLevel.GetNodeOrNull<LocalGameManager>("LocalGameManager");
 
@@ -455,7 +424,6 @@ public partial class GlobalGameManager : Node2D
     public void RegisterGorg(Gorgonzola gorgonzola)
     {
         this.gorgonzola = gorgonzola;
-        editorMain = GetTree().CurrentScene as Main;
         OnGorgFound?.Invoke();
     }
 

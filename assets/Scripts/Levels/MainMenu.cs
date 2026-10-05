@@ -23,11 +23,9 @@ public partial class MainMenu : Control
 
         // Subscribe to canvas fade events
         CanvasEffects.GetInstance().OnFadeIn += OnFadeIn;
-        CanvasEffects.GetInstance().OnFadeOut += OnFadeOut;
 
         // Disable pausing while in the main menu
         GlobalGameManager.GetInstance().canPause = false;
-
 
         // Subscribe to options' back button
         optionsMenu.backButtonPressed += () =>
@@ -38,6 +36,8 @@ public partial class MainMenu : Control
 
         optionsMenu.HideMenu();
         ShowMenu();
+
+        DisableButtonsState(false);
 
         base._Ready();
     }
@@ -73,6 +73,7 @@ public partial class MainMenu : Control
         DisableButtonsState(true);
         Color col = new Color(0, 0, 0, 1);
         CanvasEffects.GetInstance().FadeOut(col);
+        CanvasEffects.GetInstance().OnFadeOut += OnFadeOut;
     }
 
     void OptionsButtonPressed()
@@ -83,7 +84,16 @@ public partial class MainMenu : Control
 
     void QuitButtonPressed()
     {
-        GetTree().Quit();
+        if (Input.IsActionPressed("ctrl"))
+        {
+            ((Runtime)GetTree().CurrentScene).SwitchToEditor(true);
+
+            DisableButtonsState(true);
+        }
+        else
+        {
+            GetTree().Quit();
+        }
     }
 
     // Prevent further interaction while transitioning
@@ -108,8 +118,10 @@ public partial class MainMenu : Control
     }
 
     // Fade callbacks
-    void OnFadeOut()
+    void OnFadeOut(bool gorgKilled)
     {
+        CanvasEffects.GetInstance().OnFadeOut -= OnFadeOut;
+
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
         int levelIndex = SaveManager.LoadCompletedLevels();
 
@@ -130,6 +142,8 @@ public partial class MainMenu : Control
         // Ensure the game is unpaused after fade in and stop listening to this event here
         GlobalGameManager.GetInstance().gamePaused = false;
         CanvasEffects.GetInstance().OnFadeIn -= OnFadeIn;
+
+        GD.Print("Fade in completed.");
     }
 
 }
