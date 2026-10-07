@@ -80,15 +80,15 @@ public partial class GorgCarcass : Node2D
             bodies[i].LinearVelocity = launchVelocity;
         }
 
-        CanvasEffects.GetInstance().OnFadeOut += Flush;
+        KillPanel.GetInstance().OnFadeOut += Flush;
     }
 
     /// <summary>
     /// Flush handler to unhook events and free this node.
     /// </summary>
-    void Flush(bool gorgKilled)
+    void Flush()
     {
-        CanvasEffects.GetInstance().OnFadeOut -= Flush;
+        KillPanel.GetInstance().OnFadeOut -= Flush;
         QueueFree();
     }
 }

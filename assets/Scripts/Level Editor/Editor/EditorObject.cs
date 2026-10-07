@@ -9,6 +9,17 @@ public partial class EditorObject : Node2D
 {
     // Exported Variables
 
+    [Export] Vector2 mouseGlobal;
+
+    // convert mouse into TileMap local space
+    [Export] Vector2 local;
+
+    // convert to cell
+    [Export] Vector2I cell;
+
+    // convert back to world-aligned position (CENTER of tile)
+    [Export] Vector2 snappedWorld;
+
     [Export] public bool canPlace = false;
     [Export] Node2D level;
 
@@ -80,16 +91,16 @@ public partial class EditorObject : Node2D
 
     public override void _Process(double delta)
     {
-        Vector2 mouseGlobal = GetGlobalMousePosition();
+        mouseGlobal = GetGlobalMousePosition();
 
         // convert mouse into TileMap local space
-        Vector2 local = tileMapForeground.ToLocal(mouseGlobal);
+        local = tileMapForeground.ToLocal(mouseGlobal);
 
         // convert to cell
-        Vector2I cell = tileMapForeground.LocalToMap(local);
+        cell = tileMapForeground.LocalToMap(local);
 
         // convert back to world-aligned position (CENTER of tile)
-        Vector2 snappedWorld = tileMapForeground.ToGlobal(tileMapForeground.MapToLocal(cell));
+        snappedWorld = tileMapForeground.ToGlobal(tileMapForeground.MapToLocal(cell));
 
         CursorSprite.Visible = !hideCursor;
 
@@ -110,209 +121,201 @@ public partial class EditorObject : Node2D
 
         /* Input mapping */
         {
+            if (Input.IsActionJustPressed("mouse_mouse"))
+            {
+                currentCursorMode = CursorMode.Mouse;
+            }
+
+            if (Input.IsActionJustPressed("mouse_move"))
+            {
+                currentCursorMode = CursorMode.Move;
+            }
+
+            if (Input.IsActionJustPressed("ctrl"))
+            {
+                if (currentCursorMode != CursorMode.Mouse)
+                {
+                    lastCursorMode = currentCursorMode;
+                }
+
+                currentCursorMode = CursorMode.Mouse;
+            }
+
+            if (Input.IsActionJustReleased("ctrl"))
+            {
+                currentCursorMode = lastCursorMode;
+            }
+
+            if (Input.IsActionJustPressed("mouse_select"))
+            {
+                currentCursorMode = CursorMode.Select;
+            }
+
+            if (Input.IsActionJustPressed("mouse_place"))
+            {
+                SetEditorItem(itemObject);
+                currentCursorMode = CursorMode.Place;
+            }
+
+            if (Input.IsActionJustPressed("mouse_eraser"))
+            {
+                currentCursorMode = CursorMode.Eraser;
+            }
             if (Engine.TimeScale == 0)
             {
-                if (Input.IsActionJustPressed("mouse_mouse"))
-                {
-                    currentCursorMode = CursorMode.Mouse;
-                }
-
-                if (Input.IsActionJustPressed("mouse_move"))
-                {
-                    currentCursorMode = CursorMode.Move;
-                }
-
-                if (Input.IsActionJustPressed("ctrl"))
-                {
-                    if (currentCursorMode != CursorMode.Mouse)
-                    {
-                        lastCursorMode = currentCursorMode;
-                    }
-
-                    currentCursorMode = CursorMode.Mouse;
-                }
-
-                if (Input.IsActionJustReleased("ctrl"))
-                {
-                    currentCursorMode = lastCursorMode;
-                }
-
-                if (Input.IsActionJustPressed("mouse_select"))
-                {
-                    currentCursorMode = CursorMode.Select;
-                }
-
-                if (Input.IsActionJustPressed("mouse_place"))
-                {
-                    SetEditorItem(itemObject);
-                    currentCursorMode = CursorMode.Place;
-                }
-
-                if (Input.IsActionJustPressed("mouse_eraser"))
-                {
-                    currentCursorMode = CursorMode.Eraser;
-                }
-
                 if (Input.IsActionJustPressed("mouse_copy"))
                 {
                     currentCursorMode = CursorMode.Copy;
                 }
-            }
-            if (currentCursorMode == CursorMode.Mouse)
-            {
-                hideCursor = true;
-                GlobalPosition = GetGlobalMousePosition();
-            }
-
-            if (currentCursorMode == CursorMode.Select)
-            {
-                hideCursor = true;
-
-                if (Input.IsActionJustPressed("mb_left"))
+                if (currentCursorMode == CursorMode.Mouse)
                 {
-                    selectTopLeft = cell;
+                    hideCursor = true;
+                    GlobalPosition = GetGlobalMousePosition();
                 }
 
-                if (Input.IsActionPressed("mb_left"))
+                if (currentCursorMode == CursorMode.Select)
                 {
-                    selectBottomRight = cell;
-                    QueueRedraw();
-                }
+                    hideCursor = true;
 
-                if (Input.IsActionJustReleased("mb_left"))
-                {
-                    selectBottomRight = cell;
-                    SelectObjects();
-                    QueueRedraw();
-                }
-            }
-
-            if (currentCursorMode == CursorMode.Place)
-            {
-                // fix alignment, the cursor should be centered on the object (if not tile) by the BOTTOM of its sprite
-
-                float offset = 0f;
-
-                if (CursorSprite.Texture != null)
-                {
-                    offset = CursorSprite.GetRect().Size.Y / 2;
-                }
-
-                GlobalPosition = snappedWorld + new Vector2(0, 16);
-                CursorSprite.GlobalPosition = GlobalPosition - new Vector2(0, offset);
-
-                if ((CurrentItem != null || CurrentTile != null) && itemObject != null && GetTree().Paused)
-                {
-                    if (itemObject.disabled)
+                    if (Input.IsActionJustPressed("mb_left"))
                     {
-                        SetTexture(new(), false);
-                        itemType = EditorItemObject.ItemType.Null;
-                        CurrentItem = null;
+                        selectTopLeft = cell;
                     }
 
-                    if (itemType == EditorItemObject.ItemType.Null || results.Count != 0)
+                    if (Input.IsActionPressed("mb_left"))
                     {
-                        foreach (Godot.Collections.Dictionary result in results)
-                        {
-                            return;
-                        }
+                        selectBottomRight = cell;
+                        QueueRedraw();
                     }
-                    else if (tileMapForeground.GetCellSourceId(cell) != -1)
+
+                    if (Input.IsActionJustReleased("mb_left"))
+                    {
+                        selectBottomRight = cell;
+                        SelectObjects();
+                        QueueRedraw();
+                    }
+                }
+            }
+        }
+
+        if (currentCursorMode == CursorMode.Place)
+        {
+            // fix alignment, the cursor should be centered on the object (if not tile) by the BOTTOM of its sprite
+
+            float offset = 0f;
+
+            if (CursorSprite.Texture != null)
+            {
+                offset = CursorSprite.GetRect().Size.Y / 2;
+            }
+
+            GlobalPosition = snappedWorld + new Vector2(0, 16);
+            CursorSprite.GlobalPosition = GlobalPosition - new Vector2(0, offset);
+
+            if ((CurrentItem != null || CurrentTile != null) && itemObject != null && GetTree().Paused)
+            {
+                if (itemObject.disabled)
+                {
+                    SetTexture(new(), false);
+                    itemType = EditorItemObject.ItemType.Null;
+                    CurrentItem = null;
+                }
+
+                if (itemType == EditorItemObject.ItemType.Null || results.Count != 0)
+                {
+                    foreach (Godot.Collections.Dictionary result in results)
                     {
                         return;
                     }
+                }
+                else if (tileMapForeground.GetCellSourceId(cell) != -1)
+                {
+                    return;
+                }
 
-                    if (canPlace)
+                if (canPlace)
+                {
+                    if (Input.IsActionPressed("mb_left"))
                     {
-                        if (Input.IsActionPressed("mb_left"))
+                        if (cell != _lastPlacedCell)
                         {
-                            if (cell != _lastPlacedCell)
-                            {
-                                _lastPlacedCell = cell;
-                            }
-                            else
-                            {
-                                return;
-                            }
+                            _lastPlacedCell = cell;
+                        }
+                        else
+                        {
+                            return;
+                        }
 
-                            ItemPlaced?.Invoke();
+                        ItemPlaced?.Invoke();
 
-                            if (itemType == EditorItemObject.ItemType.Tile)
-                            {
-                                EditorTileObject newTile = (EditorTileObject)itemObject;
-                                Vector2I atlasCoords = newTile.GetAtlasCoords();
-                                tileMapForeground.SetCell(cell, newTile.tileID, atlasCoords);
-                            }
-                            else
-                            {
-                                Node2D NewItem = CurrentItem.Instantiate<Node2D>();
-                                Node2D Parent = GetTree().CurrentScene.GetNode<Node2D>($"editor/main/{levelRoot}/{itemObject.GetGroupDestination()}");
-                                NewItem.GlobalPosition = new Vector2(snappedWorld.X, snappedWorld.Y + 16 + itemObject.cursorOffset.Y);
-                                NewItem.AddToGroup("editor_placeable");
-                                Parent.AddChild(NewItem);
-                            }
+                        if (itemType == EditorItemObject.ItemType.Tile)
+                        {
+                            EditorTileObject newTile = (EditorTileObject)itemObject;
+                            Vector2I atlasCoords = newTile.GetAtlasCoords();
+                            tileMapForeground.SetCell(cell, newTile.tileID, atlasCoords);
+                        }
+                        else
+                        {
+                            Node2D NewItem = CurrentItem.Instantiate<Node2D>();
+                            Node2D Parent = GetTree().CurrentScene.GetNode<Node2D>($"editor/main/{levelRoot}/{itemObject.GetGroupDestination()}");
+                            NewItem.GlobalPosition = new Vector2(snappedWorld.X, snappedWorld.Y + 16 + itemObject.cursorOffset.Y);
+                            NewItem.AddToGroup("editor_placeable");
+                            Parent.AddChild(NewItem);
                         }
                     }
                 }
-                else
-                {
-                    hideCursor = true;
-                }
-            }
-
-            if (currentCursorMode == CursorMode.Eraser)
-            {
-                hideCursor = false;
-                CursorSprite.Texture = EraserTexture;
-                GlobalPosition = GetGlobalMousePosition();
-                if (canPlace && Input.IsActionPressed("mb_left"))
-                {
-                    // erase the tile at the current cell position, if any
-                    tileMapForeground.EraseCell(cell);
-
-                    //DEBUG: list result count
-                    GD.Print(results.Count);
-
-                    // erase any objects touching the cursor area, if any
-                    foreach (Godot.Collections.Dictionary result in results)
-                    {
-                        Node collider = result["collider"].As<Node>();
-
-                        if (collider == null)
-                            continue;
-
-                        GD.Print($"Hit: {collider.Name} ({collider.GetType().Name})");
-
-                        Node current = collider;
-
-                        while (current != null)
-                        {
-                            if (current.IsInGroup("editor_placeable"))
-                            {
-                                GD.Print($"Erased {current.Name}");
-                                current.QueueFree();
-                                break;
-                            }
-
-                            current = current.GetParent();
-                        }
-                    }
-                }
-            }
-
-            if (currentCursorMode == CursorMode.Copy)
-            {
-                hideCursor = true;
-            }
-
-            if (currentCursorMode == CursorMode.DragCamera)
-            {
-                hideCursor = true;
             }
             else
             {
-                hideCursor = false;
+                hideCursor = true;
             }
+        }
+
+        if (currentCursorMode == CursorMode.Eraser)
+        {
+            hideCursor = false;
+            CursorSprite.Texture = EraserTexture;
+            GlobalPosition = GetGlobalMousePosition();
+            if (canPlace && Input.IsActionPressed("mb_left"))
+            {
+                // erase the tile at the current cell position, if any
+                tileMapForeground.EraseCell(cell);
+
+                // erase any objects touching the cursor area, if any
+                foreach (Godot.Collections.Dictionary result in results)
+                {
+                    Node collider = result["collider"].As<Node>();
+
+                    if (collider == null)
+                    {
+                        continue;
+                    }
+
+                    Node current = collider;
+
+                    while (current != null)
+                    {
+                        if (current.IsInGroup("editor_placeable"))
+                        {
+                            GD.Print($"Erased {current.Name}");
+                            current.QueueFree();
+                            break;
+                        }
+
+                        current = current.GetParent();
+                    }
+                }
+            }
+        }
+
+        if (currentCursorMode == CursorMode.Copy)
+        {
+            hideCursor = true;
+        }
+
+        if (currentCursorMode == CursorMode.DragCamera)
+        {
+            hideCursor = true;
         }
     }
 
@@ -406,7 +409,6 @@ public partial class EditorObject : Node2D
             selectedTiles.Clear();
             selectedObjects.Clear();
         }
-
 
         // normalize so topLeft/bottomRight are actually top-left/bottom-right
         int minX = Math.Min(selectTopLeft.X, selectBottomRight.X);

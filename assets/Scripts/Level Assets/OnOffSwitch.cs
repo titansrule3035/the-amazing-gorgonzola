@@ -4,9 +4,6 @@ using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 
 public partial class OnOffSwitch : Node2D
 {
-    // Node references
-    public AnimatedSprite2D sprite;
-
     // Exported state
     [Export] public bool opened;
 
@@ -57,7 +54,6 @@ public partial class OnOffSwitch : Node2D
 
     public override void _ExitTree()
     {
-        GetNode<Area2D>("Area2D").BodyEntered -= OnBodyEntered;
         OnOffManager.OnStateChanged -= ChangeState;
 
         base._ExitTree();

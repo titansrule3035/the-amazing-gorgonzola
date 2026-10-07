@@ -11,8 +11,6 @@ public abstract partial class LocalGameManager : Node2D
 
     [Export] bool allowPausing = true;
 
-    private Color dieColor = new Color(96f / 255f, 0f, 0f, 1f);
-
     private bool flush;
 
     public override void _Ready()
@@ -26,9 +24,11 @@ public abstract partial class LocalGameManager : Node2D
 
         instance = this;
 
-        CanvasEffects.GetInstance().OnFadeIn += HandleFadeIn;
-        CanvasEffects.GetInstance().OnFadeOut += HandleFadeOut;
-        CanvasEffects.GetInstance().OnLevelCompleteFadeOut += HandleLevelCompleted;
+        FadePanel.GetInstance().OnFadeIn += HandleFadeIn;
+        FadePanel.GetInstance().OnFadeOut += HandleFadeOut;
+        FadePanel.GetInstance().OnLevelCompleteFadeOut += HandleLevelCompleted;
+        KillPanel.GetInstance().OnFadeOut += HandleFadeOut;
+        KillPanel.GetInstance().OnFadeIn += HandleFadeIn;
 
         if (SpawnGorg.GetInstance() != null)
         {
@@ -46,12 +46,12 @@ public abstract partial class LocalGameManager : Node2D
         {
             OnFlush?.Invoke();
 
-            CanvasEffects.GetInstance().FadeOut(dieColor);
+            KillPanel.GetInstance().FadeOut();
             flush = false;
         }
     }
 
-    protected void HandleFadeOut(bool gorgKilled)
+    protected void HandleFadeOut()
     {
         OnFlush?.Invoke();
         if (!GlobalGameManager.GetInstance().levelCompleted && !GlobalGameManager.GetInstance().gamePaused)
@@ -60,8 +60,10 @@ public abstract partial class LocalGameManager : Node2D
             {
                 GlobalGameManager.GetInstance()?.ReloadLevel();
             }
+            KillPanel.GetInstance().FadeIn();
+            return;
         }
-        CanvasEffects.GetInstance().FadeIn();
+        FadePanel.GetInstance().FadeIn();
     }
 
     protected void HandleLevelCompleted()
@@ -76,7 +78,7 @@ public abstract partial class LocalGameManager : Node2D
         }
     }
 
-    private void HandleFadeIn(bool levelPassed)
+    private void HandleFadeIn()
     {
         GlobalGameManager.GetInstance().canMove = true;
     }
@@ -104,7 +106,7 @@ public abstract partial class LocalGameManager : Node2D
             instance = null;
         }
 
-        var fade = CanvasEffects.GetInstance();
+        var fade = FadePanel.GetInstance();
         if (fade != null)
         {
             fade.OnFadeIn -= HandleFadeIn;

@@ -2,20 +2,11 @@ using Godot;
 using GodotPlugins.Game;
 using System;
 
-public partial class Spike : Sprite2D
+public partial class Spike : Node2D
 {
     public override void _Ready()
     {
-        Node levelRoot;
-
-        if (((Runtime)GetTree().CurrentScene).editorMode == true)
-        {
-            levelRoot = GetTree().CurrentScene.GetNode<Node2D>("editor/main");
-        }
-        else
-        {
-            levelRoot = GetTree().CurrentScene.GetNode<Node2D>("game/main");
-        }
+        Node levelRoot = levelRoot = GetTree().CurrentScene.GetNode<Node2D>(((Runtime)GetTree().CurrentScene).editorMode ? "editor/main" : "game/main");
 
         TileMapLayer tileMapForeground = levelRoot.GetNode<TileMapLayer>("level/tiles/Foreground");
 
@@ -27,7 +18,7 @@ public partial class Spike : Sprite2D
 
         Vector2I atlasCoords = GetAtlasCoords();
 
-        tileMapForeground.SetCell(cell, 1, atlasCoords);
+        tileMapForeground.SetCell(new(cell.X, cell.Y - 1), 1, atlasCoords);
 
         Visible = false;
     }
@@ -36,7 +27,7 @@ public partial class Spike : Sprite2D
     {
         Vector2I coords = Vector2I.Zero;
 
-        Vector2 precoords = (Texture as AtlasTexture).Region.Position;
+        Vector2 precoords = (GetNode<Sprite2D>("sprite").Texture as AtlasTexture).Region.Position;
 
         coords = new((int)precoords.X, (int)precoords.Y);
 

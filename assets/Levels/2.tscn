@@ -1974,142 +1974,142 @@ direction = 1
 position = Vector2(384, 320)
 
 [node name="spike_down" parent="level_assets/hazards" unique_id=208165850 instance=ExtResource("10_f5ppm")]
-position = Vector2(-400, -272)
+position = Vector2(-400, -256)
 
 [node name="spike_down2" parent="level_assets/hazards" unique_id=251319652 instance=ExtResource("10_f5ppm")]
-position = Vector2(-368, -272)
+position = Vector2(-368, -256)
 
 [node name="spike_down3" parent="level_assets/hazards" unique_id=1281819517 instance=ExtResource("10_f5ppm")]
-position = Vector2(-336, -272)
+position = Vector2(-336, -256)
 
 [node name="spike_down4" parent="level_assets/hazards" unique_id=1643406313 instance=ExtResource("10_f5ppm")]
-position = Vector2(-304, -272)
+position = Vector2(-304, -256)
 
 [node name="spike_down5" parent="level_assets/hazards" unique_id=494095446 instance=ExtResource("10_f5ppm")]
-position = Vector2(-272, -272)
+position = Vector2(-272, -256)
 
 [node name="spike_down6" parent="level_assets/hazards" unique_id=458642167 instance=ExtResource("10_f5ppm")]
-position = Vector2(-240, -272)
+position = Vector2(-240, -256)
 
 [node name="spike_down7" parent="level_assets/hazards" unique_id=1087007504 instance=ExtResource("10_f5ppm")]
-position = Vector2(-208, -272)
+position = Vector2(-208, -256)
 
 [node name="spike_down8" parent="level_assets/hazards" unique_id=869840377 instance=ExtResource("10_f5ppm")]
-position = Vector2(-176, -272)
+position = Vector2(-176, -256)
 
 [node name="spike_down9" parent="level_assets/hazards" unique_id=1313174180 instance=ExtResource("10_f5ppm")]
-position = Vector2(-144, -272)
+position = Vector2(-144, -256)
 
 [node name="spike_down10" parent="level_assets/hazards" unique_id=91506901 instance=ExtResource("10_f5ppm")]
-position = Vector2(-112, -272)
+position = Vector2(-112, -256)
 
 [node name="spike_down11" parent="level_assets/hazards" unique_id=570180477 instance=ExtResource("10_f5ppm")]
-position = Vector2(-80, -272)
+position = Vector2(-80, -256)
 
 [node name="spike_down12" parent="level_assets/hazards" unique_id=1901624431 instance=ExtResource("10_f5ppm")]
-position = Vector2(-48, -272)
+position = Vector2(-48, -256)
 
 [node name="spike_down13" parent="level_assets/hazards" unique_id=1678538091 instance=ExtResource("10_f5ppm")]
-position = Vector2(-16, -272)
+position = Vector2(-16, -256)
 
 [node name="spike_down14" parent="level_assets/hazards" unique_id=915073833 instance=ExtResource("10_f5ppm")]
-position = Vector2(16, -272)
+position = Vector2(16, -256)
 
 [node name="spike_down15" parent="level_assets/hazards" unique_id=1864086768 instance=ExtResource("10_f5ppm")]
-position = Vector2(48, -272)
+position = Vector2(48, -256)
 
 [node name="spike_down16" parent="level_assets/hazards" unique_id=1776386857 instance=ExtResource("10_f5ppm")]
-position = Vector2(80, -272)
+position = Vector2(80, -256)
 
 [node name="spike_down17" parent="level_assets/hazards" unique_id=118082225 instance=ExtResource("10_f5ppm")]
-position = Vector2(112, -432)
+position = Vector2(112, -416)
 
 [node name="spike_down18" parent="level_assets/hazards" unique_id=1786639284 instance=ExtResource("10_f5ppm")]
-position = Vector2(144, -432)
+position = Vector2(144, -416)
 
 [node name="spike_down19" parent="level_assets/hazards" unique_id=1656270074 instance=ExtResource("10_f5ppm")]
-position = Vector2(176, -432)
+position = Vector2(176, -416)
 
 [node name="spike_down20" parent="level_assets/hazards" unique_id=1634676327 instance=ExtResource("10_f5ppm")]
-position = Vector2(208, -432)
+position = Vector2(208, -416)
 
 [node name="spike_down21" parent="level_assets/hazards" unique_id=88764483 instance=ExtResource("10_f5ppm")]
-position = Vector2(240, -432)
+position = Vector2(240, -416)
 
 [node name="spike_down22" parent="level_assets/hazards" unique_id=1098441470 instance=ExtResource("10_f5ppm")]
-position = Vector2(272, -432)
+position = Vector2(272, -416)
 
 [node name="spike_down23" parent="level_assets/hazards" unique_id=1070742124 instance=ExtResource("10_f5ppm")]
-position = Vector2(304, -432)
+position = Vector2(304, -416)
 
 [node name="spike_down24" parent="level_assets/hazards" unique_id=295150004 instance=ExtResource("10_f5ppm")]
-position = Vector2(336, -432)
+position = Vector2(336, -416)
 
 [node name="spike_down25" parent="level_assets/hazards" unique_id=77230803 instance=ExtResource("10_f5ppm")]
-position = Vector2(368, -432)
+position = Vector2(368, -416)
 
 [node name="spike_down26" parent="level_assets/hazards" unique_id=1378968600 instance=ExtResource("10_f5ppm")]
-position = Vector2(-432, -432)
+position = Vector2(-432, -416)
 
 [node name="spike_down27" parent="level_assets/hazards" unique_id=659598301 instance=ExtResource("10_f5ppm")]
-position = Vector2(-400, -432)
+position = Vector2(-400, -416)
 
 [node name="spike_down28" parent="level_assets/hazards" unique_id=87237375 instance=ExtResource("10_f5ppm")]
-position = Vector2(-368, -432)
+position = Vector2(-368, -416)
 
 [node name="spike_down29" parent="level_assets/hazards" unique_id=384169111 instance=ExtResource("10_f5ppm")]
-position = Vector2(-336, -432)
+position = Vector2(-336, -416)
 
 [node name="spike_down30" parent="level_assets/hazards" unique_id=204695630 instance=ExtResource("10_f5ppm")]
-position = Vector2(-304, -432)
+position = Vector2(-304, -416)
 
 [node name="spike_right" parent="level_assets/hazards" unique_id=1393631549 instance=ExtResource("13_0pbto")]
-position = Vector2(112, -16)
+position = Vector2(112, 0)
 
 [node name="spike_right2" parent="level_assets/hazards" unique_id=630435255 instance=ExtResource("13_0pbto")]
-position = Vector2(112, -48)
+position = Vector2(112, -32)
 
 [node name="spike_right3" parent="level_assets/hazards" unique_id=465938436 instance=ExtResource("13_0pbto")]
-position = Vector2(112, -80)
+position = Vector2(112, -64)
 
 [node name="spike_right4" parent="level_assets/hazards" unique_id=2081476507 instance=ExtResource("13_0pbto")]
-position = Vector2(112, -112)
+position = Vector2(112, -96)
 
 [node name="spike_left" parent="level_assets/hazards" unique_id=74533283 instance=ExtResource("12_on8nt")]
-position = Vector2(304, -16)
+position = Vector2(304, 0)
 
 [node name="spike_left2" parent="level_assets/hazards" unique_id=1930754076 instance=ExtResource("12_on8nt")]
-position = Vector2(304, -48)
+position = Vector2(304, -32)
 
 [node name="spike_left3" parent="level_assets/hazards" unique_id=360470449 instance=ExtResource("12_on8nt")]
-position = Vector2(304, -80)
+position = Vector2(304, -64)
 
 [node name="spike_left4" parent="level_assets/hazards" unique_id=1347773377 instance=ExtResource("12_on8nt")]
-position = Vector2(304, -112)
+position = Vector2(304, -96)
 
 [node name="spike_left5" parent="level_assets/hazards" unique_id=1426408826 instance=ExtResource("12_on8nt")]
-position = Vector2(-464, -16)
+position = Vector2(-464, 0)
 
 [node name="spike_left6" parent="level_assets/hazards" unique_id=411124345 instance=ExtResource("12_on8nt")]
-position = Vector2(-464, -48)
+position = Vector2(-464, -32)
 
 [node name="spike_left7" parent="level_assets/hazards" unique_id=371925405 instance=ExtResource("12_on8nt")]
-position = Vector2(-464, -80)
+position = Vector2(-464, -64)
 
 [node name="spike_left8" parent="level_assets/hazards" unique_id=1977417174 instance=ExtResource("12_on8nt")]
-position = Vector2(-464, -112)
+position = Vector2(-464, -96)
 
 [node name="spike_left9" parent="level_assets/hazards" unique_id=609575532 instance=ExtResource("12_on8nt")]
-position = Vector2(-464, -144)
+position = Vector2(-464, -128)
 
 [node name="spike_up" parent="level_assets/hazards" unique_id=160452475 instance=ExtResource("11_01xle")]
-position = Vector2(-304, -656)
+position = Vector2(-304, -640)
 
 [node name="spike_up2" parent="level_assets/hazards" unique_id=905654079 instance=ExtResource("11_01xle")]
-position = Vector2(-112, -656)
+position = Vector2(-112, -640)
 
 [node name="spike_up3" parent="level_assets/hazards" unique_id=1111925090 instance=ExtResource("11_01xle")]
-position = Vector2(48, -656)
+position = Vector2(48, -640)
 
 [node name="on_off_assets" type="Node2D" parent="level_assets" unique_id=2026314136]
 position = Vector2(384, 288)

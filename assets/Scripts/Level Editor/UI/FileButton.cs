@@ -114,15 +114,16 @@ public partial class FileButton : ToolBarButton
         blockMouse.MouseFilter = MouseFilterEnum.Stop;
         exportAsDialog.PopupCenteredRatio();
     }
-    void CloseButtonPressed()
+    async void CloseButtonPressed()
     {
+        Runtime runtime = (Runtime)GetTree().CurrentScene;
         UpdateMenuAndButton(false);
-        LevelEditorMain main = (GetTree().CurrentScene as LevelEditorMain);
-        GetParent().GetNode<Label>("editor/main/CanvasLayer/UI/ToolBarLabel").Text = "Untitled (Unsaved)";
-        main.filePath = "";
-        main.ClearGroups();
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        main.GetNode<Label>("CanvasLayer/UI/ToolBar/ToolBarLabel").Text = "Untitled (Unsaved)";
+        runtime.filePath = "";
+        await runtime.ClearGroups();
         main.SetGameState(true);
-        main.GetNode<EditorObject>("editor/main/CanvasLayer/UI/EditorObject").itemObject?.SetActiveItem(null);
+        main.GetNode<EditorObject>("EditorObject").itemObject?.SetActiveItem(null);
     }
     void OnFileSelected(string path)
     {

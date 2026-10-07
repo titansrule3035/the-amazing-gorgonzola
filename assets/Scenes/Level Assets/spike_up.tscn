@@ -8,11 +8,14 @@
 atlas = ExtResource("1_jsw0n")
 region = Rect2(384, 192, 32, 32)
 
-[node name="spike_up" type="Sprite2D" unique_id=208165850]
-texture_filter = 1
-texture_repeat = 1
-texture = SubResource("AtlasTexture_m4buv")
+[node name="spike_up" type="Node2D" unique_id=1675728385]
 script = ExtResource("2_ankcp")
 
-[node name="kill_zone" parent="." unique_id=1765500619 instance=ExtResource("2_gcl76")]
+[node name="sprite" type="Sprite2D" parent="." unique_id=208165850]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, -16)
+texture = SubResource("AtlasTexture_m4buv")
+
+[node name="kill_zone" parent="sprite" unique_id=1765500619 instance=ExtResource("2_gcl76")]
 scale = Vector2(2, 2)

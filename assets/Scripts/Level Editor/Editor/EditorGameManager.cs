@@ -52,18 +52,6 @@ public partial class EditorGameManager : Node2D
     public override void _Process(double delta)
     {
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-
-        if (main.filePath != string.Empty)
-        {
-            if (!levelCompleted)
-            {
-                if (Input.IsActionJustPressed("reset") && Gorgonzola.GetInstance() != null && canMove)
-                {
-                    Gorgonzola.GetInstance().CallDeferred("Kill");
-                }
-            }
-            base._Process(delta);
-        }
     }
 
     public override void _ExitTree()

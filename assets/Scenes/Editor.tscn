@@ -1,21 +1,6 @@
 [gd_scene format=3 uid="uid://dtkkypel8chuv"]
 
 [ext_resource type="Script" uid="uid://bni2vnnwehdf" path="res://assets/Scripts/Level Editor/Editor/LevelEditorMain.cs" id="1_xuh87"]
-[ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/Level Assets/lab_door.tscn" id="2_osp0y"]
-[ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/Level Assets/key_card.tscn" id="3_h4shr"]
-[ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Clones/default_clone.tscn" id="4_271je"]
-[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Clones/gorgonzola.tscn" id="5_ioaqu"]
-[ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Clones/norm_clone.tscn" id="6_u1l2n"]
-[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Clones/rev_clone.tscn" id="7_nshw8"]
-[ext_resource type="PackedScene" uid="uid://ca4kqof5r3uth" path="res://assets/Scenes/Level Assets/spike_down.tscn" id="8_y4vnj"]
-[ext_resource type="PackedScene" uid="uid://cdjhcvnksu6fx" path="res://assets/Scenes/Level Assets/spike_left.tscn" id="9_m2qg8"]
-[ext_resource type="PackedScene" uid="uid://bv2ddx00m3f3w" path="res://assets/Scenes/Level Assets/spike_right.tscn" id="10_yquc7"]
-[ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/spike_up.tscn" id="11_j0i4l"]
-[ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="12_24s1j"]
-[ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/Level Assets/on_off_switch.tscn" id="13_rcj02"]
-[ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="14_mvjqd"]
-[ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="15_l1icj"]
-[ext_resource type="PackedScene" uid="uid://k1nk5gsufp6b" path="res://assets/Scenes/Level Assets/semi_solid.tscn" id="16_1g4p0"]
 [ext_resource type="Script" uid="uid://bv7bfobi7ndpy" path="res://assets/Scripts/Level Editor/UI/CameraDrag.cs" id="17_yuieu"]
 [ext_resource type="Script" uid="uid://decn0trfeo5dx" path="res://assets/Scripts/Level Editor/Editor/EditorGameManager.cs" id="18_xuh87"]
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="19_luhuu"]
@@ -41,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://b5uhgtvouk20o" path="res://assets/Scenes/Level Editor/Tiles/ID2/item_tile_26_21.tscn" id="39_h4nmt"]
 [ext_resource type="PackedScene" uid="uid://cs80x0typx7d8" path="res://assets/Scenes/Level Editor/Tiles/ID2/item_tile_27_21.tscn" id="40_ife7p"]
 [ext_resource type="PackedScene" uid="uid://br5h3flkly3m" path="res://assets/Scenes/Level Editor/Tiles/ID2/item_tile_28_21.tscn" id="41_35n0d"]
+[ext_resource type="PackedScene" uid="uid://dpjqqtkm7dx5i" path="res://assets/Scenes/UI/kill_panel.tscn" id="42_7pho1"]
 [ext_resource type="PackedScene" uid="uid://csmi8n0nbp8af" path="res://assets/Scenes/Level Editor/Tiles/ID2/item_tile_26_22.tscn" id="42_naa78"]
 [ext_resource type="PackedScene" uid="uid://cstqyu754tyrw" path="res://assets/Scenes/Level Editor/Tiles/ID2/item_tile_27_22.tscn" id="43_b5r4v"]
 [ext_resource type="PackedScene" uid="uid://bayks32xucsws" path="res://assets/Scenes/Level Editor/Tiles/ID2/item_tile_28_22.tscn" id="44_v8rx1"]
@@ -1902,30 +1888,6 @@ bg_color = Color(1, 0, 0, 0.52156866)
 
 [node name="main" type="Node2D" unique_id=409207488]
 script = ExtResource("1_xuh87")
-LevelMechanicScenes = Dictionary[String, PackedScene]({
-"Door": ExtResource("2_osp0y"),
-"Key": ExtResource("3_h4shr"),
-"StaticBody2D": ExtResource("16_1g4p0")
-})
-CloneScenes = Dictionary[String, PackedScene]({
-"DefaultClone": ExtResource("4_271je"),
-"Gorgonzola": ExtResource("5_ioaqu"),
-"NormClone": ExtResource("6_u1l2n"),
-"RevClone": ExtResource("7_nshw8"),
-"SpawnGorg": ExtResource("5_ioaqu")
-})
-HazardScenes = Dictionary[String, PackedScene]({
-"SpikeDown": ExtResource("8_y4vnj"),
-"SpikeLeft": ExtResource("9_m2qg8"),
-"SpikeRight": ExtResource("10_yquc7"),
-"SpikeUp": ExtResource("11_j0i4l")
-})
-OnOffScenes = Dictionary[String, PackedScene]({
-"GreenOnOffBlock": ExtResource("12_24s1j"),
-"OnOffBlockSwitch": ExtResource("13_rcj02"),
-"OnOffSwitchMaster": ExtResource("14_mvjqd"),
-"RedOnOffBlock": ExtResource("15_l1icj")
-})
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=142540109]
 process_mode = 3
@@ -3420,3 +3382,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="KillPanel" parent="CanvasLayer/UI" unique_id=1212739994 instance=ExtResource("42_7pho1")]
+layout_mode = 1
+offset_left = 480.0
+offset_top = 32.0
+offset_right = 480.31995
+offset_bottom = 32.319946

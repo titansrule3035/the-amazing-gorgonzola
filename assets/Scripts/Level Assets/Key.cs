@@ -42,7 +42,7 @@ public partial class Key : Node2D
 
         if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").RegisterKey(this);
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").RegisterKey(this);
         }
 
         base._Ready();
@@ -75,7 +75,7 @@ public partial class Key : Node2D
 
         if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").UnregisterKey();
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").UnregisterKey();
         }
 
         base._ExitTree();

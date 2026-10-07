@@ -57,16 +57,16 @@ public partial class LevelClearedMenu : Panel
     {
         DisableButtons();
         Color col = new Color(0, 0, 0, 1);
-        CanvasEffects.GetInstance().FadeOut(col);
+        FadePanel.GetInstance().FadeOut();
     }
 
     void QuitButtonPressed()
     {
         DisableButtons();
-        CanvasEffects canvas = CanvasEffects.GetInstance();
+        FadePanel fadePanel = FadePanel.GetInstance();
         GlobalGameManager.GetInstance().canPause = false;
-        canvas.FadeOut(Colors.Black);
-        canvas.OnFadeOut += MainMenu;
+        fadePanel.FadeOut();
+        fadePanel.OnFadeOut += MainMenu;
     }
 
     void DisableButtons()
@@ -79,11 +79,11 @@ public partial class LevelClearedMenu : Panel
         nextButton.Disabled = quitButton.Disabled = false;
     }
 
-    public void MainMenu(bool throwaway)
+    public void MainMenu()
     {
         // every signal connected to fade out needs a flag, I don't have a use for this bool, but I need to have it in the signature to match the signal
         GlobalGameManager.GetInstance().LoadLevel(0);
-        CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
+        FadePanel.GetInstance().OnFadeOut -= MainMenu;
         GlobalGameManager.GetInstance().gamePaused = false;
     }
 

@@ -13,6 +13,7 @@ public partial class GlobalGameManager : Node2D
 
     [Export] public int activeLevelIndex = 0;
     [Export] public Godot.Collections.Array<PackedScene> levelScenes = new();
+    private bool levelTransitioning;
 
     private Node2D activeLevel;
     public LocalGameManager localGM;
@@ -81,10 +82,6 @@ public partial class GlobalGameManager : Node2D
         if (!levelCompleted)
         {
             LevelClearedMenu.GetInstance().Visible = false;
-            if (Input.IsActionJustPressed("reset") && Gorgonzola.GetInstance() != null && canMove)
-            {
-                Gorgonzola.GetInstance().CallDeferred("Kill");
-            }
         }
 
         if (!pauseLocked)
@@ -185,23 +182,43 @@ public partial class GlobalGameManager : Node2D
     private void InstantiateActiveLevel()
     {
         activeLevel = levels[activeLevelIndex].Instantiate<Node2D>();
-        GetTree().CurrentScene.GetNode<Node2D>("game/main").CallDeferred("add_child", activeLevel);
+        Node2D levelRoot = GetTree().CurrentScene.GetNode<Node2D>("game/main");
+
+        levelRoot.AddChild(activeLevel);
 
         localGM = activeLevel.GetNodeOrNull<LocalGameManager>("LocalGameManager");
 
         if (localGM != null)
+        {
             activeLevel.GlobalPosition = localGM.levelOrigin;
+        }
 
         OnLevelLoaded?.Invoke();
     }
 
-    public void LoadLevel(int levelIndex)
+    public async void LoadLevel(int levelIndex)
     {
-        DeloadLevel();
+        if (levelTransitioning)
+        {
+            return;
+        }
 
-        activeLevelIndex = levelIndex;
+        levelTransitioning = true;
 
-        InstantiateActiveLevel();
+        try
+        {
+            DeloadLevel();
+
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+            activeLevelIndex = levelIndex;
+
+            InstantiateActiveLevel();
+        }
+        finally
+        {
+            levelTransitioning = false;
+        }
     }
 
     public void LoadLevelFromSaveFile()
@@ -211,23 +228,61 @@ public partial class GlobalGameManager : Node2D
         LoadLevel(savedLevelIndex);
     }
 
-    public void LoadNextLevel()
+    public async void LoadNextLevel()
     {
-        DeloadLevel();
+        if (levelTransitioning)
+        {
+            return;
+        }
 
-        activeLevelIndex++;
+        levelTransitioning = true;
 
-        InstantiateActiveLevel();
+        try
+        {
+
+
+            DeloadLevel();
+
+            activeLevelIndex++;
+
+            InstantiateActiveLevel();
+        }
+        finally
+        {
+            levelTransitioning = false;
+        }
     }
 
-    public void ReloadLevel()
+    public async void ReloadLevel()
     {
-        DeloadLevel();
-        InstantiateActiveLevel();
+        if (levelTransitioning)
+        {
+            return;
+        }
+
+        levelTransitioning = true;
+
+        try
+        {
+            DeloadLevel();
+
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+            InstantiateActiveLevel();
+        }
+        finally
+        {
+            levelTransitioning = false;
+        }
     }
 
     private void DeloadLevel()
     {
+        if (GodotObject.IsInstanceValid(activeLevel))
+        {
+            activeLevel.QueueFree();
+        }
+
         if (activeLevelIndex != 0)
         {
             SaveManager.SaveGame(this);
@@ -235,16 +290,10 @@ public partial class GlobalGameManager : Node2D
 
         gorgonzola = null;
 
-        if (activeLevel != null && activeLevel.IsInsideTree())
-        {
-            activeLevel.QueueFree();
-        }
-
         activeLevel = null;
-
+        localGM = null;
         levelCompleted = false;
     }
-
 
     public void ShowVictoryMenu(bool condition)
     {
@@ -284,121 +333,6 @@ public partial class GlobalGameManager : Node2D
     public void RemovePauseLock(object owner)
     {
         pauseLocks.Remove(owner);
-    }
-    public void ExportLevel(Node levelRoot, string exportName)
-    {
-        LevelData data = new();
-
-        foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
-        {
-            if (tileMapLayer is not TileMapLayer layer)
-                continue;
-
-            LayerData layerData = new()
-            {
-                Name = layer.Name
-            };
-
-            foreach (Vector2I cell in layer.GetUsedCells())
-            {
-                Vector2I atlas = layer.GetCellAtlasCoords(cell);
-
-                layerData.Tiles.Add(new TileData
-                {
-                    X = cell.X,
-                    Y = cell.Y,
-                    SourceId = layer.GetCellSourceId(cell),
-                    AtlasX = atlas.X,
-                    AtlasY = atlas.Y,
-                    Alternative = layer.GetCellAlternativeTile(cell)
-                });
-            }
-
-            data.Layers.Add(layerData);
-        }
-
-        Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
-        Node2D level_mechanics = assetsRoot.GetNodeOrNull<Node2D>("level_mechanics");
-        Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
-        Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
-        Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
-        Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
-
-        if (level_mechanics != null)
-        {
-            foreach (Node2D level_mechanic in level_mechanics.GetChildren())
-            {
-                data.LevelMechanics.Add(new ObjectData(level_mechanic.GetType().Name, level_mechanic.Name, new Vector2(level_mechanic.GlobalPosition.X, level_mechanic.GlobalPosition.Y)));
-            }
-        }
-
-        if (clones != null)
-        {
-            foreach (Node2D clone in clones.GetChildren())
-            {
-                data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
-            }
-        }
-
-        if (on_off_assets != null)
-        {
-            foreach (Node2D on_off_asset in on_off_assets.GetChildren())
-            {
-                string asset_type = on_off_asset.GetType().Name;
-                if (asset_type == "OnOffSwitchMaster")
-                {
-                    OnOffSwitchMaster switchMaster = on_off_asset as OnOffSwitchMaster;
-                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y), switchMaster.opened);
-                }
-                else if (asset_type == "OnOffBlockSwitch")
-                {
-                    OnOffSwitch switchNormal = on_off_asset as OnOffSwitch;
-                    data.OnOffs.OnOffSwitches.Add(new ObjectData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
-                else if (StripTrailingNumber(on_off_asset.Name) == "green_on_off_block")
-                {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData("GreenOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
-                else if (StripTrailingNumber(on_off_asset.Name) == "red_on_off_block")
-                {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData("RedOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
-            }
-        }
-
-        if (hazards != null)
-        {
-            foreach (Node2D hazard in hazards.GetChildren())
-            {
-                data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.Name, new Vector2(hazard.GlobalPosition.X, hazard.GlobalPosition.Y)));
-            }
-        }
-
-        if (semi_solid_tiles != null)
-        {
-            foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
-            {
-                data.SemiSolidTiles.Add(new SemiSolidTileData(semi_solid_tile.GetType().Name, semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y), semi_solid_tile.Scale));
-            }
-        }
-
-        string json = JsonSerializer.Serialize(data,
-        new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            IncludeFields = true
-        });
-
-        string newFile = $"C:\\Users\\Princ\\source\\repos\\C#\\Godot Projects\\the-amazing-gorgonzola\\TAGLEVELs\\{exportName}.taglevel";
-
-        if (!DirAccess.DirExistsAbsolute(Path.GetDirectoryName(newFile)))
-        {
-            DirAccess.MakeDirAbsolute(Path.GetDirectoryName(newFile));
-        }
-
-        using Godot.FileAccess file = Godot.FileAccess.Open(newFile, Godot.FileAccess.ModeFlags.Write);
-
-        file.StoreString(SaveManager.Encode(json));
     }
 
     // Helper to strip trailing numbers from object names

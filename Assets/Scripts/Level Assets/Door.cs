@@ -132,7 +132,7 @@ public partial class Door : Node2D
 
         if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").UnregisterDoor();
+            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").UnregisterDoor();
         }
     }
 

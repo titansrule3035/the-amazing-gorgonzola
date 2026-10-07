@@ -54,11 +54,11 @@ public partial class OnOffSwitchMaster : OnOffSwitch
         OnOffManager.UpdateAllBlocks();
         if (state)
         {
-            sprite.Play("on");
+            GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("on");
         }
         else
         {
-            sprite.Play("off");
+            GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("off");
         }
     }
 

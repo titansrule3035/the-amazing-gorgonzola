@@ -3,16 +3,58 @@
 [ext_resource type="Script" uid="uid://dlngey8by3h4b" path="res://assets/Scripts/Persistent/Runtime.cs" id="1_pff64"]
 [ext_resource type="PackedScene" uid="uid://dtkkypel8chuv" path="res://assets/Scenes/Editor.tscn" id="2_6cu8n"]
 [ext_resource type="PackedScene" uid="uid://pxv458yyxvm6" path="res://assets/Scenes/Game.tscn" id="3_s7gb8"]
-[ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/canvas_effects.tscn" id="4_6cu8n"]
+[ext_resource type="PackedScene" uid="uid://xec31r167r26" path="res://assets/Scenes/UI/fade_panel.tscn" id="4_6cu8n"]
+[ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/Level Assets/lab_door.tscn" id="4_k6uq2"]
+[ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/Level Assets/key_card.tscn" id="5_bvy6s"]
+[ext_resource type="PackedScene" uid="uid://k1nk5gsufp6b" path="res://assets/Scenes/Level Assets/semi_solid.tscn" id="6_8xlkq"]
+[ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Clones/default_clone.tscn" id="7_7eh16"]
+[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Clones/gorgonzola.tscn" id="8_tpjvn"]
+[ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Clones/norm_clone.tscn" id="9_g31lk"]
+[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Clones/rev_clone.tscn" id="10_ehoku"]
+[ext_resource type="PackedScene" uid="uid://ca4kqof5r3uth" path="res://assets/Scenes/Level Assets/spike_down.tscn" id="11_7ei28"]
+[ext_resource type="PackedScene" uid="uid://cdjhcvnksu6fx" path="res://assets/Scenes/Level Assets/spike_left.tscn" id="12_llobl"]
+[ext_resource type="PackedScene" uid="uid://bv2ddx00m3f3w" path="res://assets/Scenes/Level Assets/spike_right.tscn" id="13_q3x6y"]
+[ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/spike_up.tscn" id="14_pjdf6"]
+[ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="15_6fdsp"]
+[ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="16_lnd6h"]
+[ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/Level Assets/on_off_switch.tscn" id="17_xe026"]
+[ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="18_txxry"]
 
 [node name="runtime" type="Node2D" unique_id=1780813959]
+process_mode = 3
 script = ExtResource("1_pff64")
-editorScene = ExtResource("2_6cu8n")
 gameScene = ExtResource("3_s7gb8")
+editorScene = ExtResource("2_6cu8n")
+LevelMechanicScenes = Dictionary[String, PackedScene]({
+"Door": ExtResource("4_k6uq2"),
+"Key": ExtResource("5_bvy6s"),
+"StaticBody2D": ExtResource("6_8xlkq")
+})
+CloneScenes = Dictionary[String, PackedScene]({
+"DefaultClone": ExtResource("7_7eh16"),
+"Gorgonzola": ExtResource("8_tpjvn"),
+"NormClone": ExtResource("9_g31lk"),
+"RevClone": ExtResource("10_ehoku"),
+"SpawnGorg": ExtResource("8_tpjvn")
+})
+HazardScenes = Dictionary[String, PackedScene]({
+"SpikeDown": ExtResource("11_7ei28"),
+"SpikeLeft": ExtResource("12_llobl"),
+"SpikeRight": ExtResource("13_q3x6y"),
+"SpikeUp": ExtResource("14_pjdf6")
+})
+OnOffScenes = Dictionary[String, PackedScene]({
+"GreenOnOffBlock": ExtResource("15_6fdsp"),
+"OnOffBlockSwitch": ExtResource("17_xe026"),
+"OnOffSwitchMaster": ExtResource("18_txxry"),
+"RedOnOffBlock": ExtResource("16_lnd6h")
+})
 
 [node name="game" type="Node2D" parent="." unique_id=1574767889]
+process_mode = 1
 
 [node name="editor" type="Node2D" parent="." unique_id=212111951]
+process_mode = 1
 
 [node name="canvas_layer" type="CanvasLayer" parent="." unique_id=2090702952]
 layer = 100

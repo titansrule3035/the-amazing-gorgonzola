@@ -15,6 +15,6 @@ public partial class r2 : LocalGameManager
     {
         await ToSignal(GetTree().CreateTimer(5.0f), SceneTreeTimer.SignalName.Timeout);
         GlobalGameManager.GetInstance().levelCompleted = true;
-        CanvasEffects.GetInstance().FadeOut(Colors.Black);
+        FadePanel.GetInstance().FadeOut();
     }
 }

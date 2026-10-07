@@ -30,9 +30,10 @@ public partial class GameControlsMenu : Control
         EraseButton.Pressed += EraseButtonPressed;
     }
 
-    private void PlayButtonPressed()
+    private async void PlayButtonPressed()
     {
         LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        Runtime runtime = GetTree().CurrentScene as Runtime;
 
         main.ToggleGameState();
 
@@ -43,7 +44,7 @@ public partial class GameControlsMenu : Control
                 DirAccess.MakeDirAbsolute("user://tmp");
             }
 
-            main.FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
+            runtime.FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
 
             EditorGameManager.GetInstance().canMove = true;
 
@@ -51,7 +52,7 @@ public partial class GameControlsMenu : Control
         }
         else
         {
-            main.ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+            await ((Runtime)GetTree().CurrentScene).ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
 
             EditorGameManager.GetInstance().canMove = false;
 

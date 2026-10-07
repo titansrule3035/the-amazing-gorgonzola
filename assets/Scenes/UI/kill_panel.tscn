@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dpjqqtkm7dx5i"]
+
+[ext_resource type="Script" uid="uid://biscgd7vyjb4f" path="res://assets/Scripts/UI/KillPanel.cs" id="1_evnm7"]
+
+[node name="KillPanel" type="Control" unique_id=1212739994]
+z_index = 100
+layout_mode = 3
+anchor_right = 1.1850001
+anchor_bottom = 2.3700001
+offset_right = 0.3199463
+offset_bottom = 0.3199463
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_evnm7")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1294107581]
+z_index = 100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.37254903, 0.003921569, 0.003921569, 0)

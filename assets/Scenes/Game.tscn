@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://c1yrq8rf8seue" path="res://assets/Sprites/UI/Dialogue/dialoguearrow6.png" id="17_oylag"]
 [ext_resource type="Texture2D" uid="uid://b7l5dm2gatkh0" path="res://assets/Sprites/UI/Dialogue/dialoguearrow7.png" id="18_5dr3y"]
 [ext_resource type="Texture2D" uid="uid://34vic87pj005" path="res://assets/Sprites/UI/Dialogue/dialoguearrow8.png" id="19_2a1od"]
+[ext_resource type="PackedScene" uid="uid://dpjqqtkm7dx5i" path="res://assets/Scenes/UI/kill_panel.tscn" id="21_qfuo1"]
 [ext_resource type="Script" uid="uid://cnt46eiglsgue" path="res://assets/Scripts/UI/Filter.cs" id="28_exsfb"]
 
 [sub_resource type="Animation" id="Animation_jquie"]
@@ -162,3 +163,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("28_exsfb")
+
+[node name="canvas_layer" type="CanvasLayer" parent="." unique_id=1876583738]
+
+[node name="kill_panel" parent="canvas_layer" unique_id=1212739994 instance=ExtResource("21_qfuo1")]

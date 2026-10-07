@@ -42,9 +42,9 @@ public partial class PauseMenu : Panel
     void QuitButtonPressed()
     {
         resumeButton.Disabled = quitButton.Disabled = true;
-        CanvasEffects canvas = CanvasEffects.GetInstance();
+        FadePanel canvas = FadePanel.GetInstance();
         GlobalGameManager.GetInstance().canPause = false;
-        canvas.FadeOut(Colors.Black);
+        canvas.FadeOut();
         canvas.OnFadeOut += MainMenu;
     }
 
@@ -53,11 +53,11 @@ public partial class PauseMenu : Panel
         return instance;
     }
 
-    public void MainMenu(bool throwaway)
+    public void MainMenu()
     {
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
         ggm.LoadLevel(0);
-        CanvasEffects.GetInstance().OnFadeOut -= MainMenu;
+        FadePanel.GetInstance().OnFadeOut -= MainMenu;
         ggm.gamePaused = false;
     }
 
