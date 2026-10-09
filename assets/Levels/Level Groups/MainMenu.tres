@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="LevelGroup" format=3 uid="uid://mbs1xqynpavu"]
 
-[ext_resource type="PackedScene" uid="uid://drdv1jot5wed7" path="res://assets/Levels/0.tscn" id="1_0md0j"]
+[ext_resource type="PackedScene" uid="uid://drdv1jot5wed7" path="res://assets/Levels/Scenes/0.tscn" id="1_0md0j"]
 [ext_resource type="Script" uid="uid://dbwjqhfikbsyv" path="res://assets/Scripts/Levels/LevelGroup.cs" id="1_d2p50"]
 
 [resource]

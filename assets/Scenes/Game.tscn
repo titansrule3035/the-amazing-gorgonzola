@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://dbwjqhfikbsyv" path="res://assets/Scripts/Levels/LevelGroup.cs" id="2_qfuo1"]
 [ext_resource type="PackedScene" uid="uid://qiaoiwvifwhi" path="res://assets/Scenes/UI/level_cleared_menu.tscn" id="2_w34p4"]
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
-[ext_resource type="Resource" uid="uid://mbs1xqynpavu" path="res://assets/Level Groups/MainMenu.tres" id="3_vv30f"]
-[ext_resource type="Resource" uid="uid://cdxw13anouxst" path="res://assets/Level Groups/World1.tres" id="4_xq6a1"]
-[ext_resource type="Resource" uid="uid://by2lfyv3jg41e" path="res://assets/Level Groups/final.tres" id="5_t2nbi"]
+[ext_resource type="Resource" uid="uid://mbs1xqynpavu" path="res://assets/Levels/Level Groups/MainMenu.tres" id="3_vv30f"]
+[ext_resource type="Resource" uid="uid://cdxw13anouxst" path="res://assets/Levels/Level Groups/World1.tres" id="4_xq6a1"]
+[ext_resource type="Resource" uid="uid://by2lfyv3jg41e" path="res://assets/Levels/Level Groups/final.tres" id="5_t2nbi"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="10_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
 [ext_resource type="Script" uid="uid://bjs036688coai" path="res://assets/Scripts/Level Assets/DialogueTrigger.cs" id="10_cbung"]
@@ -167,4 +167,3 @@ script = ExtResource("28_exsfb")
 [node name="canvas_layer" type="CanvasLayer" parent="." unique_id=1876583738]
 
 [node name="kill_panel" parent="canvas_layer" unique_id=1212739994 instance=ExtResource("21_qfuo1")]
-process_mode = 3
