@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://biscgd7vyjb4f" path="res://assets/Scripts/UI/KillPanel.cs" id="1_evnm7"]
 
 [node name="KillPanel" type="Control" unique_id=1212739994]
+process_mode = 3
 z_index = 100
 layout_mode = 3
 anchor_right = 1.1850001
@@ -15,6 +16,7 @@ mouse_filter = 2
 script = ExtResource("1_evnm7")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1294107581]
+process_mode = 3
 z_index = 100
 layout_mode = 1
 anchors_preset = 15

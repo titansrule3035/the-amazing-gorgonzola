@@ -114,11 +114,6 @@ public partial class EditorObject : Node2D
         }
         var results = spaceState.IntersectPoint(query);
 
-        if (Input.IsActionJustPressed("mb_right"))
-        {
-            GD.Print($"{snappedWorld.X}, {snappedWorld.Y}");
-        }
-
         /* Input mapping */
         {
             if (Input.IsActionJustPressed("mouse_mouse"))
@@ -297,7 +292,6 @@ public partial class EditorObject : Node2D
                     {
                         if (current.IsInGroup("editor_placeable"))
                         {
-                            GD.Print($"Erased {current.Name}");
                             current.QueueFree();
                             break;
                         }
@@ -357,7 +351,6 @@ public partial class EditorObject : Node2D
     {
         if (editorItem == null)
         {
-            GD.PrintErr("EditorObject.SetEditorItem: editorItem is null");
             return;
         }
 

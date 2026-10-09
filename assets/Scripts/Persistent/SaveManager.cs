@@ -17,7 +17,8 @@ internal static class SaveManager
     {
         SaveData saveData = new SaveData
         {
-            activeLevelIndex = ggm.activeLevelIndex,
+            activeLevelGroupIndex = ggm.activeLevelGroupIndex,
+            activeTagLevelIndex = ggm.activeTagLevelIndex,
             completedWorlds = ggm.completedWorlds,
             deaths = ggm.deaths,
             clonesKilled = ggm.clonesKilled,
@@ -108,11 +109,16 @@ internal static class SaveManager
 
         return JsonSerializer.Deserialize<SaveData>(plaintext);
     }
-
-    public static int LoadCompletedLevels()
+    public static int LoadCompletedLevelGroups()
     {
         SaveData? data = LoadGame();
-        return data?.activeLevelIndex ?? 0;
+        return data?.activeLevelGroupIndex ?? 0;
+    }
+
+    public static int LoadCompletedTagLevels()
+    {
+        SaveData? data = LoadGame();
+        return data?.activeTagLevelIndex ?? 0;
     }
 
     public static int LoadCompletedWorlds()
@@ -202,7 +208,8 @@ internal static class SaveManager
 
 public class SaveData
 {
-    public int activeLevelIndex { get; set; }
+    public int activeLevelGroupIndex { get; set; }
+    public int activeTagLevelIndex { get; set; }
     public int completedWorlds { get; set; }
     public int deaths { get; set; }
     public int clonesKilled { get; set; }
@@ -210,20 +217,23 @@ public class SaveData
 
     public SaveData()
     {
-        activeLevelIndex = 0;
+        activeLevelGroupIndex = 0;
+        activeTagLevelIndex = -1;
         completedWorlds = 0;
         deaths = 0;
         clonesKilled = 0;
     }
 
     public SaveData(
-        int activeLevelIndex,
+        int activeLevelGroupIndex,
+        int activeTagLevelIndex,
         int completedWorlds,
         int deaths,
         int clonesKilled,
         List<string> collectibles)
     {
-        this.activeLevelIndex = activeLevelIndex;
+        this.activeLevelGroupIndex = activeLevelGroupIndex;
+        this.activeTagLevelIndex = activeTagLevelIndex;
         this.completedWorlds = completedWorlds;
         this.collectibles = collectibles;
         this.deaths = deaths;

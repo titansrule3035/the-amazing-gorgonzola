@@ -53,10 +53,10 @@ public partial class PauseMenu : Panel
         return instance;
     }
 
-    public void MainMenu()
+    public async void MainMenu()
     {
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
-        ggm.LoadLevel(0);
+        await ggm.LoadSceneLevel(0);
         FadePanel.GetInstance().OnFadeOut -= MainMenu;
         ggm.gamePaused = false;
     }

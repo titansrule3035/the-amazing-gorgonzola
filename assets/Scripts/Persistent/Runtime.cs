@@ -38,7 +38,7 @@ public partial class Runtime : Node2D
 
     public override void _Ready()
     {
-        levelRootPath = editorMode ? "editor/main/level" : "game/level";
+        levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
         gameContainer = GetNode<Node2D>("game");
 
         editorContainer = GetNode<Node2D>("editor");
@@ -288,11 +288,7 @@ public partial class Runtime : Node2D
 
     public async Task ImportLevel(Node levelRoot, string json)
     {
-        GlobalGameManager ggm = GlobalGameManager.GetInstance();
-
-        LevelData data = JsonSerializer.Deserialize<LevelData>(
-            json,
-            new JsonSerializerOptions { IncludeFields = true });
+        LevelData data = JsonSerializer.Deserialize<LevelData>(json, new JsonSerializerOptions { IncludeFields = true });
 
         if (data == null)
         {
@@ -433,6 +429,12 @@ public partial class Runtime : Node2D
 
     public async Task ClearGroups()
     {
+        if (GetNodeOrNull<Node2D>($"{levelRootPath}/level_assets") == null)
+        {
+            GD.Print("[RUNTIME]: No groups to clear!");
+            return;
+        }
+
         Node levelRoot = editorMode ? GetNode($"{levelRootPath}/level_assets") : GetNode($"{levelRootPath}/level_assets");
         foreach (Node node in levelRoot.GetChildren())
         {
@@ -626,5 +628,16 @@ public partial class Runtime : Node2D
         while (i > 0 && char.IsDigit(name[i - 1]))
             i--;
         return name[..i];
+    }
+
+    // Game control
+    // Set audio volume
+    public void UpdateBusVolume(string busName, float linearVolume)
+    {
+        int busIndex = AudioServer.GetBusIndex(busName);
+
+        float dbVolume = Mathf.LinearToDb(linearVolume);
+
+        AudioServer.SetBusVolumeDb(busIndex, dbVolume);
     }
 }

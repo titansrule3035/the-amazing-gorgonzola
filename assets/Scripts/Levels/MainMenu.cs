@@ -50,9 +50,12 @@ public partial class MainMenu : Control
         {
             for (int i = 0; i < GlobalGameManager.GetInstance().GetLevelCount(); i++)
             {
-                if (i != 0 && i != GlobalGameManager.GetInstance().GetLevelCount() - 1)
+                if (GlobalGameManager.GetInstance().levelGroups[i].HasTAGLEVELs())
                 {
-                    ((Runtime)GetTree().CurrentScene).ExportLevel(GlobalGameManager.GetInstance().levelScenes[i].Instantiate(), GlobalGameManager.GetInstance().levelScenes[i].ResourcePath.GetFile().GetBaseName());
+                    for (int j = 0; j < GlobalGameManager.GetInstance().levelGroups[i].GetTAGLEVELCount(); j++)
+                    {
+                        ((Runtime)GetTree().CurrentScene).ExportLevel(GlobalGameManager.GetInstance().levelGroups[i].Scene.Instantiate(), GlobalGameManager.GetInstance().levelGroups[i].GetTAGLEVELName(j));
+                    }
                 }
             }
         }
@@ -72,8 +75,8 @@ public partial class MainMenu : Control
     {
         DisableButtonsState(true);
         Color col = new Color(0, 0, 0, 1);
-        FadePanel.GetInstance().FadeOut();
         FadePanel.GetInstance().OnFadeOut += OnFadeOut;
+        FadePanel.GetInstance().FadeOut();
     }
 
     void OptionsButtonPressed()
@@ -123,17 +126,10 @@ public partial class MainMenu : Control
         FadePanel.GetInstance().OnFadeOut -= OnFadeOut;
 
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
-        int levelIndex = SaveManager.LoadCompletedLevels();
+        int levelGroupIndex = SaveManager.LoadCompletedLevelGroups();
+        int tagLevelIndex = SaveManager.LoadCompletedTagLevels();
 
-        // If we have progress that's not the first or last level, load from save
-        if (levelIndex != 0 && levelIndex != ggm.GetLevelCount() - 1)
-        {
-            ggm.LoadLevelFromSaveFile();
-        }
-        else
-        {
-            GlobalGameManager.GetInstance().LoadNextLevel();
-        }
+        GlobalGameManager.GetInstance().LoadNextLevel();
         FadePanel.GetInstance().FadeIn();
     }
 

@@ -40,7 +40,7 @@ public partial class Door : Node2D
         area = GetNode<Area2D>("Area2D");
         area.BodyEntered += OnAreaEntered;
         area.BodyExited += OnAreaExited;
-        
+
         if (((Runtime)GetTree().CurrentScene).editorMode == true)
         {
             GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").RegisterDoor(this);
@@ -73,7 +73,9 @@ public partial class Door : Node2D
             return;
 
         if (GlobalGameManager.GetInstance().levelCompleted)
+        {
             return;
+        }
 
         bool grounded = gorg.IsOnFloor();
 
@@ -85,13 +87,12 @@ public partial class Door : Node2D
 
         if (opened && inRange && Input.IsActionJustPressed("interact") && grounded)
         {
+            if (GlobalGameManager.GetInstance().levelCompleted)
+            {
+                return;
+            }
             GlobalGameManager.GetInstance().levelCompleted = true;
             UpdateIndicator();
-        }
-
-        if (Input.IsActionJustPressed("interact"))
-        {
-            PlayAnimation("open");
         }
     }
 

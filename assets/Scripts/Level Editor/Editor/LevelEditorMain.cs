@@ -91,11 +91,6 @@ public partial class LevelEditorMain : Node2D
         Input.ActionPress("reset");
     }
 
-    public void OnGorgKilled()
-    {
-        KillPanel.GetInstance().FadeOut();
-    }
-
     public async void OnFadeOut()
     {
         Runtime runtime = (Runtime)GetTree().CurrentScene;
@@ -135,7 +130,6 @@ public partial class LevelEditorMain : Node2D
     {
         this.door = door;
         OnDoorRegistered?.Invoke();
-        GD.Print("Door registered.");
     }
 
     public void UnregisterDoor()
@@ -143,6 +137,7 @@ public partial class LevelEditorMain : Node2D
         door = null;
         OnDoorUnregistered?.Invoke();
     }
+
     public void RegisterKey(Key key)
     {
         this.key = key;
@@ -153,5 +148,16 @@ public partial class LevelEditorMain : Node2D
     {
         key = null;
         OnKeyUnregistered?.Invoke();
+    }
+
+    public override void _ExitTree()
+    {
+        Runtime runtime = GetTree().CurrentScene as Runtime;
+        KillPanel.GetInstance()?.OnFadeOut -= OnFadeOut;
+        fileButton.filePicked -= runtime.FilePicked;
+        runtime.OnFilePicked -= FilePicked;
+        fileButton.fileSaved -= runtime.FileSaved;
+        runtime.OnFileSaved -= FileSaved;
+        runtime.OnLevelImported -= ImportLevel;
     }
 }

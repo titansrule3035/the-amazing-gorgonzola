@@ -42,7 +42,8 @@ public partial class DialogueManager : Node
         }
         else
         {
-            GD.PrintErr("More than one instance of DialogueManager found! " + "Please ensure there is no other dialogue manager in the scene.");
+            GD.PrintErr("More than one instance of DialogueManager found! Deleting this one...");
+            QueueFree();
         }
 
         grabLine = false;

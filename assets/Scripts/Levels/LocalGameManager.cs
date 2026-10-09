@@ -17,22 +17,22 @@ public abstract partial class LocalGameManager : Node2D
     {
         if (instance != null)
         {
-            GD.Print("More than one LocalGameManager exists! Deleting this one...");
+            GD.PrintErr("Only one LocalGameManager allowed per scene, deleting this one...");
             QueueFree();
             return;
         }
 
         instance = this;
 
-        FadePanel.GetInstance().OnFadeIn += HandleFadeIn;
-        FadePanel.GetInstance().OnFadeOut += HandleFadeOut;
-        FadePanel.GetInstance().OnLevelCompleteFadeOut += HandleLevelCompleted;
-        KillPanel.GetInstance().OnFadeOut += HandleFadeOut;
-        KillPanel.GetInstance().OnFadeIn += HandleFadeIn;
+        FadePanel.GetInstance().OnFadeIn += OnFadeIn;
+        FadePanel.GetInstance().OnFadeOut += OnFadeOut;
+        FadePanel.GetInstance().OnLevelCompleteFadeOut += OnLevelCompleted;
+        KillPanel.GetInstance().OnFadeOut += OnFadeOut;
+        KillPanel.GetInstance().OnFadeIn += OnFadeIn;
 
         if (SpawnGorg.GetInstance() != null)
         {
-            SpawnGorg.GetInstance().GorgSpawned += HandleGorgSpawned;
+            SpawnGorg.GetInstance().GorgSpawned += OnGorgFound;
         }
 
         GlobalGameManager.GetInstance().RegisterLGM(this, allowPausing);
@@ -46,12 +46,11 @@ public abstract partial class LocalGameManager : Node2D
         {
             OnFlush?.Invoke();
 
-            KillPanel.GetInstance().FadeOut();
             flush = false;
         }
     }
 
-    protected void HandleFadeOut()
+    protected void OnFadeOut()
     {
         OnFlush?.Invoke();
         if (!GlobalGameManager.GetInstance().levelCompleted && !GlobalGameManager.GetInstance().gamePaused)
@@ -66,30 +65,31 @@ public abstract partial class LocalGameManager : Node2D
         FadePanel.GetInstance().FadeIn();
     }
 
-    protected void HandleLevelCompleted()
+    protected async void OnLevelCompleted()
     {
-        if (!GlobalGameManager.GetInstance().IsLastLevel())
+        GlobalGameManager ggm = GlobalGameManager.GetInstance();
+        if (!ggm.IsLastLevel())
         {
-            GlobalGameManager.GetInstance().LoadNextLevel();
+            ggm.LoadNextLevel();
         }
         else
         {
-            GlobalGameManager.GetInstance().LoadLevel(0);
+            await ggm.LoadSceneLevel(0);
         }
     }
 
-    private void HandleFadeIn()
+    private void OnFadeIn()
     {
         GlobalGameManager.GetInstance().canMove = true;
     }
 
 
-    private void HandleGorgSpawned(Gorgonzola gorg)
+    private void OnGorgFound(Gorgonzola gorg)
     {
-        gorg.OnKilled += HandleGorgKilled;
+        BasePlayerController.MainPlayerKilled += OnMainPlayerKilled;
     }
 
-    private void HandleGorgKilled()
+    private void OnMainPlayerKilled()
     {
         flush = true;
     }
@@ -109,15 +109,15 @@ public abstract partial class LocalGameManager : Node2D
         var fade = FadePanel.GetInstance();
         if (fade != null)
         {
-            fade.OnFadeIn -= HandleFadeIn;
-            fade.OnFadeOut -= HandleFadeOut;
-            fade.OnLevelCompleteFadeOut -= HandleLevelCompleted;
+            fade.OnFadeIn -= OnFadeIn;
+            fade.OnFadeOut -= OnFadeOut;
+            fade.OnLevelCompleteFadeOut -= OnLevelCompleted;
         }
 
         var gorgSpawnPoint = SpawnGorg.GetInstance();
         if (gorgSpawnPoint != null)
         {
-            SpawnGorg.GetInstance().GorgSpawned -= HandleGorgSpawned;
+            SpawnGorg.GetInstance().GorgSpawned -= OnGorgFound;
         }
 
         GlobalGameManager.GetInstance().UnregisterLGM();

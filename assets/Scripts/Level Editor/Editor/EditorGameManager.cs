@@ -38,7 +38,7 @@ public partial class EditorGameManager : Node2D
     {
         if (instance != null)
         {
-            GD.Print("More than one EditorGameManager exists! Deleting this one...");
+            GD.PrintErr("Only one EditorGameManager allowed per scene, deleting this one...");
             QueueFree();
             return;
         }
@@ -100,13 +100,11 @@ public partial class EditorGameManager : Node2D
     {
         this.gorgonzola = gorgonzola;
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-        gorgonzola.OnKilled += main.OnGorgKilled;
         OnGorgFound?.Invoke();
     }
 
     public void UnregisterGorg()
     {
-        gorgonzola.OnKilled -= main.OnGorgKilled;
         gorgonzola = null;
         OnGorgUnregistered?.Invoke();
     }

@@ -7,9 +7,6 @@ public partial class Gorgonzola : BasePlayerController
     // Singleton / instance
     private static Gorgonzola instance;
 
-    // Events
-    public event Action OnKilled;
-
     // Scenes / resources
     [Export] private PackedScene carcassEffectScene;
 
@@ -36,21 +33,7 @@ public partial class Gorgonzola : BasePlayerController
         Gorgonzola gorgonzola = this;
         GlobalGameManager.GetInstance()?.RegisterGorg(gorgonzola);
         EditorGameManager.GetInstance()?.RegisterGorg(gorgonzola);
-
-        //animationPlayer.AnimationFinished += HandleWinAnimation;
     }
-
-    /*async void HandleWinAnimation(StringName animName)
-    {
-        /// <summary>
-        /// Handles the win animation finishing by triggering the level complete sequence.
-        /// </summary>
-        GD.Print(animName + "ended");
-        if (animName == "win")
-        {
-            
-        }
-    }*/
 
     public override void _Process(double delta)
     {
@@ -117,8 +100,9 @@ public partial class Gorgonzola : BasePlayerController
         if (!killed)
         {
             killed = true;
-            OnKilled?.Invoke();
             BasePlayerController.KillAllClones();
+
+            KillPanel.GetInstance().FadeOut();
 
             GlobalGameManager? ggm = GlobalGameManager.GetInstance();
 

@@ -6,19 +6,20 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 
 public partial class GlobalGameManager : Node2D
 {
     private static GlobalGameManager instance;
 
-    [Export] public int activeLevelIndex = 0;
-    [Export] public Godot.Collections.Array<PackedScene> levelScenes = new();
-    private bool levelTransitioning;
+    [Export] public int activeLevelGroupIndex = 0;
+    [Export] public int activeTagLevelIndex = -1;
+    [Export] public Godot.Collections.Array<LevelGroup> levelGroups = new();
+    private readonly List<LevelGroup> levels = new();
 
+    private bool levelTransitioning;
     private Node2D activeLevel;
     public LocalGameManager localGM;
-    private readonly List<PackedScene> levels = new();
-
     private readonly HashSet<object> pauseLocks = new();
     public bool pauseLocked => pauseLocks.Count == 0;
 
@@ -51,21 +52,22 @@ public partial class GlobalGameManager : Node2D
         instance = this;
 
         levels.Clear();
-        foreach (var scene in levelScenes)
+        foreach (var levelGroup in levelGroups)
         {
-            if (scene != null)
+            if (levelGroup != null)
             {
-                levels.Add(scene);
+                levels.Add(levelGroup);
             }
         }
 
         if (levels.Count == 0)
         {
-            GD.PrintErr("No level scenes assigned! Drag them into the LevelScenes array in the Inspector.");
+            GD.PrintErr("No level groups assigned! Drag them into the LevelGroups array in the Inspector.");
             return;
         }
 
-        LoadLevel(0);
+        StartLevelSequence();
+
         await WaitForGameLoaded();
 
         SaveData saveData = SaveManager.LoadGame();
@@ -74,7 +76,6 @@ public partial class GlobalGameManager : Node2D
         deaths = saveData?.deaths ?? 0;
         clonesKilled = saveData?.clonesKilled ?? 0;
         collectibles = saveData?.collectibles ?? new();
-
     }
 
     public override void _Process(double delta)
@@ -115,117 +116,144 @@ public partial class GlobalGameManager : Node2D
         instance = this;
     }
 
-    private async System.Threading.Tasks.Task WaitForGameLoaded()
+    public Vector2I LoadLevelFromSaveFile()
     {
-        while (Gorgonzola.GetInstance() == null)
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-        gorgonzola = Gorgonzola.GetInstance();
-        OnFirstFrame?.Invoke();
+        SaveData saveData = SaveManager.LoadGame();
+        int savedLevelGroupIndex = saveData?.activeLevelGroupIndex ?? 0;
+        int savedTagLevelIndex = saveData?.activeTagLevelIndex ?? -1;
+        // this should load the group, then the taglevel index from the save file
+        return new Vector2I(savedLevelGroupIndex, savedTagLevelIndex);
     }
 
-    private void LoadOrderedLevelScenes(string directoryPath)
+    /// <summary>
+    /// Deloads the current level, resets per-level state, and instantiates the group's scene.
+    /// Every level load (new group, next tag level, reload) goes through here.
+    /// </summary>
+    public async Task LoadSceneLevel(int groupIndex)
     {
-        levels.Clear();
-
-        var dir = DirAccess.Open(directoryPath);
-        if (dir == null)
+        if (groupIndex < 0 || groupIndex >= levelGroups.Count)
         {
-            GD.PrintErr($"Cannot open directory: {directoryPath}");
+            GD.PrintErr($"[LEVEL] Invalid group index: {groupIndex}");
             return;
         }
 
-        dir.ListDirBegin();
-        var sceneFiles = new List<(int index, string path)>();
+        LevelGroup group = levelGroups[groupIndex];
 
-        string fileName = dir.GetNext();
-        while (!string.IsNullOrEmpty(fileName))
+        if (group == null || group.Scene == null)
         {
-            if (fileName == "." || fileName == "..")
-            {
-                fileName = dir.GetNext();
-                continue;
-            }
-
-            if (!dir.CurrentIsDir() && fileName.EndsWith(".tscn"))
-            {
-                string nameWithoutExtension = fileName.Replace(".tscn", "");
-
-                if (int.TryParse(nameWithoutExtension, out int levelNumber))
-                {
-                    string scenePath = $"{directoryPath}/{fileName}";
-                    sceneFiles.Add((levelNumber, scenePath));
-                }
-                else
-                {
-                    GD.PrintErr($"Skipping file with invalid number: {fileName}");
-                }
-            }
-
-            fileName = dir.GetNext();
+            GD.PrintErr($"[LEVEL] Group {groupIndex} has no scene.");
+            return;
         }
 
-        dir.ListDirEnd();
+        await DeloadLevel();
 
-        sceneFiles.Sort((a, b) => a.index.CompareTo(b.index));
+        Node currentScene = GetTree().CurrentScene;
 
-        foreach (var (_, path) in sceneFiles)
+        if (!GodotObject.IsInstanceValid(currentScene))
         {
-            PackedScene scene = GD.Load<PackedScene>(path);
-            if (scene != null)
-                levels.Add(scene);
-            else
-                GD.PrintErr($"Failed to load scene at: {path}");
+            GD.PrintErr("[LEVEL] Current scene is no longer valid.");
+            return;
         }
-    }
 
-    private void InstantiateActiveLevel()
-    {
-        activeLevel = levels[activeLevelIndex].Instantiate<Node2D>();
-        Node2D levelRoot = GetTree().CurrentScene.GetNode<Node2D>("game/main");
+        Node2D levelParent = currentScene.GetNodeOrNull<Node2D>("game/main");
 
-        levelRoot.AddChild(activeLevel);
-
-        localGM = activeLevel.GetNodeOrNull<LocalGameManager>("LocalGameManager");
-
-        if (localGM != null)
+        if (levelParent == null)
         {
-            activeLevel.GlobalPosition = localGM.levelOrigin;
+            GD.PrintErr("[LEVEL] Could not find game/main.");
+            return;
         }
+
+        activeLevelGroupIndex = groupIndex;
+        levelCompleted = false;
+        Node2D newLevel = group.Scene.Instantiate<Node2D>();
+        activeLevel = newLevel;
+        levelParent.CallDeferred("add_child", newLevel);
+        await ToSignal(newLevel, Node.SignalName.Ready);
 
         OnLevelLoaded?.Invoke();
     }
 
-    public async void LoadLevel(int levelIndex)
+    public async Task LoadTagLevel(int groupIndex, int tagLevelIndex)
     {
-        if (levelTransitioning)
+        if (groupIndex < 0 || groupIndex >= levelGroups.Count || levelGroups[groupIndex] == null)
         {
+            GD.PrintErr($"[LEVEL] Invalid group index for TAG level: {groupIndex}");
             return;
         }
 
-        levelTransitioning = true;
+        LevelGroup group = levelGroups[groupIndex];
 
-        try
+        if (tagLevelIndex < 0 || tagLevelIndex >= group.TagLevels.Count)
         {
-            DeloadLevel();
-
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-            activeLevelIndex = levelIndex;
-
-            InstantiateActiveLevel();
+            GD.PrintErr($"[LEVEL] Invalid TAG level index {tagLevelIndex} for group {groupIndex}.");
+            return;
         }
-        finally
+
+        string tagLevelPath = group.TagLevels[tagLevelIndex];
+
+        if (string.IsNullOrEmpty(tagLevelPath))
         {
-            levelTransitioning = false;
+            GD.PrintErr($"[LEVEL] TAG level {tagLevelIndex} in group {groupIndex} is empty.");
+            return;
+        }
+
+        using Godot.FileAccess file = Godot.FileAccess.Open(tagLevelPath, Godot.FileAccess.ModeFlags.Read);
+
+        if (file == null)
+        {
+            GD.PrintErr($"[LEVEL] Could not open TAG level file '{tagLevelPath}': {Godot.FileAccess.GetOpenError()}");
+            return;
+        }
+
+        string levelText = file.GetAsText();
+
+        await ((Runtime)GetTree().CurrentScene).ImportLevel(activeLevel, LevelData.Decode(levelText));
+    }
+
+    /// <summary>
+    /// Loads whatever activeLevelGroupIndex / activeTagLevelIndex currently point at:
+    /// deload old level -> instantiate group scene -> import tag level (if the group has any).
+    /// </summary>
+    private async Task LoadCurrentLevel()
+    {
+        if (activeLevelGroupIndex < 0 ||
+            activeLevelGroupIndex >= levelGroups.Count)
+        {
+            GD.PrintErr($"[LEVEL] Invalid group index: {activeLevelGroupIndex}");
+            return;
+        }
+
+        LevelGroup group = levelGroups[activeLevelGroupIndex];
+
+        if (group == null)
+        {
+            GD.PrintErr($"[LEVEL] Level group {activeLevelGroupIndex} is null.");
+            return;
+        }
+
+        await LoadSceneLevel(activeLevelGroupIndex);
+
+        if (!GodotObject.IsInstanceValid(activeLevel))
+            return;
+
+        if (group.HasTAGLEVELs())
+        {
+            if (activeTagLevelIndex < 0)
+            {
+                activeTagLevelIndex = 0;
+            }
+
+            await LoadTagLevel(activeLevelGroupIndex, activeTagLevelIndex);
         }
     }
 
-    public void LoadLevelFromSaveFile()
+    private void StartLevelSequence()
     {
-        SaveData saveData = SaveManager.LoadGame();
-        int savedLevelIndex = saveData?.activeLevelIndex ?? 0;
-        LoadLevel(savedLevelIndex);
+        activeLevelGroupIndex = 0;
+        activeTagLevelIndex = -1;
+
+        //TIL that using `_ =` can be used to suppress the warning for an unawaited async call, as you discard the returned Task
+        _ = LoadCurrentLevel();
     }
 
     public async void LoadNextLevel()
@@ -235,22 +263,61 @@ public partial class GlobalGameManager : Node2D
             return;
         }
 
+        if (activeLevelGroupIndex < 0 || activeLevelGroupIndex >= levelGroups.Count)
+        {
+            GD.PrintErr($"[LEVEL] Invalid group index: {activeLevelGroupIndex}");
+            return;
+        }
+
         levelTransitioning = true;
 
         try
         {
+            LevelGroup group = levelGroups[activeLevelGroupIndex];
 
+            if (group != null && group.HasTAGLEVELs() && activeTagLevelIndex + 1 < group.TagLevels.Count)
+            {
+                // Next TAG level in the same group. The scene still gets fully deloaded and
+                // reloaded by LoadCurrentLevel, even if it's the same scene as before.
+                activeTagLevelIndex++;
+            }
+            else
+            {
 
-            DeloadLevel();
+                if (!AdvanceToNextGroup())
+                {
+                    return;
+                }
+            }
 
-            activeLevelIndex++;
-
-            InstantiateActiveLevel();
+            await LoadCurrentLevel();
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr($"[LEVEL] LoadNextLevel failed: {e}");
         }
         finally
         {
             levelTransitioning = false;
         }
+    }
+
+    /// <summary>
+    /// Moves the indices to the first level of the next group.
+    /// Returns false (and leaves the indices alone) if there are no more groups.
+    /// </summary>
+    private bool AdvanceToNextGroup()
+    {
+
+        if (activeLevelGroupIndex + 1 >= levelGroups.Count)
+        {
+            return false;
+        }
+
+        activeLevelGroupIndex++;
+        activeTagLevelIndex = -1;
+
+        return true;
     }
 
     public async void ReloadLevel()
@@ -264,11 +331,11 @@ public partial class GlobalGameManager : Node2D
 
         try
         {
-            DeloadLevel();
-
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-            InstantiateActiveLevel();
+            await LoadCurrentLevel();
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr($"[LEVEL] Reload failed: {e}");
         }
         finally
         {
@@ -276,23 +343,40 @@ public partial class GlobalGameManager : Node2D
         }
     }
 
-    private void DeloadLevel()
+    private async Task DeloadLevel()
     {
-        if (GodotObject.IsInstanceValid(activeLevel))
-        {
-            activeLevel.QueueFree();
-        }
+        Node2D oldLevel = activeLevel;
 
-        if (activeLevelIndex != 0)
+        if (activeLevelGroupIndex >= 0 &&
+            activeLevelGroupIndex < levelGroups.Count &&
+            levelGroups[activeLevelGroupIndex] != null &&
+            levelGroups[activeLevelGroupIndex].HasTAGLEVELs())
         {
             SaveManager.SaveGame(this);
         }
 
-        gorgonzola = null;
-
+        // Clear references before the old level starts exiting.
         activeLevel = null;
+        gorgonzola = null;
         localGM = null;
-        levelCompleted = false;
+
+        if (!GodotObject.IsInstanceValid(oldLevel))
+        {
+            return;
+        }
+
+        // If the level is inside the tree, wait for its actual exit.
+        if (oldLevel.IsInsideTree())
+        {
+            oldLevel.QueueFree();
+
+            await ToSignal(oldLevel, Node.SignalName.TreeExited);
+        }
+        else
+        {
+            // It was instantiated but never added to the tree.
+            oldLevel.Free();
+        }
     }
 
     public void ShowVictoryMenu(bool condition)
@@ -302,7 +386,7 @@ public partial class GlobalGameManager : Node2D
 
     public bool IsLastLevel()
     {
-        return activeLevelIndex == levels.Count - 1;
+        return activeLevelGroupIndex == levelGroups.Count - 1;
     }
 
     public int GetLevelCount()
@@ -314,11 +398,24 @@ public partial class GlobalGameManager : Node2D
     {
         return activeLevel;
     }
+
+    private async System.Threading.Tasks.Task WaitForGameLoaded()
+    {
+        while (Gorgonzola.GetInstance() == null)
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        gorgonzola = Gorgonzola.GetInstance();
+        OnFirstFrame?.Invoke();
+    }
+
     public void RegisterLGM(LocalGameManager lgm, bool allowPausing)
     {
         localGM = lgm;
         AddPauseLock(localGM);
     }
+
     public void UnregisterLGM()
     {
         RemovePauseLock(localGM);
@@ -342,17 +439,6 @@ public partial class GlobalGameManager : Node2D
         while (i > 0 && char.IsDigit(name[i - 1]))
             i--;
         return name[..i];
-    }
-
-    // Game control
-    // Set audio volume
-    public void UpdateBusVolume(string busName, float linearVolume)
-    {
-        int busIndex = AudioServer.GetBusIndex(busName);
-
-        float dbVolume = Mathf.LinearToDb(linearVolume);
-
-        AudioServer.SetBusVolumeDb(busIndex, dbVolume);
     }
 
     public void RegisterGorg(Gorgonzola gorgonzola)

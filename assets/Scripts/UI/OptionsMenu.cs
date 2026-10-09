@@ -44,7 +44,7 @@ public partial class OptionsMenu : Control
 
     public override void _Process(double delta)
     {
-        GlobalGameManager.GetInstance().UpdateBusVolume("Master", (float)volumeSlider.Value);
+        ((Runtime)GetTree().CurrentScene).UpdateBusVolume("Master", (float)volumeSlider.Value);
 
         base._Process(delta);
     }
