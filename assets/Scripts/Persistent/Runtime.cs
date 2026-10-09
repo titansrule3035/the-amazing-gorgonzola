@@ -272,7 +272,7 @@ public partial class Runtime : Node2D
             return;
         }
 
-        string jsonString = File.ReadAllText(filePath);
+        string jsonString = Godot.FileAccess.GetFileAsString(filePath);
 
         try
         {
@@ -415,7 +415,7 @@ public partial class Runtime : Node2D
             IncludeFields = true
         });
 
-        string newFile = $"C:\\Users\\Princ\\source\\repos\\C#\\Godot Projects\\the-amazing-gorgonzola\\TAGLEVELs\\{exportName}.taglevel";
+        string newFile = $"C:\\Users\\Princ\\source\\repos\\C#\\Godot Projects\\the-amazing-gorgonzola\\assets\\TAGLEVELs\\{exportName}.taglevel";
 
         if (!DirAccess.DirExistsAbsolute(Path.GetDirectoryName(newFile)))
         {

@@ -43,7 +43,7 @@
 [ext_resource type="Script" uid="uid://cnebv16m11afh" path="res://assets/Scripts/Level Editor/UI/QuitMenu.cs" id="53_tbr8v"]
 [ext_resource type="Texture2D" uid="uid://dm1ve5n7hm2qw" path="res://assets/Sprites/Level Editor/warning.png" id="54_0e44q"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yb6iy"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7pho1"]
 texture = ExtResource("19_luhuu")
 texture_region_size = Vector2i(32, 32)
 25:0/0 = 0
@@ -875,7 +875,7 @@ texture_region_size = Vector2i(32, 32)
 12:8/0 = 0
 12:9/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_06ica"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nb3xa"]
 texture = ExtResource("20_5maqu")
 texture_region_size = Vector2i(32, 32)
 25:0/0 = 0
@@ -1869,8 +1869,8 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 2
-sources/1 = SubResource("TileSetAtlasSource_yb6iy")
-sources/2 = SubResource("TileSetAtlasSource_06ica")
+sources/1 = SubResource("TileSetAtlasSource_7pho1")
+sources/2 = SubResource("TileSetAtlasSource_nb3xa")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdlv5"]
 
@@ -2131,12 +2131,12 @@ title = "Open a File"
 position = Vector2i(0, 36)
 ok_button_text = "Load Level"
 file_mode = 0
-access = 2
+root_subfolder = "assets/TAGLEVELs"
 filters = PackedStringArray("*.taglevel ; TAGLEVEL Files")
-folder_creation_enabled = false
-favorites_enabled = false
+hidden_files_toggle_enabled = false
+file_filter_toggle_enabled = false
+recent_list_enabled = false
 layout_toggle_enabled = false
-deleting_enabled = false
 
 [node name="ExportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=378383444]
 oversampling_override = 1.0
@@ -2144,11 +2144,12 @@ title = "Save Level"
 position = Vector2i(0, 36)
 ok_button_text = "Save Level"
 access = 2
+root_subfolder = "assets/TAGLEVELs"
 filters = PackedStringArray("*.taglevel ; TAGLEVEL Files")
-folder_creation_enabled = false
-favorites_enabled = false
+hidden_files_toggle_enabled = false
+file_filter_toggle_enabled = false
+recent_list_enabled = false
 layout_toggle_enabled = false
-deleting_enabled = false
 
 [node name="ExportAsDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=388796861]
 oversampling_override = 1.0
@@ -2156,10 +2157,11 @@ title = "Save Level As File"
 position = Vector2i(0, 36)
 ok_button_text = "Save File"
 access = 2
-folder_creation_enabled = false
-favorites_enabled = false
+root_subfolder = "assets/TAGLEVELs"
+hidden_files_toggle_enabled = false
+file_filter_toggle_enabled = false
+recent_list_enabled = false
 layout_toggle_enabled = false
-deleting_enabled = false
 
 [node name="ScrollButton" type="Control" parent="CanvasLayer/UI" unique_id=1801667640 node_paths=PackedStringArray("scrollButtonMenus")]
 custom_minimum_size = Vector2(352, 32)
