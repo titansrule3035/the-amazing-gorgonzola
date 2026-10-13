@@ -7,7 +7,9 @@ using System.Text;
 
 public class LevelData
 {
-    public const int TileSize = 32;
+    // this will be used later to prevent editing in-game levels that are not meant to be edited
+    public bool IsEditorFriendly { get; set; } = true;
+
     public List<LayerData> Layers { get; set; } = new();
     public List<ObjectData> Clones { get; set; } = new();
     public List<ObjectData> LevelMechanics { get; set; } = new();
