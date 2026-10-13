@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgolnsjob6ybe"
-path="res://.godot/imported/jubidle.png-dcd5212642fe7f6aca23426e6f2fcda4.ctex"
+path="res://.godot/imported/jubidle.png-cc0b50a306cb5d1a1b48d488a2c813ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/jubidle.png"
-dest_files=["res://.godot/imported/jubidle.png-dcd5212642fe7f6aca23426e6f2fcda4.ctex"]
+source_file="res://assets/Sprites/NPCs/jubidle.png"
+dest_files=["res://.godot/imported/jubidle.png-cc0b50a306cb5d1a1b48d488a2c813ba.ctex"]
 
 [params]
 

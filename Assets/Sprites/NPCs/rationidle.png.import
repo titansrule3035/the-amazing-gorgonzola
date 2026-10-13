@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1m4lxx6nk7f1"
-path="res://.godot/imported/rationidle.png-743ad0f2f2f35ece0c6d6a096c94e4fe.ctex"
+path="res://.godot/imported/rationidle.png-27bd17bf78270e4cb280834347d85823.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/rationidle.png"
-dest_files=["res://.godot/imported/rationidle.png-743ad0f2f2f35ece0c6d6a096c94e4fe.ctex"]
+source_file="res://assets/Sprites/NPCs/rationidle.png"
+dest_files=["res://.godot/imported/rationidle.png-27bd17bf78270e4cb280834347d85823.ctex"]
 
 [params]
 

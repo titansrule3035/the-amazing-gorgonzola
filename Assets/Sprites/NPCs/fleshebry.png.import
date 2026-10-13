@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjerqhsb3bq8g"
-path="res://.godot/imported/fleshebry.png-192c015dca35d743d50108063e1d91de.ctex"
+path="res://.godot/imported/fleshebry.png-d67c0a491c2c3f315504e60687cd6dee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/fleshebry.png"
-dest_files=["res://.godot/imported/fleshebry.png-192c015dca35d743d50108063e1d91de.ctex"]
+source_file="res://assets/Sprites/NPCs/fleshebry.png"
+dest_files=["res://.godot/imported/fleshebry.png-d67c0a491c2c3f315504e60687cd6dee.ctex"]
 
 [params]
 

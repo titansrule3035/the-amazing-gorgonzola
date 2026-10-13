@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4b0m4ecuj1mf"
-path="res://.godot/imported/esseidle.png-e8258673d046942697324b1c9898cd0b.ctex"
+path="res://.godot/imported/esseidle.png-b8b7cdbe262d651e6c82793262793849.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/esseidle.png"
-dest_files=["res://.godot/imported/esseidle.png-e8258673d046942697324b1c9898cd0b.ctex"]
+source_file="res://assets/Sprites/NPCs/esseidle.png"
+dest_files=["res://.godot/imported/esseidle.png-b8b7cdbe262d651e6c82793262793849.ctex"]
 
 [params]
 

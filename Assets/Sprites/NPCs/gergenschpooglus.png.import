@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cek6kufmov81s"
-path="res://.godot/imported/gergenschpooglus.png-9918f6a19df1acd4a9aac3d9ab25da87.ctex"
+path="res://.godot/imported/gergenschpooglus.png-0ab369ce6f81b7c7ba42ce00a0eacf49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/gergenschpooglus.png"
-dest_files=["res://.godot/imported/gergenschpooglus.png-9918f6a19df1acd4a9aac3d9ab25da87.ctex"]
+source_file="res://assets/Sprites/NPCs/gergenschpooglus.png"
+dest_files=["res://.godot/imported/gergenschpooglus.png-0ab369ce6f81b7c7ba42ce00a0eacf49.ctex"]
 
 [params]
 
