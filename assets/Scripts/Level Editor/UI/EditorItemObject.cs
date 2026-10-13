@@ -1,137 +1,167 @@
 using Godot;
 using System;
-using System.Runtime.CompilerServices;
 
+/// <summary>
+/// One selectable entry in the editor's item palette (a tile, clone, hazard, etc).
+/// Clicking it while the editor is active hands it to EditorObject; clicking it again clears the selection.
+/// </summary>
 public partial class EditorItemObject : TextureRect
 {
-    public enum ItemType { Clone, Enemy, Tile, TileObj, Hazard, LevelMechanic, Null }
+    // Keep this order: values are serialized in scenes.
+    public enum ItemType { Clone, Enemy, Tile, TileObj, NPC, Hazard, LevelMechanic, OnOff, Null }
+
+    // ------------------------------------------------------------------
+    // Config
+    // ------------------------------------------------------------------
+    const string EditorPath = "editor/main/EditorObject";
+    const string MainPath = "editor/main";
+
+    const string AnimDefault = "default";
+    const string AnimSelected = "selected";
+    const string AnimDisabled = "disabled";
+
     [Export] public ItemType itemType;
     [Export] public PackedScene ThisScene { get; set; }
+    [Export] public Vector2 cursorOffset = Vector2.Zero;
+
+    // ------------------------------------------------------------------
+    // State
+    // ------------------------------------------------------------------
     public AnimationPlayer Player;
     public bool selected = false;
     public bool disabled = false;
 
-    [Export] public Vector2 cursorOffset = Vector2.Zero;
+    /// <summary>Raised with the newly selected item, or null to clear the selection.</summary>
+    public static Action<EditorItemObject>? ChangeTexture;
 
-    public static Action<EditorItemObject> ChangeTexture;
+    LevelEditorMain _main;
+    EditorObject _editor;
+    bool _idleStateApplied;
 
+    /// <summary>The editor cursor node. Cached on first use.</summary>
+    protected EditorObject Editor
+    {
+        get
+        {
+            if (!IsInstanceValid(_editor))
+            {
+                _editor = GetTree().CurrentScene.GetNode<EditorObject>(EditorPath);
+            }
+
+            return _editor;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Lifecycle
+    // ------------------------------------------------------------------
     public override void _Ready()
     {
         Player = GetParent().GetNode<AnimationPlayer>("AnimationPlayer");
 
         GuiInput += OnGuiInput;
-
         ChangeTexture += SetActiveItem;
 
-        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-
-        main.OnGamePaused += OnGamePaused;
+        _main = GetTree().CurrentScene.GetNode<LevelEditorMain>(MainPath);
+        _main.OnGamePaused += OnGamePaused;
     }
 
-    private void OnGamePaused()
+    public override void _ExitTree()
     {
+        // ChangeTexture is static, so without this, freed items stay subscribed after a scene reload.
+        ChangeTexture -= SetActiveItem;
+        GuiInput -= OnGuiInput;
+
+        if (IsInstanceValid(_main))
+        {
+            _main.OnGamePaused -= OnGamePaused;
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        // While the game is running the palette is inert. Apply that once, not every frame.
+        if (GetTree().Paused)
+        {
+            return;
+        }
+
+        if (!_idleStateApplied)
+        {
+            _idleStateApplied = true;
+            Player.Play(AnimDisabled);
+            MouseFilter = MouseFilterEnum.Ignore;
+            selected = false;
+        }
+    }
+
+    void OnGamePaused()
+    {
+        _idleStateApplied = false;
+
         if (!disabled)
         {
             EnableItem();
         }
     }
 
-    public override void _Process(double delta)
+    // ------------------------------------------------------------------
+    // Input
+    // ------------------------------------------------------------------
+    void OnGuiInput(InputEvent @event)
     {
-        if (!GetTree().Paused)
-        {
-            Player.Play("disabled");
-            MouseFilter = MouseFilterEnum.Ignore;
-            selected = false;
-        }
+        if (!GetTree().Paused || disabled) return;
+        if (!@event.IsActionPressed("mb_left")) return;
 
-        base._Process(delta);
+        UpdateTextures(Texture, FlipH, !selected);
     }
 
-    private void OnGuiInput(InputEvent @event)
-    {
-        if (GetTree().Paused)
-        {
-            if (@event.IsActionPressed("mb_left"))
-            {
-                if (!selected)
-                {
-                    UpdateTextures(Texture, FlipH, true);
-                }
-                else
-                {
-                    UpdateTextures(new(), false, false);
-                }
-            }
-        }
-    }
+    // ------------------------------------------------------------------
+    // Selection
+    // ------------------------------------------------------------------
 
+    /// <summary>
+    /// Select (selected = true) or clear (selected = false) this item.
+    /// The texture and flipH parameters are unused but kept so subclass overrides still compile.
+    /// </summary>
     public virtual void UpdateTextures(Texture2D texture, bool flipH, bool selected)
     {
-        Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("editor/main/EditorObject/Sprite");
-        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
-
-        SendItemToEditor();
-
-        float alpha = 0f;
         if (selected)
         {
-            alpha = 0.5f;
+            SendItemToEditor();
+            ChangeTexture?.Invoke(this);
         }
-        Godot.Color modulate = objectCursor.Modulate;
-        modulate = new(modulate.R, modulate.G, modulate.B, alpha);
-
-        objectCursor.Modulate = modulate;
-
-        ChangeTexture.Invoke(this);
+        else
+        {
+            // Null resets every palette item to "default" and clears the editor's item (see SetActiveItem).
+            ChangeTexture?.Invoke(null);
+        }
     }
 
     public virtual void SendItemToEditor()
     {
-        Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("editor/main/EditorObject/Sprite");
-        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
-
-        editorObject.SetEditorItem(this);
+        Editor.SetEditorItem(this);
     }
 
     public void SetActiveItem(EditorItemObject item)
     {
-        if (this == item)
-        {
-            if (selected)
-            {
-                Player.Play("default");
-                selected = false;
-            }
-            else
-            {
-                Player.Play("selected");
-                selected = true;
-            }
-        }
-        else
-        {
-            Player.Play("default");
-            selected = false;
-        }
+        selected = !disabled && item == this;
 
-        if (disabled)
-        {
-            Player.Play("disabled");
-            selected = false;
-        }
+        Player.Play(disabled ? AnimDisabled : selected ? AnimSelected : AnimDefault);
 
+        // Every palette item receives this call, so the clear is repeated. It is idempotent.
         if (item == null)
         {
-            EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
-            editor.itemObject = null;
-            editor.itemType = EditorItemObject.ItemType.Null;
+            Editor.ClearEditorItem();
         }
     }
 
+    // ------------------------------------------------------------------
+    // Enable / disable
+    // ------------------------------------------------------------------
     public void DisableItem()
     {
-        Player.Play("disabled");
+        Player.Play(AnimDisabled);
         MouseFilter = MouseFilterEnum.Ignore;
         disabled = true;
         selected = false;
@@ -139,39 +169,30 @@ public partial class EditorItemObject : TextureRect
 
     public void EnableItem()
     {
-        Player.Play("default");
+        Player.Play(AnimDefault);
         MouseFilter = MouseFilterEnum.Pass;
         disabled = false;
     }
 
-    public string GetGroupDestination()
+    // ------------------------------------------------------------------
+    // Placement
+    // ------------------------------------------------------------------
+
+    /// <summary>Name of the node under level_assets that placed instances are parented to.</summary>
+    public string GetGroupDestination() => itemType switch
     {
-        // ItemType { Clone, Enemy, Tile, TileObj, LevelMechanic, Hazard, Null }
+        ItemType.Clone => "clones",
+        ItemType.Enemy => "hazards", // change to "enemies" if enemies get their own container
+        ItemType.Hazard => "hazards",
+        ItemType.TileObj or ItemType.LevelMechanic => "level_mechanics",
+        ItemType.OnOff => "on_off_assets",
+        ItemType.NPC => "npcs",
+        _ => NoDestination()
+    };
 
-        string group = "";
-        switch (itemType)
-        {
-            case ItemType.Clone:
-                group = "clones";
-                break;
-
-            case ItemType.Enemy:
-                group = "hazards";
-                break;
-
-            case ItemType.TileObj:
-                group = "level_mechanics";
-                break;
-
-            case ItemType.Hazard:
-                group = "hazards";
-                break;
-
-            case ItemType.LevelMechanic:
-                group = "level_mechanics";
-                break;
-
-        }
-        return group;
+    string NoDestination()
+    {
+        GD.PushWarning($"EditorItemObject '{Name}' has no group destination for item type {itemType}.");
+        return "";
     }
 }
