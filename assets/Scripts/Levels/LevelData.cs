@@ -13,7 +13,8 @@ public class LevelData
     public List<ObjectData> LevelMechanics { get; set; } = new();
     public List<ObjectData> Hazards { get; set; } = new();
     public OnOffAssetData OnOffs { get; set; } = new();
-    public List<SemiSolidTileData> SemiSolidTiles { get; set; } = new();
+    public List<ObjectData> NPCs { get; set; } = new();
+    public List<ObjectData> SemiSolidTiles { get; set; } = new();
 
     public static string Encode(object input)
     {
@@ -104,42 +105,41 @@ public class ObjectData
 {
     public string Type { get; set; } = "";
 
-    public string Name { get; set; } = "";
-
     public Godot.Vector2 Position { get; set; } = Godot.Vector2.Zero;
 
-    public ObjectData(string type, string name, Godot.Vector2 position)
+    public ObjectData(string type, Godot.Vector2 position)
     {
         this.Type = type;
-        this.Name = name;
         this.Position = position;
     }
-}
-
-public class SemiSolidTileData
-{
-    public string Type { get; set; } = "";      // normalized — used for scene lookup
-    public string Name { get; set; } = "";       // original node name — for identity if needed
-    public Godot.Vector2 Position { get; set; } = Godot.Vector2.Zero;
-    public Godot.Vector2 Scale { get; set; } = Godot.Vector2.One;
-
-    public SemiSolidTileData(string type, string name, Godot.Vector2 position, Godot.Vector2 scale)
-    {
-        Type = type;
-        Name = name;
-        Position = position;
-        Scale = scale;
-    }
-
 }
 
 public class OnOffSwitchMasterData : ObjectData
 {
     public bool Opened { get; set; } = false;
 
-    public OnOffSwitchMasterData(string type, string name, Godot.Vector2 position, bool opened) : base(type, name, position)
+    public OnOffSwitchMasterData(string type, Godot.Vector2 position, bool opened) : base(type, position)
     {
         Opened = opened;
+    }
+}
+
+public class OnOffBlockData
+{
+    public enum blockTypes
+    {
+        green, 
+        red
+    }
+
+    public blockTypes blockType { get; set; }
+
+    public Godot.Vector2 Position { get; set; }
+
+    public OnOffBlockData(blockTypes blockType, Godot.Vector2 Position)
+    {
+        this.blockType = blockType;
+        this.Position = Position;
     }
 }
 
@@ -149,5 +149,5 @@ public class OnOffAssetData
 
     public List<ObjectData> OnOffSwitches { get; set; } = new();
 
-    public List<ObjectData> OnOffBlocks { get; set; } = new();
+    public List<OnOffBlockData> OnOffBlocks { get; set; } = new();
 }

@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
-using static SemiSolidTileData;
 
 public partial class LevelEditorMain : Node2D
 {

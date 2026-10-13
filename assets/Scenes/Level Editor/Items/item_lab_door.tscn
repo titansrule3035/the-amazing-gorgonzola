@@ -14,5 +14,5 @@ region = Rect2(16, 16, 128, 134)
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = SubResource("AtlasTexture_ahspa")
 script = ExtResource("3_2w46o")
-itemType = 5
+itemType = 6
 ThisScene = ExtResource("4_o8veg")

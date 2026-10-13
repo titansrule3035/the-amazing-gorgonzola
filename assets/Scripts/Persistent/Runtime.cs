@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static OnOffBlockData;
 
 public partial class Runtime : Node2D
 {
@@ -29,6 +30,7 @@ public partial class Runtime : Node2D
     [Export] public Godot.Collections.Dictionary<string, PackedScene> CloneScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> HazardScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> OnOffScenes { get; set; } = new();
+    [Export] public Godot.Collections.Dictionary<string, PackedScene> NPCScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> SemiSolidTileScenes { get; set; } = new();
 
     // import/export events
@@ -182,13 +184,14 @@ public partial class Runtime : Node2D
         Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
         Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
         Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
+        Node2D npcs = assetsRoot.GetNodeOrNull<Node2D>("npcs");
         Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
 
         if (level_mechanics != null)
         {
             foreach (Node2D level_essential in level_mechanics.GetChildren())
             {
-                data.LevelMechanics.Add(new ObjectData(level_essential.GetType().Name, level_essential.Name, new Vector2(level_essential.GlobalPosition.X, level_essential.GlobalPosition.Y)));
+                data.LevelMechanics.Add(new ObjectData(level_essential.GetType().Name, level_essential.GlobalPosition));
             }
         }
 
@@ -196,7 +199,7 @@ public partial class Runtime : Node2D
         {
             foreach (Node2D clone in clones.GetChildren())
             {
-                data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
+                data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.GlobalPosition));
             }
         }
 
@@ -208,21 +211,25 @@ public partial class Runtime : Node2D
                 if (asset_type == "OnOffSwitchMaster")
                 {
                     OnOffSwitchMaster switchMaster = on_off_asset as OnOffSwitchMaster;
-                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y), switchMaster.opened);
+                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(asset_type,on_off_asset.GlobalPosition, switchMaster.opened);
                 }
                 else if (asset_type == "OnOffBlockSwitch")
                 {
                     OnOffSwitch switchNormal = on_off_asset as OnOffSwitch;
-                    data.OnOffs.OnOffSwitches.Add(new ObjectData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                    data.OnOffs.OnOffSwitches.Add(new ObjectData(asset_type, on_off_asset.GlobalPosition));
                 }
-                else if (StripTrailingNumber(on_off_asset.Name) == "green_on_off_block")
+                else if (on_off_asset is OnOffBlock onOffBlock)
                 {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData("GreenOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
+                    data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? blockTypes.green : blockTypes.red, on_off_asset.GlobalPosition));
                 }
-                else if (StripTrailingNumber(on_off_asset.Name) == "red_on_off_block")
-                {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData("RedOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
+            }
+        }
+
+        if (npcs != null)
+        {
+            foreach (Npc npc in npcs.GetChildren())
+            {
+                data.NPCs.Add(new ObjectData(npc.npcType.ToString(), npc.GlobalPosition));
             }
         }
 
@@ -230,7 +237,7 @@ public partial class Runtime : Node2D
         {
             foreach (Node2D hazard in hazards.GetChildren())
             {
-                data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.Name, new Vector2(hazard.GlobalPosition.X, hazard.GlobalPosition.Y)));
+                data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.GlobalPosition));
             }
         }
 
@@ -238,7 +245,7 @@ public partial class Runtime : Node2D
         {
             foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
             {
-                data.SemiSolidTiles.Add(new SemiSolidTileData(semi_solid_tile.GetType().Name, semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y), semi_solid_tile.Scale));
+                data.SemiSolidTiles.Add(new ObjectData(semi_solid_tile.GetType().Name, semi_solid_tile.GlobalPosition));
             }
         }
 
@@ -311,122 +318,6 @@ public partial class Runtime : Node2D
         OnLevelImported?.Invoke();
     }
 
-    public void ExportLevel(Node levelRoot, string exportName)
-    {
-        LevelData data = new();
-
-        foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
-        {
-            if (tileMapLayer is not TileMapLayer layer)
-                continue;
-
-            LayerData layerData = new()
-            {
-                Name = layer.Name
-            };
-
-            foreach (Vector2I cell in layer.GetUsedCells())
-            {
-                Vector2I atlas = layer.GetCellAtlasCoords(cell);
-
-                layerData.Tiles.Add(new TileData
-                {
-                    X = cell.X,
-                    Y = cell.Y,
-                    SourceId = layer.GetCellSourceId(cell),
-                    AtlasX = atlas.X,
-                    AtlasY = atlas.Y,
-                    Alternative = layer.GetCellAlternativeTile(cell)
-                });
-            }
-
-            data.Layers.Add(layerData);
-        }
-
-        Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
-        Node2D level_mechanics = assetsRoot.GetNodeOrNull<Node2D>("level_mechanics");
-        Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
-        Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
-        Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
-        Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
-
-        if (level_mechanics != null)
-        {
-            foreach (Node2D level_mechanic in level_mechanics.GetChildren())
-            {
-                data.LevelMechanics.Add(new ObjectData(level_mechanic.GetType().Name, level_mechanic.Name, new Vector2(level_mechanic.GlobalPosition.X, level_mechanic.GlobalPosition.Y)));
-            }
-        }
-
-        if (clones != null)
-        {
-            foreach (Node2D clone in clones.GetChildren())
-            {
-                data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.Name, new Vector2(clone.GlobalPosition.X, clone.GlobalPosition.Y)));
-            }
-        }
-
-        if (on_off_assets != null)
-        {
-            foreach (Node2D on_off_asset in on_off_assets.GetChildren())
-            {
-                string asset_type = on_off_asset.GetType().Name;
-                if (asset_type == "OnOffSwitchMaster")
-                {
-                    OnOffSwitchMaster switchMaster = on_off_asset as OnOffSwitchMaster;
-                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y), switchMaster.opened);
-                }
-                else if (asset_type == "OnOffBlockSwitch")
-                {
-                    OnOffSwitch switchNormal = on_off_asset as OnOffSwitch;
-                    data.OnOffs.OnOffSwitches.Add(new ObjectData(asset_type, on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
-                else if (StripTrailingNumber(on_off_asset.Name) == "green_on_off_block")
-                {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData("GreenOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
-                else if (StripTrailingNumber(on_off_asset.Name) == "red_on_off_block")
-                {
-                    data.OnOffs.OnOffBlocks.Add(new ObjectData("RedOnOffBlock", on_off_asset.Name, new Vector2(on_off_asset.GlobalPosition.X, on_off_asset.GlobalPosition.Y)));
-                }
-            }
-        }
-
-        if (hazards != null)
-        {
-            foreach (Node2D hazard in hazards.GetChildren())
-            {
-                data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.Name, new Vector2(hazard.GlobalPosition.X, hazard.GlobalPosition.Y)));
-            }
-        }
-
-        if (semi_solid_tiles != null)
-        {
-            foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
-            {
-                data.SemiSolidTiles.Add(new SemiSolidTileData(semi_solid_tile.GetType().Name, semi_solid_tile.Name, new Vector2(semi_solid_tile.GlobalPosition.X, semi_solid_tile.GlobalPosition.Y), semi_solid_tile.Scale));
-            }
-        }
-
-        string json = JsonSerializer.Serialize(data,
-        new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            IncludeFields = true
-        });
-
-        string newFile = $"C:\\Users\\Princ\\source\\repos\\C#\\Godot Projects\\the-amazing-gorgonzola\\assets\\TAGLEVELs\\{exportName}.taglevel";
-
-        if (!DirAccess.DirExistsAbsolute(Path.GetDirectoryName(newFile)))
-        {
-            DirAccess.MakeDirAbsolute(Path.GetDirectoryName(newFile));
-        }
-
-        using Godot.FileAccess file = Godot.FileAccess.Open(newFile, Godot.FileAccess.ModeFlags.Write);
-
-        file.StoreString(SaveManager.Encode(json));
-    }
-
     public async Task ClearGroups()
     {
         if (GetNodeOrNull<Node2D>($"{levelRootPath}/level_assets") == null)
@@ -438,7 +329,7 @@ public partial class Runtime : Node2D
         Node levelRoot = editorMode ? GetNode($"{levelRootPath}/level_assets") : GetNode($"{levelRootPath}/level_assets");
         foreach (Node node in levelRoot.GetChildren())
         {
-            if (node.Name == "clones" || node.Name == "hazards" || node.Name == "on_off_assets" || node.Name == "level_mechanics" || node.Name == "semi_solid_tiles")
+            if (node.Name == "clones" || node.Name == "hazards" || node.Name == "on_off_assets" || node.Name == "level_mechanics" || node.Name == "npcs" || node.Name == "semi_solid_tiles")
             {
                 foreach (Node node2 in node.GetChildren())
                 {
@@ -462,7 +353,8 @@ public partial class Runtime : Node2D
         ImportObjectGroup(assetsRoot, "clones", data.Clones, CloneScenes);
         ImportObjectGroup(assetsRoot, "hazards", data.Hazards, HazardScenes);
         ImportOnOffGroup(assetsRoot, "on_off_assets", data.OnOffs, OnOffScenes);
-        ImportSemiSolidGroup(assetsRoot, "level_mechanics", data.SemiSolidTiles, LevelMechanicScenes);
+        ImportObjectGroup(assetsRoot, "npcs", data.NPCs, NPCScenes);
+        ImportObjectGroup(assetsRoot, "level_mechanics", data.SemiSolidTiles, LevelMechanicScenes);
     }
 
     private void ImportObjectGroup(Node2D assetsRoot, string groupNodeName, List<ObjectData> objects, Godot.Collections.Dictionary<string, PackedScene> sceneMap)
@@ -484,37 +376,7 @@ public partial class Runtime : Node2D
             }
 
             Node2D instance = scene.Instantiate<Node2D>();
-            instance.Name = obj.Name;
             instance.GlobalPosition = new Vector2(obj.Position.X, obj.Position.Y);
-
-            groupNode.AddChild(instance);
-
-            instance.AddToGroup("editor_placeable");
-        }
-    }
-
-    private void ImportSemiSolidGroup(Node2D assetsRoot, string groupNodeName, List<SemiSolidTileData> objects, Godot.Collections.Dictionary<string, PackedScene> sceneMap)
-    {
-        Node2D groupNode = assetsRoot.GetNodeOrNull<Node2D>(groupNodeName);
-
-        if (groupNode == null)
-        {
-            GD.PrintErr($"No node named '{groupNodeName}' found under 'level_assets'. Skipping.");
-            return;
-        }
-
-        foreach (SemiSolidTileData semi_solid_tile in objects)
-        {
-            if (!sceneMap.TryGetValue(semi_solid_tile.Type, out PackedScene scene) || scene == null)
-            {
-                GD.PrintErr($"No scene mapped for type '{semi_solid_tile.Type}' in group '{groupNodeName}'. Skipping.");
-                continue;
-            }
-
-            Node2D instance = scene.Instantiate<Node2D>();
-            instance.Name = semi_solid_tile.Name;
-            instance.Position = new Vector2(semi_solid_tile.Position.X, semi_solid_tile.Position.Y);
-            instance.Scale = semi_solid_tile.Scale;
 
             groupNode.AddChild(instance);
 
@@ -542,7 +404,6 @@ public partial class Runtime : Node2D
         {
             OnOffSwitchMaster master = masterScene.Instantiate<OnOffSwitchMaster>();
 
-            master.Name = asset.OnOffSwitchMaster.Name;
             master.GlobalPosition = asset.OnOffSwitchMaster.Position;
 
             groupNode.AddChild(master);
@@ -563,7 +424,6 @@ public partial class Runtime : Node2D
 
             Node2D onOffSwitch = switchScene.Instantiate<Node2D>();
 
-            onOffSwitch.Name = switchData.Name;
             onOffSwitch.GlobalPosition = switchData.Position;
 
             groupNode.AddChild(onOffSwitch);
@@ -574,17 +434,16 @@ public partial class Runtime : Node2D
         // Blocks
         if (asset.OnOffBlocks != null)
         {
-            foreach (ObjectData blockData in asset.OnOffBlocks)
+            foreach (OnOffBlockData blockData in asset.OnOffBlocks)
             {
-                if (!sceneMap.TryGetValue(blockData.Type, out PackedScene blockScene))
+                if (!sceneMap.TryGetValue(blockData.blockType.ToString(), out PackedScene blockScene))
                 {
-                    GD.PrintErr($"No scene mapped for type '{blockData.Type}'.");
+                    GD.PrintErr($"No scene mapped for type '{blockData.blockType.ToString()}'.");
                     continue;
                 }
 
                 Node2D block = blockScene.Instantiate<Node2D>();
 
-                block.Name = blockData.Name;
                 block.GlobalPosition = blockData.Position;
 
                 groupNode.AddChild(block);
@@ -619,15 +478,6 @@ public partial class Runtime : Node2D
                     new Vector2I(tile.X, tile.Y), tile.SourceId, new Vector2I(tile.AtlasX, tile.AtlasY), tile.Alternative);
             }
         }
-    }
-
-    // Helper to strip trailing numbers from object names
-    private static string StripTrailingNumber(string name)
-    {
-        int i = name.Length;
-        while (i > 0 && char.IsDigit(name[i - 1]))
-            i--;
-        return name[..i];
     }
 
     // Game control

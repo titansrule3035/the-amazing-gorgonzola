@@ -95,6 +95,13 @@ public partial class GlobalGameManager : Node2D
 
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
 
+        if (Input.IsActionJustPressed("F5"))
+        {
+            LoadNextLevel();
+            canMove = true;
+            canPause = true;
+        }
+
         base._Process(delta);
     }
 

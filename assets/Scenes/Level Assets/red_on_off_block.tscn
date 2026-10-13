@@ -147,10 +147,12 @@ script = ExtResource("1_r0j76")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1284775789]
 z_index = 1
+position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_eevlx")
 animation = &"start_open"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=621230490]
+position = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=988485600]
 shape = SubResource("RectangleShape2D_yctp2")

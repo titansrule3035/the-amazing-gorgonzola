@@ -92,7 +92,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f1gco")
 }],
-"loop": false,
+"loop": 0,
 "name": &"close",
 "speed": 15.0
 }, {
@@ -118,7 +118,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7tnkh")
 }],
-"loop": false,
+"loop": 0,
 "name": &"open",
 "speed": 15.0
 }, {
@@ -126,7 +126,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l4ghu")
 }],
-"loop": true,
+"loop": 1,
 "name": &"start_close",
 "speed": 5.0
 }, {
@@ -134,7 +134,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yb3lm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"start_open",
 "speed": 5.0
 }]
@@ -148,10 +148,12 @@ green = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=31101476]
 z_index = 1
+position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_pdnaw")
 animation = &"open"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=813353360]
+position = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=307709808]
 shape = SubResource("RectangleShape2D_6cksb")

@@ -45,20 +45,6 @@ public partial class MainMenu : Control
     public override void _Process(double delta)
     {
         base._Process(delta);
-
-        if (Input.IsActionJustReleased("F5"))
-        {
-            for (int i = 0; i < GlobalGameManager.GetInstance().GetLevelCount(); i++)
-            {
-                if (GlobalGameManager.GetInstance().levelGroups[i].HasTAGLEVELs())
-                {
-                    for (int j = 0; j < GlobalGameManager.GetInstance().levelGroups[i].GetTAGLEVELCount(); j++)
-                    {
-                        ((Runtime)GetTree().CurrentScene).ExportLevel(GlobalGameManager.GetInstance().levelGroups[i].Scene.Instantiate(), GlobalGameManager.GetInstance().levelGroups[i].GetTAGLEVELName(j));
-                    }
-                }
-            }
-        }
     }
 
     public override void _ExitTree()

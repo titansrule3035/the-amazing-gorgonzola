@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://assets/Sprites/World/labobg.png" id="2_bu8if"]
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="3_wy57j"]
 [ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="4_tqvt4"]
+[ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/kill_zone.tscn" id="5_ogofk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nuls1"]
 atlas = ExtResource("2_bu8if")
@@ -1925,3 +1926,9 @@ tile_set = SubResource("TileSet_wy57j")
 [node name="on_off_assets" type="Node2D" parent="level_assets" unique_id=1200920699]
 
 [node name="semi_solid_tiles" type="Node2D" parent="level_assets" unique_id=1442437914]
+
+[node name="kill_zone" parent="level_assets" unique_id=833453534 instance=ExtResource("5_ogofk")]
+position = Vector2(0, 2156)
+scale = Vector2(350.455, 1)
+
+[node name="npcs" type="Node2D" parent="level_assets" unique_id=568201951]

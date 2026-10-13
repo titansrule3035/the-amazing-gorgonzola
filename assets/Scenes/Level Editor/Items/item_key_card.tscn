@@ -14,6 +14,5 @@ region = Rect2(0, 0, 32, 32)
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = SubResource("AtlasTexture_nc4o2")
 script = ExtResource("3_ce5y2")
-itemType = 5
-instantiationType = 1
+itemType = 6
 ThisScene = ExtResource("4_qe1rg")
