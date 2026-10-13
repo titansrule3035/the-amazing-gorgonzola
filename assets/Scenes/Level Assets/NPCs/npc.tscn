@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bv86yys4afvxp"]
+
+[ext_resource type="Script" uid="uid://br7fcfkdncigr" path="res://assets/Scripts/Level Assets/Npc.cs" id="1_cn4pq"]
+
+[node name="NPC" type="Node2D" unique_id=82098700]
+script = ExtResource("1_cn4pq")
+npcType = 11
+
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1599358516]

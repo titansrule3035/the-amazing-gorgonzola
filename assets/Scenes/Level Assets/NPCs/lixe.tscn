@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://doh3rahfemrho"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_kjbh0"]
+[ext_resource type="Texture2D" uid="uid://80wbc3mu37ai" path="res://assets/Sprites/NPCs/lixeidle.png" id="2_qeq26"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5yky"]
+atlas = ExtResource("2_qeq26")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ytcq"]
+atlas = ExtResource("2_qeq26")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62yif"]
+atlas = ExtResource("2_qeq26")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mleqj"]
+atlas = ExtResource("2_qeq26")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j1xl1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5yky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ytcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62yif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mleqj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Lixe" unique_id=82098700 instance=ExtResource("1_kjbh0")]
+npcType = 6
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_j1xl1")
+autoplay = "default"

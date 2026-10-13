@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://v6qygxrnjgva"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_rvvmb"]
+[ext_resource type="Texture2D" uid="uid://csrgd6wiqkxu6" path="res://assets/Sprites/NPCs/blinkyidle.png" id="2_0rnib"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hr65h"]
+atlas = ExtResource("2_0rnib")
+region = Rect2(0, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aouie"]
+atlas = ExtResource("2_0rnib")
+region = Rect2(48, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp6xl"]
+atlas = ExtResource("2_0rnib")
+region = Rect2(96, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kjdh"]
+atlas = ExtResource("2_0rnib")
+region = Rect2(144, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5rgx"]
+atlas = ExtResource("2_0rnib")
+region = Rect2(192, 0, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmkqy"]
+atlas = ExtResource("2_0rnib")
+region = Rect2(240, 0, 48, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gen2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hr65h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aouie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp6xl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kjdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5rgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmkqy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Blinky" unique_id=82098700 instance=ExtResource("1_rvvmb")]
+npcType = 0
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -23.5)
+sprite_frames = SubResource("SpriteFrames_gen2p")
+autoplay = "default"

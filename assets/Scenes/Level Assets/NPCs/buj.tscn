@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://u1rs406ekm7h"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_ch3x3"]
+[ext_resource type="Texture2D" uid="uid://2gq0ys6jwdu8" path="res://assets/Sprites/NPCs/bujidle.png" id="2_o1rg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idit0"]
+atlas = ExtResource("2_o1rg2")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybqpl"]
+atlas = ExtResource("2_o1rg2")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf54t"]
+atlas = ExtResource("2_o1rg2")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrruk"]
+atlas = ExtResource("2_o1rg2")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yyd1"]
+atlas = ExtResource("2_o1rg2")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pswdu"]
+atlas = ExtResource("2_o1rg2")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0yhpo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idit0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybqpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf54t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrruk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yyd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pswdu")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="NPC" unique_id=82098700 instance=ExtResource("1_ch3x3")]
+npcType = 1
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_0yhpo")
+autoplay = "default"

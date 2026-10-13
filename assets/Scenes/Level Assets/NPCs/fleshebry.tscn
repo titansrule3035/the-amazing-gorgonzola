@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://71n62e82gkju"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_y5ues"]
+[ext_resource type="Texture2D" uid="uid://bjerqhsb3bq8g" path="res://assets/Sprites/NPCs/fleshebry.png" id="2_j3j05"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtv7q"]
+atlas = ExtResource("2_j3j05")
+region = Rect2(0, 0, 160, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvj3b"]
+atlas = ExtResource("2_j3j05")
+region = Rect2(160, 0, 160, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aa475"]
+atlas = ExtResource("2_j3j05")
+region = Rect2(320, 0, 160, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbvfm"]
+atlas = ExtResource("2_j3j05")
+region = Rect2(480, 0, 160, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afqhd"]
+atlas = ExtResource("2_j3j05")
+region = Rect2(640, 0, 160, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbqkr"]
+atlas = ExtResource("2_j3j05")
+region = Rect2(800, 0, 160, 113)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rvvmb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtv7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvj3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aa475")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbvfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afqhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbqkr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Fleshebry" unique_id=82098700 instance=ExtResource("1_y5ues")]
+npcType = 3
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -56.5)
+sprite_frames = SubResource("SpriteFrames_rvvmb")
+autoplay = "default"

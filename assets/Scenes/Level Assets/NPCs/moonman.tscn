@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://ca8rx3ue113dc"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_1rkm8"]
+[ext_resource type="Texture2D" uid="uid://gq83howcxbk0" path="res://assets/Sprites/NPCs/moonmanidle.png" id="2_x32lf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_carno"]
+atlas = ExtResource("2_x32lf")
+region = Rect2(0, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k15cj"]
+atlas = ExtResource("2_x32lf")
+region = Rect2(96, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qwk3"]
+atlas = ExtResource("2_x32lf")
+region = Rect2(192, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k13e"]
+atlas = ExtResource("2_x32lf")
+region = Rect2(288, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjsgv"]
+atlas = ExtResource("2_x32lf")
+region = Rect2(384, 0, 96, 81)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2bab"]
+atlas = ExtResource("2_x32lf")
+region = Rect2(480, 0, 96, 81)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qvday"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_carno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k15cj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qwk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k13e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjsgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2bab")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Moonman" unique_id=82098700 instance=ExtResource("1_1rkm8")]
+npcType = 9
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -40.5)
+sprite_frames = SubResource("SpriteFrames_qvday")
+autoplay = "default"

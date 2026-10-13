@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://rweosbehs30f"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_r3iew"]
+[ext_resource type="Texture2D" uid="uid://rniodrmugb08" path="res://assets/Sprites/NPCs/pasghettihappy.png" id="2_4qg8y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7hyd"]
+atlas = ExtResource("2_4qg8y")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejtav"]
+atlas = ExtResource("2_4qg8y")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wxcl"]
+atlas = ExtResource("2_4qg8y")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8ax0"]
+atlas = ExtResource("2_4qg8y")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsqke"]
+atlas = ExtResource("2_4qg8y")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbg2h"]
+atlas = ExtResource("2_4qg8y")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kjbh0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7hyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejtav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wxcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8ax0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsqke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbg2h")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Pasghetti" unique_id=82098700 instance=ExtResource("1_r3iew")]
+npcType = 7
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_kjbh0")
+autoplay = "default"

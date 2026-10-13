@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dqnofguoq48ag"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_y7k1n"]
+[ext_resource type="Texture2D" uid="uid://csrgd6wiqkxu6" path="res://assets/Sprites/NPCs/blinkyidle.png" id="2_6kro6"]
+[ext_resource type="PackedScene" uid="uid://v6qygxrnjgva" path="res://assets/Scenes/Level Assets/NPCs/blinky.tscn" id="3_iflp7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7f42d"]
+atlas = ExtResource("2_6kro6")
+region = Rect2(0, 0, 48, 47)
+
+[node name="ItemBlinky" unique_id=1663939762 instance=ExtResource("1_y7k1n")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_7f42d")
+ThisScene = ExtResource("3_iflp7")

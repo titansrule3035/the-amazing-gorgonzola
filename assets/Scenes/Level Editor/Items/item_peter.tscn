@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cit4u73dsbtek"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_tvr6w"]
+[ext_resource type="Texture2D" uid="uid://dshyb6x5prw7r" path="res://assets/Sprites/NPCs/peteridle.png" id="2_73ixu"]
+[ext_resource type="PackedScene" uid="uid://b1i5syvfkxu0h" path="res://assets/Scenes/Level Assets/NPCs/peter.tscn" id="3_kbkn7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia4m1"]
+atlas = ExtResource("2_73ixu")
+region = Rect2(0, 0, 80, 92)
+
+[node name="ItemPeter" unique_id=1663939762 instance=ExtResource("1_tvr6w")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_ia4m1")
+ThisScene = ExtResource("3_kbkn7")

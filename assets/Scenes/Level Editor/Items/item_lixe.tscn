@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bfuuesifq8kay"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_5ns3v"]
+[ext_resource type="Texture2D" uid="uid://80wbc3mu37ai" path="res://assets/Sprites/NPCs/lixeidle.png" id="2_jsy2m"]
+[ext_resource type="PackedScene" uid="uid://doh3rahfemrho" path="res://assets/Scenes/Level Assets/NPCs/lixe.tscn" id="3_y06cs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc500"]
+atlas = ExtResource("2_jsy2m")
+region = Rect2(0, 0, 96, 100)
+
+[node name="ItemLixe" unique_id=1663939762 instance=ExtResource("1_5ns3v")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_oc500")
+ThisScene = ExtResource("3_y06cs")

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://ddbvofp1vcmbl"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_py7b8"]
+[ext_resource type="Texture2D" uid="uid://7rtdwqi52hsx" path="res://assets/Sprites/NPCs/theboat.png" id="2_82nx0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8rb8"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(0, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdcre"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(304, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3c3ne"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(608, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5en2"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(912, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44gco"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(1216, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ythr4"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(1520, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2unko"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(1824, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23r5w"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(2128, 0, 304, 208)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chpm7"]
+atlas = ExtResource("2_82nx0")
+region = Rect2(2432, 0, 304, 208)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_081ap"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8rb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdcre")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3c3ne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5en2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44gco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ythr4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2unko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23r5w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chpm7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
+size = Vector2(213, 80)
+
+[node name="The Boat" unique_id=82098700 instance=ExtResource("1_py7b8")]
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -104)
+sprite_frames = SubResource("SpriteFrames_081ap")
+autoplay = "default"
+
+[node name="static_body_2d" type="StaticBody2D" parent="." index="1" unique_id=1093314990]
+position = Vector2(0, -112)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="static_body_2d" index="0" unique_id=259553571]
+position = Vector2(37.5, 72)
+shape = SubResource("RectangleShape2D_iq7ac")

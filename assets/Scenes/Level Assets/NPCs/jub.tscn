@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bcmsccw5lho0v"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_j1xl1"]
+[ext_resource type="Texture2D" uid="uid://cgolnsjob6ybe" path="res://assets/Sprites/NPCs/jubidle.png" id="2_3ewfk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xajjm"]
+atlas = ExtResource("2_3ewfk")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l7tq"]
+atlas = ExtResource("2_3ewfk")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ob0f7"]
+atlas = ExtResource("2_3ewfk")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfrk2"]
+atlas = ExtResource("2_3ewfk")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crb34"]
+atlas = ExtResource("2_3ewfk")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l34km"]
+atlas = ExtResource("2_3ewfk")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sxvyq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xajjm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4l7tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ob0f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfrk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crb34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l34km")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Jub" unique_id=82098700 instance=ExtResource("1_j1xl1")]
+npcType = 5
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_sxvyq")
+autoplay = "default"

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cbihc1dwmjj6q"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_k60yp"]
+[ext_resource type="Texture2D" uid="uid://2gq0ys6jwdu8" path="res://assets/Sprites/NPCs/bujidle.png" id="2_1dgi8"]
+[ext_resource type="PackedScene" uid="uid://u1rs406ekm7h" path="res://assets/Scenes/Level Assets/NPCs/buj.tscn" id="3_p34ys"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irmb7"]
+atlas = ExtResource("2_1dgi8")
+region = Rect2(0, 0, 96, 100)
+
+[node name="ItemBuj" unique_id=1663939762 instance=ExtResource("1_k60yp")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_irmb7")
+ThisScene = ExtResource("3_p34ys")

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cisq0tci68xs5"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_na081"]
+[ext_resource type="Texture2D" uid="uid://c4b0m4ecuj1mf" path="res://assets/Sprites/NPCs/esseidle.png" id="2_kv33v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kn3g"]
+atlas = ExtResource("2_kv33v")
+region = Rect2(0, 0, 42, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fe3v"]
+atlas = ExtResource("2_kv33v")
+region = Rect2(42, 0, 42, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwmha"]
+atlas = ExtResource("2_kv33v")
+region = Rect2(84, 0, 42, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t83lb"]
+atlas = ExtResource("2_kv33v")
+region = Rect2(126, 0, 42, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oigs8"]
+atlas = ExtResource("2_kv33v")
+region = Rect2(168, 0, 42, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uwkx"]
+atlas = ExtResource("2_kv33v")
+region = Rect2(210, 0, 42, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ch3x3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kn3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fe3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwmha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t83lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oigs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uwkx")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Esse" unique_id=82098700 instance=ExtResource("1_na081")]
+npcType = 2
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -44.5)
+sprite_frames = SubResource("SpriteFrames_ch3x3")
+autoplay = "default"

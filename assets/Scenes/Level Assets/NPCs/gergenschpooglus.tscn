@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cd0jlsxv71ntb"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_5ychd"]
+[ext_resource type="Texture2D" uid="uid://cek6kufmov81s" path="res://assets/Sprites/NPCs/gergenschpooglus.png" id="2_kxtld"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k8qj"]
+atlas = ExtResource("2_kxtld")
+region = Rect2(0, 0, 112, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymvft"]
+atlas = ExtResource("2_kxtld")
+region = Rect2(112, 0, 112, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy32b"]
+atlas = ExtResource("2_kxtld")
+region = Rect2(224, 0, 112, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cssfx"]
+atlas = ExtResource("2_kxtld")
+region = Rect2(336, 0, 112, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnvsc"]
+atlas = ExtResource("2_kxtld")
+region = Rect2(448, 0, 112, 215)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx68t"]
+atlas = ExtResource("2_kxtld")
+region = Rect2(560, 0, 112, 215)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rov20"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7k8qj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymvft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy32b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cssfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnvsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kx68t")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Gergenschpooglus" unique_id=82098700 instance=ExtResource("1_5ychd")]
+npcType = 4
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -107.5)
+sprite_frames = SubResource("SpriteFrames_rov20")
+autoplay = "default"
+frame_progress = 0.27790034

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bsgup8ok6kj4d"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_0ihr8"]
+[ext_resource type="Texture2D" uid="uid://c4b0m4ecuj1mf" path="res://assets/Sprites/NPCs/esseidle.png" id="2_ciy8c"]
+[ext_resource type="PackedScene" uid="uid://cisq0tci68xs5" path="res://assets/Scenes/Level Assets/NPCs/esse.tscn" id="3_pmtvw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lbg4"]
+atlas = ExtResource("2_ciy8c")
+region = Rect2(0, 0, 44, 89)
+
+[node name="ItemEsse" unique_id=1663939762 instance=ExtResource("1_0ihr8")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_7lbg4")
+ThisScene = ExtResource("3_pmtvw")

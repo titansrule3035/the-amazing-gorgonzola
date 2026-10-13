@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bigmo3674o2gg"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_v8nhp"]
+[ext_resource type="Texture2D" uid="uid://c1m4lxx6nk7f1" path="res://assets/Sprites/NPCs/rationidle.png" id="2_vs5wb"]
+[ext_resource type="PackedScene" uid="uid://dy4uutshrabcx" path="res://assets/Scenes/Level Assets/NPCs/ration.tscn" id="3_he6b5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0a3gm"]
+atlas = ExtResource("2_vs5wb")
+region = Rect2(0, 0, 80, 76)
+
+[node name="ItemRation" unique_id=1663939762 instance=ExtResource("1_v8nhp")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_0a3gm")
+ThisScene = ExtResource("3_he6b5")

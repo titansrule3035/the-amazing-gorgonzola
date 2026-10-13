@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://j6teup3h4r6y"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_yhl8t"]
+[ext_resource type="Texture2D" uid="uid://bhki2klpp2pgk" path="res://assets/Sprites/World/redblock_on_transform.png" id="2_4c14x"]
+[ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="3_hsvht"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dj3u"]
+atlas = ExtResource("2_4c14x")
+region = Rect2(192, 0, 32, 32)
+
+[node name="ItemRedOnOffBlock" unique_id=1663939762 instance=ExtResource("1_yhl8t")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_5dj3u")
+itemType = 7
+ThisScene = ExtResource("3_hsvht")

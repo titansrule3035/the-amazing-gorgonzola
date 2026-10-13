@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dy4uutshrabcx"]
+
+[ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_p1tvk"]
+[ext_resource type="Texture2D" uid="uid://c1m4lxx6nk7f1" path="res://assets/Sprites/NPCs/rationidle.png" id="2_la0jd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t00dx"]
+atlas = ExtResource("2_la0jd")
+region = Rect2(0, 0, 80, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhhkb"]
+atlas = ExtResource("2_la0jd")
+region = Rect2(80, 0, 80, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju1re"]
+atlas = ExtResource("2_la0jd")
+region = Rect2(160, 0, 80, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlvpw"]
+atlas = ExtResource("2_la0jd")
+region = Rect2(240, 0, 80, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nncth"]
+atlas = ExtResource("2_la0jd")
+region = Rect2(320, 0, 80, 76)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_maywr"]
+atlas = ExtResource("2_la0jd")
+region = Rect2(400, 0, 80, 76)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tus5r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t00dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhhkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju1re")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlvpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nncth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_maywr")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Ration" unique_id=82098700 instance=ExtResource("1_p1tvk")]
+npcType = 10
+
+[node name="sprite" parent="." index="0" unique_id=1599358516]
+position = Vector2(0, -38)
+sprite_frames = SubResource("SpriteFrames_tus5r")
+autoplay = "default"
