@@ -10,11 +10,17 @@ public abstract partial class BasePlayerController : CharacterBody2D
     [Export] public float JumpVelocity = 350f;
     [Export] public float FallMultiplier = 2.25f;
     [Export] public float MaxFallSpeed = 800f;
-    [Export] public float offset;
+    [Export] public float offset; 
     [Export] public bool shouldFlip;
     [Export] public bool isFalling;
     [Export] public bool hasKey = false;
     [Export] public float JumpBufferTime = 0.15f;
+
+    /// <summary>
+    /// When false, this controller ignores player input entirely (no horizontal movement, no jumping).
+    /// Gravity, physics and animations still run. Use SetPlayerInputEnabled() to change it at runtime.
+    /// </summary>
+    [Export] public bool AllowPlayerInput = true;
 
     // Scenes / resources
     [Export] private PackedScene jumpEffectScene;
@@ -85,6 +91,21 @@ public abstract partial class BasePlayerController : CharacterBody2D
     }
 
     /// <summary>
+    /// Enables or disables player input for this controller. Disabling clears any buffered jump
+    /// so the character doesn't jump the moment input is re-enabled.
+    /// </summary>
+    /// <param name="allowed">True to let player input move this controller.</param>
+    public void SetPlayerInputEnabled(bool allowed)
+    {
+        AllowPlayerInput = allowed;
+
+        if (!allowed)
+        {
+            jumpBufferTimer = 0f;
+        }
+    }
+
+    /// <summary>
     /// Physics update loop. Handles input, movement, gravity application, and animation updates.
     /// </summary>
     /// <param name="delta">Frame time in seconds.</param>
@@ -102,7 +123,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             if (!ggm.levelCompleted && !ggm.gamePaused)
             {
-                direction = GetMovementInput();
+                // No input is read when the flag is off; direction stays 0 so the character stops horizontally.
+                direction = AllowPlayerInput ? GetMovementInput() : 0f;
                 HandleHorizontalMovement(ref velocity, direction);
                 HandleJump(ref velocity, dt);
             }
@@ -115,7 +137,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             if (!egm.levelCompleted && !egm.gamePaused)
             {
-                direction = GetMovementInput();
+                direction = AllowPlayerInput ? GetMovementInput() : 0f;
                 HandleHorizontalMovement(ref velocity, direction);
                 HandleJump(ref velocity, dt);
             }
@@ -137,11 +159,18 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
     /// <summary>
     /// Processes jump input including buffering and spawns the jump effect when a jump occurs.
+    /// Does nothing (and clears the buffer) while player input is disabled.
     /// </summary>
     /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
     /// <param name="dt">Delta time in seconds.</param>
     private void HandleJump(ref Vector2 velocity, float dt)
     {
+        if (!AllowPlayerInput)
+        {
+            jumpBufferTimer = 0f;
+            return;
+        }
+
         GlobalGameManager? ggm = GlobalGameManager.GetInstance();
         EditorGameManager? egm = EditorGameManager.GetInstance();
 
@@ -184,6 +213,25 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
                 SpawnEffect(jumpEffectScene, GlobalPosition);
             }
+        }
+    }
+
+    /// <summary>
+    /// Makes this controller jump immediately, ignoring input, the AllowPlayerInput flag,
+    /// the jump buffer and whether it is on the ground.
+    /// </summary>
+    /// <param name="strength">Optional jump velocity override. Defaults to JumpVelocity.</param>
+    /// <param name="spawnEffect">Whether to spawn the jump effect.</param>
+    public void ForceJump(float? strength = null, bool spawnEffect = true)
+    {
+        float jumpSpeed = strength ?? JumpVelocity;
+
+        Velocity = new Vector2(Velocity.X, -jumpSpeed);
+        jumpBufferTimer = 0f;
+
+        if (spawnEffect)
+        {
+            SpawnEffect(jumpEffectScene, GlobalPosition);
         }
     }
 
@@ -447,6 +495,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     }
     /// <summary>
     /// Implement in derived classes to provide a horizontal movement input value (-1..1).
+    /// Only called while AllowPlayerInput is true.
     /// </summary>
     /// <returns>Horizontal input direction.</returns>
     protected abstract float GetMovementInput();
