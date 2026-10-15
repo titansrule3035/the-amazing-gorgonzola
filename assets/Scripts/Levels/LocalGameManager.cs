@@ -24,11 +24,18 @@ public abstract partial class LocalGameManager : Node2D
 
         instance = this;
 
-        FadePanel.GetInstance().OnFadeIn += OnFadeIn;
-        FadePanel.GetInstance().OnFadeOut += OnFadeOut;
-        FadePanel.GetInstance().OnLevelCompleteFadeOut += OnLevelCompleted;
-        KillPanel.GetInstance().OnFadeOut += OnFadeOut;
-        KillPanel.GetInstance().OnFadeIn += OnFadeIn;
+        FadePanel fadePanel = FadePanel.GetInstance();
+        KillPanel killPanel = KillPanel.GetInstance();
+
+        // FadePanel: level complete, quitting, pausing. Each panel gets its OWN fade-out handler
+        // so the handler never has to guess which panel just went opaque.
+        fadePanel.OnFadeIn += OnFadeIn;
+        fadePanel.OnFadeOut += OnFadePanelFadeOut;
+        fadePanel.OnLevelCompleteFadeOut += OnLevelCompleted;
+
+        // KillPanel: the player died
+        killPanel.OnFadeIn += OnFadeIn;
+        killPanel.OnFadeOut += OnKillPanelFadeOut;
 
         if (SpawnGorg.GetInstance() != null)
         {
@@ -50,23 +57,42 @@ public abstract partial class LocalGameManager : Node2D
         }
     }
 
-    protected void OnFadeOut()
+    /// <summary>
+    /// FadePanel has finished fading out (level complete, quit, pause menu, etc.).
+    /// Clears out clones and reveals the screen again. Whatever loads the next scene is
+    /// driven separately (OnLevelCompleted, or the menu that started the fade).
+    /// </summary>
+    protected void OnFadePanelFadeOut()
     {
         OnFlush?.Invoke();
-        if (!GlobalGameManager.GetInstance().levelCompleted && !GlobalGameManager.GetInstance().gamePaused)
-        {
-            if (!GlobalGameManager.GetInstance().IsLastLevel())
-            {
-                GlobalGameManager.GetInstance()?.ReloadLevel();
-            }
-            KillPanel.GetInstance().FadeIn();
-            return;
-        }
         FadePanel.GetInstance().FadeIn();
+    }
+
+    /// <summary>
+    /// KillPanel has finished fading out (the main player died).
+    /// Reloads the level (unless it can't or shouldn't be) and fades the red panel back out.
+    /// The red panel is ALWAYS the one faded back in, so it can never get stuck on screen.
+    /// </summary>
+    protected void OnKillPanelFadeOut()
+    {
+        OnFlush?.Invoke();
+
+        GlobalGameManager ggm = GlobalGameManager.GetInstance();
+        if (!ggm.levelCompleted && !ggm.gamePaused && !ggm.IsLastLevel())
+        {
+            ggm.ReloadLevel();
+        }
+
+        KillPanel.GetInstance().FadeIn();
     }
 
     protected async void OnLevelCompleted()
     {
+        if (LevelClearedMenu.GetInstance()?.IsQuitting == true)
+        {
+            return;
+        }
+
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
         if (!ggm.IsLastLevel())
         {
@@ -83,9 +109,9 @@ public abstract partial class LocalGameManager : Node2D
         GlobalGameManager.GetInstance().canMove = true;
     }
 
-
     private void OnGorgFound(Gorgonzola gorg)
     {
+        BasePlayerController.MainPlayerKilled -= OnMainPlayerKilled;
         BasePlayerController.MainPlayerKilled += OnMainPlayerKilled;
     }
 
@@ -101,26 +127,38 @@ public abstract partial class LocalGameManager : Node2D
 
     public override void _ExitTree()
     {
-        if (instance == this)
+        if (instance != this)
         {
-            instance = null;
+            base._ExitTree();
+            return;
         }
 
-        var fade = FadePanel.GetInstance();
-        if (fade != null)
+        instance = null;
+
+        FadePanel fadePanel = FadePanel.GetInstance();
+        if (fadePanel != null)
         {
-            fade.OnFadeIn -= OnFadeIn;
-            fade.OnFadeOut -= OnFadeOut;
-            fade.OnLevelCompleteFadeOut -= OnLevelCompleted;
+            fadePanel.OnFadeIn -= OnFadeIn;
+            fadePanel.OnFadeOut -= OnFadePanelFadeOut;
+            fadePanel.OnLevelCompleteFadeOut -= OnLevelCompleted;
         }
 
-        var gorgSpawnPoint = SpawnGorg.GetInstance();
+        KillPanel killPanel = KillPanel.GetInstance();
+        if (killPanel != null)
+        {
+            killPanel.OnFadeIn -= OnFadeIn;
+            killPanel.OnFadeOut -= OnKillPanelFadeOut;
+        }
+
+        SpawnGorg gorgSpawnPoint = SpawnGorg.GetInstance();
         if (gorgSpawnPoint != null)
         {
-            SpawnGorg.GetInstance().GorgSpawned -= OnGorgFound;
+            gorgSpawnPoint.GorgSpawned -= OnGorgFound;
         }
 
-        GlobalGameManager.GetInstance().UnregisterLGM();
+        BasePlayerController.MainPlayerKilled -= OnMainPlayerKilled;
+
+        GlobalGameManager.GetInstance()?.UnregisterLGM();
 
         base._ExitTree();
     }
