@@ -2,41 +2,38 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace TheAmazingGorgonzola.assets.Scripts.Level_Assets
+public partial class OnOffManager : Node2D
 {
-    public partial class OnOffManager : Node2D
+    // Current state
+    public static bool on = false;
+    // Event raised when the state changes
+    public static Action<bool> OnStateChanged;
+
+    public static void ChangeState()
     {
-        // Current state
-        public static bool on = false;
-        // Event raised when the state changes
-        public static Action<bool> OnStateChanged;
+        on = !on;
+        OnStateChanged?.Invoke(on);
+    }
 
-        public static void ChangeState()
-        {
-            on = !on;
-            OnStateChanged?.Invoke(on);
-        }
+    public static bool GetState()
+    {
+        return on;
+    }
 
-        public static bool GetState()
-        {
-            return on;
-        }
+    public static void SetState(bool state)
+    {
+        on = state;
+        OnStateChanged?.Invoke(on);
+    }
 
-        public static void SetState(bool state)
+    public static void UpdateAllBlocks()
+    {
+        var nodes = OnOffSwitchMaster.GetInstance().GetParent().GetChildren();
+        foreach (var n in nodes)
         {
-            on = state;
-            OnStateChanged?.Invoke(on);
-        }
-
-        public static void UpdateAllBlocks()
-        {
-            var nodes = OnOffSwitchMaster.GetInstance().GetParent().GetChildren();
-            foreach (var n in nodes)
+            if (n is OnOffBlock block)
             {
-                if (n is OnOffBlock block)
-                {
-                    block.RefreshState();
-                }
+                block.RefreshState();
             }
         }
     }

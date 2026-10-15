@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 
 public partial class OnOffBlock : Node2D
 {
@@ -65,6 +64,7 @@ public partial class OnOffBlock : Node2D
                 sprite.Play("close");
             }
         }
+
         UpdateBody(state);
     }
 
