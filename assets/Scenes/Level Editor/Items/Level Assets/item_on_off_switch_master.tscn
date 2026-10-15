@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dlr7d3uibltro"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_g6i3c"]
+[ext_resource type="Texture2D" uid="uid://65gryihn34it" path="res://assets/Sprites/World/onoff_block_real.png" id="2_j8fkq"]
+[ext_resource type="Script" uid="uid://yah8nidvbbp1" path="res://assets/Scripts/Level Editor/Items/ItemOnOffSwitchMaster.cs" id="3_a4v14"]
+[ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="4_0lg7b"]
+[ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/Level Assets/on_off_switch.tscn" id="4_j8fkq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6ee7"]
+atlas = ExtResource("2_j8fkq")
+region = Rect2(16, 24, 32, 32)
+
+[sub_resource type="Animation" id="Animation_g6i3c"]
+resource_name = "green"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(400, 24, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_j8fkq"]
+resource_name = "red"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(16, 24, 32, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4v14"]
+_data = {
+&"green": SubResource("Animation_g6i3c"),
+&"red": SubResource("Animation_j8fkq")
+}
+
+[node name="ItemOnOffSwitchMaster" unique_id=1663939762 instance=ExtResource("1_g6i3c")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_a6ee7")
+script = ExtResource("3_a4v14")
+normalSwitch = ExtResource("4_j8fkq")
+itemType = 7
+ThisScene = ExtResource("4_0lg7b")
+cursorOffset = Vector2(0, -16)
+
+[node name="TextureAnimationPlayer" type="AnimationPlayer" parent="ItemTexture" index="0" unique_id=187219151]
+libraries/ = SubResource("AnimationLibrary_a4v14")

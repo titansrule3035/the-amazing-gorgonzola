@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bfh6pikgv3ub3"]
+
+[ext_resource type="Script" uid="uid://cycx3x81sq1mp" path="res://assets/Scripts/Levels/r2.cs" id="1_og8s8"]
+[ext_resource type="Texture2D" uid="uid://nu8f8ejfwu7o" path="res://assets/Sprites/World/test_tileset_nw.png" id="2_d41ls"]
+[ext_resource type="Texture2D" uid="uid://d1i1xcpbhx75h" path="res://assets/Sprites/World/TAG_promo_art_PLACEHOLDER.png" id="3_5h4jc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmwhe"]
+texture = ExtResource("2_d41ls")
+texture_region_size = Vector2i(32, 32)
+
+[sub_resource type="TileSet" id="TileSet_8se8v"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_xmwhe")
+
+[node name="level" type="Node2D" unique_id=565139785]
+script = ExtResource("1_og8s8")
+allowPausing = false
+
+[node name="TileMap" type="TileMap" parent="." unique_id=1945548673]
+tile_set = SubResource("TileSet_8se8v")
+format = 2
+
+[node name="TestBg2" type="Sprite2D" parent="." unique_id=1221020426]
+position = Vector2(-9.918213e-05, 16)
+texture = ExtResource("3_5h4jc")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1221955001]
