@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpvspocthubso" path="res://assets/Sprites/World/world2_bg.png" id="2_7f42d"]
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="3_48usd"]
 [ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="4_5gpva"]
-[ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/kill_zone.tscn" id="5_wupan"]
+[ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="5_wupan"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f52d5"]
 atlas = ExtResource("2_7f42d")
@@ -1879,11 +1879,17 @@ texture_region_size = Vector2i(32, 32)
 5:31/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 7:31/0 = 0
 1:30/0 = 0
+1:30/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:30/0 = 0
+2:30/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:30/0 = 0
+4:30/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:30/0 = 0
+5:30/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:30/0 = 0
+6:30/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:31/0 = 0
+6:31/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSet" id="TileSet_wy57j"]
 tile_size = Vector2i(32, 32)
@@ -1905,7 +1911,7 @@ limit_right = 640
 limit_bottom = 32
 
 [node name="background" type="AnimatedSprite2D" parent="." unique_id=173385077]
-position = Vector2(1, -384)
+position = Vector2(16, -384)
 sprite_frames = SubResource("SpriteFrames_sto6m")
 autoplay = "default"
 
