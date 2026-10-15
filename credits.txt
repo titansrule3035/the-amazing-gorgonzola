@@ -9,7 +9,7 @@ Godot
 ADDITIONAL HELP
 
 pixieeee22 - Level design, Moral support <3
-PJ_Pizza - The token ideas guy, the OG bud, Moral support, Trailer cameraman
+PJ_Pizza - The token ideas guy, the OG bud, Moral support, level designer. Trailer cameraman
 
 Helena - Concepts, Quality assurance
 QuoteXIII - Art help, Quality assurance
@@ -20,6 +20,7 @@ vizalermee boi - Art help, Moral support
 PLAYTESTERS
 
 902
+Froziam
 jub.
 Rednbloo
 The Consul
