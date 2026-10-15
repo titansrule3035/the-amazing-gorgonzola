@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="15_c0gnw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
-size = Vector2(30, 60)
+size = Vector2(22, 53)
 
 [sub_resource type="Shader" id="Shader_dk3xr"]
 code = "shader_type canvas_item;
@@ -1342,7 +1342,7 @@ jumpEffectScene = ExtResource("3_iohye")
 landEffectScene = ExtResource("4_wmpbg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
-position = Vector2(0, -30)
+position = Vector2(0, -26.5)
 shape = SubResource("RectangleShape2D_ly2rs")
 debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 
