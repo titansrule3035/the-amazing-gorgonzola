@@ -9,6 +9,9 @@ public partial class MainMenu : Control
     public TextureButton[] buttons;
     [Export] public OptionsMenu optionsMenu;
 
+    public Button creditsButton;
+    [Export] public CreditsMenu creditsMenu;
+
     // Lifecycle 
     public override void _Ready()
     {
@@ -21,20 +24,30 @@ public partial class MainMenu : Control
         buttons[2] = GetNode<TextureButton>("center_container/v_box_container/quit");
         buttons[2].Pressed += QuitButtonPressed;
 
+        creditsButton = GetNode<Button>("credits_button");
+        creditsButton.Pressed += CreditsButtonPressed;
+
         // Subscribe to canvas fade events
         FadePanel.GetInstance().OnFadeIn += OnFadeIn;
 
         // Disable pausing while in the main menu
         GlobalGameManager.GetInstance().canPause = false;
 
-        // Subscribe to options' back button
+        // Subscribe to back buttons
         optionsMenu.backButtonPressed += () =>
         {
             ShowMenu();
             optionsMenu.HideMenu();
         };
 
+        creditsMenu.backButtonPressed += () =>
+        {
+            ShowMenu();
+            creditsMenu.HideMenu();
+        };
+
         optionsMenu.HideMenu();
+        creditsMenu.HideMenu();
         ShowMenu();
 
         DisableButtonsState(false);
@@ -69,6 +82,12 @@ public partial class MainMenu : Control
     {
         HideMenu();
         optionsMenu.ShowMenu();
+    }
+
+    void CreditsButtonPressed()
+    {
+        HideMenu();
+        creditsMenu.ShowMenu();
     }
 
     void QuitButtonPressed()
