@@ -40,8 +40,8 @@ void fragment() {
 shader = SubResource("Shader_huhs0")
 shader_parameter/flip = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
-size = Vector2(30, 60)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaw70"]
+size = Vector2(22, 53)
 
 [sub_resource type="Shader" id="Shader_eaw70"]
 code = "shader_type canvas_item;
@@ -1364,8 +1364,8 @@ jumpEffectScene = ExtResource("3_eaw70")
 landEffectScene = ExtResource("4_x63qt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=648897750]
-position = Vector2(0, -30)
-shape = SubResource("RectangleShape2D_ly2rs")
+position = Vector2(0, -26.5)
+shape = SubResource("RectangleShape2D_eaw70")
 debug_color = Color(0, 0.644446, 0.280746, 0.42)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1731162412]

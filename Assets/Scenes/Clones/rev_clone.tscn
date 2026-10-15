@@ -21,8 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://assets/Sprites/UI/buttonicon_space.png" id="13_rbg4t"]
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_iicnf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
-size = Vector2(30, 60)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vir5c"]
+size = Vector2(22, 53)
 
 [sub_resource type="Shader" id="Shader_oghvo"]
 code = "shader_type canvas_item;
@@ -1344,8 +1344,8 @@ jumpEffectScene = ExtResource("3_vir5c")
 landEffectScene = ExtResource("4_646g3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1115182824]
-position = Vector2(0, -30)
-shape = SubResource("RectangleShape2D_ly2rs")
+position = Vector2(0, -26.5)
+shape = SubResource("RectangleShape2D_vir5c")
 debug_color = Color(1, 0.494118, 0.494118, 0.611765)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=512251734]
