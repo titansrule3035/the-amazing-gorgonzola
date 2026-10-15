@@ -1,15 +1,15 @@
 A GAME BY
 
 Enchanted Shears - Director, Art
-titansrule - Programming
+titansrule3035 - Programming
 
 Made in
 Godot
 
 ADDITIONAL HELP
 
-pixieeee22 - Level design, Moral support <3
 PJ_Pizza - The token ideas guy, the OG bud, Moral support, level designer. Trailer cameraman
+pixieeee22 - Level design, Moral support <3
 
 Helena - Concepts, Quality assurance
 QuoteXIII - Art help, Quality assurance
