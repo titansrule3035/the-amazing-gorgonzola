@@ -87,6 +87,7 @@ public partial class Door : Node2D
 
         if (opened && inRange && Input.IsActionJustPressed("interact") && grounded)
         {
+            Enemy.KillAll?.Invoke();
             if (GlobalGameManager.GetInstance().levelCompleted)
             {
                 return;
