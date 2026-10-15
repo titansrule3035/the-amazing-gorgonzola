@@ -1,7 +1,7 @@
 A GAME BY
 
 Enchanted Shears - Director, Art
-titansrule3035 - Programming
+titansrule3035 aka YubboiChipsAhoy - Programming
 
 Made in
 Godot

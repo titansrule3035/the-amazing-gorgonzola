@@ -175,10 +175,11 @@ autoplay = &"default"
 
 [node name="credits_button" type="Button" parent="main_menu" unique_id=1164443112]
 layout_mode = 0
-offset_left = 1160.0
-offset_top = 800.0
-offset_right = 1240.0
-offset_bottom = 824.0
+offset_left = 1112.0
+offset_top = 784.0
+offset_right = 1232.0
+offset_bottom = 816.0
+theme_override_fonts/font = ExtResource("20_73o8l")
 text = "Credits"
 
 [node name="options_menu" type="Control" parent="." unique_id=416373605]
@@ -331,15 +332,17 @@ horizontal_scroll_mode = 0
 custom_minimum_size = Vector2(1248, 832)
 layout_mode = 2
 
-[node name="rich_text_label" type="RichTextLabel" parent="credits_menu/scroll_container/margin_container" unique_id=233268377]
+[node name="credits" type="RichTextLabel" parent="credits_menu/scroll_container/margin_container" unique_id=233268377]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("20_73o8l")
 text = "A GAME BY
 
 
+
 Enchanted Shears - Director, Art
 
-titansrule3035 - Programming
+titansrule3035 aka YubboiChipsAhoy - Programming
+
 
 
 Made in
