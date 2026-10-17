@@ -106,12 +106,12 @@ texture = ExtResource("1_fivpu")
 [node name="lab_silhouette" type="TextureRect" parent="." unique_id=1094582089]
 texture_filter = 2
 texture_repeat = 1
-offset_right = 1248.0
+offset_left = 24.0
+offset_right = 1272.0
 offset_bottom = 832.0
 texture = ExtResource("2_xd23f")
 
 [node name="main_menu" type="Control" parent="." unique_id=604902363 node_paths=PackedStringArray("optionsMenu", "creditsMenu")]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -138,9 +138,9 @@ stretch_mode = 5
 
 [node name="center_container" type="CenterContainer" parent="main_menu" unique_id=1310329683]
 layout_mode = 0
-offset_top = 528.0
+offset_top = 448.0
 offset_right = 302.0
-offset_bottom = 832.0
+offset_bottom = 839.0
 
 [node name="v_box_container" type="VBoxContainer" parent="main_menu/center_container" unique_id=165588870]
 custom_minimum_size = Vector2(150, 0)
@@ -168,6 +168,26 @@ texture_pressed = ExtResource("14_w4anx")
 texture_hover = ExtResource("15_3jo8i")
 texture_disabled = ExtResource("16_m40bv")
 
+[node name="editor" type="Button" parent="main_menu" unique_id=924152487]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 768.0
+offset_right = 768.0
+offset_bottom = 832.0
+theme_override_colors/font_pressed_color = Color(0, 0.34117648, 0, 1)
+theme_override_colors/font_hover_color = Color(0.22745098, 0.92941177, 0.4117647, 1)
+theme_override_colors/font_disabled_color = Color(0.22745098, 0.92941177, 0.4117647, 0.53333336)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("20_73o8l")
+theme_override_font_sizes/font_size = 39
+text = "Editor"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_menu" unique_id=16791238]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_at7ji")
@@ -179,6 +199,16 @@ offset_left = 1112.0
 offset_top = 784.0
 offset_right = 1232.0
 offset_bottom = 816.0
+theme_override_colors/font_pressed_color = Color(0, 0.34117648, 0, 1)
+theme_override_colors/font_hover_color = Color(0.22745098, 0.92941177, 0.4117647, 1)
+theme_override_colors/font_disabled_color = Color(0.22745098, 0.92941177, 0.4117647, 0.53333336)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
 theme_override_fonts/font = ExtResource("20_73o8l")
 text = "Credits"
 
@@ -312,6 +342,7 @@ texture_hover = ExtResource("23_c8w5p")
 texture_disabled = ExtResource("24_0tqm5")
 
 [node name="credits_menu" type="Control" parent="." unique_id=1588466487]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,7 +387,7 @@ ADDITIONAL HELP
 PJ_Pizza - The token ideas guy, the OG bud, 
 Moral support, level designer. Trailer cameraman
 
-pixieeee22 - Level design, Moral support <3
+pixieeee22 - Level design, Moral support #
 
 
 Helena - Concepts, Quality assurance

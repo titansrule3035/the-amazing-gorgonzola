@@ -7,6 +7,9 @@ public partial class MainMenu : Control
 {
     // Node references used by the main menu
     public TextureButton[] buttons;
+
+    public Button editorButton;
+
     [Export] public OptionsMenu optionsMenu;
 
     public Button creditsButton;
@@ -23,6 +26,9 @@ public partial class MainMenu : Control
         buttons[1].Pressed += OptionsButtonPressed;
         buttons[2] = GetNode<TextureButton>("center_container/v_box_container/quit");
         buttons[2].Pressed += QuitButtonPressed;
+
+        editorButton = GetNode<Button>("editor");
+        editorButton.Pressed += EditorButtonPressed;
 
         creditsButton = GetNode<Button>("credits_button");
         creditsButton.Pressed += CreditsButtonPressed;
@@ -84,24 +90,21 @@ public partial class MainMenu : Control
         optionsMenu.ShowMenu();
     }
 
+    void QuitButtonPressed()
+    {
+        GetTree().Quit();
+    }
+
+    void EditorButtonPressed()
+    {
+        creditsButton.Disabled = editorButton.Disabled = DisableButtonsState(true);
+        ((Runtime)GetTree().CurrentScene).SwitchToEditor(true);
+    }
+
     void CreditsButtonPressed()
     {
         HideMenu();
         creditsMenu.ShowMenu();
-    }
-
-    void QuitButtonPressed()
-    {
-        if (Input.IsActionPressed("ctrl"))
-        {
-            ((Runtime)GetTree().CurrentScene).SwitchToEditor(true);
-
-            DisableButtonsState(true);
-        }
-        else
-        {
-            GetTree().Quit();
-        }
     }
 
     // Prevent further interaction while transitioning
