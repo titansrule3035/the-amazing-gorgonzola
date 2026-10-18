@@ -52,7 +52,7 @@ public partial class GameControlsMenu : Control
         }
         else
         {
-            await ((Runtime)GetTree().CurrentScene).ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+            await ((Runtime)GetTree().CurrentScene).ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"))));
 
             EditorGameManager.GetInstance().canMove = false;
 

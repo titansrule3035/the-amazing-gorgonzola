@@ -46,8 +46,15 @@ public partial class Gorgonzola : BasePlayerController
             MoveToDoor();
         }
 
-        bool canMove = ((Runtime)GetTree().CurrentScene).editorMode ? EditorGameManager.GetInstance().canMove : GlobalGameManager.GetInstance().canMove;
-
+        bool canMove;
+        if (((Runtime)GetTree().CurrentScene).editorMode)
+        {
+            canMove = EditorGameManager.GetInstance().canMove;
+        }
+        else
+        {
+            canMove = GlobalGameManager.GetInstance().canMove;
+        }
         if (Input.IsActionJustPressed("reset") && canMove)
         {
             Kill();

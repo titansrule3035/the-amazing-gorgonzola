@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dmss5kybk5cbn"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_byu0d"]
+[ext_resource type="Texture2D" uid="uid://dqk10rru8qtyn" path="res://assets/Sprites/Enemies/chunk_walk.png" id="2_1pkbm"]
+[ext_resource type="PackedScene" uid="uid://1y7bnvgayekf" path="res://assets/Scenes/Level Assets/Hazards/chunk.tscn" id="3_mq6kn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d3oa"]
+atlas = ExtResource("2_1pkbm")
+region = Rect2(23, 46, 54, 54)
+
+[node name="ItemBg" unique_id=1663939762 instance=ExtResource("1_byu0d")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_1d3oa")
+itemType = 5
+ThisScene = ExtResource("3_mq6kn")

@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TAGLevelBuilder.assets.Scripts.Level_Editor;
 
 /// <summary>What's under the cursor: a placed object, or (Object == null) a tile.</summary>
 public readonly record struct Pick(Vector2I Cell, Node2D? Object)
@@ -159,7 +158,6 @@ public sealed class EditorSelection
             }
         }
 
-        GD.Print($"Selected {Tiles.Count} tiles, {Objects.Count} objects");
         Notify();
     }
 

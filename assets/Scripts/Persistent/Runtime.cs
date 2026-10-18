@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
-using static OnOffBlockData;
 
 public partial class Runtime : Node2D
 {
@@ -31,7 +30,6 @@ public partial class Runtime : Node2D
     [Export] public Godot.Collections.Dictionary<string, PackedScene> HazardScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> OnOffScenes { get; set; } = new();
     [Export] public Godot.Collections.Dictionary<string, PackedScene> NPCScenes { get; set; } = new();
-    [Export] public Godot.Collections.Dictionary<string, PackedScene> SemiSolidTileScenes { get; set; } = new();
 
     // import/export events
     public event Action<string>? OnFileSaved;
@@ -207,20 +205,17 @@ public partial class Runtime : Node2D
         {
             foreach (Node2D on_off_asset in on_off_assets.GetChildren())
             {
-                string asset_type = on_off_asset.GetType().Name;
-                if (asset_type == "OnOffSwitchMaster")
+                if (on_off_asset is OnOffSwitchMaster switchMaster)
                 {
-                    OnOffSwitchMaster switchMaster = on_off_asset as OnOffSwitchMaster;
-                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(asset_type,on_off_asset.GlobalPosition, switchMaster.opened);
+                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(switchMaster.GetType().ToString(), on_off_asset.GlobalPosition, switchMaster.opened);
                 }
-                else if (asset_type == "OnOffBlockSwitch")
+                else if (on_off_asset is OnOffSwitch switchNormal)
                 {
-                    OnOffSwitch switchNormal = on_off_asset as OnOffSwitch;
-                    data.OnOffs.OnOffSwitches.Add(new ObjectData(asset_type, on_off_asset.GlobalPosition));
+                    data.OnOffs.OnOffSwitches.Add(new ObjectData(switchNormal.GetType().ToString(), on_off_asset.GlobalPosition));
                 }
                 else if (on_off_asset is OnOffBlock onOffBlock)
                 {
-                    data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? blockTypes.green : blockTypes.red, on_off_asset.GlobalPosition));
+                    data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? OnOffBlockData.blockTypes.green : OnOffBlockData.blockTypes.red, on_off_asset.GlobalPosition));
                 }
             }
         }

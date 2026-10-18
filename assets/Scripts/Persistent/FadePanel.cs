@@ -122,7 +122,12 @@ public partial class FadePanel : Control
 
     public override void _ExitTree()
     {
-        instance = null;
+        // A duplicate that freed itself in _Ready must not clear the real singleton
+        if (instance == this)
+        {
+            instance = null;
+        }
+
         base._ExitTree();
     }
 }

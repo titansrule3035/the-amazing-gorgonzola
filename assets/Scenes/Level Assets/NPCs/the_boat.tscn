@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_py7b8"]
 [ext_resource type="Texture2D" uid="uid://7rtdwqi52hsx" path="res://assets/Sprites/NPCs/theboat.png" id="2_82nx0"]
+[ext_resource type="Texture2D" uid="uid://ddeud45qplldx" path="res://assets/Sprites/NPCs/theboat_sail.png" id="3_82nx0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t8rb8"]
 atlas = ExtResource("2_82nx0")
@@ -75,18 +76,24 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
-size = Vector2(213, 80)
+size = Vector2(223.25, 64)
 
 [node name="The Boat" unique_id=82098700 instance=ExtResource("1_py7b8")]
 
 [node name="sprite" parent="." index="0" unique_id=1599358516]
+z_index = 10
 position = Vector2(0, -104)
 sprite_frames = SubResource("SpriteFrames_081ap")
 autoplay = "default"
 
-[node name="static_body_2d" type="StaticBody2D" parent="." index="1" unique_id=1093314990]
+[node name="sprite_2" type="Sprite2D" parent="." index="1" unique_id=882656706]
+position = Vector2(0, -104)
+texture = ExtResource("3_82nx0")
+
+[node name="static_body_2d" type="StaticBody2D" parent="." index="2" unique_id=1093314990]
 position = Vector2(0, -112)
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="static_body_2d" index="0" unique_id=259553571]
-position = Vector2(37.5, 72)
+position = Vector2(36.375, 80)
 shape = SubResource("RectangleShape2D_iq7ac")
+one_way_collision = true

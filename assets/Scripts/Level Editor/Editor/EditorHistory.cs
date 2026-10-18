@@ -12,7 +12,7 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class EditorHistory
 {
-    readonly List<EditorCommand> _undo = new();
+    public readonly List<EditorCommand> _undo = new();
     readonly List<EditorCommand> _redo = new();
     readonly int _maxSteps;
 

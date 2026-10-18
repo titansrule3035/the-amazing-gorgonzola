@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 
 public partial class LevelEditorMain : Node2D
 {

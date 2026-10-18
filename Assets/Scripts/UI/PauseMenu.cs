@@ -30,6 +30,8 @@ public partial class PauseMenu : Panel
         resumeButton.Pressed += ResumeButtonPressed;
         quitButton.Pressed += QuitButtonPressed;
 
+        GlobalGameManager.GetInstance().OnLevelLoaded += EnableButtons;
+
         base._Ready();
     }
 
@@ -41,7 +43,7 @@ public partial class PauseMenu : Panel
 
     void QuitButtonPressed()
     {
-        resumeButton.Disabled = quitButton.Disabled = true;
+        DisableButtons();
         FadePanel canvas = FadePanel.GetInstance();
         GlobalGameManager.GetInstance().canPause = false;
         canvas.FadeOut();
@@ -61,10 +63,20 @@ public partial class PauseMenu : Panel
         ggm.gamePaused = false;
     }
 
+    void DisableButtons()
+    {
+        resumeButton.Disabled = quitButton.Disabled = true;
+    }
+
+    void EnableButtons()
+    {
+        resumeButton.Disabled = quitButton.Disabled = false;
+    }
+
     public override void _ExitTree()
     {
         instance = null;
-
+        GlobalGameManager.GetInstance().OnLevelLoaded -= EnableButtons;
         base._ExitTree();
     }
 }

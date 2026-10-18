@@ -21,8 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_nkpmi"]
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="15_dk3xr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2rs"]
-size = Vector2(30, 60)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dk3xr"]
+size = Vector2(22, 53)
 
 [sub_resource type="Shader" id="Shader_dk3xr"]
 code = "shader_type canvas_item;
@@ -1343,8 +1343,8 @@ jumpEffectScene = ExtResource("3_dk3xr")
 landEffectScene = ExtResource("4_4qigl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
-position = Vector2(0, -30)
-shape = SubResource("RectangleShape2D_ly2rs")
+position = Vector2(0, -26.5)
+shape = SubResource("RectangleShape2D_dk3xr")
 debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1588915662]

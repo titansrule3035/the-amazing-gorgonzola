@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TAGLevelBuilder.assets.Scripts.Level_Editor;
 
 // ======================================================================
 // Public extension points

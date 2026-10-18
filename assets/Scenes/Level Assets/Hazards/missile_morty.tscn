@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://m5niqrv8ejwl"]
+
+[ext_resource type="Texture2D" uid="uid://qsxibxg0wxtv" path="res://assets/Sprites/Enemies/missilemorty_fly.png" id="1_j1cbs"]
+[ext_resource type="Script" uid="uid://cjbe8ew4t3mda" path="res://assets/Scripts/Level Assets/Hazards/MissileMorty.cs" id="1_qrckl"]
+[ext_resource type="Texture2D" uid="uid://cy5iij7vu7d7u" path="res://assets/Sprites/Enemies/missilemorty_crash.png" id="2_lir01"]
+[ext_resource type="Texture2D" uid="uid://cmxwde72pnai4" path="res://assets/Sprites/Enemies/missilemorty_death.png" id="3_wv3va"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
+size = Vector2(56, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpb3q"]
+atlas = ExtResource("2_lir01")
+region = Rect2(0, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oidaf"]
+atlas = ExtResource("2_lir01")
+region = Rect2(144, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f58nq"]
+atlas = ExtResource("2_lir01")
+region = Rect2(288, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wye80"]
+atlas = ExtResource("2_lir01")
+region = Rect2(432, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts4bj"]
+atlas = ExtResource("3_wv3va")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6xlh"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(0, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qili4"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(144, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrckl"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(288, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lir01"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(432, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv3va"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(576, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a3to"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(720, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_844sf"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(864, 0, 144, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8740j"]
+atlas = ExtResource("1_j1cbs")
+region = Rect2(1008, 0, 144, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iq7ac"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpb3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oidaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f58nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wye80")
+}],
+"loop": 0,
+"name": &"crush",
+"speed": 21.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts4bj")
+}],
+"loop": 1,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6xlh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qili4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrckl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lir01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv3va")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a3to")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_844sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8740j")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="rigid_body_2d" type="RigidBody2D" unique_id=600629317]
+collision_layer = 0
+collision_mask = 61441
+script = ExtResource("1_qrckl")
+
+[node name="collision_shape" type="CollisionShape2D" parent="." unique_id=2006619023]
+position = Vector2(-43, -1.5)
+shape = SubResource("RectangleShape2D_iq7ac")
+
+[node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1365456309]
+position = Vector2(-61, -7)
+sprite_frames = SubResource("SpriteFrames_iq7ac")
+autoplay = "default"
+
+[node name="area_2d" type="Area2D" parent="." unique_id=1898170980]
+position = Vector2(-61, -1)
+collision_mask = 61440
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d" unique_id=1631361417]
+position = Vector2(18, -0.5)
+shape = SubResource("RectangleShape2D_iq7ac")
+
+[node name="ray_cast" type="RayCast2D" parent="." unique_id=169655083]
+position = Vector2(-61, 0)
+target_position = Vector2(70, 0)
+collision_mask = 65535
+collide_with_areas = true

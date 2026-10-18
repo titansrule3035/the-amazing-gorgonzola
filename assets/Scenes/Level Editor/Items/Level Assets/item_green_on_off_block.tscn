@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dkl2s68guvcg6"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_q26ky"]
+[ext_resource type="Texture2D" uid="uid://cfpusrvto0hs8" path="res://assets/Sprites/World/greenblock_on_transform.png" id="2_q26ky"]
+[ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="3_qndjg"]
+[ext_resource type="Script" uid="uid://cly2u6g847wm2" path="res://assets/Scripts/Level Editor/Items/ItemGreenOnOffBlock.cs" id="3_rwdd6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq7ac"]
+atlas = ExtResource("2_q26ky")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_3nsei"]
+resource_name = "close"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(192, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_xaopb"]
+resource_name = "open"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 32, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p12f7"]
+_data = {
+&"close": SubResource("Animation_3nsei"),
+&"open": SubResource("Animation_xaopb")
+}
+
+[node name="ItemGreenOnOffBlock" unique_id=1663939762 instance=ExtResource("1_q26ky")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_iq7ac")
+script = ExtResource("3_rwdd6")
+itemType = 7
+ThisScene = ExtResource("3_qndjg")
+
+[node name="TextureAnimationPlayer" type="AnimationPlayer" parent="ItemTexture" index="0" unique_id=1622148009]
+libraries/ = SubResource("AnimationLibrary_p12f7")

@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TAGLevelBuilder.assets.Scripts.Level_Editor;
 
 /// <summary>
 /// The node. Mouse-to-cell math, mode switching, hotkeys, shared actions (place, erase, delete), overlay drawing, filter dropdown.
@@ -40,7 +39,8 @@ public partial class EditorObject : Node2D
         Hazards,
         Tiles,
         LevelMechanics,
-        OnOff
+        OnOff,
+        NPCs
     }
 
     // ------------------------------------------------------------------
@@ -414,6 +414,7 @@ public partial class EditorObject : Node2D
             "hazards" => EditorItemObject.ItemType.Hazard,
             "level_mechanics" => EditorItemObject.ItemType.LevelMechanic,
             "on_off_assets" => EditorItemObject.ItemType.OnOff,
+            "npcs" => EditorItemObject.ItemType.NPC,
             _ => EditorItemObject.ItemType.Null
         };
     }
@@ -477,6 +478,7 @@ public partial class EditorObject : Node2D
             FilterMode.LevelMechanics => type is EditorItemObject.ItemType.LevelMechanic
                                               or EditorItemObject.ItemType.TileObj,
             FilterMode.OnOff => type == EditorItemObject.ItemType.OnOff,
+            FilterMode.NPCs => type == EditorItemObject.ItemType.NPC,
             _ => true
         };
     }
@@ -492,6 +494,7 @@ public partial class EditorObject : Node2D
         FilterMode.Tiles => "Tiles",
         FilterMode.LevelMechanics => "Level Mechanics",
         FilterMode.OnOff => "On/Off Blocks",
+        FilterMode.NPCs => "NPCs",
         _ => mode.ToString()
     };
 
@@ -754,7 +757,10 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     public void SetEditorItem(EditorItemObject editorItem)
     {
-        if (editorItem == null) return;
+        if (editorItem == null)
+        {
+            return;
+        }
 
         itemObject = editorItem;
         itemType = editorItem.itemType;
@@ -769,9 +775,7 @@ public partial class EditorObject : Node2D
         {
             SetCursorTexture(editorItem.Texture, editorItem.FlipH);
 
-            CursorSprite.Material = editorItem.itemType == EditorItemObject.ItemType.Clone
-                ? editorItem.Material
-                : null;
+            CursorSprite.Material = editorItem.itemType == EditorItemObject.ItemType.Clone ? editorItem.Material : null;
 
             SetCurrentScene(editorItem.ThisScene);
         }

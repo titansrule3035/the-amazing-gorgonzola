@@ -1,12 +1,13 @@
 using Godot;
 using System;
-using TheAmazingGorgonzola.assets.Scripts.Level_Assets;
 using static Godot.WebRtcDataChannel;
 
 public partial class OnOffSwitchMaster : OnOffSwitch
 {
 
     private static OnOffSwitchMaster instance;
+
+    private bool editorMode;
 
     /// <summary>
     /// Ensure the manager state matches this master switch on startup, then call base Ready.
@@ -30,7 +31,14 @@ public partial class OnOffSwitchMaster : OnOffSwitch
         OnOffManager.UpdateAllBlocks();
 
         base._Ready();
-    } 
+
+        editorMode = ((Runtime)GetTree().CurrentScene).editorMode;
+
+        if (editorMode)
+        {
+            ItemOnOffSwitchMaster.GetInstance().RegisterMasterSwitch(this);
+        }
+    }
 
     public override void _Process(double delta)
     {
@@ -48,7 +56,9 @@ public partial class OnOffSwitchMaster : OnOffSwitch
     {
         // Avoid unnecessary work if state already matches
         if (OnOffManager.GetState() == state)
+        {
             return;
+        }
 
         OnOffManager.SetState(state);
         OnOffManager.UpdateAllBlocks();
@@ -70,6 +80,8 @@ public partial class OnOffSwitchMaster : OnOffSwitch
     public override void _ExitTree()
     {
         instance = null;
+
+        ItemOnOffSwitchMaster.GetInstance()?.DeregisterMasterSwitch();
 
         base._ExitTree();
     }

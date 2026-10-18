@@ -31,7 +31,6 @@ script = ExtResource("1_5upmx")
 [node name="gorg_hat" type="RigidBody2D" parent="." unique_id=296375000]
 position = Vector2(0, -69)
 collision_layer = 0
-collision_mask = 3
 
 [node name="sprite" type="Sprite2D" parent="gorg_hat" unique_id=1082569193]
 z_index = 1
@@ -45,7 +44,6 @@ debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
 [node name="gorg_torso" type="RigidBody2D" parent="." unique_id=1863137341]
 position = Vector2(9, -22)
 collision_layer = 0
-collision_mask = 3
 
 [node name="sprite" type="Sprite2D" parent="gorg_torso" unique_id=1785851830]
 z_index = 1
@@ -59,7 +57,6 @@ debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
 [node name="gorg_head" type="RigidBody2D" parent="." unique_id=2126265482]
 position = Vector2(7, -42)
 collision_layer = 0
-collision_mask = 3
 
 [node name="sprite" type="Sprite2D" parent="gorg_head" unique_id=672153812]
 z_index = 1
@@ -72,7 +69,6 @@ debug_color = Color(0.22510132, 0.63874537, 0, 0.41960785)
 [node name="gorg_leg_l" type="RigidBody2D" parent="." unique_id=1456452294]
 position = Vector2(4, -6)
 collision_layer = 0
-collision_mask = 3
 
 [node name="sprite" type="Sprite2D" parent="gorg_leg_l" unique_id=609685456]
 z_index = 1
@@ -85,7 +81,6 @@ debug_color = Color(0, 0.6431373, 0.28235295, 0.41960785)
 [node name="gorg_leg_r" type="RigidBody2D" parent="." unique_id=2007831498]
 position = Vector2(25, -16)
 collision_layer = 0
-collision_mask = 3
 
 [node name="sprite" type="Sprite2D" parent="gorg_leg_r" unique_id=1240538129]
 z_index = 1
