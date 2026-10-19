@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bpr24iw2b4j2t"]
+
+[node name="level_assets" type="Node2D" unique_id=1309160586]
+
+[node name="level_mechanics" type="Node2D" parent="." unique_id=294363604]
+
+[node name="clones" type="Node2D" parent="." unique_id=1702178746]
+
+[node name="hazards" type="Node2D" parent="." unique_id=1960687376]
+
+[node name="on_off_assets" type="Node2D" parent="." unique_id=2035796469]
+
+[node name="semi_solid_tiles" type="Node2D" parent="." unique_id=605694883]
+
+[node name="npcs" type="Node2D" parent="." unique_id=2030082973]
