@@ -40,17 +40,33 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
     public void RegisterMasterSwitch(OnOffSwitchMaster masterSwitch)
     {
         ThisScene = normalSwitch;
-        SendItemToEditor();
+
+        if (selected)
+        {
+            SendItemToEditor();
+        }
     }
 
     public void DeregisterMasterSwitch()
     {
-        ThisScene = masterSwitch;
         SendItemToEditor();
+
+        if (selected)
+        {
+            ThisScene = masterSwitch;
+        }
     }
 
     public static ItemOnOffSwitchMaster GetInstance()
     {
         return instance;
+    }
+
+    public override void _ExitTree()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 }
