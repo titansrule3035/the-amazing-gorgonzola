@@ -10,7 +10,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     [Export] public float JumpVelocity = 350f;
     [Export] public float FallMultiplier = 2.25f;
     [Export] public float MaxFallSpeed = 800f;
-    [Export] public float offset; 
+    [Export] public float offset;
     [Export] public bool shouldFlip;
     [Export] public bool isFalling;
     [Export] public bool hasKey = false;
@@ -42,6 +42,40 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
     // Events
     public static event Action MainPlayerKilled;
+
+    // ------------------------------------------------------------------
+    // Game state helpers (GlobalGameManager in-game, EditorGameManager in editor)
+    // ------------------------------------------------------------------
+
+    /// <summary>True when the active game manager reports the level as completed.</summary>
+    private static bool IsLevelCompleted()
+    {
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        if (ggm != null) return ggm.levelCompleted;
+
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+        return egm != null && egm.levelCompleted;
+    }
+
+    /// <summary>True when the active game manager reports the game as paused.</summary>
+    private static bool IsGamePaused()
+    {
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        if (ggm != null) return ggm.gamePaused;
+
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+        return egm != null && egm.gamePaused;
+    }
+
+    /// <summary>True when the active game manager allows movement.</summary>
+    private static bool CanMoveNow()
+    {
+        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+        if (ggm != null) return ggm.canMove;
+
+        EditorGameManager? egm = EditorGameManager.GetInstance();
+        return egm == null || egm.canMove;
+    }
 
     /// <summary>
     /// Called when the node is added to the scene. Initializes node references, wires signals,
@@ -114,37 +148,16 @@ public abstract partial class BasePlayerController : CharacterBody2D
         float dt = (float)delta;
         Vector2 velocity = Velocity;
 
-        float direction = 0f;
-
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        EditorGameManager? egm = EditorGameManager.GetInstance();
-
-        if (ggm != null)
+        if (!IsLevelCompleted() && !IsGamePaused())
         {
-            if (!ggm.levelCompleted && !ggm.gamePaused)
-            {
-                // No input is read when the flag is off; direction stays 0 so the character stops horizontally.
-                direction = AllowPlayerInput ? GetMovementInput() : 0f;
-                HandleHorizontalMovement(ref velocity, direction);
-                HandleJump(ref velocity, dt);
-            }
-            else
-            {
-                velocity = new Vector2(0, velocity.Y);
-            }
+            // No input is read when the flag is off; direction stays 0 so the character stops horizontally.
+            float direction = AllowPlayerInput ? GetMovementInput() : 0f;
+            HandleHorizontalMovement(ref velocity, direction);
+            HandleJump(ref velocity, dt);
         }
         else
         {
-            if (!egm.levelCompleted && !egm.gamePaused)
-            {
-                direction = AllowPlayerInput ? GetMovementInput() : 0f;
-                HandleHorizontalMovement(ref velocity, direction);
-                HandleJump(ref velocity, dt);
-            }
-            else
-            {
-                velocity = new Vector2(0, velocity.Y);
-            }
+            velocity = new Vector2(0, velocity.Y);
         }
 
         ApplyGravity(ref velocity, dt);
@@ -152,7 +165,16 @@ public abstract partial class BasePlayerController : CharacterBody2D
         Velocity = velocity;
         MoveAndSlide();
 
-        UpdateAnimation(velocity);
+        // Ceiling fix: when the head hits a ceiling, MoveAndSlide can leave residual upward
+        // velocity (especially when also pressed into a wall / corner). Kill it so gravity
+        // starts pulling the character down on the very next frame.
+        if (IsOnCeiling() && Velocity.Y < 0f)
+        {
+            Velocity = new Vector2(Velocity.X, 0f);
+        }
+
+        // Use the post-collision velocity so animations reflect what actually happened.
+        UpdateAnimation(Velocity);
 
         indicator.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - offset);
     }
@@ -171,48 +193,22 @@ public abstract partial class BasePlayerController : CharacterBody2D
             return;
         }
 
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        EditorGameManager? egm = EditorGameManager.GetInstance();
-
-        if (ggm != null)
+        if (Input.IsActionJustPressed("jump") && CanMoveNow())
         {
-            if (Input.IsActionJustPressed("jump") && ggm.canMove)
-            {
-                jumpBufferTimer = JumpBufferTime;
-            }
-            else
-            {
-                jumpBufferTimer -= dt;
-            }
-
-            if (jumpBufferTimer > 0f && IsOnFloor())
-            {
-                jumpBufferTimer = 0f;
-
-                velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
-
-                SpawnEffect(jumpEffectScene, GlobalPosition);
-            }
+            jumpBufferTimer = JumpBufferTime;
         }
         else
         {
-            if (Input.IsActionJustPressed("jump") && egm.canMove)
-            {
-                jumpBufferTimer = JumpBufferTime;
-            }
-            else
-            {
-                jumpBufferTimer -= dt;
-            }
+            jumpBufferTimer -= dt;
+        }
 
-            if (jumpBufferTimer > 0f && IsOnFloor())
-            {
-                jumpBufferTimer = 0f;
+        if (jumpBufferTimer > 0f && IsOnFloor())
+        {
+            jumpBufferTimer = 0f;
 
-                velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
+            velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
 
-                SpawnEffect(jumpEffectScene, GlobalPosition);
-            }
+            SpawnEffect(jumpEffectScene, GlobalPosition);
         }
     }
 
@@ -243,7 +239,8 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <param name="dt">Delta time in seconds.</param>
     private void ApplyGravity(ref Vector2 velocity, float dt)
     {
-        isFalling = Velocity.Y >= 0f;
+        isFalling = velocity.Y >= 0f;
+
         if (IsOnFloor())
         {
             if (!isLanded)
@@ -256,20 +253,17 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         isLanded = false;
 
+        // Bonked the ceiling: cancel any remaining upward speed immediately.
+        if (IsOnCeiling() && velocity.Y < 0f)
+        {
+            velocity.Y = 0f;
+        }
+
         float gravity = Math.Abs(GetGravity().Y);
 
-        if (velocity.Y < 0f)
-        {
-            velocity.Y += gravity * AscendMultiplier * dt;
-        }
-        else if (velocity.Y > 0f)
-        {
-            velocity.Y += gravity * FallMultiplier * dt;
-        }
-        else
-        {
-            velocity.Y += gravity * dt;
-        }
+        // Ascend multiplier only while genuinely rising; otherwise (including Y == 0) use fall gravity.
+        float multiplier = velocity.Y < 0f ? AscendMultiplier : FallMultiplier;
+        velocity.Y += gravity * multiplier * dt;
 
         if (velocity.Y > MaxFallSpeed)
         {
@@ -284,55 +278,25 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <param name="direction">Normalized horizontal input direction (-1..1).</param>
     private void HandleHorizontalMovement(ref Vector2 velocity, float direction)
     {
-
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        EditorGameManager? egm = EditorGameManager.GetInstance();
-
-        if (ggm != null)
+        if (IsLevelCompleted() || !CanMoveNow())
         {
-            if (!ggm.levelCompleted && ggm.canMove)
+            velocity.X = 0f;
+            return;
+        }
+
+        float accel = MoveSpeed;
+
+        if (direction != 0f)
+        {
+            velocity.X = direction * accel;
+            if (sprite != null)
             {
-                float accel = MoveSpeed;
-                if (direction != 0f)
-                {
-                    velocity.X = direction * accel;
-                    if (sprite != null)
-                    {
-                        sprite.FlipH = ShouldFlipSprite(direction);
-                    }
-                }
-                else
-                {
-                    velocity.X = Mathf.MoveToward(velocity.X, 0f, accel);
-                }
-            }
-            else
-            {
-                velocity.X = 0;
+                sprite.FlipH = ShouldFlipSprite(direction);
             }
         }
         else
         {
-            if (!egm.levelCompleted && egm.canMove)
-            {
-                float accel = MoveSpeed;
-                if (direction != 0f)
-                {
-                    velocity.X = direction * accel;
-                    if (sprite != null)
-                    {
-                        sprite.FlipH = ShouldFlipSprite(direction);
-                    }
-                }
-                else
-                {
-                    velocity.X = Mathf.MoveToward(velocity.X, 0f, accel);
-                }
-            }
-            else
-            {
-                velocity.X = 0;
-            }
+            velocity.X = Mathf.MoveToward(velocity.X, 0f, accel);
         }
     }
 
@@ -340,94 +304,36 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// Updates the animation state machine based on movement and game state.
     /// </summary>
     /// <param name="velocity">Current character velocity.</param>
-    private async void UpdateAnimation(Vector2 velocity)
+    private void UpdateAnimation(Vector2 velocity)
     {
         if (animationTree == null)
         {
             return;
         }
 
-        GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        EditorGameManager? egm = EditorGameManager.GetInstance();
+        bool canMove = CanMoveNow();
 
-        if (ggm != null)
+        if (!IsLevelCompleted() && canMove)
         {
-            if (!ggm.levelCompleted && ggm.canMove)
+            if (IsOnFloor())
             {
-                if (IsOnFloor())
-                {
-                    if (Mathf.Abs(velocity.X) > 1f)
-                    {
-                        PlayAnimation("isMoving");
-                    }
-                    else
-                    {
-                        PlayAnimation("idle");
-                    }
-                }
-                else
-                {
-                    if (velocity.Y > 0f)
-                    {
-                        PlayAnimation("isFalling");
-                    }
-                    else
-                    {
-                        PlayAnimation("jump");
-                    }
-                }
+                PlayAnimation(Mathf.Abs(velocity.X) > 1f ? "isMoving" : "idle");
             }
-            else if (ggm.canMove)
+            else
             {
-                if (this is Gorgonzola gorgonzola)
-                {
-                    PlayAnimation("enter_door");
-                    gorgonzola.doorMoveTriggered = true;
-                }
-                else
-                {
-                    PlayAnimation("levelCompleted");
-                }
+                PlayAnimation(velocity.Y > 0f ? "isFalling" : "jump");
             }
         }
-        else
+        else if (canMove)
         {
-            if (!egm.levelCompleted && egm.canMove)
+            if (this is Gorgonzola gorgonzola)
             {
-                if (IsOnFloor())
-                {
-                    if (Mathf.Abs(velocity.X) > 1f)
-                    {
-                        PlayAnimation("isMoving");
-                    }
-                    else
-                    {
-                        PlayAnimation("idle");
-                    }
-                }
-                else
-                {
-                    if (velocity.Y > 0f)
-                    {
-                        PlayAnimation("isFalling");
-                    }
-                    else
-                    {
-                        PlayAnimation("jump");
-                    }
-                }
+                PlayAnimation("enter_door");
+                gorgonzola.doorMoveTriggered = true;
             }
-            else if (egm.canMove)
+            else
             {
-                if (this is Gorgonzola)
-                {
-                    PlayAnimation("enter_door");
-                }
-                else
-                {
-                    PlayAnimation("levelCompleted");
-                }
-                Gorgonzola.GetInstance().doorMoveTriggered = true;
+                PlayAnimation("levelCompleted");
             }
         }
     }
@@ -481,30 +387,36 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         if (animName == "enter_door")
         {
-            GlobalGameManager ggm = GlobalGameManager.GetInstance();
-            if (ggm.levelCompleted)
+            GlobalGameManager? ggm = GlobalGameManager.GetInstance();
+            if (ggm != null)
             {
-                Visible = false;
+                if (ggm.levelCompleted)
+                {
+                    Visible = false;
+                }
+                ggm.canMove = false;
             }
-            ggm.canMove = false;
         }
         else if (animName == "levelCompleted")
         {
             Visible = false;
         }
     }
+
     /// <summary>
     /// Implement in derived classes to provide a horizontal movement input value (-1..1).
     /// Only called while AllowPlayerInput is true.
     /// </summary>
     /// <returns>Horizontal input direction.</returns>
     protected abstract float GetMovementInput();
+
     /// <summary>
     /// Determines whether the sprite should be flipped based on movement direction.
     /// </summary>
     /// <param name="direction">Horizontal direction value.</param>
     /// <returns>True if sprite should be flipped horizontally.</returns>
     public virtual bool ShouldFlipSprite(float direction) => direction < 0f;
+
     /// <summary>
     /// Handles logic when this player/controller is killed. Releases keys and updates UI.
     /// </summary>
@@ -535,10 +447,12 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// Local handler that responds to the static MainPlayerKilled event by calling Kill().
     /// </summary>
     private void OnMainPlayerKilled() => Kill();
+
     /// <summary>
     /// Broadcasts the static MainPlayerKilled event to notify all listeners.
     /// </summary>
     public static void BroadcastMainPlayerKilled() => MainPlayerKilled?.Invoke();
+
     /// <summary>
     /// Convenience helper to broadcast that all clones should be killed.
     /// </summary>
