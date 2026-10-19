@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://k3m7xufusry1"
+path="res://.godot/imported/peter_dialogue_4.ink-a5580f28d2f62ef74ef5cb168e7b690b.res"
+
+[deps]
+
+source_file="res://assets/Dialogue/Peter/peter_dialogue_4.ink"
+dest_files=["res://.godot/imported/peter_dialogue_4.ink-a5580f28d2f62ef74ef5cb168e7b690b.res"]
+
+[params]
+
+is_main_file=false
+compress=true

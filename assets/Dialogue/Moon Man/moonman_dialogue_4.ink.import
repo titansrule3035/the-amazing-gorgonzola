@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://dflxtlcjhkjw5"
+path="res://.godot/imported/moonman_dialogue_4.ink-46a3709a7e421f729397a3612ced3732.res"
+
+[deps]
+
+source_file="res://assets/Dialogue/Moon Man/moonman_dialogue_4.ink"
+dest_files=["res://.godot/imported/moonman_dialogue_4.ink-46a3709a7e421f729397a3612ced3732.res"]
+
+[params]
+
+is_main_file=false
+compress=true

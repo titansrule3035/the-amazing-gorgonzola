@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://crbo4o2e4aktt"
+path="res://.godot/imported/ration_dialogue_2.ink-dcca62a6e745b735cc50a737fdd8ae01.res"
+
+[deps]
+
+source_file="res://assets/Dialogue/Ration/ration_dialogue_2.ink"
+dest_files=["res://.godot/imported/ration_dialogue_2.ink-dcca62a6e745b735cc50a737fdd8ae01.res"]
+
+[params]
+
+is_main_file=false
+compress=true
