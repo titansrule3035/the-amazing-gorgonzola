@@ -310,7 +310,7 @@ public partial class EditorObject : Node2D
         hideCursor = !(active && tool.CursorVisible);
         CursorSprite.Visible = !hideCursor;
 
-        GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? " (Unsaved)" : "") + " - TAG Level Editor";
+        GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
     
         if (History.IsDirty)
         {
@@ -331,7 +331,7 @@ public partial class EditorObject : Node2D
         switch (key.Keycode)
         {
             case Godot.Key.Z when command:
-                if (key.ShiftPressed) Redo(); else Undo();
+                Undo();
                 GetViewport().SetInputAsHandled();
                 break;
 

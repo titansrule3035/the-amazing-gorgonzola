@@ -12,46 +12,48 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class EditorHistory
 {
-    readonly List<EditorCommand> undos = new();   // can be private now
-    readonly List<EditorCommand> redos = new();
-    readonly int maxSteps;
+    readonly List<EditorCommand> _undos = new();
+    readonly List<EditorCommand> _redos = new();
+    readonly int _maxSteps;
 
-    int groupDepth;
+    int _groupDepth;
     List<EditorCommand>? _group;
 
     // --- dirty tracking ---
-    EditorCommand? savedCommand;   // top of undo stack at last save (null = empty stack)
-    bool cannotAccess;                // saved state can no longer be reached via undo/redo
-    bool externallyDirty;            // changes made outside the history
-    bool wasDirty;
+    EditorCommand? _savedCommand;   // top of undo stack at last save (null = empty stack)
+    bool _cannotAccess;             // saved state can no longer be reached via undo/redo
+    bool _externallyDirty;          // changes made outside the history
+    bool _wasDirty;
 
     public event Action? Changed;
     public event Action<bool>? DirtyChanged;
 
-    public EditorHistory(int maxSteps) => maxSteps = Math.Max(1, maxSteps);
+    // FIX: the old version was `maxSteps = Math.Max(1, maxSteps)`, which assigned the parameter to itself,
+    // left the field at 0, and made every command get dropped (and disposed) the moment it was recorded.
+    public EditorHistory(int maxSteps) => _maxSteps = Math.Max(1, maxSteps);
 
-    public bool GroupOpen => groupDepth > 0;
-    public bool CanUndo => undos.Count > 0 && !GroupOpen;
-    public bool CanRedo => redos.Count > 0 && !GroupOpen;
+    public bool GroupOpen => _groupDepth > 0;
+    public bool CanUndo => _undos.Count > 0 && !GroupOpen;
+    public bool CanRedo => _redos.Count > 0 && !GroupOpen;
 
-    EditorCommand? Top => undos.Count > 0 ? undos[^1] : null;
+    EditorCommand? Top => _undos.Count > 0 ? _undos[^1] : null;
     bool PendingGroupChanges => _group is { Count: > 0 };
 
-    public bool IsDirty => externallyDirty || cannotAccess || PendingGroupChanges || !ReferenceEquals(Top, savedCommand);
+    public bool IsDirty => _externallyDirty || _cannotAccess || PendingGroupChanges || !ReferenceEquals(Top, _savedCommand);
 
     /// <summary>Call after the file was written successfully.</summary>
     public void MarkSaved()
     {
-        savedCommand = Top;
-        cannotAccess = false;
-        externallyDirty = false;
+        _savedCommand = Top;
+        _cannotAccess = false;
+        _externallyDirty = false;
         NotifyChanged();
     }
 
     /// <summary>For changes that bypass the history (level name, settings, etc.).</summary>
     public void MarkDirty()
     {
-        externallyDirty = true;
+        _externallyDirty = true;
         NotifyChanged();
     }
 
@@ -66,13 +68,13 @@ public sealed class EditorHistory
 
     public void BeginGroup()
     {
-        if (groupDepth++ == 0) _group = new List<EditorCommand>();
+        if (_groupDepth++ == 0) _group = new List<EditorCommand>();
     }
 
     public void EndGroup()
     {
-        if (groupDepth == 0) return;
-        if (--groupDepth > 0) return;
+        if (_groupDepth == 0) return;
+        if (--_groupDepth > 0) return;
 
         var commands = _group;
         _group = null;
@@ -91,10 +93,10 @@ public sealed class EditorHistory
     {
         if (!CanUndo) return false;
 
-        var command = undos[^1];
-        undos.RemoveAt(undos.Count - 1);
+        var command = _undos[^1];
+        _undos.RemoveAt(_undos.Count - 1);
         command.Undo();
-        redos.Add(command);
+        _redos.Add(command);
 
         NotifyChanged();
         return true;
@@ -104,10 +106,10 @@ public sealed class EditorHistory
     {
         if (!CanRedo) return false;
 
-        var command = redos[^1];
-        redos.RemoveAt(redos.Count - 1);
+        var command = _redos[^1];
+        _redos.RemoveAt(_redos.Count - 1);
         command.Do();
-        undos.Add(command);
+        _undos.Add(command);
 
         NotifyChanged();
         return true;
@@ -116,17 +118,23 @@ public sealed class EditorHistory
     /// <summary>Call when a level is loaded or created. The new level starts clean.</summary>
     public void Clear()
     {
-        foreach (var c in undos) c.Dispose();
-        foreach (var c in redos) c.Dispose();
+        foreach (var c in _undos) c.Dispose();
+        foreach (var c in _redos) c.Dispose();
 
-        undos.Clear();
-        redos.Clear();
+        // FIX: commands of a group that was still open were leaked (and any detached nodes never freed).
+        if (_group != null)
+        {
+            foreach (var c in _group) c.Dispose();
+        }
+
+        _undos.Clear();
+        _redos.Clear();
         _group = null;
-        groupDepth = 0;
+        _groupDepth = 0;
 
-        savedCommand = null;
-        cannotAccess = false;
-        externallyDirty = false;
+        _savedCommand = null;
+        _cannotAccess = false;
+        _externallyDirty = false;
 
         NotifyChanged();
     }
@@ -140,31 +148,31 @@ public sealed class EditorHistory
     void Push(EditorCommand command)
     {
         // The saved state lives in the redo branch we're about to destroy.
-        if (savedCommand != null && redos.Contains(savedCommand))
+        if (_savedCommand != null && _redos.Contains(_savedCommand))
         {
-            savedCommand = null;
-            cannotAccess = true;
+            _savedCommand = null;
+            _cannotAccess = true;
         }
 
-        foreach (var c in redos) c.Dispose();
-        redos.Clear();
+        foreach (var c in _redos) c.Dispose();
+        _redos.Clear();
 
-        undos.Add(command);
+        _undos.Add(command);
 
-        while (undos.Count > maxSteps)
+        while (_undos.Count > _maxSteps)
         {
-            var oldest = undos[0];
+            var oldest = _undos[0];
 
             // Saved at the very bottom (null), or the saved command itself is being dropped:
             // undoing back to an empty stack no longer reproduces the saved file.
-            if (savedCommand == null || ReferenceEquals(oldest, savedCommand))
+            if (_savedCommand == null || ReferenceEquals(oldest, _savedCommand))
             {
-                savedCommand = null;
-                cannotAccess = true;
+                _savedCommand = null;
+                _cannotAccess = true;
             }
 
             oldest.Dispose();
-            undos.RemoveAt(0);
+            _undos.RemoveAt(0);
         }
     }
 
@@ -173,9 +181,9 @@ public sealed class EditorHistory
         Changed?.Invoke();
 
         bool now = IsDirty;
-        if (now == wasDirty) return;
+        if (now == _wasDirty) return;
 
-        wasDirty = now;
+        _wasDirty = now;
         DirtyChanged?.Invoke(now);
     }
 }
@@ -253,10 +261,21 @@ public sealed class TileChangeCommand : EditorCommand
 
     public override bool IsNoOp => _cells.Count == 0;
 
+    /// <summary>
+    /// Records a change to one cell. If the cell was already changed by this command (e.g. during a drag),
+    /// the ORIGINAL "before" is kept so undo restores the true starting state, and the cell is dropped
+    /// entirely if it ended up back where it started.
+    /// </summary>
     public void Set(Vector2I cell, TileSnapshot before, TileSnapshot after)
     {
+        if (_cells.TryGetValue(cell, out var existing))
+        {
+            before = existing.Before;
+        }
+
         if (before == after)
         {
+            _cells.Remove(cell);
             return;
         }
 
@@ -292,8 +311,8 @@ public sealed class ObjectAttachCommand : EditorCommand
 {
     sealed class Entry
     {
-        public Node2D Node;
-        public Node Parent;
+        public Node2D Node = null!;
+        public Node Parent = null!;
         public Vector2 GlobalPos;
         public int Index = -1;
     }
@@ -335,42 +354,33 @@ public sealed class ObjectAttachCommand : EditorCommand
 
     protected override void DoCore()
     {
-        if (_adds)
-        {
-            Attach();
-        }
-        else
-        {
-            Detach();
-        }
+        if (_adds) Attach();
+        else Detach();
     }
 
     protected override void UndoCore()
     {
-        if (_adds)
-        {
-            Detach();
-        }
-        else
-        {
-            Attach();
-        }
+        if (_adds) Detach();
+        else Attach();
     }
 
     void Attach()
     {
+        // Lowest index first, so each node lands in its original slot.
+        var ordered = new List<Entry>();
+
         foreach (var e in _entries)
         {
-            if (!GodotObject.IsInstanceValid(e.Node) || !GodotObject.IsInstanceValid(e.Parent))
-            {
-                continue;
-            }
+            if (!GodotObject.IsInstanceValid(e.Node) || !GodotObject.IsInstanceValid(e.Parent)) continue;
+            if (e.Node.GetParent() != null) continue;
 
-            if (e.Node.GetParent() != null)
-            {
-                continue;
-            }
+            ordered.Add(e);
+        }
 
+        ordered.Sort((a, b) => a.Index.CompareTo(b.Index));
+
+        foreach (var e in ordered)
+        {
             e.Parent.AddChild(e.Node);
 
             if (e.Index >= 0 && e.Index < e.Parent.GetChildCount())
@@ -385,13 +395,20 @@ public sealed class ObjectAttachCommand : EditorCommand
 
     void Detach()
     {
+        // Highest index first, so removing one node doesn't shift the indices recorded for the others.
+        var ordered = new List<Entry>();
+
         foreach (var e in _entries)
         {
-            if (!GodotObject.IsInstanceValid(e.Node) || e.Node.GetParent() != e.Parent)
-            {
-                continue;
-            }
+            if (!GodotObject.IsInstanceValid(e.Node) || e.Node.GetParent() != e.Parent) continue;
 
+            ordered.Add(e);
+        }
+
+        ordered.Sort((a, b) => b.Node.GetIndex().CompareTo(a.Node.GetIndex()));
+
+        foreach (var e in ordered)
+        {
             e.Index = e.Node.GetIndex();
             e.GlobalPos = e.Node.GlobalPosition;
             e.Parent.RemoveChild(e.Node);
@@ -438,7 +455,9 @@ public sealed class ObjectMoveCommand : EditorCommand
 
     static void Apply(Node2D node, Vector2 pos, Vector2I cell)
     {
-        if (!GodotObject.IsInstanceValid(node))
+        // FIX: a node that's currently detached (deleted, then undo/redo order differs) isn't in the tree,
+        // and setting GlobalPosition on it raises an engine error.
+        if (!GodotObject.IsInstanceValid(node) || !node.IsInsideTree())
         {
             return;
         }
@@ -489,14 +508,14 @@ public sealed class CompositeCommand : EditorCommand
 public sealed class ActionCommand : EditorCommand
 {
     readonly Action _do;
-    readonly Action undos;
+    readonly Action _undo;
 
     public ActionCommand(Action doIt, Action undoIt)
     {
         _do = doIt;
-        undos = undoIt;
+        _undo = undoIt;
     }
 
     protected override void DoCore() => _do();
-    protected override void UndoCore() => undos();
+    protected override void UndoCore() => _undo();
 }
