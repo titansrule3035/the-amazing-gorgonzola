@@ -1,0 +1,1 @@
+Full moon? Nah, I haven't had anything to eat today.
