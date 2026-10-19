@@ -262,7 +262,11 @@ public partial class EditorObject : Node2D
         if (!History.IsDirty) { proceed(); return; }
 
         OnSaveComplete = proceed;
-        // ShowQuitMenu
+        LevelEditorMain editorMain = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+
+        editorMain.ui.quitMenu.SetMenuVisibility(true);
+        editorMain.ui.quitMenu.programMode = true;
+        editorMain.ui.blockMouse.MouseFilter = Control.MouseFilterEnum.Stop;
     }
 
     public override void _ExitTree()
@@ -307,6 +311,15 @@ public partial class EditorObject : Node2D
         CursorSprite.Visible = !hideCursor;
 
         GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? " (Unsaved)" : "") + " - TAG Level Editor";
+    
+        if (History.IsDirty)
+        {
+            GetTree().AutoAcceptQuit = false;
+        }
+        else
+        {
+            GetTree().AutoAcceptQuit = true;
+        }
     }
 
     public override void _UnhandledKeyInput(InputEvent @event)

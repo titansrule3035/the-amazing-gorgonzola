@@ -59,17 +59,22 @@ public partial class EditorItemObject : TextureRect
     {
         Player = GetParent().GetNode<AnimationPlayer>("AnimationPlayer");
 
-        GuiInput += OnGuiInput;
         ChangeTexture += SetActiveItem;
 
         _main = GetTree().CurrentScene.GetNode<LevelEditorMain>(MainPath);
         _main.OnGamePaused += OnGamePaused;
     }
 
+    public override void _EnterTree()
+    {
+        GuiInput += OnGuiInput;
+    }
+
     public override void _ExitTree()
     {
         // ChangeTexture is static, so without this, freed items stay subscribed after a scene reload.
         ChangeTexture -= SetActiveItem;
+
         GuiInput -= OnGuiInput;
 
         if (IsInstanceValid(_main))

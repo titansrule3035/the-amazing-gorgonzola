@@ -258,8 +258,6 @@ public partial class Runtime : Node2D
         OnFileSaved.Invoke(filePath);
 
         file.StoreString(SaveManager.Encode(json));
-
-        GetTree().AutoAcceptQuit = true;
     }
 
     public async void FilePicked(string filePath)

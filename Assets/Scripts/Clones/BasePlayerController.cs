@@ -51,7 +51,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private static bool IsLevelCompleted()
     {
         GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        if (ggm != null) return ggm.levelCompleted;
+        if (ggm != null)
+        {
+            return ggm.levelCompleted;
+        }
 
         EditorGameManager? egm = EditorGameManager.GetInstance();
         return egm != null && egm.levelCompleted;
@@ -61,7 +64,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private static bool IsGamePaused()
     {
         GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        if (ggm != null) return ggm.gamePaused;
+        if (ggm != null)
+        {
+            return ggm.gamePaused;
+        }
 
         EditorGameManager? egm = EditorGameManager.GetInstance();
         return egm != null && egm.gamePaused;
@@ -71,7 +77,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private static bool CanMoveNow()
     {
         GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-        if (ggm != null) return ggm.canMove;
+        if (ggm != null)
+        {
+            return ggm.canMove;
+        }
 
         EditorGameManager? egm = EditorGameManager.GetInstance();
         return egm == null || egm.canMove;

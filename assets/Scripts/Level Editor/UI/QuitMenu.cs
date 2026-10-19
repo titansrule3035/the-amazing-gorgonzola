@@ -3,6 +3,7 @@ using System;
 
 public partial class QuitMenu : Control
 {
+    public bool programMode = false;
     [Export] Button quitButton;
     [Export] public Button cancelButton;
     public FileButton fileButton;
@@ -28,6 +29,8 @@ public partial class QuitMenu : Control
             ui.blockMouse.MouseFilter = MouseFilterEnum.Ignore;
             fileButton.UpdateMenuAndButton(false);
         }
+
+        programMode = false;
     }
 
     public override void _Process(double delta)
@@ -73,8 +76,16 @@ public partial class QuitMenu : Control
 
     void QuitEditor()
     {
-        quitButton.Disabled = cancelButton.Disabled = true;
+        if (!programMode)
+        {
+            quitButton.Disabled = cancelButton.Disabled = true;
 
-        ((Runtime)GetTree().CurrentScene).SwitchToGame(true);
+            ((Runtime)GetTree().CurrentScene).SwitchToGame(true);
+        }
+        else
+        {
+            GetTree().Quit();
+            programMode = false;
+        }
     }
 }

@@ -71,6 +71,7 @@ public partial class LevelEditorMain : Node2D
         if (Path.GetFileName(filePath) != ".taglevel")
         {
             levelName = Path.GetFileNameWithoutExtension(filePath);
+            EditorObject.GetInstance().History.MarkSaved();
         }
     }
 

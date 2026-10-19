@@ -4869,7 +4869,6 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="QuitMenu" type="Control" parent="CanvasLayer/UI" unique_id=483901159 node_paths=PackedStringArray("quitButton", "cancelButton")]
-visible = false
 anchors_preset = 0
 offset_left = 608.0
 offset_top = 200.0
