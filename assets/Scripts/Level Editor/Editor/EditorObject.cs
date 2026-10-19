@@ -113,6 +113,7 @@ public partial class EditorObject : Node2D
     public TileMapLayer TileMap { get; private set; }
     public EditorSelection Selection { get; private set; }
     public EditorHistory History { get; private set; }
+    public string levelName { get; set; } = "Untitled";
 
     public EditorItemObject itemObject;
     public EditorItemObject.ItemType itemType;
@@ -126,6 +127,7 @@ public partial class EditorObject : Node2D
     public Action? SelectionChanged;
     public Action? HistoryChanged;
     public event Action<FilterMode>? FilterChanged;
+    public event Action? OnSaveComplete;
 
     // ------------------------------------------------------------------
     // Convenience accessors
@@ -166,8 +168,9 @@ public partial class EditorObject : Node2D
     bool _overOwnUi;
     ulong _uiBlockUntilFrame;
 
-    EditorTool ActiveTool =>
-        _tools != null && _tools.TryGetValue(_mode, out var tool) ? tool : null;
+    static EditorObject instance;
+
+    EditorTool ActiveTool => _tools != null && _tools.TryGetValue(_mode, out var tool) ? tool : null;
 
     // ------------------------------------------------------------------
     // Tools / modes
@@ -206,6 +209,13 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     public override void _Ready()
     {
+        if (instance != null)
+        {
+            GD.PrintErr("Error: only one EditorObject allowed, deleting this one...");
+        }
+
+        instance = this;
+
         ProcessMode = ProcessModeEnum.Always; // keep running while the tree is paused
 
         CursorSprite = GetNode<Sprite2D>("Sprite");
@@ -233,8 +243,34 @@ public partial class EditorObject : Node2D
         ActiveTool?.Enter();
     }
 
+    public static EditorObject GetInstance()
+    {
+        return instance;
+    }
+
+    public override void _Notification(int what)
+    {
+        if (what == NotificationWMCloseRequest)
+        {
+            RequestAction(() => GetTree().Quit());
+        }
+    }
+
+    /// <summary>Runs `proceed` immediately if clean, otherwise asks Save / Discard / Cancel first.</summary>
+    void RequestAction(Action proceed)
+    {
+        if (!History.IsDirty) { proceed(); return; }
+
+        OnSaveComplete = proceed;
+        // ShowQuitMenu
+    }
+
     public override void _ExitTree()
     {
+        if (instance == this)
+        {
+            instance = null;
+        }
         // Frees any objects that are only kept alive by the undo stacks.
         History?.Clear();
     }
@@ -269,6 +305,8 @@ public partial class EditorObject : Node2D
 
         hideCursor = !(active && tool.CursorVisible);
         CursorSprite.Visible = !hideCursor;
+
+        GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? " (Unsaved)" : "") + " - TAG Level Editor";
     }
 
     public override void _UnhandledKeyInput(InputEvent @event)

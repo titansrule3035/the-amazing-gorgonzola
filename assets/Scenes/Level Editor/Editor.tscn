@@ -3738,6 +3738,7 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0, 0, 0.52156866)
 
 [node name="main" type="Node2D" unique_id=409207488]
+process_mode = 1
 script = ExtResource("1_xuh87")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=142540109]
@@ -3827,6 +3828,7 @@ offset_right = 63.55197
 color = Color(0, 0, 0, 1)
 
 [node name="ToolBar" type="Control" parent="CanvasLayer/UI" unique_id=1416856586]
+process_mode = 3
 anchors_preset = 0
 offset_right = 1728.0
 offset_bottom = 32.0
@@ -3859,7 +3861,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 19
-text = "Untitled (Unsaved)"
+text = "Untitled"
 horizontal_alignment = 1
 vertical_alignment = 1
 

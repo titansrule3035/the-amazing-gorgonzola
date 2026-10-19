@@ -56,11 +56,6 @@ public partial class Runtime : Node2D
     public override void _Process(double delta)
     {
         levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
-
-        if (editorMode && editorContainer.GetChildren().Count > 0)
-        {
-            GetWindow().Title = GetNode<LevelEditorMain>("editor/main").ui.toolBarLabel.Text + " - TAG Level Editor";
-        }
     }
 
     public void SwitchToEditor(bool fade)
@@ -114,6 +109,8 @@ public partial class Runtime : Node2D
 
     private async void SwitchModes()
     {
+        GetTree().AutoAcceptQuit = true;
+
         Node2D mode;
         Node2D oldMode = editorMode ? gameContainer : editorContainer;
         Node2D target = editorMode ? editorContainer : gameContainer;
@@ -261,6 +258,8 @@ public partial class Runtime : Node2D
         OnFileSaved.Invoke(filePath);
 
         file.StoreString(SaveManager.Encode(json));
+
+        GetTree().AutoAcceptQuit = true;
     }
 
     public async void FilePicked(string filePath)

@@ -27,6 +27,8 @@ public partial class LevelEditorMain : Node2D
     public Action? OnGameStarted;
     public Action? OnGamePaused;
 
+    public string levelName = "Untitled";
+
     // Map each object's "Type" (the original node Name) to the scene that should be instantiated.
     // Populate these from the Editor or load them by convention, e.g. res://objects/{type}.tscn
 
@@ -58,22 +60,17 @@ public partial class LevelEditorMain : Node2D
         runtime.OnLevelImported += ImportLevel;
     }
 
-    public override void _Process(double delta)
-    {
-        // No per-frame subscriptions here. Gorgonzola kill handler is wired
-        // by EditorGameManager.RegisterGorg to avoid repeated subscriptions.
-    }
-
     void FilePicked(string filePath)
     {
-        ui.toolBarLabel.Text = Path.GetFileNameWithoutExtension(filePath);
+        levelName = Path.GetFileNameWithoutExtension(filePath);
+        EditorObject.GetInstance().History.Clear();
     }
 
     public void FileSaved(string filePath)
     {
         if (Path.GetFileName(filePath) != ".taglevel")
         {
-            ui.toolBarLabel.Text = Path.GetFileNameWithoutExtension(filePath);
+            levelName = Path.GetFileNameWithoutExtension(filePath);
         }
     }
 

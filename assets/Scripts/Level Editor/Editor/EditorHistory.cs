@@ -12,63 +12,91 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class EditorHistory
 {
-    public readonly List<EditorCommand> _undo = new();
-    readonly List<EditorCommand> _redo = new();
-    readonly int _maxSteps;
+    readonly List<EditorCommand> undos = new();   // can be private now
+    readonly List<EditorCommand> redos = new();
+    readonly int maxSteps;
 
-    int _groupDepth;
-    List<EditorCommand> _group;
+    int groupDepth;
+    List<EditorCommand>? _group;
+
+    // --- dirty tracking ---
+    EditorCommand? savedCommand;   // top of undo stack at last save (null = empty stack)
+    bool cannotAccess;                // saved state can no longer be reached via undo/redo
+    bool externallyDirty;            // changes made outside the history
+    bool wasDirty;
 
     public event Action? Changed;
+    public event Action<bool>? DirtyChanged;
 
-    public EditorHistory(int maxSteps) => _maxSteps = Math.Max(1, maxSteps);
+    public EditorHistory(int maxSteps) => maxSteps = Math.Max(1, maxSteps);
 
-    public bool GroupOpen => _groupDepth > 0;
-    public bool CanUndo => _undo.Count > 0 && !GroupOpen;
-    public bool CanRedo => _redo.Count > 0 && !GroupOpen;
+    public bool GroupOpen => groupDepth > 0;
+    public bool CanUndo => undos.Count > 0 && !GroupOpen;
+    public bool CanRedo => redos.Count > 0 && !GroupOpen;
 
-    /// <summary>Runs the command and records it.</summary>
+    EditorCommand? Top => undos.Count > 0 ? undos[^1] : null;
+    bool PendingGroupChanges => _group is { Count: > 0 };
+
+    public bool IsDirty => externallyDirty || cannotAccess || PendingGroupChanges || !ReferenceEquals(Top, savedCommand);
+
+    /// <summary>Call after the file was written successfully.</summary>
+    public void MarkSaved()
+    {
+        savedCommand = Top;
+        cannotAccess = false;
+        externallyDirty = false;
+        NotifyChanged();
+    }
+
+    /// <summary>For changes that bypass the history (level name, settings, etc.).</summary>
+    public void MarkDirty()
+    {
+        externallyDirty = true;
+        NotifyChanged();
+    }
+
     public void Execute(EditorCommand command)
     {
         if (command.IsNoOp) return;
 
         command.Do();
         Record(command);
-        Changed?.Invoke();
+        NotifyChanged();
     }
 
     public void BeginGroup()
     {
-        if (_groupDepth++ == 0)
-        {
-            _group = new List<EditorCommand>();
-        }
+        if (groupDepth++ == 0) _group = new List<EditorCommand>();
     }
 
     public void EndGroup()
     {
-        if (_groupDepth == 0) return;
-        if (--_groupDepth > 0) return;
+        if (groupDepth == 0) return;
+        if (--groupDepth > 0) return;
 
         var commands = _group;
         _group = null;
 
-        if (commands == null || commands.Count == 0) return;
+        if (commands == null || commands.Count == 0)
+        {
+            NotifyChanged();
+            return;
+        }
 
         Push(commands.Count == 1 ? commands[0] : new CompositeCommand(commands));
-        Changed?.Invoke();
+        NotifyChanged();
     }
 
     public bool Undo()
     {
         if (!CanUndo) return false;
 
-        var command = _undo[^1];
-        _undo.RemoveAt(_undo.Count - 1);
+        var command = undos[^1];
+        undos.RemoveAt(undos.Count - 1);
         command.Undo();
-        _redo.Add(command);
+        redos.Add(command);
 
-        Changed?.Invoke();
+        NotifyChanged();
         return true;
     }
 
@@ -76,54 +104,79 @@ public sealed class EditorHistory
     {
         if (!CanRedo) return false;
 
-        var command = _redo[^1];
-        _redo.RemoveAt(_redo.Count - 1);
+        var command = redos[^1];
+        redos.RemoveAt(redos.Count - 1);
         command.Do();
-        _undo.Add(command);
+        undos.Add(command);
 
-        Changed?.Invoke();
+        NotifyChanged();
         return true;
     }
 
-    /// <summary>Drops all history (e.g. when a level is loaded) and frees anything the commands still own.</summary>
+    /// <summary>Call when a level is loaded or created. The new level starts clean.</summary>
     public void Clear()
     {
-        foreach (var c in _undo) c.Dispose();
-        foreach (var c in _redo) c.Dispose();
+        foreach (var c in undos) c.Dispose();
+        foreach (var c in redos) c.Dispose();
 
-        _undo.Clear();
-        _redo.Clear();
+        undos.Clear();
+        redos.Clear();
         _group = null;
-        _groupDepth = 0;
+        groupDepth = 0;
 
-        Changed?.Invoke();
+        savedCommand = null;
+        cannotAccess = false;
+        externallyDirty = false;
+
+        NotifyChanged();
     }
 
     void Record(EditorCommand command)
     {
-        if (GroupOpen)
-        {
-            _group.Add(command);
-        }
-        else
-        {
-            Push(command);
-        }
+        if (GroupOpen) _group!.Add(command);
+        else Push(command);
     }
 
     void Push(EditorCommand command)
     {
-        // A new action invalidates the redo stack.
-        foreach (var c in _redo) c.Dispose();
-        _redo.Clear();
-
-        _undo.Add(command);
-
-        while (_undo.Count > _maxSteps)
+        // The saved state lives in the redo branch we're about to destroy.
+        if (savedCommand != null && redos.Contains(savedCommand))
         {
-            _undo[0].Dispose();
-            _undo.RemoveAt(0);
+            savedCommand = null;
+            cannotAccess = true;
         }
+
+        foreach (var c in redos) c.Dispose();
+        redos.Clear();
+
+        undos.Add(command);
+
+        while (undos.Count > maxSteps)
+        {
+            var oldest = undos[0];
+
+            // Saved at the very bottom (null), or the saved command itself is being dropped:
+            // undoing back to an empty stack no longer reproduces the saved file.
+            if (savedCommand == null || ReferenceEquals(oldest, savedCommand))
+            {
+                savedCommand = null;
+                cannotAccess = true;
+            }
+
+            oldest.Dispose();
+            undos.RemoveAt(0);
+        }
+    }
+
+    void NotifyChanged()
+    {
+        Changed?.Invoke();
+
+        bool now = IsDirty;
+        if (now == wasDirty) return;
+
+        wasDirty = now;
+        DirtyChanged?.Invoke(now);
     }
 }
 
@@ -202,18 +255,28 @@ public sealed class TileChangeCommand : EditorCommand
 
     public void Set(Vector2I cell, TileSnapshot before, TileSnapshot after)
     {
-        if (before == after) return;
+        if (before == after)
+        {
+            return;
+        }
+
         _cells[cell] = (before, after);
     }
 
     protected override void DoCore()
     {
-        foreach (var (cell, state) in _cells) state.After.ApplyTo(_map, cell);
+        foreach (var (cell, state) in _cells)
+        {
+            state.After.ApplyTo(_map, cell);
+        }
     }
 
     protected override void UndoCore()
     {
-        foreach (var (cell, state) in _cells) state.Before.ApplyTo(_map, cell);
+        foreach (var (cell, state) in _cells)
+        {
+            state.Before.ApplyTo(_map, cell);
+        }
     }
 }
 
@@ -272,20 +335,41 @@ public sealed class ObjectAttachCommand : EditorCommand
 
     protected override void DoCore()
     {
-        if (_adds) Attach(); else Detach();
+        if (_adds)
+        {
+            Attach();
+        }
+        else
+        {
+            Detach();
+        }
     }
 
     protected override void UndoCore()
     {
-        if (_adds) Detach(); else Attach();
+        if (_adds)
+        {
+            Detach();
+        }
+        else
+        {
+            Attach();
+        }
     }
 
     void Attach()
     {
         foreach (var e in _entries)
         {
-            if (!GodotObject.IsInstanceValid(e.Node) || !GodotObject.IsInstanceValid(e.Parent)) continue;
-            if (e.Node.GetParent() != null) continue;
+            if (!GodotObject.IsInstanceValid(e.Node) || !GodotObject.IsInstanceValid(e.Parent))
+            {
+                continue;
+            }
+
+            if (e.Node.GetParent() != null)
+            {
+                continue;
+            }
 
             e.Parent.AddChild(e.Node);
 
@@ -303,7 +387,10 @@ public sealed class ObjectAttachCommand : EditorCommand
     {
         foreach (var e in _entries)
         {
-            if (!GodotObject.IsInstanceValid(e.Node) || e.Node.GetParent() != e.Parent) continue;
+            if (!GodotObject.IsInstanceValid(e.Node) || e.Node.GetParent() != e.Parent)
+            {
+                continue;
+            }
 
             e.Index = e.Node.GetIndex();
             e.GlobalPos = e.Node.GlobalPosition;
@@ -335,17 +422,26 @@ public sealed class ObjectMoveCommand : EditorCommand
 
     protected override void DoCore()
     {
-        foreach (var e in _entries) Apply(e.Node, e.ToPos, e.ToCell);
+        foreach (var e in _entries)
+        {
+            Apply(e.Node, e.ToPos, e.ToCell);
+        }
     }
 
     protected override void UndoCore()
     {
-        foreach (var e in _entries) Apply(e.Node, e.FromPos, e.FromCell);
+        foreach (var e in _entries)
+        {
+            Apply(e.Node, e.FromPos, e.FromCell);
+        }
     }
 
     static void Apply(Node2D node, Vector2 pos, Vector2I cell)
     {
-        if (!GodotObject.IsInstanceValid(node)) return;
+        if (!GodotObject.IsInstanceValid(node))
+        {
+            return;
+        }
 
         node.GlobalPosition = pos;
         node.SetMeta(EditorObject.MetaCell, cell);
@@ -366,17 +462,26 @@ public sealed class CompositeCommand : EditorCommand
 
     protected override void DoCore()
     {
-        foreach (var c in _commands) c.Do();
+        foreach (var c in _commands)
+        {
+            c.Do();
+        }
     }
 
     protected override void UndoCore()
     {
-        for (int i = _commands.Count - 1; i >= 0; i--) _commands[i].Undo();
+        for (int i = _commands.Count - 1; i >= 0; i--)
+        {
+            _commands[i].Undo();
+        }
     }
 
     public override void Dispose()
     {
-        foreach (var c in _commands) c.Dispose();
+        foreach (var c in _commands)
+        {
+            c.Dispose();
+        }
     }
 }
 
@@ -384,14 +489,14 @@ public sealed class CompositeCommand : EditorCommand
 public sealed class ActionCommand : EditorCommand
 {
     readonly Action _do;
-    readonly Action _undo;
+    readonly Action undos;
 
     public ActionCommand(Action doIt, Action undoIt)
     {
         _do = doIt;
-        _undo = undoIt;
+        undos = undoIt;
     }
 
     protected override void DoCore() => _do();
-    protected override void UndoCore() => _undo();
+    protected override void UndoCore() => undos();
 }

@@ -36,6 +36,7 @@
 [node name="runtime" type="Node2D" unique_id=1780813959]
 process_mode = 3
 script = ExtResource("1_pff64")
+editorMode = true
 gameScene = ExtResource("3_s7gb8")
 editorScene = ExtResource("2_6cu8n")
 LevelMechanicScenes = Dictionary[String, PackedScene]({

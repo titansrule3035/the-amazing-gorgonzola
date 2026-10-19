@@ -118,9 +118,10 @@ public partial class FileButton : ToolBarButton
     {
         Runtime runtime = (Runtime)GetTree().CurrentScene;
         UpdateMenuAndButton(false);
-        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-        main.GetNode<Label>("CanvasLayer/UI/ToolBar/ToolBarLabel").Text = "Untitled (Unsaved)";
         runtime.filePath = "";
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        main.levelName = "Untitled";
+        EditorObject.GetInstance().History.Clear();
         await runtime.ClearGroups();
         main.SetGameState(true);
         main.GetNode<EditorObject>("EditorObject").itemObject?.SetActiveItem(null);

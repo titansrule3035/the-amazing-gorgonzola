@@ -88,6 +88,8 @@ public partial class Ui : Control
     {
         // Center quitMenu within this UI control
         quitMenu.Position = (Size - quitMenu.Size) / 2;
+
+        toolBarLabel.Text = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? " (Unsaved)" : "");
     }
 
     public void UpdateGameButtonStates()
