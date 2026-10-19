@@ -68,5 +68,7 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
         {
             instance = null;
         }
+
+        base._ExitTree();
     }
 }
