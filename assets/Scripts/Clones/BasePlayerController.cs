@@ -115,40 +115,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
     }
 
     /// <summary>
-    /// Waits until the LocalGameManager instance is available and then wires the Flush event.
-    /// This runs asynchronously so the node can finish initializing without blocking.
-    /// </summary>
-    private async Task WireSignalsAsync()
-    {
-        while (LocalGameManager.GetInstance() == null && IsInsideTree())
-        {
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        }
-
-        var gm = LocalGameManager.GetInstance();
-
-        if (gm != null)
-        {
-            gm.OnFlush += Flush;
-        }
-    }
-
-    /// <summary>
-    /// Enables or disables player input for this controller. Disabling clears any buffered jump
-    /// so the character doesn't jump the moment input is re-enabled.
-    /// </summary>
-    /// <param name="allowed">True to let player input move this controller.</param>
-    public void SetPlayerInputEnabled(bool allowed)
-    {
-        AllowPlayerInput = allowed;
-
-        if (!allowed)
-        {
-            jumpBufferTimer = 0f;
-        }
-    }
-
-    /// <summary>
     /// Physics update loop. Handles input, movement, gravity application, and animation updates.
     /// </summary>
     /// <param name="delta">Frame time in seconds.</param>
@@ -189,6 +155,65 @@ public abstract partial class BasePlayerController : CharacterBody2D
     }
 
     /// <summary>
+    /// Cleans up event subscriptions when the node exits the scene tree.
+    /// </summary>
+    public override void _ExitTree()
+    {
+        var gm = LocalGameManager.GetInstance();
+        if (gm != null)
+        {
+            gm.OnFlush -= Flush;
+        }
+
+        if (this is not Gorgonzola)
+        {
+            MainPlayerKilled -= OnMainPlayerKilled;
+        }
+
+        if (animationPlayer != null)
+        {
+            animationTree.AnimationFinished -= OnAnimationFinished;
+        }
+
+        base._ExitTree();
+    }
+
+    /// <summary>
+    /// Waits until the LocalGameManager instance is available and then wires the Flush event.
+    /// This runs asynchronously so the node can finish initializing without blocking.
+    /// </summary>
+    private async Task WireSignalsAsync()
+    {
+        while (LocalGameManager.GetInstance() == null && IsInsideTree())
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+
+        var gm = LocalGameManager.GetInstance();
+
+        if (gm != null)
+        {
+            gm.OnFlush += Flush;
+        }
+    }
+
+    /// <summary>
+    /// Enables or disables player input for this controller. Disabling clears any buffered jump
+    /// so the character doesn't jump the moment input is re-enabled.
+    /// </summary>
+    /// <param name="allowed">True to let player input move this controller.</param>
+    public void SetPlayerInputEnabled(bool allowed)
+    {
+        AllowPlayerInput = allowed;
+
+        if (!allowed)
+        {
+            jumpBufferTimer = 0f;
+        }
+    }
+
+
+    /// <summary>
     /// Processes jump input including buffering and spawns the jump effect when a jump occurs.
     /// Does nothing (and clears the buffer) while player input is disabled.
     /// </summary>
@@ -202,7 +227,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
             return;
         }
 
-        if (Input.IsActionJustPressed("jump") && CanMoveNow())
+        if (IsJumpJustPressed() && CanMoveNow())
         {
             jumpBufferTimer = JumpBufferTime;
         }
@@ -340,6 +365,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
                 PlayAnimation("enter_door");
                 gorgonzola.doorMoveTriggered = true;
             }
+            else if (this is ShadowClone shadowClone)
+            {
+                shadowClone.Kill();
+            }
             else
             {
                 PlayAnimation("levelCompleted");
@@ -427,6 +456,11 @@ public abstract partial class BasePlayerController : CharacterBody2D
     public virtual bool ShouldFlipSprite(float direction) => direction < 0f;
 
     /// <summary>
+    /// Whether a jump was requested this physics frame. Override to change where jump input comes from.
+    /// </summary>
+    protected virtual bool IsJumpJustPressed() => Input.IsActionJustPressed("jump");
+
+    /// <summary>
     /// Handles logic when this player/controller is killed. Releases keys and updates UI.
     /// </summary>
     public virtual void Kill()
@@ -455,7 +489,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <summary>
     /// Local handler that responds to the static MainPlayerKilled event by calling Kill().
     /// </summary>
-    private void OnMainPlayerKilled() => Kill();
+    protected void OnMainPlayerKilled() => Kill();
 
     /// <summary>
     /// Broadcasts the static MainPlayerKilled event to notify all listeners.
@@ -467,29 +501,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// </summary>
     public static void KillAllClones() => BroadcastMainPlayerKilled();
 
-    /// <summary>
-    /// Cleans up event subscriptions when the node exits the scene tree.
-    /// </summary>
-    public override void _ExitTree()
-    {
-        var gm = LocalGameManager.GetInstance();
-        if (gm != null)
-        {
-            gm.OnFlush -= Flush;
-        }
-
-        if (this is not Gorgonzola)
-        {
-            MainPlayerKilled -= OnMainPlayerKilled;
-        }
-
-        if (animationPlayer != null)
-        {
-            animationTree.AnimationFinished -= OnAnimationFinished;
-        }
-
-        base._ExitTree();
-    }
 
     /// <summary>
     /// Shows or hides the indicator AnimatedSprite2D.
