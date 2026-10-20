@@ -1,34 +1,64 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class ShadowClone : BasePlayerController
 {
     // Scenes / resources
+    [Export] private PackedScene formEffectScene;
     [Export] private PackedScene killEffectScene;
+    [Export] private int delayMs = 1500;
 
-    /// <summary>
-    /// Returns horizontal input for the default clone using the configured input actions.
-    /// </summary>
-    /// <returns>Normalized horizontal input (-1..1).</returns>
-    protected override float GetMovementInput()
+    private struct InputSample
     {
-        return Input.GetAxis("move_left", "move_right");
+        public float Time;
+        public float Direction;
+        public bool Jump;
     }
 
-    /// <summary>
-    /// Flips the sprite based on movement direction and stores the flip state.
-    /// </summary>
-    /// <param name="direction">Horizontal movement direction.</param>
-    /// <returns>True if sprite should be flipped horizontally.</returns>
+    private readonly Queue<InputSample> inputQueue = new();
+    private float elapsed = 0f;
+
+    // The delayed values the base class reads this frame
+    private float delayedDirection = 0f;
+    private bool delayedJump = false;
+
+    public override void _PhysicsProcess(double delta)
+    {
+        elapsed += (float)delta;
+
+        // 1. Record the live input (same sources as DefaultClone)
+        inputQueue.Enqueue(new InputSample
+        {
+            Time = elapsed,
+            Direction = Input.GetAxis("move_left", "move_right"),
+            Jump = Input.IsActionJustPressed("jump")
+        });
+
+        // 2. Release every sample that is now at least `delayMs` old
+        float delaySeconds = delayMs / 1000f;
+        delayedJump = false;
+
+        while (inputQueue.Count > 0 && inputQueue.Peek().Time <= elapsed - delaySeconds)
+        {
+            InputSample sample = inputQueue.Dequeue();
+            delayedDirection = sample.Direction;
+            delayedJump |= sample.Jump; // a one-frame press must not be lost
+        }
+
+        // 3. Run normal movement/gravity/animation using the delayed input
+        base._PhysicsProcess(delta);
+    }
+
+    protected override float GetMovementInput() => delayedDirection;
+
+    protected override bool IsJumpJustPressed() => delayedJump;
+
     public override bool ShouldFlipSprite(float direction)
     {
         shouldFlip = (direction < 0);
         return shouldFlip;
     }
 
-    /// <summary>
-    /// Handles death for the default clone: spawns a kill effect, queues the node for freeing,
-    /// and invokes base-class kill logic (key handling, UI updates).
-    /// </summary>
     public override void Kill()
     {
         if (!killed)
@@ -39,5 +69,13 @@ public partial class ShadowClone : BasePlayerController
 
             base.Kill();
         }
+    }
+
+    protected override void Flush()
+    {
+        inputQueue.Clear();
+        delayedDirection = 0f;
+        delayedJump = false;
+        base.Flush();
     }
 }
