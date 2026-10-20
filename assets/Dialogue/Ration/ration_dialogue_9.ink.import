@@ -1,0 +1,16 @@
+[remap]
+
+importer="ink"
+type="Resource"
+uid="uid://bnsgsgvali51x"
+path="res://.godot/imported/ration_dialogue_9.ink-c62790f5f4b03be50ac264dcc7507dfa.res"
+
+[deps]
+
+source_file="res://assets/Dialogue/Ration/ration_dialogue_9.ink"
+dest_files=["res://.godot/imported/ration_dialogue_9.ink-c62790f5f4b03be50ac264dcc7507dfa.res"]
+
+[params]
+
+is_main_file=false
+compress=true
