@@ -3,8 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="2_mfl0b"]
 [ext_resource type="Script" uid="uid://1nhu3m40ep1a" path="res://assets/Scripts/Clones/ShadowClone.cs" id="2_q02hg"]
 [ext_resource type="PackedScene" uid="uid://c4yss8mug7qbs" path="res://assets/Scenes/Effects/shadow_kill_effect.tscn" id="2_v8s1s"]
+[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Effects/jump_effect.tscn" id="3_f7sls"]
 [ext_resource type="Texture2D" uid="uid://b0s1hege7xr" path="res://assets/Sprites/Clones/Pallettes/shadow_clone.png" id="3_gpjg3"]
 [ext_resource type="Texture2D" uid="uid://cpb5rbqqg6f30" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgfall.png" id="3_q02hg"]
+[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_8g8bt"]
 [ext_resource type="Texture2D" uid="uid://c0pu3yuhdtekq" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgidle.png" id="5_4onxh"]
 [ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="5_qit4v"]
 [ext_resource type="Texture2D" uid="uid://pql8u1a46qr4" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgjump.png" id="6_odspl"]
@@ -1340,6 +1342,8 @@ collision_mask = 65535
 script = ExtResource("2_q02hg")
 killEffectScene = ExtResource("2_v8s1s")
 delayMs = 750
+jumpEffectScene = ExtResource("3_f7sls")
+landEffectScene = ExtResource("4_8g8bt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -26.5)
@@ -1350,7 +1354,7 @@ debug_color = Color(0.7019608, 0.37254903, 1, 0.6117647)
 texture_filter = 1
 material = SubResource("ShaderMaterial_k1s2y")
 sprite_frames = SubResource("SpriteFrames_bxb0f")
-animation = &"idle"
+animation = &"enter_door"
 autoplay = "idle"
 offset = Vector2(0, -50)
 

@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://c4t44yvxicvh5"]
+
+[ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://assets/Scripts/Levels/r1.cs" id="1_7ln7r"]
+[ext_resource type="Texture2D" uid="uid://cpvspocthubso" path="res://assets/Sprites/World/world2_bg.png" id="2_1m0ls"]
+[ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/tiles.tscn" id="3_k8i1i"]
+[ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/level_assets.tscn" id="4_kqbhu"]
+[ext_resource type="PackedScene" uid="uid://c5tsymung3jey" path="res://assets/Scenes/Clones/Spawners/shadow_clone_spawn.tscn" id="5_75twm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f52d5"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(0, 0, 1248, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi1va"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(1248, 0, 1248, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxhw5"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(2496, 0, 1248, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c4wi"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(3744, 0, 1248, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca6yi"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(4992, 0, 1248, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr7gm"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(6240, 0, 1248, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jf3l"]
+atlas = ExtResource("2_1m0ls")
+region = Rect2(7488, 0, 1248, 832)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sto6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f52d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi1va")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxhw5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c4wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca6yi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr7gm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jf3l")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="level" type="Node2D" unique_id=1869554895]
+script = ExtResource("1_7ln7r")
+
+[node name="canvas_layer" type="CanvasLayer" parent="." unique_id=1126741616]
+
+[node name="label" type="Label" parent="canvas_layer" unique_id=2019048931]
+z_index = 100
+offset_left = -112.0
+offset_top = -208.0
+offset_right = 158.91504
+offset_bottom = -176.0
+theme_override_colors/font_color = Color(1, 0.48235294, 0.35686275, 1)
+text = "Shadow Mode: Hunt"
+
+[node name="camera" type="Camera2D" parent="." unique_id=894712086]
+position = Vector2(1, 0)
+limit_left = -608
+limit_top = -1024
+limit_right = 640
+limit_bottom = 32
+
+[node name="background" type="AnimatedSprite2D" parent="." unique_id=173385077]
+position = Vector2(16, -384)
+sprite_frames = SubResource("SpriteFrames_sto6m")
+autoplay = "default"
+
+[node name="tiles" parent="." unique_id=1718396930 instance=ExtResource("3_k8i1i")]
+
+[node name="level_assets" parent="." unique_id=1309160586 instance=ExtResource("4_kqbhu")]
+
+[node name="shadow_form_effect" parent="." unique_id=424745670 instance=ExtResource("5_75twm")]
+position = Vector2(432, -336)
+huntMode = true
