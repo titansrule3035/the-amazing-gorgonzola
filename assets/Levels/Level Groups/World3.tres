@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelGroup" format=3 uid="uid://cpyivpvlxecw"]
+
+[ext_resource type="PackedScene" uid="uid://c4t44yvxicvh5" path="res://assets/Levels/Scenes/Group3Scene.tscn" id="1_87560"]
+[ext_resource type="Script" uid="uid://dbwjqhfikbsyv" path="res://assets/Scripts/Levels/LevelGroup.cs" id="1_qbrnc"]
+
+[resource]
+script = ExtResource("1_qbrnc")
+Scene = ExtResource("1_87560")
+TagLevels = Array[String](["res://assets/TAGLEVELs/World3/1.taglevel"])
+metadata/_custom_type_script = "uid://dbwjqhfikbsyv"

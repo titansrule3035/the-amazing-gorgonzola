@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/Hazards/spike_up.tscn" id="14_pjdf6"]
 [ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="15_6fdsp"]
 [ext_resource type="PackedScene" uid="uid://1y7bnvgayekf" path="res://assets/Scenes/Level Assets/Hazards/chunk.tscn" id="15_u1uq0"]
+[ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Clones/shadow_clone.tscn" id="16_bgwub"]
 [ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="16_lnd6h"]
 [ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/Level Assets/on_off_switch.tscn" id="17_xe026"]
 [ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="18_txxry"]
@@ -36,7 +37,6 @@
 [node name="runtime" type="Node2D" unique_id=1780813959]
 process_mode = 3
 script = ExtResource("1_pff64")
-editorMode = true
 gameScene = ExtResource("3_s7gb8")
 editorScene = ExtResource("2_6cu8n")
 LevelMechanicScenes = Dictionary[String, PackedScene]({
@@ -53,6 +53,7 @@ CloneScenes = Dictionary[String, PackedScene]({
 })
 HazardScenes = Dictionary[String, PackedScene]({
 "Chunk": ExtResource("15_u1uq0"),
+"ShadowClone": ExtResource("16_bgwub"),
 "SpikeDown": ExtResource("11_7ei28"),
 "SpikeLeft": ExtResource("12_llobl"),
 "SpikeRight": ExtResource("13_q3x6y"),

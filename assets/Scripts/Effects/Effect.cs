@@ -4,12 +4,12 @@ using System;
 public partial class Effect : Node2D
 {
     // Node references
-    private AnimationPlayer animPlayer;
-    private AnimatedSprite2D sprite;
+    protected AnimationPlayer animPlayer;
+    protected AnimatedSprite2D sprite;
 
     // Internal flags
-    private bool spriteConnected = false;
-    private bool animPlayerConnected = false;
+    protected bool spriteConnected = false;
+    protected bool animPlayerConnected = false;
 
     /// <summary>
     /// Called when the node enters the scene tree. Attempts to find an AnimationPlayer or
@@ -30,7 +30,7 @@ public partial class Effect : Node2D
         {
             sprite.AnimationFinished += OnSpriteAnimationFinished;
             spriteConnected = true;
-            sprite.Play();
+            sprite.Play("default");
         }
         else
         {

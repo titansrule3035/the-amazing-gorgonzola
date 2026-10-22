@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://c5tsymung3jey"]
+
+[ext_resource type="Script" uid="uid://dktmay1vc1pvw" path="res://assets/Scripts/Level Assets/ShadowCloneSpawn.cs" id="1_aqeqh"]
+[ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Clones/shadow_clone.tscn" id="2_gk1mn"]
+[ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_oj5u7"]
+[ext_resource type="Texture2D" uid="uid://butpqo8rmdb7y" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgforming.png" id="3_2o2g1"]
+
+[sub_resource type="Shader" id="Shader_tki4n"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette_texture; // 1D texture: original colors
+uniform sampler2D swap_texture;    // 1D texture: replacement colors
+uniform int palette_size = 8;
+uniform float threshold = 0.01;
+
+void fragment() {
+  vec4 pixel = texture(TEXTURE, UV);
+  COLOR = pixel;
+  for (int i = 0; i < palette_size; i++) {
+    vec2 uv = vec2((float(i) + 0.5) / float(palette_size), 0.5);
+    vec4 orig = texture(palette_texture, uv);
+    if (length(pixel.rgb - orig.rgb) < threshold) {
+      COLOR = vec4(texture(swap_texture, uv).rgb, pixel.a);
+      break;
+    }
+  }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwfgy"]
+shader = SubResource("Shader_tki4n")
+shader_parameter/palette_texture = ExtResource("2_oj5u7")
+shader_parameter/swap_texture = ExtResource("2_oj5u7")
+shader_parameter/palette_size = 1
+shader_parameter/threshold = 0.01
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5wcx"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2r88"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0tvb"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqv6a"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_im3cj"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4yy1"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i50pj"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cpo3"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtmng"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmomj"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(900, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r35hs"]
+atlas = ExtResource("3_2o2g1")
+region = Rect2(1000, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2dbq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5wcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2r88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0tvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqv6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_im3cj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4yy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i50pj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cpo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtmng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmomj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r35hs")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_lk3r2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_x3sha"]
+resource_name = "default"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wq4l"]
+_data = {
+&"RESET": SubResource("Animation_lk3r2"),
+&"default": SubResource("Animation_x3sha")
+}
+
+[node name="shadow_clone_spawn" type="Node2D" unique_id=424745670]
+script = ExtResource("1_aqeqh")
+shadowClone = ExtResource("2_gk1mn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056703331]
+z_index = 10
+material = SubResource("ShaderMaterial_mwfgy")
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_k2dbq")
+autoplay = "default"
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=454587192]
+libraries/ = SubResource("AnimationLibrary_4wq4l")
+autoplay = &"default"

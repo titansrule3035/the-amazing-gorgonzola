@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpvspocthubso" path="res://assets/Sprites/World/world2_bg.png" id="2_7f42d"]
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/tiles.tscn" id="3_tyrx5"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/level_assets.tscn" id="4_7f42d"]
+[ext_resource type="PackedScene" uid="uid://c5tsymung3jey" path="res://assets/Scenes/Clones/Spawners/shadow_clone_spawn.tscn" id="5_7f42d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f52d5"]
 atlas = ExtResource("2_7f42d")
@@ -67,6 +68,15 @@ script = ExtResource("1_tyrx5")
 
 [node name="canvas_layer" type="CanvasLayer" parent="." unique_id=1126741616]
 
+[node name="label" type="Label" parent="canvas_layer" unique_id=2019048931]
+z_index = 100
+offset_left = -112.0
+offset_top = -208.0
+offset_right = 158.91504
+offset_bottom = -176.0
+theme_override_colors/font_color = Color(1, 0.5921569, 0.1764706, 1)
+text = "Shadow Mode: Copy delayed input"
+
 [node name="camera" type="Camera2D" parent="." unique_id=894712086]
 position = Vector2(1, 0)
 limit_left = -608
@@ -82,3 +92,6 @@ autoplay = "default"
 [node name="tiles" parent="." unique_id=1718396930 instance=ExtResource("3_tyrx5")]
 
 [node name="level_assets" parent="." unique_id=1309160586 instance=ExtResource("4_7f42d")]
+
+[node name="shadow_form_effect" parent="." unique_id=424745670 instance=ExtResource("5_7f42d")]
+position = Vector2(432, -336)

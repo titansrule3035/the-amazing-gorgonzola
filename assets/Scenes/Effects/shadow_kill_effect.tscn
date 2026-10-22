@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://c4yss8mug7qbs"]
+
+[ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_8byi6"]
+[ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_43ckb"]
+[ext_resource type="Texture2D" uid="uid://b87qpxhdflsa0" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgdeath.png" id="3_kjpop"]
+
+[sub_resource type="Shader" id="Shader_tki4n"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette_texture; // 1D texture: original colors
+uniform sampler2D swap_texture;    // 1D texture: replacement colors
+uniform int palette_size = 8;
+uniform float threshold = 0.01;
+
+void fragment() {
+  vec4 pixel = texture(TEXTURE, UV);
+  COLOR = pixel;
+  for (int i = 0; i < palette_size; i++) {
+    vec2 uv = vec2((float(i) + 0.5) / float(palette_size), 0.5);
+    vec4 orig = texture(palette_texture, uv);
+    if (length(pixel.rgb - orig.rgb) < threshold) {
+      COLOR = vec4(texture(swap_texture, uv).rgb, pixel.a);
+      break;
+    }
+  }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwfgy"]
+shader = SubResource("Shader_tki4n")
+shader_parameter/palette_texture = ExtResource("2_43ckb")
+shader_parameter/swap_texture = ExtResource("2_43ckb")
+shader_parameter/palette_size = 1
+shader_parameter/threshold = 0.01
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcsdx"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gx7e6"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyb8x"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uju8w"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxuca"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q810"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_200q0"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaqn7"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqjds"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(800, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkekd"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(900, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yt4p"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(1000, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pgmt"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(1100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8p2sq"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(1200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r68xf"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(1300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tr3bs"]
+atlas = ExtResource("3_kjpop")
+region = Rect2(1400, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_javd6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcsdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gx7e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyb8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uju8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hxuca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q810")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_200q0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaqn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqjds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkekd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yt4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pgmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8p2sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r68xf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tr3bs")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_lk3r2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_x3sha"]
+resource_name = "default"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wq4l"]
+_data = {
+&"RESET": SubResource("Animation_lk3r2"),
+&"default": SubResource("Animation_x3sha")
+}
+
+[node name="shadow_kill_effect" type="Node2D" unique_id=424745670]
+script = ExtResource("1_8byi6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056703331]
+z_index = 10
+material = SubResource("ShaderMaterial_mwfgy")
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_javd6")
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=454587192]
+libraries/ = SubResource("AnimationLibrary_4wq4l")
+autoplay = &"default"

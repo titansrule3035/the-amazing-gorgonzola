@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Effects/land_effect.tscn" id="4_wmpbg"]
 [ext_resource type="Texture2D" uid="uid://cg7vixk0fswyf" path="res://assets/Sprites/Clones/idle.png" id="4_yv23k"]
 [ext_resource type="Texture2D" uid="uid://bcb4xwnp7jfmg" path="res://assets/Sprites/Clones/jump.png" id="5_iohye"]
+[ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png" id="6_myo0h"]
 [ext_resource type="Texture2D" uid="uid://2bva0llm5q12" path="res://assets/Sprites/Clones/walk.png" id="6_wmpbg"]
 [ext_resource type="Texture2D" uid="uid://bofoc25jmfx4y" path="res://assets/Sprites/Clones/win.png" id="7_myo0h"]
 [ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="8_1hqsc"]
@@ -47,7 +48,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k1s2y"]
 shader = SubResource("Shader_dk3xr")
 shader_parameter/palette_texture = ExtResource("1_8facq")
-shader_parameter/swap_texture = ExtResource("1_8facq")
+shader_parameter/swap_texture = ExtResource("6_myo0h")
 shader_parameter/palette_size = 10
 shader_parameter/threshold = 0.01
 
@@ -1350,7 +1351,7 @@ debug_color = Color(0.992157, 1, 0.666667, 0.611765)
 texture_filter = 1
 material = SubResource("ShaderMaterial_k1s2y")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
-animation = &"idle"
+animation = &"fall"
 autoplay = "idle"
 offset = Vector2(0, -50)
 
