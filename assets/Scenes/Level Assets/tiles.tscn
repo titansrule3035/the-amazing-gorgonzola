@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://c8ydq7hkn7au5"]
+[gd_scene format=3 uid="uid://c8ydq7hkn7au5"]
 
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="1_jpoii"]
 [ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="2_yo3a0"]
@@ -3260,13 +3260,10 @@ texture_region_size = Vector2i(32, 32)
 23:20/0 = 0
 23:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 26:20/0 = 0
-26:20/0/terrain = 0
 26:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 27:20/0 = 0
-27:20/0/terrain = 0
 27:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 28:20/0 = 0
-28:20/0/terrain = 0
 28:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:21/0 = 0
 1:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -3299,13 +3296,10 @@ texture_region_size = Vector2i(32, 32)
 23:21/0 = 0
 23:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 26:21/0 = 0
-26:21/0/terrain = 0
 26:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 27:21/0 = 0
-27:21/0/terrain = 0
 27:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 28:21/0 = 0
-28:21/0/terrain = 0
 28:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:22/0 = 0
 1:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -3328,13 +3322,10 @@ texture_region_size = Vector2i(32, 32)
 23:22/0 = 0
 23:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 26:22/0 = 0
-26:22/0/terrain = 0
 26:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 27:22/0 = 0
-27:22/0/terrain = 0
 27:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 28:22/0 = 0
-28:22/0/terrain = 0
 28:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:23/0 = 0
 1:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -3651,7 +3642,6 @@ texture_region_size = Vector2i(32, 32)
 1:31/0 = 0
 1:31/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:31/0 = 0
-2:31/0/terrain = 0
 2:31/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:31/0 = 0
 3:31/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -3675,11 +3665,8 @@ texture_region_size = Vector2i(32, 32)
 6:31/0 = 0
 6:31/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 8:31/0 = 0
-8:31/0/terrain = 0
 8:30/0 = 0
-8:30/0/terrain = 0
 9:30/0 = 0
-9:30/0/terrain = 0
 
 [sub_resource type="TileSet" id="TileSet_24ldv"]
 tile_size = Vector2i(32, 32)
@@ -3698,7 +3685,6 @@ tile_set = SubResource("TileSet_tit20")
 
 [node name="Foreground" type="TileMapLayer" parent="." unique_id=2062771358]
 use_parent_material = true
-tile_map_data = PackedByteArray("AABGAAYAAAAMAAIAAABIAAYAAAAHAAUAAABGAAUAAAAEAAcAAABIAAUAAAAHAAMAAABGAAcAAAAGAAkAAABHAAYAAAAGAAUAAABKAAYAAAACAAUAAABLAAYAAAADAAIAAABMAAYAAAAMAAIAAABMAAUAAAACAAcAAABKAAUAAAACAAQAAABMAAcAAAAGAAkAAABNAAYAAAAEAAgAAABNAAUAAAAEAAcAAABGAAQAAAAHAAoAAABGAAMAAAACAAIAAABHAAMAAAAGAAUAAABIAAMAAAAHAAIAAABIAAQAAAACAAQAAABKAAMAAAACAAIAAABKAAQAAAACAAQAAABLAAMAAAADAAIAAABMAAMAAAAHAAIAAABMAAQAAAABAAkAAABNAAQAAAAEAAYAAABFAAYAAAACAAgAAABFAAUAAAACAAcAAABFAAQAAAACAAYAAABGAAkAAAAGAAcAAABGAAoAAAASAAUAAABGAAsAAAAEAAcAAABGAAwAAAADAAsAAABMAAkAAAAGAAcAAABMAAoAAAAJAAIAAABMAAsAAAACAAcAAABMAAwAAAAFAAwAAABHAAoAAAAGAAUAAABIAAoAAAAHAAIAAABFAAoAAAACAAYAAABKAAoAAAACAAIAAABLAAoAAAAGAAUAAABNAAoAAAAEAAYAAABGAA0AAAACAAUAAABMAA0AAAAHAAUAAABFAAsAAAACAAcAAABFAAwAAAACAAgAAABNAAsAAAAEAAcAAABNAAwAAAAEAAgAAABLAA0AAAAGAAUAAABKAA0AAAACAAUAAABKAAwAAAAHAAMAAABKAAsAAAACAAQAAABHAA0AAAADAAIAAABIAA0AAAAHAAUAAABIAAwAAAACAAQAAABIAAsAAAAHAAMAAABRAAcAAAACAAUAAABSAAcAAAADAAIAAABTAAcAAAADAAIAAABRAAYAAAACAAQAAABRAAUAAAAMAAIAAABUAAYAAAACAAQAAABUAAUAAAAHAAIAAABTAAUAAAAHAAwAAABSAAUAAAADAAgAAABRAAQAAAACAAYAAABSAAQAAAADAAYAAABTAAQAAAAEAAYAAABQAAUAAAAFAAgAAABUAAcAAAAHAAUAAABRAAkAAAACAAIAAABSAAkAAAADAAIAAABTAAkAAAAGAAUAAABUAAkAAAAHAAIAAABUAAoAAAAHAAMAAABRAAoAAAAHAAMAAABRAAsAAAAJAAIAAABSAAsAAAADAAYAAABTAAsAAAADAAkAAABUAAsAAAAHAAUAAABQAAsAAAAFAAgAAABRAAwAAAACAAgAAABSAAwAAAADAAgAAABTAAwAAAAEAAgAAABBAAUAAAAMAAIAAABAAAUAAAADAAgAAAA/AAUAAAABAAsAAAA+AAUAAAACAAIAAABBAAsAAAASAAUAAABAAAsAAAADAAYAAAA/AAsAAAAFAAoAAAA+AAsAAAACAAUAAAA+AAkAAAACAAIAAAA+AAcAAAACAAUAAAA/AAcAAAAGAAUAAABAAAcAAAADAAIAAABBAAcAAAAHAAUAAABBAAkAAAAHAAIAAABAAAkAAAADAAIAAAA/AAkAAAADAAIAAABBAAYAAAACAAQAAABBAAoAAAACAAQAAABCAAsAAAAHAAgAAABCAAUAAAAHAAgAAAA+AAoAAAACAAQAAAA+AAYAAAAHAAMAAAA/AAQAAAACAAYAAABAAAQAAAADAAYAAABBAAQAAAAEAAYAAAA/AAwAAAACAAgAAABAAAwAAAADAAgAAABBAAwAAAAEAAgAAAA=")
 tile_set = SubResource("TileSet_24ldv")
 
 [node name="Effects" type="TileMapLayer" parent="." unique_id=818178472]
