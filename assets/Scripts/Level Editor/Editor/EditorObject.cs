@@ -196,7 +196,13 @@ public partial class EditorObject : Node2D
         ActiveTool?.Exit();
         _mode = mode;
         ActiveTool?.Enter();
+        UpdateMouseCursor();
         RedrawOverlay();
+    }
+
+    void UpdateMouseCursor()
+    {
+        string currentCursor = _mode.ToString();
     }
 
     // ------------------------------------------------------------------
@@ -322,31 +328,42 @@ public partial class EditorObject : Node2D
         if (!EditorActive || !canPlace)
             return;
 
-        if (@event is InputEventMouseButton mouseButton)
+        if (@event is not InputEventMouseButton mouseButton)
+            return;
+
+        if (mouseButton.ButtonIndex != MouseButton.Left)
+            return;
+
+        if (mouseButton.Pressed)
         {
-            if (mouseButton.ButtonIndex != MouseButton.Left)
-                return;
+            pressedButton = MouseButton.Left;
+            pressPos = GetGlobalMousePosition();
+            selectionPressStarted = !Selection.IsEmpty;
+            return;
+        }
 
-            if (mouseButton.Pressed)
+        // Only handle the release matching our recorded press.
+        if (pressedButton != MouseButton.Left)
+            return;
+
+        Vector2 releasePos = GetGlobalMousePosition();
+        float distance = pressPos.DistanceTo(releasePos);
+
+        // Only cancel selection on a click, not a drag.
+        if (selectionPressStarted && distance < ClickDragThreshold)
+        {
+            Vector2I releaseCell = WorldToCell(releasePos);
+
+            bool clickedEmptySpace = ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && TileMap.GetCellSourceId(releaseCell) == -1;
+
+            if (clickedEmptySpace)
             {
-                pressedButton = mouseButton.ButtonIndex;
-                pressPos = GetGlobalMousePosition();
-                selectionPressStarted = !Selection.IsEmpty;
-            }
-            else if (pressedButton == mouseButton.ButtonIndex)
-            {
-                Vector2 releasePosition = GetGlobalMousePosition();
-                float distance = pressPos.DistanceTo(releasePosition);
-
-                if (selectionPressStarted && distance < ClickDragThreshold)
-                {
-                    Selection.Clear();
-                }
-
-                pressedButton = MouseButton.None;
-                selectionPressStarted = false;
+                Selection.Clear();
             }
         }
+
+        pressedButton = MouseButton.None;
+        selectionPressStarted = false;
     }
 
     public override void _UnhandledKeyInput(InputEvent @event)

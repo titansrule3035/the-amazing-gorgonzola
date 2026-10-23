@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://djwpw33d4d8u7"]
+
+[ext_resource type="Script" uid="uid://dpnwb86ow4luw" path="res://addons/awesome_custom_cursor/Autoloads/Cursor.gd" id="1_7wdif"]
+[ext_resource type="Texture2D" uid="uid://878r28isxpko" path="res://assets/Sprites/Program/Cursor/mouse_cursor.png" id="2_v4mru"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_it6wn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_v4mru")
+}],
+"loop": 1,
+"name": &"mouse",
+"speed": 5.0
+}]
+
+[node name="Cursor" type="Node2D" unique_id=576985857 node_paths=PackedStringArray("sprite")]
+process_mode = 3
+script = ExtResource("1_7wdif")
+sprite = NodePath("CanvasLayer/Sprite")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=833038240]
+layer = 128
+follow_viewport_enabled = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=73848892]
+sprite_frames = SubResource("SpriteFrames_it6wn")
+animation = &"mouse"
+autoplay = "mouse"
