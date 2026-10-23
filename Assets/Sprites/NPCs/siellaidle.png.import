@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cm1mj2w01vryg"
-path="res://.godot/imported/siellaidle.png-f2264e64f2e9d6c8edcadc8eff792d1d.ctex"
+path="res://.godot/imported/siellaidle.png-2fb706eedd2000bf373a4bed1c582a02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/siellaidle.png"
-dest_files=["res://.godot/imported/siellaidle.png-f2264e64f2e9d6c8edcadc8eff792d1d.ctex"]
+source_file="res://assets/Sprites/NPCs/siellaidle.png"
+dest_files=["res://.godot/imported/siellaidle.png-2fb706eedd2000bf373a4bed1c582a02.ctex"]
 
 [params]
 
