@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="1_jpoii"]
 [ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="2_yo3a0"]
-[ext_resource type="Texture2D" uid="uid://cpknmbosw28ob" path="res://assets/Sprites/World/test_tileset.png" id="3_yo3a0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7pho1"]
 texture = ExtResource("1_jpoii")
@@ -1832,10 +1831,6 @@ physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 2
 sources/1 = SubResource("TileSetAtlasSource_7pho1")
 sources/2 = SubResource("TileSetAtlasSource_nb3xa")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_24ldv"]
-texture = ExtResource("3_yo3a0")
-texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jpoii"]
 texture = ExtResource("1_jpoii")
@@ -3675,7 +3670,6 @@ physics_layer_1/collision_layer = 2
 terrain_set_0/mode = 0
 sources/1 = SubResource("TileSetAtlasSource_jpoii")
 sources/2 = SubResource("TileSetAtlasSource_yo3a0")
-sources/0 = SubResource("TileSetAtlasSource_24ldv")
 
 [node name="tiles" type="Node2D" unique_id=1718396930]
 

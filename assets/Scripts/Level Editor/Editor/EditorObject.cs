@@ -119,10 +119,6 @@ public partial class EditorObject : Node2D
     public EditorItemObject.ItemType itemType;
     public bool hideCursor = false;
 
-    // Kept for older scripts that read these directly.
-    public HashSet<Vector2I> selectedTiles => Selection.Tiles;
-    public HashSet<Node2D> selectedObjects => Selection.Objects;
-
     public Action? ItemPlaced;
     public Action? SelectionChanged;
     public Action? HistoryChanged;
@@ -139,12 +135,7 @@ public partial class EditorObject : Node2D
     public bool PrimaryHeld => Input.IsActionPressed("mb_left");
 
     /// <summary>Editor is live, the mouse is over the level, and no popup or editor UI is eating the click.</summary>
-    public bool CanInteract =>
-        EditorActive
-        && canPlace
-        && !_overOwnUi
-        && Engine.GetProcessFrames() > _uiBlockUntilFrame
-        && !(_contextMenu?.Menu.Visible ?? false);
+    public bool CanInteract => EditorActive && canPlace && !overOwnUi && Engine.GetProcessFrames() > uiBlockUntilFrame && !(contextMenu?.Menu.Visible ?? false);
 
     /// <summary>Offset from a tile's center to its bottom edge.</summary>
     public Vector2 HalfTileDown => new(0, TileMap.TileSet.TileSize.Y / 2f);
@@ -158,15 +149,19 @@ public partial class EditorObject : Node2D
     // Private state
     // ------------------------------------------------------------------
     Dictionary<CursorMode, EditorTool> _tools;
-    EditorContextMenu _contextMenu;
-    Node2D _overlay;
-    CanvasLayer _filterLayer;
-    OptionButton _filterOption;
+    EditorContextMenu contextMenu;
+    Node2D overlay;
+    CanvasLayer filterLayer;
+    OptionButton filterOption;
 
-    bool _ctrlOverride;
-    bool _wasActive;
-    bool _overOwnUi;
-    ulong _uiBlockUntilFrame;
+    bool ctrlOverride;
+    bool wasActive;
+    bool overOwnUi;
+    ulong uiBlockUntilFrame;
+    private MouseButton pressedButton = MouseButton.None;
+    private Vector2 pressPos;
+    private bool selectionPressStarted;
+    private const float ClickDragThreshold = 5f;
 
     static EditorObject instance;
 
@@ -192,7 +187,7 @@ public partial class EditorObject : Node2D
     /// <summary>Public mode switch. Cancels any pending Ctrl override.</summary>
     public void SetCursorMode(CursorMode mode)
     {
-        _ctrlOverride = false;
+        ctrlOverride = false;
         SwitchMode(mode);
     }
 
@@ -230,8 +225,8 @@ public partial class EditorObject : Node2D
 
         CreateOverlay();
 
-        _contextMenu = new EditorContextMenu(this);
-        AddChild(_contextMenu.Menu);
+        contextMenu = new EditorContextMenu(this);
+        AddChild(contextMenu.Menu);
 
         if (BuildFilterUi)
         {
@@ -283,9 +278,9 @@ public partial class EditorObject : Node2D
     {
         bool active = EditorActive;
 
-        if (active != _wasActive)
+        if (active != wasActive)
         {
-            _wasActive = active;
+            wasActive = active;
             OnActiveChanged(active);
         }
 
@@ -311,7 +306,7 @@ public partial class EditorObject : Node2D
         CursorSprite.Visible = !hideCursor;
 
         GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
-    
+
         if (History.IsDirty)
         {
             GetTree().AutoAcceptQuit = false;
@@ -319,6 +314,38 @@ public partial class EditorObject : Node2D
         else
         {
             GetTree().AutoAcceptQuit = true;
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (!EditorActive || !canPlace)
+            return;
+
+        if (@event is InputEventMouseButton mouseButton)
+        {
+            if (mouseButton.ButtonIndex != MouseButton.Left)
+                return;
+
+            if (mouseButton.Pressed)
+            {
+                pressedButton = mouseButton.ButtonIndex;
+                pressPos = GetGlobalMousePosition();
+                selectionPressStarted = !Selection.IsEmpty;
+            }
+            else if (pressedButton == mouseButton.ButtonIndex)
+            {
+                Vector2 releasePosition = GetGlobalMousePosition();
+                float distance = pressPos.DistanceTo(releasePosition);
+
+                if (selectionPressStarted && distance < ClickDragThreshold)
+                {
+                    Selection.Clear();
+                }
+
+                pressedButton = MouseButton.None;
+                selectionPressStarted = false;
+            }
         }
     }
 
@@ -355,22 +382,22 @@ public partial class EditorObject : Node2D
         if (_mode is CursorMode.Mouse or CursorMode.DragCamera) return;
         if (ActiveTool?.IsBusy == true) return;
 
-        _contextMenu.Open();
+        contextMenu.Open();
         GetViewport().SetInputAsHandled();
     }
 
     void OnActiveChanged(bool active)
     {
-        _overlay.Visible = active;
+        overlay.Visible = active;
 
-        if (_filterLayer != null)
+        if (filterLayer != null)
         {
-            _filterLayer.Visible = active;
+            filterLayer.Visible = active;
         }
 
         if (!active)
         {
-            _overOwnUi = false;
+            overOwnUi = false;
             ActiveTool?.OnEditorDeactivated();
         }
 
@@ -407,13 +434,13 @@ public partial class EditorObject : Node2D
             && ActiveTool is { AllowCtrlMouseOverride: true })
         {
             lastCursorMode = _mode;
-            _ctrlOverride = true;
+            ctrlOverride = true;
             SwitchMode(CursorMode.Mouse);
         }
 
-        if (Input.IsActionJustReleased("ctrl") && _ctrlOverride)
+        if (Input.IsActionJustReleased("ctrl") && ctrlOverride)
         {
-            _ctrlOverride = false;
+            ctrlOverride = false;
 
             if (lastCursorMode != CursorMode.Null)
             {
@@ -505,9 +532,7 @@ public partial class EditorObject : Node2D
     /// <summary>True if a tile or any object already occupies the hovered cell.</summary>
     public bool IsHoveredCellBlocked()
     {
-        return TileMap.GetCellSourceId(cell) != -1
-            || ObjectsAtCell(cell).Count > 0
-            || QueryObjectsAt(snappedWorld).Count > 0;
+        return TileMap.GetCellSourceId(cell) != -1 || ObjectsAtCell(cell).Count > 0 || QueryObjectsAt(snappedWorld).Count > 0;
     }
 
     // ------------------------------------------------------------------
@@ -672,8 +697,14 @@ public partial class EditorObject : Node2D
         // Undo brings the selection back along with the items.
         composite.OnApplied = undo =>
         {
-            if (undo) Selection.Set(tiles, objects);
-            else Selection.Clear();
+            if (undo)
+            {
+                Selection.Set(tiles, objects);
+            }
+            else
+            {
+                Selection.Clear();
+            }
         };
 
         History.Execute(composite);
@@ -702,16 +733,16 @@ public partial class EditorObject : Node2D
     }
 
     /// <summary>Call when any editor popup closes so the click that closed it isn't also used on the level.</summary>
-    public void MarkUiInteraction() => _uiBlockUntilFrame = Engine.GetProcessFrames() + 2;
+    public void MarkUiInteraction() => uiBlockUntilFrame = Engine.GetProcessFrames() + 2;
 
     // ------------------------------------------------------------------
     // Overlay (selection highlight + tool previews, drawn in world space)
     // ------------------------------------------------------------------
-    public void RedrawOverlay() => _overlay?.QueueRedraw();
+    public void RedrawOverlay() => overlay?.QueueRedraw();
 
     void CreateOverlay()
     {
-        _overlay = new Node2D
+        overlay = new Node2D
         {
             Name = "EditorOverlay",
             TopLevel = true, // independent of this node's position, which follows the cursor
@@ -719,8 +750,8 @@ public partial class EditorObject : Node2D
             ZAsRelative = false
         };
 
-        _overlay.Draw += DrawOverlay;
-        AddChild(_overlay);
+        overlay.Draw += DrawOverlay;
+        AddChild(overlay);
     }
 
     void DrawOverlay()
@@ -734,17 +765,17 @@ public partial class EditorObject : Node2D
         foreach (var c in Selection.Tiles)
         {
             Rect2 rect = CellRect(c);
-            _overlay.DrawRect(rect, tileFill, filled: true);
-            _overlay.DrawRect(rect, tileLine, filled: false, width: 1f);
+            overlay.DrawRect(rect, tileFill, filled: true);
+            overlay.DrawRect(rect, tileLine, filled: false, width: 1f);
         }
 
         foreach (var obj in Selection.Objects)
         {
             if (!GodotObject.IsInstanceValid(obj)) continue;
-            _overlay.DrawRect(CellRect(GetObjectCell(obj)), objectLine, filled: false, width: 1.5f);
+            overlay.DrawRect(CellRect(GetObjectCell(obj)), objectLine, filled: false, width: 1.5f);
         }
 
-        ActiveTool?.Draw(_overlay);
+        ActiveTool?.Draw(overlay);
     }
 
     void OnSelectionChanged()
@@ -765,42 +796,42 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     void CreateFilterUi()
     {
-        _filterLayer = new CanvasLayer { Layer = 20, Visible = false };
+        filterLayer = new CanvasLayer { Layer = 20, Visible = false };
 
         var panel = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Stop };
         var row = new HBoxContainer();
         row.AddThemeConstantOverride("separation", 6);
         row.AddChild(new Label { Text = "Select:" });
 
-        _filterOption = new OptionButton { FocusMode = Control.FocusModeEnum.None };
+        filterOption = new OptionButton { FocusMode = Control.FocusModeEnum.None };
 
         foreach (var mode in Enum.GetValues<FilterMode>())
         {
-            _filterOption.AddItem(FilterLabel(mode), (int)mode);
+            filterOption.AddItem(FilterLabel(mode), (int)mode);
         }
 
-        _filterOption.Selected = _filterOption.GetItemIndex((int)_filter);
-        _filterOption.ItemSelected += index => SetFilterMode((FilterMode)_filterOption.GetItemId((int)index));
-        _filterOption.GetPopup().VisibilityChanged += MarkUiInteraction;
+        filterOption.Selected = filterOption.GetItemIndex((int)_filter);
+        filterOption.ItemSelected += index => SetFilterMode((FilterMode)filterOption.GetItemId((int)index));
+        filterOption.GetPopup().VisibilityChanged += MarkUiInteraction;
 
-        row.AddChild(_filterOption);
+        row.AddChild(filterOption);
         panel.AddChild(row);
-        _filterLayer.AddChild(panel);
-        AddChild(_filterLayer);
+        filterLayer.AddChild(panel);
+        AddChild(filterLayer);
 
         panel.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.TopRight, Control.LayoutPresetMode.Minsize, 8);
         panel.GrowHorizontal = Control.GrowDirection.Begin;
 
-        panel.MouseEntered += () => _overOwnUi = true;
-        panel.MouseExited += () => _overOwnUi = false;
+        panel.MouseEntered += () => overOwnUi = true;
+        panel.MouseExited += () => overOwnUi = false;
     }
 
     void SyncFilterUi()
     {
-        if (_filterOption == null) return;
+        if (filterOption == null) return;
 
-        int index = _filterOption.GetItemIndex((int)_filter);
-        if (_filterOption.Selected != index) _filterOption.Selected = index;
+        int index = filterOption.GetItemIndex((int)_filter);
+        if (filterOption.Selected != index) filterOption.Selected = index;
     }
 
     // ------------------------------------------------------------------
