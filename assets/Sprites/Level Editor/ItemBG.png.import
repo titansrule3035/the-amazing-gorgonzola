@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwlgqmvpto5wg"
-path="res://.godot/imported/ItemBG.png-59af16ac55b0a3ad85285f907c3b7973.ctex"
+path="res://.godot/imported/ItemBG.png-d0734800dbcb0c0e1f628c19933bd5f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Level Editor/ItemBG.png"
-dest_files=["res://.godot/imported/ItemBG.png-59af16ac55b0a3ad85285f907c3b7973.ctex"]
+source_file="res://Assets/Sprites/Level Editor/ItemBG.png"
+dest_files=["res://.godot/imported/ItemBG.png-d0734800dbcb0c0e1f628c19933bd5f9.ctex"]
 
 [params]
 

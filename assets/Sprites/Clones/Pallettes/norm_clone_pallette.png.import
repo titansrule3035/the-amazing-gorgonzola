@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://y43fdcp3wn3c"
-path="res://.godot/imported/norm_clone_pallette.png-96219e251bed43de5221973f0567e01c.ctex"
+path="res://.godot/imported/norm_clone_pallette.png-1850cd696a233b144b8b1c33ebd9908b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png"
-dest_files=["res://.godot/imported/norm_clone_pallette.png-96219e251bed43de5221973f0567e01c.ctex"]
+source_file="res://Assets/Sprites/Clones/Pallettes/norm_clone_pallette.png"
+dest_files=["res://.godot/imported/norm_clone_pallette.png-1850cd696a233b144b8b1c33ebd9908b.ctex"]
 
 [params]
 

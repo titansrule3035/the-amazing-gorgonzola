@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfl2pk6bb7iad"
-path="res://.godot/imported/tile_water_waves.png-30c25740e56e62943857248dd3859333.ctex"
+path="res://.godot/imported/tile_water_waves.png-430b1711a13ac046e2ef0f42727a4785.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/tile_water_waves.png"
-dest_files=["res://.godot/imported/tile_water_waves.png-30c25740e56e62943857248dd3859333.ctex"]
+source_file="res://Assets/Sprites/World/tile_water_waves.png"
+dest_files=["res://.godot/imported/tile_water_waves.png-430b1711a13ac046e2ef0f42727a4785.ctex"]
 
 [params]
 

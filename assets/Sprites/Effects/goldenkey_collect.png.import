@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c30ewf8s6yquo"
-path="res://.godot/imported/goldenkey_collect.png-f737ade384a0493c6f28e15f47b3ee27.ctex"
+path="res://.godot/imported/goldenkey_collect.png-8df7796c347e97420a017a3dd2ecd71c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Effects/goldenkey_collect.png"
-dest_files=["res://.godot/imported/goldenkey_collect.png-f737ade384a0493c6f28e15f47b3ee27.ctex"]
+source_file="res://Assets/Sprites/Effects/goldenkey_collect.png"
+dest_files=["res://.godot/imported/goldenkey_collect.png-8df7796c347e97420a017a3dd2ecd71c.ctex"]
 
 [params]
 

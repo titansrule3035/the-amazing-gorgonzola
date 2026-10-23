@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1yow57hrwafr"
-path="res://.godot/imported/monolith_1.png-abaacac1a5d43bcc3451a190fe0a87af.ctex"
+path="res://.godot/imported/monolith_1.png-d40d0321abeb5f33ebec31ea51fee3fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/Title/Lab/monolith_1.png"
-dest_files=["res://.godot/imported/monolith_1.png-abaacac1a5d43bcc3451a190fe0a87af.ctex"]
+source_file="res://Assets/Sprites/UI/Title Screen/Title/Lab/monolith_1.png"
+dest_files=["res://.godot/imported/monolith_1.png-d40d0321abeb5f33ebec31ea51fee3fe.ctex"]
 
 [params]
 
