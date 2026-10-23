@@ -49,8 +49,6 @@ public partial class LevelEditorMain : Node2D
 
         GetWindow().FocusExited += GetNode<ToolBar>("CanvasLayer/UI/ToolBar").CloseMenus;
 
-        Input.SetCustomMouseCursor(null, Input.CursorShape.Arrow, new(0, 0));
-
         Runtime runtime = (Runtime)GetTree().CurrentScene;
 
         fileButton.filePicked += runtime.FilePicked;
