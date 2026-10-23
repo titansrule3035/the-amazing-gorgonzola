@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqk10rru8qtyn"
-path="res://.godot/imported/chunk_walk.png-86c3d830aae274af1784512b45b4fc2f.ctex"
+path="res://.godot/imported/chunk_walk.png-26bc43d40f95db57bcfa5659a3ffef88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/chunk_walk.png"
-dest_files=["res://.godot/imported/chunk_walk.png-86c3d830aae274af1784512b45b4fc2f.ctex"]
+source_file="res://assets/Sprites/Enemies/chunk_walk.png"
+dest_files=["res://.godot/imported/chunk_walk.png-26bc43d40f95db57bcfa5659a3ffef88.ctex"]
 
 [params]
 

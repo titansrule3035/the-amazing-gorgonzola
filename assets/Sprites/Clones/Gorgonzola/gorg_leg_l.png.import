@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dse3iclhdaob4"
-path="res://.godot/imported/gorg_leg_l.png-1e8e71639de7fdabe325b3911c45b9af.ctex"
+path="res://.godot/imported/gorg_leg_l.png-78158948c3cef15fcb5d3bb69ab54fba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Clones/Gorgonzola/gorg_leg_l.png"
-dest_files=["res://.godot/imported/gorg_leg_l.png-1e8e71639de7fdabe325b3911c45b9af.ctex"]
+source_file="res://assets/Sprites/Clones/Gorgonzola/gorg_leg_l.png"
+dest_files=["res://.godot/imported/gorg_leg_l.png-78158948c3cef15fcb5d3bb69ab54fba.ctex"]
 
 [params]
 

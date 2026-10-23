@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dshyb6x5prw7r"
-path="res://.godot/imported/peteridle.png-1b9f6efa2efcbb4d62ff60e861f6fa21.ctex"
+path="res://.godot/imported/peteridle.png-70985d1589267bf0343117fa5ea5690c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/peteridle.png"
-dest_files=["res://.godot/imported/peteridle.png-1b9f6efa2efcbb4d62ff60e861f6fa21.ctex"]
+source_file="res://assets/Sprites/NPCs/peteridle.png"
+dest_files=["res://.godot/imported/peteridle.png-70985d1589267bf0343117fa5ea5690c.ctex"]
 
 [params]
 
