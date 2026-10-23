@@ -1,16 +1,99 @@
 [gd_scene format=3 uid="uid://djwpw33d4d8u7"]
 
 [ext_resource type="Script" uid="uid://dpnwb86ow4luw" path="res://addons/awesome_custom_cursor/Autoloads/Cursor.gd" id="1_7wdif"]
+[ext_resource type="Texture2D" uid="uid://pepm13bclbxq" path="res://assets/Sprites/Program/Cursor/cursor.png" id="2_dama1"]
 [ext_resource type="Texture2D" uid="uid://878r28isxpko" path="res://assets/Sprites/Program/Cursor/mouse_cursor.png" id="2_v4mru"]
+[ext_resource type="Texture2D" uid="uid://ds1pfketvm2fq" path="res://assets/Sprites/Program/Cursor/copy_cursor.png" id="3_j2rd3"]
+[ext_resource type="Texture2D" uid="uid://buomuktw7ss7h" path="res://assets/Sprites/Program/Cursor/erase_cursor.png" id="4_qbp6v"]
+[ext_resource type="Texture2D" uid="uid://ba1ajyccukh22" path="res://assets/Sprites/Program/Cursor/move_cursor.png" id="6_x3tov"]
+[ext_resource type="Texture2D" uid="uid://5jl374mqiepf" path="res://assets/Sprites/Program/Cursor/place_cursor.png" id="7_461ew"]
+[ext_resource type="Texture2D" uid="uid://b32hpe2qfef3x" path="res://assets/Sprites/Program/Cursor/select_cursor.png" id="8_6fk37"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0k6q"]
+atlas = ExtResource("2_dama1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8c5l"]
+atlas = ExtResource("2_dama1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gl00"]
+atlas = ExtResource("2_dama1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2gwq"]
+atlas = ExtResource("2_dama1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pclr"]
+atlas = ExtResource("3_j2rd3")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_it6wn"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0k6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8c5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gl00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2gwq")
+}],
+"loop": 1,
+"name": &"click",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pclr")
+}],
+"loop": 1,
+"name": &"copy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_qbp6v")
+}],
+"loop": 1,
+"name": &"erase",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_v4mru")
 }],
 "loop": 1,
 "name": &"mouse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_x3tov")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_461ew")
+}],
+"loop": 1,
+"name": &"place",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_6fk37")
+}],
+"loop": 1,
+"name": &"select",
 "speed": 5.0
 }]
 
@@ -25,5 +108,5 @@ follow_viewport_enabled = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=73848892]
 sprite_frames = SubResource("SpriteFrames_it6wn")
-animation = &"mouse"
-autoplay = "mouse"
+animation = &"place"
+autoplay = "place"
