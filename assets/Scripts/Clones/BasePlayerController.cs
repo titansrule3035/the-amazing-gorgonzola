@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 public abstract partial class BasePlayerController : CharacterBody2D
 {
     // Exported tunables
+    [Export] public bool autoAnimate = true;
     [Export] public float AscendMultiplier = 1.5f;
     [Export] public float MoveSpeed = 250f;
     [Export] public float JumpVelocity = 350f;
@@ -340,7 +341,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// <param name="velocity">Current character velocity.</param>
     private void UpdateAnimation(Vector2 velocity)
     {
-        if (animationTree == null)
+        if (animationTree == null || !autoAnimate)
         {
             return;
         }
