@@ -3,11 +3,6 @@
 [ext_resource type="Script" uid="uid://bni2vnnwehdf" path="res://assets/Scripts/Level Editor/Editor/LevelEditorMain.cs" id="1_xuh87"]
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/tiles.tscn" id="4_pw0c8"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/level_assets.tscn" id="5_w41ii"]
-[ext_resource type="Texture2D" uid="uid://pepm13bclbxq" path="res://assets/Sprites/Program/Cursor/cursor.png" id="9_6514u"]
-[ext_resource type="Texture2D" uid="uid://ba1ajyccukh22" path="res://assets/Sprites/Program/Cursor/move_cursor.png" id="10_s2quw"]
-[ext_resource type="Texture2D" uid="uid://b32hpe2qfef3x" path="res://assets/Sprites/Program/Cursor/select_cursor.png" id="11_ullss"]
-[ext_resource type="Texture2D" uid="uid://5jl374mqiepf" path="res://assets/Sprites/Program/Cursor/place_cursor.png" id="12_ann0i"]
-[ext_resource type="Texture2D" uid="uid://buomuktw7ss7h" path="res://assets/Sprites/Program/Cursor/erase_cursor.png" id="13_modgh"]
 [ext_resource type="Script" uid="uid://bv7bfobi7ndpy" path="res://assets/Scripts/Level Editor/UI/CameraDrag.cs" id="17_yuieu"]
 [ext_resource type="Script" uid="uid://decn0trfeo5dx" path="res://assets/Scripts/Level Editor/Editor/EditorGameManager.cs" id="18_xuh87"]
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="21_x1w6y"]
@@ -64,10 +59,6 @@
 [ext_resource type="Script" uid="uid://cnebv16m11afh" path="res://assets/Scripts/Level Editor/UI/QuitMenu.cs" id="53_tbr8v"]
 [ext_resource type="Texture2D" uid="uid://dm1ve5n7hm2qw" path="res://assets/Sprites/Level Editor/warning.png" id="54_0e44q"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jpoii"]
-atlas = ExtResource("9_6514u")
-region = Rect2(0, 0, 64, 64)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdlv5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkxyu"]
@@ -112,11 +103,6 @@ scale = Vector2(350.455, 1)
 process_mode = 3
 script = ExtResource("22_07x1x")
 EraserTexture = ExtResource("23_osp0y")
-MouseCursor = SubResource("AtlasTexture_jpoii")
-MoveCursor = ExtResource("10_s2quw")
-SelectCursor = ExtResource("11_ullss")
-PlaceCursor = ExtResource("12_ann0i")
-EraserCursor = ExtResource("13_modgh")
 
 [node name="Sprite" type="Sprite2D" parent="EditorObject" unique_id=24487047]
 z_index = 100
@@ -306,38 +292,53 @@ vertical_alignment = 1
 oversampling_override = 1.0
 title = "Open a File"
 position = Vector2i(0, 36)
+unresizable = true
+borderless = true
+force_native = true
+theme_override_colors/folder_icon_color = Color(0, 0.30980393, 0, 1)
+theme_override_colors/file_icon_color = Color(0, 0.7294118, 0, 1)
+theme_override_colors/file_disabled_color = Color(0.40784314, 0, 0, 1)
 ok_button_text = "Load Level"
 file_mode = 0
 root_subfolder = "assets/TAGLEVELs"
 filters = PackedStringArray("*.taglevel ; TAGLEVEL Files")
 hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
-recent_list_enabled = false
 layout_toggle_enabled = false
 
 [node name="ExportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=378383444]
 oversampling_override = 1.0
 title = "Save Level"
 position = Vector2i(0, 36)
+unresizable = true
+borderless = true
+force_native = true
+theme_override_colors/folder_icon_color = Color(0, 0.30980393, 0, 1)
+theme_override_colors/file_icon_color = Color(0, 0.7294118, 0, 1)
+theme_override_colors/file_disabled_color = Color(0.40784314, 0, 0, 1)
 ok_button_text = "Save Level"
 access = 2
 root_subfolder = "assets/TAGLEVELs"
 filters = PackedStringArray("*.taglevel ; TAGLEVEL Files")
 hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
-recent_list_enabled = false
 layout_toggle_enabled = false
 
 [node name="ExportAsDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=388796861]
 oversampling_override = 1.0
 title = "Save Level As File"
 position = Vector2i(0, 36)
+unresizable = true
+borderless = true
+force_native = true
+theme_override_colors/folder_icon_color = Color(0, 0.30980393, 0, 1)
+theme_override_colors/file_icon_color = Color(0, 0.7294118, 0, 1)
+theme_override_colors/file_disabled_color = Color(0.40784314, 0, 0, 1)
 ok_button_text = "Save File"
 access = 2
 root_subfolder = "assets/TAGLEVELs"
 hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
-recent_list_enabled = false
 layout_toggle_enabled = false
 
 [node name="ScrollButton" type="Control" parent="CanvasLayer/UI" unique_id=1801667640 node_paths=PackedStringArray("scrollButtonMenus")]
