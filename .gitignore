@@ -1,10 +1,5 @@
-# Godot 4+ specific ignores
-.godot/
-/android/
-
-.godot/
 .vs/
 builds
 
 save.dat
-*.import
+*.import/
