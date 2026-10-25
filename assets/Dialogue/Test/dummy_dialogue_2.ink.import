@@ -3,12 +3,12 @@
 importer="ink"
 type="Resource"
 uid="uid://c0gpxlsn65hkm"
-path="res://.godot/imported/dummy_dialogue_2.ink-0064cfc3ea10b093be4b4956cf2a59df.res"
+path="res://.godot/imported/dummy_dialogue_2.ink-49b797d4311e7c4929bdf4e76904fddc.res"
 
 [deps]
 
-source_file="res://assets/Dialogue/Test/dummy_dialogue_2.ink"
-dest_files=["res://.godot/imported/dummy_dialogue_2.ink-0064cfc3ea10b093be4b4956cf2a59df.res"]
+source_file="res://Assets/Dialogue/Test/dummy_dialogue_2.ink"
+dest_files=["res://.godot/imported/dummy_dialogue_2.ink-49b797d4311e7c4929bdf4e76904fddc.res"]
 
 [params]
 

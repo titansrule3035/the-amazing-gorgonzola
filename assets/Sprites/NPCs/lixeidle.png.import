@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://80wbc3mu37ai"
-path="res://.godot/imported/lixeidle.png-20c210681abe05c7dfc622911c7067f6.ctex"
+path="res://.godot/imported/lixeidle.png-cfc3b025b24cd60cd864e96adc8cbebe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/NPCs/lixeidle.png"
-dest_files=["res://.godot/imported/lixeidle.png-20c210681abe05c7dfc622911c7067f6.ctex"]
+source_file="res://Assets/Sprites/NPCs/lixeidle.png"
+dest_files=["res://.godot/imported/lixeidle.png-cfc3b025b24cd60cd864e96adc8cbebe.ctex"]
 
 [params]
 

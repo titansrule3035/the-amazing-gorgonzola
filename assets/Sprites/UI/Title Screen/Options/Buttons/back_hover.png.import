@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5lpq7p338dps"
-path="res://.godot/imported/back_hover.png-1649d250255f6ffe3f41cbfe4bc66bb5.ctex"
+path="res://.godot/imported/back_hover.png-c2f9c271e036e4b4b066a95e4697f9ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/Options/Buttons/back_hover.png"
-dest_files=["res://.godot/imported/back_hover.png-1649d250255f6ffe3f41cbfe4bc66bb5.ctex"]
+source_file="res://Assets/Sprites/UI/Title Screen/Options/Buttons/back_hover.png"
+dest_files=["res://.godot/imported/back_hover.png-c2f9c271e036e4b4b066a95e4697f9ba.ctex"]
 
 [params]
 

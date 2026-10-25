@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ceqk7ysle2ds7"
-path="res://.godot/imported/norm_kill_effect_pallette.png-8921bd8de350b1b3b288b488c5b19a64.ctex"
+path="res://.godot/imported/norm_kill_effect_pallette.png-a81e5ff73c06d64befb6a34a605ed36e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Effects/Pallettes/norm_kill_effect_pallette.png"
-dest_files=["res://.godot/imported/norm_kill_effect_pallette.png-8921bd8de350b1b3b288b488c5b19a64.ctex"]
+source_file="res://Assets/Sprites/Effects/Pallettes/norm_kill_effect_pallette.png"
+dest_files=["res://.godot/imported/norm_kill_effect_pallette.png-a81e5ff73c06d64befb6a34a605ed36e.ctex"]
 
 [params]
 

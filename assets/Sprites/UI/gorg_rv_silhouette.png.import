@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gbhjnlrrupvl"
-path="res://.godot/imported/gorg_rv_silhouette.png-feb750f97c89ce405dc100b9bd6a3edf.ctex"
+path="res://.godot/imported/gorg_rv_silhouette.png-a30401b85eafae53b17e70527d51631f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/gorg_rv_silhouette.png"
-dest_files=["res://.godot/imported/gorg_rv_silhouette.png-feb750f97c89ce405dc100b9bd6a3edf.ctex"]
+source_file="res://Assets/Sprites/UI/gorg_rv_silhouette.png"
+dest_files=["res://.godot/imported/gorg_rv_silhouette.png-a30401b85eafae53b17e70527d51631f.ctex"]
 
 [params]
 
