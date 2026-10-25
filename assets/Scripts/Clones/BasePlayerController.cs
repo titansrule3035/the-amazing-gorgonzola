@@ -403,7 +403,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     {
         if (scene == null) return;
 
-        var effect = scene.Instantiate<Node2D>();
+        var effect = scene.Instantiate<Effect>();
         if (effect == null) return;
 
         GetParent<Node2D>().AddChild(effect);
