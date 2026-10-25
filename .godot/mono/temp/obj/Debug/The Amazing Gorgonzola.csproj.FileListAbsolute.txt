@@ -1,0 +1,20 @@
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gorgonzola.deps.json
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gorgonzola.runtimeconfig.json
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gorgonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gorgonzola.pdb
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.csproj.AssemblyReference.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.AssemblyInfoInputs.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.AssemblyInfo.cs
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.csproj.CoreCompileInputs.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.sourcelink.json
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amaz.A6909B1D.Up2Date
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\refint\The Amazing Gorgonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.pdb
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gorgonzola.genruntimeconfig.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\ref\The Amazing Gorgonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\ink-engine-runtime.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\ink_compiler.dll

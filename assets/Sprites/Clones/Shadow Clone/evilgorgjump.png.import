@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://pql8u1a46qr4"
-path="res://.godot/imported/evilgorgjump.png-1598d03598c05bd3f63e031db2da23a8.ctex"
+path="res://.godot/imported/evilgorgjump.png-1c4fdfc39c3546e7326b55c5a92509d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Clones/Shadow Clone/evilgorgjump.png"
-dest_files=["res://.godot/imported/evilgorgjump.png-1598d03598c05bd3f63e031db2da23a8.ctex"]
+source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgjump.png"
+dest_files=["res://.godot/imported/evilgorgjump.png-1c4fdfc39c3546e7326b55c5a92509d6.ctex"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="ink"
 type="Resource"
 uid="uid://b1vogsogji7hx"
-path="res://.godot/imported/ration_dialogue_7.ink-71fc0205fa0905182885287b8b1b5449.res"
+path="res://.godot/imported/ration_dialogue_7.ink-1491ce82f39ff3bb0fee2f8eed6966dc.res"
 
 [deps]
 
-source_file="res://Assets/Dialogue/Ration/ration_dialogue_7.ink"
-dest_files=["res://.godot/imported/ration_dialogue_7.ink-71fc0205fa0905182885287b8b1b5449.res"]
+source_file="res://assets/Dialogue/Ration/ration_dialogue_7.ink"
+dest_files=["res://.godot/imported/ration_dialogue_7.ink-1491ce82f39ff3bb0fee2f8eed6966dc.res"]
 
 [params]
 

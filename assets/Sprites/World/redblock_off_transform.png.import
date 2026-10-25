@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://be73y2awy367k"
-path="res://.godot/imported/redblock_off_transform.png-a4c9c7345fe7c35c380d2113be366217.ctex"
+path="res://.godot/imported/redblock_off_transform.png-3bb812639bea23391c360ef01ec45039.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/World/redblock_off_transform.png"
-dest_files=["res://.godot/imported/redblock_off_transform.png-a4c9c7345fe7c35c380d2113be366217.ctex"]
+source_file="res://assets/Sprites/World/redblock_off_transform.png"
+dest_files=["res://.godot/imported/redblock_off_transform.png-3bb812639bea23391c360ef01ec45039.ctex"]
 
 [params]
 

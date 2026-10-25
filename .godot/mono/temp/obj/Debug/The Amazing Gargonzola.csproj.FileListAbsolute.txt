@@ -1,0 +1,52 @@
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.deps.json
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.runtimeconfig.json
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.pdb
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.csproj.AssemblyReference.cache
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.AssemblyInfoInputs.cache
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.AssemblyInfo.cs
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.csproj.CoreCompileInputs.cache
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amaz.C7127F13.Up2Date
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\refint\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.pdb
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.genruntimeconfig.cache
+C:\Users\Princ\Godot Projects\the-amazing-gargonzola\.godot\mono\temp\obj\Debug\ref\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.csproj.AssemblyReference.cache
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.AssemblyInfoInputs.cache
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.AssemblyInfo.cs
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.csproj.CoreCompileInputs.cache
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\refint\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.pdb
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.deps.json
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.runtimeconfig.json
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.dll
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.pdb
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amaz.C7127F13.Up2Date
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.genruntimeconfig.cache
+C:\Users\Princ\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\ref\The Amazing Gargonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.deps.json
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.runtimeconfig.json
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\The Amazing Gargonzola.pdb
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.csproj.AssemblyReference.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.AssemblyInfoInputs.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.AssemblyInfo.cs
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.csproj.CoreCompileInputs.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amaz.C7127F13.Up2Date
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\refint\The Amazing Gargonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.pdb
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.genruntimeconfig.cache
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\ref\The Amazing Gargonzola.dll
+C:\Users\Princ\source\repos\C#\Godot Projects\the-amazing-gorgonzola\.godot\mono\temp\obj\Debug\The Amazing Gargonzola.sourcelink.json

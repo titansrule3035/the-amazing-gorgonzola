@@ -3,12 +3,12 @@
 importer="ink"
 type="Resource"
 uid="uid://k3m7xufusry1"
-path="res://.godot/imported/peter_dialogue_4.ink-36c47e2019a0861428ce3a051d018c16.res"
+path="res://.godot/imported/peter_dialogue_4.ink-a5580f28d2f62ef74ef5cb168e7b690b.res"
 
 [deps]
 
-source_file="res://Assets/Dialogue/Peter/peter_dialogue_4.ink"
-dest_files=["res://.godot/imported/peter_dialogue_4.ink-36c47e2019a0861428ce3a051d018c16.res"]
+source_file="res://assets/Dialogue/Peter/peter_dialogue_4.ink"
+dest_files=["res://.godot/imported/peter_dialogue_4.ink-a5580f28d2f62ef74ef5cb168e7b690b.res"]
 
 [params]
 
