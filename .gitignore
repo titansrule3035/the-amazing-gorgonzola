@@ -1,6 +1,12 @@
-.godot
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+.godot/
 .vs/
-builds
+builds/win
+builds/mac
+builds/build tools/godot_build_templates_dotnet
+builds/build tools/godot_build_templates_dotnet.tpz
 
 save.dat
-*.import/
