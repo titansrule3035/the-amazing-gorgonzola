@@ -8,7 +8,7 @@
 atlas = ExtResource("2_i23ft")
 region = Rect2(224, 992, 32, 32)
 
-[node name="ItemBg" unique_id=1663939762 instance=ExtResource("1_uycbr")]
+[node name="ItemSemiSolid" unique_id=1663939762 instance=ExtResource("1_uycbr")]
 
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = SubResource("AtlasTexture_fm07t")

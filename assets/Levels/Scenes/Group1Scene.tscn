@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://assets/Scripts/Levels/r1.cs" id="1_s0j2g"]
 [ext_resource type="Texture2D" uid="uid://p31trv1bnbgk" path="res://assets/Sprites/World/labobg.png" id="2_bu8if"]
-[ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/tiles.tscn" id="3_2748a"]
-[ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/level_assets.tscn" id="4_ogofk"]
+[ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/Layout/tiles.tscn" id="3_2748a"]
+[ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="4_ogofk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nuls1"]
 atlas = ExtResource("2_bu8if")
