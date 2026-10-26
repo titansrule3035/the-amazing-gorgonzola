@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static EditorObject;
 
 public partial class Runtime : Node2D
 {
@@ -36,11 +37,28 @@ public partial class Runtime : Node2D
     public event Action<string>? OnFilePicked;
     public event Action? OnLevelImported;
 
+    [Export] Godot.Collections.Dictionary<string, Texture2D> cursorCache = new();
+
     public override void _Ready()
     {
+        GetTree().NodeAdded += node =>
+        {
+            if (node is BaseButton b)
+            {
+                b.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+            }
+        };
+
+        if (!cursorCache.TryGetValue("Point", out Texture2D texture) || texture == null)
+        {
+            GD.PrintErr($"No texture mapped for type 'Point' in cursor cache.");
+            Input.SetCustomMouseCursor(null, Input.CursorShape.PointingHand);
+        }
+
+        Input.SetCustomMouseCursor(texture, Input.CursorShape.PointingHand);
+
         levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
         gameContainer = GetNode<Node2D>("game");
-
         editorContainer = GetNode<Node2D>("editor");
 
         if (editorMode)
@@ -131,11 +149,13 @@ public partial class Runtime : Node2D
         if (editorMode)
         {
             window.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems;
+            ApplyCursor(CursorMode.Place);
         }
         else
         {
             window.ContentScaleMode = Window.ContentScaleModeEnum.Disabled;
             window.Title = "The Amazing Gorgonzola";
+            ApplyCursor(CursorMode.Mouse);
         }
 
         target.AddChild(mode);
@@ -471,6 +491,32 @@ public partial class Runtime : Node2D
                 layer.SetCell(new Vector2I(tile.X, tile.Y), tile.SourceId, new Vector2I(tile.AtlasX, tile.AtlasY), tile.Alternative);
             }
         }
+    }
+
+    public void ApplyCursor(CursorMode mode)
+    {
+        if (mode == CursorMode.Null)
+        {
+            Input.SetCustomMouseCursor(null, Input.CursorShape.Arrow);
+            return;
+        }
+
+        if (!cursorCache.TryGetValue(mode.ToString(), out Texture2D texture) || texture == null)
+        {
+            GD.PrintErr($"No texture mapped for type '{mode.ToString()}' in cursor cache.");
+            Input.SetCustomMouseCursor(null, Input.CursorShape.Arrow);
+            return;
+        }
+
+        if (mode.ToString() != "Select")
+        {
+            Input.SetCustomMouseCursor(texture, Input.CursorShape.Arrow);
+        }
+        else
+        {
+            Input.SetCustomMouseCursor(texture, Input.CursorShape.Arrow, new(16, 16));
+        }
+
     }
 
     // Game control

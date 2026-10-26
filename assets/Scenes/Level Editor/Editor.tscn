@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="21_x1w6y"]
 [ext_resource type="Script" uid="uid://cigia10ol51ab" path="res://assets/Scripts/Level Editor/Editor/EditorObject.cs" id="22_07x1x"]
 [ext_resource type="Script" uid="uid://bquphp5j7gww7" path="res://assets/Scripts/Level Editor/UI/Grid.cs" id="23_5qh5s"]
-[ext_resource type="Texture2D" uid="uid://dn26l57lcnxgy" path="res://assets/Sprites/Level Editor/Eraser.png" id="23_osp0y"]
 [ext_resource type="Script" uid="uid://bjuxwcce1ffw5" path="res://assets/Scripts/Level Editor/UI/Ui.cs" id="24_3ar2r"]
 [ext_resource type="Script" uid="uid://cdkcaip0x2d4n" path="res://assets/Scripts/Level Editor/UI/ToolBar.cs" id="26_miwel"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="27_v344w"]
@@ -73,16 +72,22 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdlv5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkxyu"]
-bg_color = Color(0, 0, 0, 0)
+bg_color = Color(0, 0.49019608, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fphxj"]
-bg_color = Color(0.827451, 0.827451, 0.827451, 0.52156866)
+bg_color = Color(0, 1, 0, 0.52156866)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2a1od"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fni2r"]
+bg_color = Color(0.49019608, 0, 0, 0.52156866)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqaxa"]
 bg_color = Color(1, 0, 0, 0.52156866)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5mxk"]
+bg_color = Color(0, 0.49019608, 0, 0.52156866)
 
 [node name="main" type="Node2D" unique_id=409207488]
 process_mode = 1
@@ -113,7 +118,6 @@ scale = Vector2(350.455, 1)
 [node name="EditorObject" type="Node2D" parent="." unique_id=838321855]
 process_mode = 3
 script = ExtResource("22_07x1x")
-EraserTexture = ExtResource("23_osp0y")
 
 [node name="Sprite" type="Sprite2D" parent="EditorObject" unique_id=24487047]
 z_index = 100
@@ -306,7 +310,7 @@ vertical_alignment = 1
 [node name="ImportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=550291066]
 oversampling_override = 1.0
 title = "Open a File"
-position = Vector2i(0, 36)
+position = Vector2i(544, 252)
 unresizable = true
 borderless = true
 force_native = true
@@ -324,7 +328,7 @@ layout_toggle_enabled = false
 [node name="ExportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=378383444]
 oversampling_override = 1.0
 title = "Save Level"
-position = Vector2i(0, 36)
+position = Vector2i(544, 252)
 unresizable = true
 borderless = true
 force_native = true
@@ -342,7 +346,7 @@ layout_toggle_enabled = false
 [node name="ExportAsDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=388796861]
 oversampling_override = 1.0
 title = "Save Level As File"
-position = Vector2i(0, 36)
+position = Vector2i(544, 252)
 unresizable = true
 borderless = true
 force_native = true
@@ -855,6 +859,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
+visible = false
 layout_mode = 1
 anchor_top = 0.037
 anchor_bottom = 0.037
@@ -1354,7 +1359,7 @@ offset_top = 8.0
 offset_right = 284.0
 offset_bottom = 56.0
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fni2r")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vqaxa")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vqaxa")
 
@@ -1402,7 +1407,7 @@ offset_top = 8.0
 offset_right = 284.0
 offset_bottom = 56.0
 focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_d5mxk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 

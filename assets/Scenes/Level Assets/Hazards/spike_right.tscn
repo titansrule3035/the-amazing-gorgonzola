@@ -8,9 +8,14 @@
 atlas = ExtResource("2_1xk24")
 region = Rect2(384, 224, 32, 32)
 
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_jdxn7"]
+points = PackedVector2Array(-16, -32, -16, 0, 15, -16)
+
 [node name="spike_right" unique_id=208165850 instance=ExtResource("1_f5toh")]
 script = ExtResource("3_1xk24")
 
 [node name="sprite" parent="." index="0" unique_id=208165850]
 texture = SubResource("AtlasTexture_1xk24")
-script = null
+
+[node name="collision_shape_2d" parent="static_body_2d" parent_id_path=PackedInt32Array(1697692490) index="0" unique_id=1597585030]
+shape = SubResource("ConvexPolygonShape2D_jdxn7")

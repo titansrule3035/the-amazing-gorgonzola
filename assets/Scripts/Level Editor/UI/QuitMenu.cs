@@ -55,6 +55,10 @@ public partial class QuitMenu : Control
             {
                 CancelButtonPressed();
             }
+
+            Ui ui = GetParent() as Ui;
+
+            ui.blockMouse.MouseFilter = MouseFilterEnum.Stop;
         }
     }
 

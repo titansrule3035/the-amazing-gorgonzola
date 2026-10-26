@@ -33,10 +33,18 @@
 [ext_resource type="PackedScene" uid="uid://ca8rx3ue113dc" path="res://assets/Scenes/Level Assets/NPCs/moonman.tscn" id="27_6u3x5"]
 [ext_resource type="PackedScene" uid="uid://b1i5syvfkxu0h" path="res://assets/Scenes/Level Assets/NPCs/peter.tscn" id="28_5sgc1"]
 [ext_resource type="PackedScene" uid="uid://dy4uutshrabcx" path="res://assets/Scenes/Level Assets/NPCs/ration.tscn" id="29_rl1l2"]
+[ext_resource type="Texture2D" uid="uid://5jl374mqiepf" path="res://assets/Sprites/Program/Cursor/place_cursor.png" id="33_osa4n"]
+[ext_resource type="Texture2D" uid="uid://buomuktw7ss7h" path="res://assets/Sprites/Program/Cursor/erase_cursor.png" id="34_6u3x5"]
+[ext_resource type="Texture2D" uid="uid://b32hpe2qfef3x" path="res://assets/Sprites/Program/Cursor/select_cursor.png" id="35_5sgc1"]
+[ext_resource type="Texture2D" uid="uid://ba1ajyccukh22" path="res://assets/Sprites/Program/Cursor/move_cursor.png" id="36_rl1l2"]
+[ext_resource type="Texture2D" uid="uid://ds1pfketvm2fq" path="res://assets/Sprites/Program/Cursor/copy_cursor.png" id="37_wq4sa"]
+[ext_resource type="Texture2D" uid="uid://878r28isxpko" path="res://assets/Sprites/Program/Cursor/mouse_cursor.png" id="38_6u3x5"]
+[ext_resource type="Texture2D" uid="uid://12ebxqt5nu3m" path="res://assets/Sprites/Program/Cursor/point_cursor.png" id="39_5sgc1"]
 
 [node name="runtime" type="Node2D" unique_id=1780813959]
 process_mode = 3
 script = ExtResource("1_pff64")
+editorMode = true
 gameScene = ExtResource("3_s7gb8")
 editorScene = ExtResource("2_6cu8n")
 LevelMechanicScenes = Dictionary[String, PackedScene]({
@@ -78,6 +86,15 @@ NPCScenes = Dictionary[String, PackedScene]({
 "Peter": ExtResource("28_5sgc1"),
 "Ration": ExtResource("29_rl1l2"),
 "TheBoat": ExtResource("19_tpjvn")
+})
+cursorCache = Dictionary[String, Texture2D]({
+"Copy": ExtResource("37_wq4sa"),
+"Eraser": ExtResource("34_6u3x5"),
+"Mouse": ExtResource("38_6u3x5"),
+"Move": ExtResource("36_rl1l2"),
+"Place": ExtResource("33_osa4n"),
+"Point": ExtResource("39_5sgc1"),
+"Select": ExtResource("35_5sgc1")
 })
 
 [node name="game" type="Node2D" parent="." unique_id=1574767889]

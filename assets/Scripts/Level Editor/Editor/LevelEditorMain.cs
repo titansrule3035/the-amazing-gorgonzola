@@ -76,8 +76,6 @@ public partial class LevelEditorMain : Node2D
     public void ImportLevel()
     {
         SetGameState(true);
-
-        ui.UpdateGameButtonStates();
     }
 
     public void ResetGame()

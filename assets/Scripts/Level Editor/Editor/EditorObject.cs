@@ -76,7 +76,6 @@ public partial class EditorObject : Node2D
     [Export] public Node2D level;
     [Export] public PackedScene CurrentItem = null;
     [Export] public Texture2D CurrentTile = null;
-    [Export] public Texture2D EraserTexture;
     [Export] public CursorMode lastCursorMode = CursorMode.Null;
     [Export] public int MaxUndoSteps = 200;
     [Export] public bool BuildFilterUi = true; // adds a small "Select:" dropdown (top right) while the editor is active
@@ -446,14 +445,13 @@ public partial class EditorObject : Node2D
             if (Input.IsActionJustPressed(action))
             {
                 SetCursorMode(mode);
+                ((Runtime)GetTree().CurrentScene).ApplyCursor(mode);
             }
         }
 
         // Ctrl temporarily becomes the plain mouse, then restores the previous mode.
         // Tools can opt out (Select uses Ctrl for "add to selection", and drags must not be interrupted).
-        if (Input.IsActionJustPressed("ctrl")
-            && _mode != CursorMode.Mouse
-            && ActiveTool is { AllowCtrlMouseOverride: true })
+        if (Input.IsActionJustPressed("ctrl") && _mode != CursorMode.Mouse && ActiveTool is { AllowCtrlMouseOverride: true })
         {
             lastCursorMode = _mode;
             ctrlOverride = true;

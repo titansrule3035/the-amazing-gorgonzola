@@ -26,11 +26,26 @@ public abstract class EditorTool
     /// <summary>Whether holding Ctrl may temporarily switch to the plain mouse.</summary>
     public virtual bool AllowCtrlMouseOverride => true;
 
-    public virtual void Enter() { }
-    public virtual void Exit() { }
-    public virtual void UpdateCursor() { }
-    public virtual void Update(double delta) { }
-    public virtual void Draw(CanvasItem canvas) { }
+    public virtual void Enter()
+    {
+
+    }
+    public virtual void Exit()
+    {
+
+    }
+    public virtual void UpdateCursor()
+    {
+
+    }
+    public virtual void Update(double delta)
+    {
+
+    }
+    public virtual void Draw(CanvasItem canvas)
+    {
+
+    }
 
     /// <summary>The editor stopped being active (unpaused). End any drag or stroke cleanly.</summary>
     public virtual void OnEditorDeactivated() => Exit();
@@ -41,9 +56,17 @@ public abstract class EditorTool
 // ----------------------------------------------------------------------
 public class MouseTool : EditorTool
 {
-    public MouseTool(EditorObject editor) : base(editor) { }
+    public MouseTool(EditorObject editor) : base(editor)
+    {
+
+    }
 
     public override CursorMode Mode => CursorMode.Mouse;
+
+    public override void Enter()
+    {
+        Editor.hideCursor = true;
+    }
 
     public override void UpdateCursor() => Editor.GlobalPosition = Editor.mouseGlobal;
 }
@@ -54,6 +77,10 @@ public class MouseTool : EditorTool
 public class CopyTool : EditorTool
 {
     public CopyTool(EditorObject editor) : base(editor) { }
+    public override void Enter()
+    {
+        Editor.hideCursor = true;
+    }
 
     public override CursorMode Mode => CursorMode.Copy;
 }
@@ -63,6 +90,11 @@ public class DragCameraTool : EditorTool
     public DragCameraTool(EditorObject editor) : base(editor) { }
 
     public override CursorMode Mode => CursorMode.DragCamera;
+
+    public override void Enter()
+    {
+        Editor.hideCursor = true;
+    }
 }
 
 // ----------------------------------------------------------------------
@@ -84,8 +116,10 @@ public class PlaceTool : EditorTool
 
     public override void Enter()
     {
+        Editor.hideCursor = false;
         _lastPlacedCell = NoCell;
         Editor.RefreshCursorItem();
+        Editor.hideCursor = true;
     }
 
     public override void Exit() => EndStroke();
@@ -99,9 +133,7 @@ public class PlaceTool : EditorTool
 
         // Origin sits at the BOTTOM of the hovered tile; the sprite is lifted by half
         // its height so non-tile objects stand on the bottom edge.
-        float offset = Editor.CursorSprite.Texture != null
-            ? Editor.CursorSprite.GetRect().Size.Y / 2f
-            : 0f;
+        float offset = Editor.CursorSprite.Texture != null ? Editor.CursorSprite.GetRect().Size.Y / 2f : 0f;
 
         Editor.GlobalPosition = Editor.snappedWorld + Editor.HalfTileDown;
         Editor.CursorSprite.Position = new Vector2(0, -offset);
@@ -116,9 +148,18 @@ public class PlaceTool : EditorTool
             return;
         }
 
-        if (!Editor.HasPlaceableItem) return;
-        if (Editor.cell == _lastPlacedCell) return;
-        if (Editor.IsHoveredCellBlocked()) return;
+        if (!Editor.HasPlaceableItem)
+        {
+            return;
+        }
+        if (Editor.cell == _lastPlacedCell)
+        {
+            return;
+        }
+        if (Editor.IsHoveredCellBlocked())
+        {
+            return;
+        }
 
         if (!_stroke)
         {
@@ -155,10 +196,11 @@ public class EraserTool : EditorTool
 
     public override void Enter()
     {
-        Editor.SetCursorTexture(Editor.EraserTexture);
+        Editor.SetCursorTexture(null);
         Editor.CursorSprite.Material = null;
         Editor.CursorSprite.Modulate = Colors.White;
         Editor.CursorSprite.Position = Vector2.Zero;
+        Editor.hideCursor = true;
     }
 
     public override void Exit() => EndStroke();
@@ -209,6 +251,11 @@ public class SelectTool : EditorTool
     public override CursorMode Mode => CursorMode.Select;
     public override bool IsBusy => _dragging;
     public override bool AllowCtrlMouseOverride => false;
+
+    public override void Enter()
+    {
+        Editor.hideCursor = true;
+    }
 
     public override void Exit()
     {
@@ -288,6 +335,11 @@ public class MoveTool : EditorTool
     public override CursorMode Mode => CursorMode.Move;
     public override bool IsBusy => _dragging;
     public override bool AllowCtrlMouseOverride => !_dragging;
+
+    public override void Enter()
+    {
+        Editor.hideCursor = true;
+    }
 
     public override void Exit() => Cancel();
 

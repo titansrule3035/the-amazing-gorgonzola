@@ -15,7 +15,6 @@ public partial class Ui : Control
 
     public ColorRect blockMouse;
 
-
     private bool levelLoaded => !string.IsNullOrEmpty(((Runtime)GetTree().CurrentScene).filePath);
 
     public override void _Ready()
@@ -28,41 +27,6 @@ public partial class Ui : Control
 
         blockMouse = GetNode<ColorRect>("BlockMouse");
         blockMouse.MouseFilter = MouseFilterEnum.Ignore;
-
-        /*
-        startButton.Pressed += () =>
-        {
-            GetTree().Paused = false;
-            UpdateGameButtonStates();
-        };
-
-        restartButton = gameMenu.GetNode<Button>("RestartButton");
-
-        restartButton.Pressed += () =>
-        {
-            if (!string.IsNullOrEmpty(main.filePath))
-            {
-                main.ImportLevel(
-                    main.GetNode("level"),
-                    LevelData.Decode(File.ReadAllText(main.filePath))
-                );
-
-                UpdateGameButtonStates();
-            }
-        };
-
-        restartButton.Disabled = true;
-
-        stopButton = gameMenu.GetNode<Button>("StopButton");
-
-        stopButton.Pressed += () =>
-        {
-            GetTree().Paused = true;
-            UpdateGameButtonStates();
-        };
-
-        stopButton.Disabled = true;
-        */
 
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
@@ -90,19 +54,5 @@ public partial class Ui : Control
         quitMenu.Position = (Size - quitMenu.Size) / 2;
 
         toolBarLabel.Text = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? " (Unsaved)" : "");
-    }
-
-    public void UpdateGameButtonStates()
-    {
-        /*
-        // Restart depends only on having a level loaded
-        restartButton.Disabled = !levelLoaded;
-
-        // Stop depends on whether the game is currently running
-        stopButton.Disabled = GetTree().Paused;
-
-        // Start depends on whether the game is currently stopped
-        startButton.Disabled = !GetTree().Paused;
-        */
     }
 }
