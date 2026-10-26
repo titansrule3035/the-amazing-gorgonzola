@@ -85,6 +85,15 @@ public partial class EditorItemObject : TextureRect
 
     public override void _Process(double delta)
     {
+        if (disabled)
+        {
+            MouseDefaultCursorShape = Control.CursorShape.Arrow;
+        }
+        else
+        {
+            MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+        }
+
         // While the game is running the palette is inert. Apply that once, not every frame.
         if (GetTree().Paused)
         {
