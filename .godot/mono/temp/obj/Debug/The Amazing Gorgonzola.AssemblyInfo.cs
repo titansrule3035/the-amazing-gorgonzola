@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("The Amazing Gorgonzola")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50679caa1132a02b0fd96c048ee0fe734fc7e0fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f717da505f181b49cd3f02988663288145efa00")]
 [assembly: System.Reflection.AssemblyProductAttribute("The Amazing Gorgonzola")]
 [assembly: System.Reflection.AssemblyTitleAttribute("The Amazing Gorgonzola")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

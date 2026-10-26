@@ -1347,8 +1347,10 @@ color = Color(0.54901963, 0, 0, 1)
 [node name="Button" type="Button" parent="CanvasLayer/UI/QuitMenu/QuitButton" unique_id=1846757005]
 process_mode = 3
 layout_mode = 0
-offset_right = 292.0
-offset_bottom = 64.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 284.0
+offset_bottom = 56.0
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vqaxa")
@@ -1404,8 +1406,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/QuitMenu/CancelButton" unique_id=1155930484]
 layout_mode = 0
-offset_right = 292.0
-offset_bottom = 64.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 284.0
+offset_bottom = 56.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 23

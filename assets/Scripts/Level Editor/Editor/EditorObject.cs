@@ -260,10 +260,11 @@ public partial class EditorObject : Node2D
     /// <summary>Runs `proceed` immediately if clean, otherwise asks Save / Discard / Cancel first.</summary>
     void RequestAction(Action proceed)
     {
-        if (!History.IsDirty) { proceed(); return; }
+        LevelEditorMain editorMain = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        
+        if (!History.IsDirty || editorMain.ui.quitMenu.Visible) { proceed(); return; }
 
         OnSaveComplete = proceed;
-        LevelEditorMain editorMain = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
 
         editorMain.ui.quitMenu.SetMenuVisibility(true);
         editorMain.ui.quitMenu.programMode = true;
