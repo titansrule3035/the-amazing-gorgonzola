@@ -12,54 +12,60 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class EditorHistory
 {
-    readonly List<EditorCommand> _undos = new();
-    readonly List<EditorCommand> _redos = new();
-    readonly int _maxSteps;
+    readonly List<EditorCommand> undos = new();
+    readonly List<EditorCommand> redos = new();
+    readonly int maxSteps;
 
-    int _groupDepth;
-    List<EditorCommand>? _group;
+    int groupDepth;
+    List<EditorCommand>? group;
 
     // --- dirty tracking ---
-    EditorCommand? _savedCommand;   // top of undo stack at last save (null = empty stack)
-    bool _cannotAccess;             // saved state can no longer be reached via undo/redo
-    bool _externallyDirty;          // changes made outside the history
-    bool _wasDirty;
+    // top of undo stack at last save (null = empty stack)
+    EditorCommand? savedCommand;
+    // saved state can no longer be reached via undo/redo
+    bool cannotAccess;
+    // changes made outside the history
+    bool externallyDirty;
+    bool wasDirty;
 
     public event Action? Changed;
     public event Action<bool>? DirtyChanged;
 
     // FIX: the old version was `maxSteps = Math.Max(1, maxSteps)`, which assigned the parameter to itself,
     // left the field at 0, and made every command get dropped (and disposed) the moment it was recorded.
-    public EditorHistory(int maxSteps) => _maxSteps = Math.Max(1, maxSteps);
+    public EditorHistory(int maxSteps) => maxSteps = Math.Max(1, maxSteps);
 
-    public bool GroupOpen => _groupDepth > 0;
-    public bool CanUndo => _undos.Count > 0 && !GroupOpen;
-    public bool CanRedo => _redos.Count > 0 && !GroupOpen;
+    public bool groupOpen => groupDepth > 0;
+    public bool canUndo => undos.Count > 0 && !groupOpen;
+    public bool canRedo => redos.Count > 0 && !groupOpen;
 
-    EditorCommand? Top => _undos.Count > 0 ? _undos[^1] : null;
-    bool PendingGroupChanges => _group is { Count: > 0 };
+    EditorCommand? topCommand => undos.Count > 0 ? undos[^1] : null;
+    bool groupChangesPending => group is { Count: > 0 };
 
-    public bool IsDirty => _externallyDirty || _cannotAccess || PendingGroupChanges || !ReferenceEquals(Top, _savedCommand);
+    public bool IsDirty => externallyDirty || cannotAccess || groupChangesPending || !ReferenceEquals(topCommand, savedCommand);
 
     /// <summary>Call after the file was written successfully.</summary>
     public void MarkSaved()
     {
-        _savedCommand = Top;
-        _cannotAccess = false;
-        _externallyDirty = false;
+        savedCommand = topCommand;
+        cannotAccess = false;
+        externallyDirty = false;
         NotifyChanged();
     }
 
     /// <summary>For changes that bypass the history (level name, settings, etc.).</summary>
     public void MarkDirty()
     {
-        _externallyDirty = true;
+        externallyDirty = true;
         NotifyChanged();
     }
 
     public void Execute(EditorCommand command)
     {
-        if (command.IsNoOp) return;
+        if (command.IsNoOp)
+        {
+            return;
+        }
 
         command.Do();
         Record(command);
@@ -68,16 +74,26 @@ public sealed class EditorHistory
 
     public void BeginGroup()
     {
-        if (_groupDepth++ == 0) _group = new List<EditorCommand>();
+        if (groupDepth++ == 0)
+        {
+            group = new List<EditorCommand>();
+        }
     }
 
     public void EndGroup()
     {
-        if (_groupDepth == 0) return;
-        if (--_groupDepth > 0) return;
+        if (groupDepth == 0)
+        {
+            return;
+        }
 
-        var commands = _group;
-        _group = null;
+        if (--groupDepth > 0)
+        {
+            return;
+        }
+
+        var commands = group;
+        group = null;
 
         if (commands == null || commands.Count == 0)
         {
@@ -91,12 +107,15 @@ public sealed class EditorHistory
 
     public bool Undo()
     {
-        if (!CanUndo) return false;
+        if (!canUndo)
+        {
+            return false;
+        }
 
-        var command = _undos[^1];
-        _undos.RemoveAt(_undos.Count - 1);
+        var command = undos[^1];
+        undos.RemoveAt(undos.Count - 1);
         command.Undo();
-        _redos.Add(command);
+        redos.Add(command);
 
         NotifyChanged();
         return true;
@@ -104,12 +123,15 @@ public sealed class EditorHistory
 
     public bool Redo()
     {
-        if (!CanRedo) return false;
+        if (!canRedo)
+        {
+            return false;
+        }
 
-        var command = _redos[^1];
-        _redos.RemoveAt(_redos.Count - 1);
+        var command = redos[^1];
+        redos.RemoveAt(redos.Count - 1);
         command.Do();
-        _undos.Add(command);
+        undos.Add(command);
 
         NotifyChanged();
         return true;
@@ -118,61 +140,67 @@ public sealed class EditorHistory
     /// <summary>Call when a level is loaded or created. The new level starts clean.</summary>
     public void Clear()
     {
-        foreach (var c in _undos) c.Dispose();
-        foreach (var c in _redos) c.Dispose();
+        foreach (var c in undos) c.Dispose();
+        foreach (var c in redos) c.Dispose();
 
         // FIX: commands of a group that was still open were leaked (and any detached nodes never freed).
-        if (_group != null)
+        if (group != null)
         {
-            foreach (var c in _group) c.Dispose();
+            foreach (var c in group) c.Dispose();
         }
 
-        _undos.Clear();
-        _redos.Clear();
-        _group = null;
-        _groupDepth = 0;
+        undos.Clear();
+        redos.Clear();
+        group = null;
+        groupDepth = 0;
 
-        _savedCommand = null;
-        _cannotAccess = false;
-        _externallyDirty = false;
+        savedCommand = null;
+        cannotAccess = false;
+        externallyDirty = false;
 
         NotifyChanged();
     }
 
     void Record(EditorCommand command)
     {
-        if (GroupOpen) _group!.Add(command);
-        else Push(command);
+        if (groupOpen)
+        {
+            group!.Add(command);
+        }
+        else
+        {
+            Push(command);
+        }
     }
 
     void Push(EditorCommand command)
     {
         // The saved state lives in the redo branch we're about to destroy.
-        if (_savedCommand != null && _redos.Contains(_savedCommand))
+        if (savedCommand != null && redos.Contains(savedCommand))
         {
-            _savedCommand = null;
-            _cannotAccess = true;
+            savedCommand = null;
+            cannotAccess = true;
         }
 
-        foreach (var c in _redos) c.Dispose();
-        _redos.Clear();
+        foreach (var c in redos) c.Dispose();
+        redos.Clear();
 
-        _undos.Add(command);
+        undos.Add(command);
 
-        while (_undos.Count > _maxSteps)
+        while (undos.Count > maxSteps)
         {
-            var oldest = _undos[0];
+            var oldest = undos[0];
 
             // Saved at the very bottom (null), or the saved command itself is being dropped:
             // undoing back to an empty stack no longer reproduces the saved file.
-            if (_savedCommand == null || ReferenceEquals(oldest, _savedCommand))
+            if (savedCommand == null || ReferenceEquals(oldest, savedCommand))
             {
-                _savedCommand = null;
-                _cannotAccess = true;
+                savedCommand = null;
+                cannotAccess = true;
             }
 
             oldest.Dispose();
-            _undos.RemoveAt(0);
+            undos.RemoveAt(0);
         }
     }
 
@@ -181,9 +209,12 @@ public sealed class EditorHistory
         Changed?.Invoke();
 
         bool now = IsDirty;
-        if (now == _wasDirty) return;
+        if (now == wasDirty)
+        {
+            return;
+        }
 
-        _wasDirty = now;
+        wasDirty = now;
         DirtyChanged?.Invoke(now);
     }
 }

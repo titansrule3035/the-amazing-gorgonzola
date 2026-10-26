@@ -125,27 +125,27 @@ public static class EditorContextRegistry
 
 public sealed class EditorContextMenu
 {
-    readonly EditorObject _editor;
-    readonly List<EditorContextOption> _options = new();
+    readonly EditorObject editor;
+    readonly List<EditorContextOption> options = new();
 
     public PopupMenu Menu { get; }
 
     public EditorContextMenu(EditorObject editor)
     {
-        _editor = editor;
+        this.editor = editor;
 
         Menu = new PopupMenu { ProcessMode = Node.ProcessModeEnum.Always };
         Menu.IdPressed += OnIdPressed;
         Menu.VisibilityChanged += () =>
         {
-            if (!Menu.Visible) _editor.MarkUiInteraction();
+            if (!Menu.Visible) editor.MarkUiInteraction();
         };
     }
 
     public void Open()
     {
-        var selection = _editor.Selection;
-        Vector2I cell = _editor.cell;
+        var selection = editor.Selection;
+        Vector2I cell = editor.cell;
 
         // Right-clicking something that isn't selected selects it first (like most editors).
         bool hit = selection.TryPick(cell, out Pick pick);
@@ -156,7 +156,7 @@ public sealed class EditorContextMenu
         }
 
         Node2D? target = hit ? pick.Object : null;
-        var builder = new EditorContextMenuBuilder(_editor, target, cell);
+        var builder = new EditorContextMenuBuilder(editor, target, cell);
 
         // 1. Item-specific options
         if (target != null)
@@ -166,7 +166,7 @@ public sealed class EditorContextMenu
                 provider.BuildContextMenu(builder);
             }
 
-            EditorContextRegistry.Apply(_editor.GetObjectType(target), builder);
+            EditorContextRegistry.Apply(editor.GetObjectType(target), builder);
         }
 
         // 2. Selection options
@@ -174,12 +174,12 @@ public sealed class EditorContextMenu
 
         if (!selection.IsEmpty)
         {
-            builder.Add($"Delete ({selection.Count})", _editor.DeleteSelection);
+            builder.Add($"Delete ({selection.Count})", editor.DeleteSelection);
         }
 
         if (target != null)
         {
-            var type = _editor.GetObjectType(target);
+            var type = editor.GetObjectType(target);
             builder.Add("Select All of This Type", () => selection.SelectAllOfType(type));
         }
 
@@ -190,22 +190,22 @@ public sealed class EditorContextMenu
 
         // 3. History
         builder.AddSeparator();
-        builder.Add("Undo", _editor.Undo, !_editor.History.CanUndo);
-        builder.Add("Redo", _editor.Redo, !_editor.History.CanRedo);
+        builder.Add("Undo", editor.Undo, !editor.History.canUndo);
+        builder.Add("Redo", editor.Redo, !editor.History.canRedo);
 
         Show(builder.Options);
     }
 
     void Show(List<EditorContextOption> options)
     {
-        _options.Clear();
-        _options.AddRange(options);
+        this.options.Clear();
+        this.options.AddRange(options);
 
         Menu.Clear();
 
-        for (int i = 0; i < _options.Count; i++)
+        for (int i = 0; i < this.options.Count; i++)
         {
-            var option = _options[i];
+            var option = this.options[i];
 
             if (option.Separator)
             {
@@ -221,10 +221,8 @@ public sealed class EditorContextMenu
             }
         }
 
-        var viewport = _editor.GetViewport();
-        Vector2I position = viewport.IsEmbeddingSubwindows()
-            ? (Vector2I)viewport.GetMousePosition()
-            : DisplayServer.MouseGetPosition();
+        var viewport = editor.GetViewport();
+        Vector2I position = viewport.IsEmbeddingSubwindows() ? (Vector2I)viewport.GetMousePosition() : DisplayServer.MouseGetPosition();
 
         Menu.Popup(new Rect2I(position, Vector2I.Zero));
     }
@@ -233,9 +231,9 @@ public sealed class EditorContextMenu
     {
         int index = (int)id;
 
-        if (index >= 0 && index < _options.Count)
+        if (index >= 0 && index < this.options.Count)
         {
-            _options[index].Callback?.Invoke();
+            this.options[index].Callback?.Invoke();
         }
     }
 }

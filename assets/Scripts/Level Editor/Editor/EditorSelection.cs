@@ -34,7 +34,10 @@ public sealed class EditorSelection
     // ------------------------------------------------------------------
     public void Clear()
     {
-        if (IsEmpty) return;
+        if (IsEmpty)
+        {
+            return;
+        }
 
         Tiles.Clear();
         Objects.Clear();
@@ -46,7 +49,10 @@ public sealed class EditorSelection
         Tiles.Clear();
         Objects.Clear();
 
-        foreach (var c in tiles) Tiles.Add(c);
+        foreach (var c in tiles)
+        {
+            Tiles.Add(c);
+        }
 
         foreach (var o in objects)
         {
@@ -61,15 +67,22 @@ public sealed class EditorSelection
         Tiles.Clear();
         Objects.Clear();
 
-        if (pick.Object != null) Objects.Add(pick.Object);
-        else Tiles.Add(pick.Cell);
+        if (pick.Object != null)
+        {
+            Objects.Add(pick.Object);
+        }
+        else
+        {
+            Tiles.Add(pick.Cell);
+        }
 
         Notify();
     }
 
-    public bool Contains(Pick pick) =>
-        pick.Object != null ? Objects.Contains(pick.Object) : Tiles.Contains(pick.Cell);
-
+    public bool Contains(Pick pick)
+    {
+        return pick.Object != null ? Objects.Contains(pick.Object) : Tiles.Contains(pick.Cell);
+    }
     /// <summary>True if a selected tile or object occupies this cell.</summary>
     public bool HitsSelection(Vector2I cell)
     {
@@ -91,7 +104,10 @@ public sealed class EditorSelection
         Tiles.RemoveWhere(c => _e.TileMap.GetCellSourceId(c) == -1);
         Objects.RemoveWhere(o => !GodotObject.IsInstanceValid(o) || !o.IsInsideTree());
 
-        if (Count != before) Notify();
+        if (Count != before)
+        {
+            Notify();
+        }
     }
 
     // ------------------------------------------------------------------

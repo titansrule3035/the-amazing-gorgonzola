@@ -70,7 +70,9 @@ public partial class Door : Node2D
         gorg = Gorgonzola.GetInstance();
 
         if (gorg == null || GlobalGameManager.GetInstance() == null)
+        {
             return;
+        }
 
         if (GlobalGameManager.GetInstance().levelCompleted)
         {
