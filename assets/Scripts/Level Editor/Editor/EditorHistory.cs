@@ -231,9 +231,7 @@ public readonly record struct TileSnapshot(int SourceId, Vector2I Atlas, int Alt
     {
         int id = map.GetCellSourceId(cell);
 
-        return id == -1
-            ? Empty
-            : new TileSnapshot(id, map.GetCellAtlasCoords(cell), map.GetCellAlternativeTile(cell));
+        return id == -1 ? Empty : new TileSnapshot(id, map.GetCellAtlasCoords(cell), map.GetCellAlternativeTile(cell));
     }
 
     public void ApplyTo(TileMapLayer map, Vector2I cell)

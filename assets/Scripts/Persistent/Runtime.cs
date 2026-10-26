@@ -149,7 +149,9 @@ public partial class Runtime : Node2D
         foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
         {
             if (tileMapLayer is not TileMapLayer layer)
+            {
                 continue;
+            }
 
             LayerData layerData = new()
             {
@@ -466,8 +468,7 @@ public partial class Runtime : Node2D
 
             foreach (TileData tile in layerData.Tiles)
             {
-                layer.SetCell(
-                    new Vector2I(tile.X, tile.Y), tile.SourceId, new Vector2I(tile.AtlasX, tile.AtlasY), tile.Alternative);
+                layer.SetCell(new Vector2I(tile.X, tile.Y), tile.SourceId, new Vector2I(tile.AtlasX, tile.AtlasY), tile.Alternative);
             }
         }
     }
