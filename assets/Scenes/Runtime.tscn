@@ -38,13 +38,16 @@
 [ext_resource type="Texture2D" uid="uid://b32hpe2qfef3x" path="res://assets/Sprites/Program/Cursor/select_cursor.png" id="35_5sgc1"]
 [ext_resource type="Texture2D" uid="uid://ba1ajyccukh22" path="res://assets/Sprites/Program/Cursor/move_cursor.png" id="36_rl1l2"]
 [ext_resource type="Texture2D" uid="uid://ds1pfketvm2fq" path="res://assets/Sprites/Program/Cursor/copy_cursor.png" id="37_wq4sa"]
+[ext_resource type="Texture2D" uid="uid://pepm13bclbxq" path="res://assets/Sprites/Program/Cursor/cursor.png" id="38_5sgc1"]
 [ext_resource type="Texture2D" uid="uid://878r28isxpko" path="res://assets/Sprites/Program/Cursor/mouse_cursor.png" id="38_6u3x5"]
-[ext_resource type="Texture2D" uid="uid://12ebxqt5nu3m" path="res://assets/Sprites/Program/Cursor/point_cursor.png" id="39_5sgc1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5mxk"]
+atlas = ExtResource("38_5sgc1")
+region = Rect2(18, 17, 45, 45)
 
 [node name="runtime" type="Node2D" unique_id=1780813959]
 process_mode = 3
 script = ExtResource("1_pff64")
-editorMode = true
 gameScene = ExtResource("3_s7gb8")
 editorScene = ExtResource("2_6cu8n")
 LevelMechanicScenes = Dictionary[String, PackedScene]({
@@ -93,7 +96,7 @@ cursorCache = Dictionary[String, Texture2D]({
 "Mouse": ExtResource("38_6u3x5"),
 "Move": ExtResource("36_rl1l2"),
 "Place": ExtResource("33_osa4n"),
-"Point": ExtResource("39_5sgc1"),
+"Point": SubResource("AtlasTexture_d5mxk"),
 "Select": ExtResource("35_5sgc1")
 })
 
