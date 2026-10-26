@@ -25,27 +25,36 @@
 [ext_resource type="PackedScene" uid="uid://d020bkor1cvmi" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_27_20.tscn" id="37_lk8sw"]
 [ext_resource type="PackedScene" uid="uid://dad1ndqt65ark" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_08_04.tscn" id="37_n0wal"]
 [ext_resource type="PackedScene" uid="uid://b3bp1q0nx44c5" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_28_20.tscn" id="38_8roxm"]
+[ext_resource type="PackedScene" uid="uid://s5r4yi1iphmc" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_02.tscn" id="38_d5mxk"]
 [ext_resource type="PackedScene" uid="uid://dkl2s68guvcg6" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_green_on_off_block.tscn" id="38_nb3xa"]
 [ext_resource type="PackedScene" uid="uid://ci52dg1teux7d" path="res://assets/Scenes/Level Editor/Items/NPCs/item_the_boat.tscn" id="39_gqpjf"]
 [ext_resource type="PackedScene" uid="uid://b5uhgtvouk20o" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_26_21.tscn" id="39_h4nmt"]
 [ext_resource type="PackedScene" uid="uid://j6teup3h4r6y" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_red_on_off_block.tscn" id="39_hgw8s"]
+[ext_resource type="PackedScene" uid="uid://dkp85amx4a7hg" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_02.tscn" id="39_i5g7p"]
+[ext_resource type="PackedScene" uid="uid://diw255c8tf45p" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_02.tscn" id="40_2emwo"]
 [ext_resource type="PackedScene" uid="uid://dlr7d3uibltro" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_on_off_switch_master.tscn" id="40_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://dqnofguoq48ag" path="res://assets/Scenes/Level Editor/Items/NPCs/item_blinky.tscn" id="40_gkvni"]
 [ext_resource type="PackedScene" uid="uid://cs80x0typx7d8" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_27_21.tscn" id="40_ife7p"]
 [ext_resource type="PackedScene" uid="uid://br5h3flkly3m" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_28_21.tscn" id="41_35n0d"]
 [ext_resource type="PackedScene" uid="uid://cbihc1dwmjj6q" path="res://assets/Scenes/Level Editor/Items/NPCs/item_buj.tscn" id="41_hgw8s"]
+[ext_resource type="PackedScene" uid="uid://csdycsdjtyr2g" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_03.tscn" id="41_ps382"]
 [ext_resource type="PackedScene" uid="uid://dmss5kybk5cbn" path="res://assets/Scenes/Level Editor/Items/Hazards/item_chunk.tscn" id="41_pw0c8"]
 [ext_resource type="PackedScene" uid="uid://dpjqqtkm7dx5i" path="res://assets/Scenes/UI/kill_panel.tscn" id="42_7pho1"]
+[ext_resource type="PackedScene" uid="uid://bopk24b7q8wgi" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_03.tscn" id="42_cbno7"]
 [ext_resource type="PackedScene" uid="uid://bsgup8ok6kj4d" path="res://assets/Scenes/Level Editor/Items/NPCs/item_esse.tscn" id="42_cqmv0"]
 [ext_resource type="PackedScene" uid="uid://csmi8n0nbp8af" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_26_22.tscn" id="42_naa78"]
 [ext_resource type="PackedScene" uid="uid://cstqyu754tyrw" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_27_22.tscn" id="43_b5r4v"]
 [ext_resource type="PackedScene" uid="uid://btvhr7g40o2de" path="res://assets/Scenes/Level Editor/Items/NPCs/item_fleshebry.tscn" id="43_trpam"]
+[ext_resource type="PackedScene" uid="uid://dp7p2khcqvax6" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_03.tscn" id="43_ym3da"]
+[ext_resource type="PackedScene" uid="uid://csnvi8xk33gxl" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_04.tscn" id="44_rsx2i"]
 [ext_resource type="PackedScene" uid="uid://bayks32xucsws" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_28_22.tscn" id="44_v8rx1"]
 [ext_resource type="PackedScene" uid="uid://1lxjy5igfqfn" path="res://assets/Scenes/Level Editor/Items/NPCs/item_gergenschpooglus.tscn" id="44_ww0cc"]
 [ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="45_krgg0"]
 [ext_resource type="PackedScene" uid="uid://2i1kwqpd53mi" path="res://assets/Scenes/Level Editor/Items/NPCs/item_jub.tscn" id="45_nmkc5"]
+[ext_resource type="PackedScene" uid="uid://854fxelifjbp" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_04.tscn" id="45_v5jjh"]
 [ext_resource type="PackedScene" uid="uid://daw8b8yyqitqu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_left.tscn" id="46_16gwb"]
 [ext_resource type="PackedScene" uid="uid://bfuuesifq8kay" path="res://assets/Scenes/Level Editor/Items/NPCs/item_lixe.tscn" id="46_dtfw6"]
+[ext_resource type="PackedScene" uid="uid://cwtung26164n" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_04.tscn" id="46_y7cl0"]
 [ext_resource type="PackedScene" uid="uid://ca2ql5v56htt4" path="res://assets/Scenes/Level Editor/Items/NPCs/item_pasghetti.tscn" id="47_402pb"]
 [ext_resource type="PackedScene" uid="uid://h7juj7n2816b" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_07_18.tscn" id="47_upxro"]
 [ext_resource type="PackedScene" uid="uid://ck86k773p7lc7" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_right.tscn" id="48_gwxgc"]
@@ -158,6 +167,7 @@ offset_top = 2.0
 offset_right = 1726.0
 offset_bottom = 30.0
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="ToolBarLabel" type="Label" parent="CanvasLayer/UI/ToolBar" unique_id=1695420679]
 layout_mode = 1
@@ -168,7 +178,7 @@ anchor_bottom = 1.0
 offset_left = -0.3840332
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 19
 text = "Untitled"
@@ -200,12 +210,13 @@ offset_top = 0.015999913
 offset_right = -0.46400452
 offset_bottom = 0.01599884
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/FileButton" unique_id=731033202]
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 32.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 16
 text = "File"
@@ -239,12 +250,13 @@ offset_top = 0.015999913
 offset_right = 0.039993286
 offset_bottom = 0.01599884
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/WindowButton" unique_id=908977366]
 layout_mode = 0
 offset_right = 168.0
 offset_bottom = 32.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 16
 text = "Window"
@@ -278,12 +290,13 @@ offset_top = 0.015999913
 offset_right = 0.0019989014
 offset_bottom = 0.01599884
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=2100602292]
 layout_mode = 0
 offset_right = 182.0
 offset_bottom = 32.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 16
 text = "Editor"
@@ -364,6 +377,13 @@ anchor_bottom = 1.0
 offset_left = 0.07999992
 offset_right = -0.08000183
 focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 
 [node name="RightButton" type="Button" parent="CanvasLayer/UI/ScrollButton" unique_id=1885769434]
 process_mode = 3
@@ -389,6 +409,7 @@ offset_top = 0.007999957
 offset_right = -0.08001709
 offset_bottom = -0.0080013275
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="TitleLabel" type="Label" parent="CanvasLayer/UI/ScrollButton" unique_id=599683389]
 layout_mode = 1
@@ -397,7 +418,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 16
 text = "Clones"
@@ -411,7 +432,7 @@ anchors_preset = -1
 anchor_right = 0.085
 anchor_bottom = 1.0
 offset_right = 0.07999802
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "<"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -426,7 +447,7 @@ anchor_bottom = 1.0
 offset_left = 0.16000366
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -458,7 +479,7 @@ offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.29803923, 0.043137256, 1)
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ClonesMenu" unique_id=1051830274]
 layout_mode = 1
@@ -530,13 +551,14 @@ offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.29803923, 0.043137256, 1)
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/TilesMenu" unique_id=879181758]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
@@ -642,6 +664,48 @@ layout_mode = 2
 [node name="ItemTile0804" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer8" unique_id=1028075565 instance=ExtResource("37_n0wal")]
 layout_mode = 2
 
+[node name="TilesItemContainer9" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=597339857]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemTile0002" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer9" unique_id=1359179725 instance=ExtResource("38_d5mxk")]
+layout_mode = 2
+
+[node name="ItemTile0102" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer9" unique_id=2024173712 instance=ExtResource("39_i5g7p")]
+layout_mode = 2
+
+[node name="ItemTile0202" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer9" unique_id=1569585753 instance=ExtResource("40_2emwo")]
+layout_mode = 2
+
+[node name="TilesItemContainer10" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1073459496]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemTile0003" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer10" unique_id=139210008 instance=ExtResource("41_ps382")]
+layout_mode = 2
+
+[node name="ItemTile0103" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer10" unique_id=1871938417 instance=ExtResource("42_cbno7")]
+layout_mode = 2
+
+[node name="ItemTile0203" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer10" unique_id=1595116467 instance=ExtResource("43_ym3da")]
+layout_mode = 2
+
+[node name="TilesItemContainer11" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=324018335]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemTile0004" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer11" unique_id=230564409 instance=ExtResource("44_rsx2i")]
+layout_mode = 2
+
+[node name="ItemTile0104" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer11" unique_id=1693307857 instance=ExtResource("45_v5jjh")]
+layout_mode = 2
+
+[node name="ItemTile0204" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer11" unique_id=1546820809 instance=ExtResource("46_y7cl0")]
+layout_mode = 2
+
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
 visible = false
 custom_minimum_size = Vector2(480, 0)
@@ -669,7 +733,7 @@ offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.29803923, 0.043137256, 1)
+color = Color(0, 0.53333336, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=266085711]
@@ -791,7 +855,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
-visible = false
 layout_mode = 1
 anchor_top = 0.037
 anchor_bottom = 0.037
@@ -824,12 +887,13 @@ offset_top = -0.01600027
 offset_right = -0.08001709
 offset_bottom = 0.01599884
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/FileMenu/OpenButton" unique_id=510048120]
 layout_mode = 0
 offset_right = 480.0
 offset_bottom = 48.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 12
 text = "Open (Ctrl/Command + O)"
@@ -864,12 +928,13 @@ offset_top = -0.01600027
 offset_right = -0.08001709
 offset_bottom = 0.00799942
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/FileMenu/SaveButton" unique_id=1900354264]
 layout_mode = 0
 offset_right = 480.0
 offset_bottom = 48.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 12
 text = "Save (Ctrl/Command + S)"
@@ -904,6 +969,7 @@ offset_top = 0.02399993
 offset_right = -0.08001709
 offset_bottom = -0.016002655
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Button" type="Button" parent="CanvasLayer/UI/FileMenu/SaveAsButton" unique_id=755816338]
 process_mode = 3
@@ -920,7 +986,7 @@ layout_mode = 0
 offset_top = -2.0
 offset_right = 480.0
 offset_bottom = 46.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 12
 text = "Save As (Ctrl/Command + Shift + S)"
@@ -945,13 +1011,14 @@ offset_top = -0.01600027
 offset_right = -0.08001709
 offset_bottom = -0.006011963
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/FileMenu/CloseButton" unique_id=318365807]
 layout_mode = 0
 offset_top = -2.0
 offset_right = 480.0
 offset_bottom = 46.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 12
 text = "Close (Ctrl/Command + C)"
@@ -1002,12 +1069,13 @@ offset_top = -0.01600027
 offset_right = -0.08001709
 offset_bottom = 0.01599884
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/WindowMenu/FullscreenToggleButton" unique_id=2105112989]
 layout_mode = 0
 offset_right = 480.0
 offset_bottom = 48.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 12
 text = "Fullscreen"
@@ -1059,12 +1127,13 @@ offset_top = -0.01600027
 offset_right = -0.08001709
 offset_bottom = 0.01599884
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/EditorMenu/QuitButton" unique_id=528900213]
 layout_mode = 0
 offset_right = 480.0
 offset_bottom = 48.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 12
 text = "Quit (Ctrl/Command + Q)"
@@ -1102,6 +1171,7 @@ offset_left = 0.07999992
 offset_top = -0.02800107
 offset_right = 0.39996338
 offset_bottom = 0.0019989014
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="PlayButtonControl" type="Control" parent="CanvasLayer/UI/GameControlsMenu" unique_id=2061604047]
 anchors_preset = 0
@@ -1226,6 +1296,7 @@ offset_left = 8.0
 offset_top = 7.0
 offset_right = 664.0
 offset_bottom = 456.0
+color = Color(0, 0.53333336, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/QuitMenu" unique_id=1421705998]
 texture_filter = 1
@@ -1237,12 +1308,12 @@ offset_bottom = 158.0
 texture = ExtResource("54_0e44q")
 stretch_mode = 4
 
-[node name="FileLabel" type="Label" parent="CanvasLayer/UI/QuitMenu" unique_id=32430612]
+[node name="PromptLabel" type="Label" parent="CanvasLayer/UI/QuitMenu" unique_id=32430612]
 layout_mode = 0
 offset_top = 40.0
 offset_right = 664.0
 offset_bottom = 360.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 25
 text = "Are you sure 
@@ -1271,17 +1342,7 @@ offset_top = 8.0
 offset_right = 284.0
 offset_bottom = 56.0
 mouse_filter = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/QuitMenu/QuitButton" unique_id=1075959107]
-layout_mode = 0
-offset_right = 292.0
-offset_bottom = 64.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 23
-text = "Quit"
-horizontal_alignment = 1
-vertical_alignment = 1
+color = Color(0.54901963, 0, 0, 1)
 
 [node name="Button" type="Button" parent="CanvasLayer/UI/QuitMenu/QuitButton" unique_id=1846757005]
 process_mode = 3
@@ -1292,6 +1353,19 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vqaxa")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vqaxa")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/QuitMenu/QuitButton" unique_id=1075959107]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 284.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("27_v344w")
+theme_override_font_sizes/font_size = 23
+text = "Quit"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CancelButton" type="Control" parent="CanvasLayer/UI/QuitMenu" unique_id=806352409]
 anchors_preset = 0
@@ -1314,27 +1388,30 @@ offset_top = 8.0
 offset_right = 284.0
 offset_bottom = 56.0
 mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/QuitMenu/CancelButton" unique_id=711144040]
+process_mode = 3
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 284.0
+offset_bottom = 56.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/QuitMenu/CancelButton" unique_id=1155930484]
 layout_mode = 0
 offset_right = 292.0
 offset_bottom = 64.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 23
 text = "No"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Button" type="Button" parent="CanvasLayer/UI/QuitMenu/CancelButton" unique_id=711144040]
-process_mode = 3
-layout_mode = 0
-offset_right = 292.0
-offset_bottom = 64.0
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/QuitMenu" unique_id=19354464]
 layout_mode = 0

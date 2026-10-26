@@ -34,11 +34,11 @@ public partial class ToolBarButton : Button
         menu.Visible = showMenu;
         if (showMenu)
         {
-            fill = Colors.LightGray;
+            fill = new("004C0B");
         }
         else
         {
-            fill = Colors.White;
+            fill = new("008800");
         }
         GetNode<ColorRect>("ButtonForeground").Color = fill;
     }
