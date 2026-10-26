@@ -36,18 +36,18 @@ public sealed class EditorContextMenuBuilder
 {
     internal readonly List<EditorContextOption> Options = new();
 
-    public EditorObject Editor { get; }
+    public EditorObject editor { get; }
 
     /// <summary>The placed object that was right-clicked, or null if it was a tile / empty space.</summary>
-    public Node2D? Target { get; }
+    public Node2D? target { get; }
 
-    public Vector2I Cell { get; }
+    public Vector2I cell { get; }
 
     public EditorContextMenuBuilder(EditorObject editor, Node2D? target, Vector2I cell)
     {
-        Editor = editor;
-        Target = target;
-        Cell = cell;
+        this.editor = editor;
+        this.target = target;
+        this.cell = cell;
     }
 
     /// <summary>Selected objects of the same item type as Target (so options apply to the whole selection).</summary>
@@ -55,10 +55,13 @@ public sealed class EditorContextMenuBuilder
     {
         get
         {
-            if (Target == null) return Array.Empty<Node2D>();
+            if (target == null)
+            {
+                return Array.Empty<Node2D>();
+            }
 
-            var type = Editor.GetObjectType(Target);
-            return Editor.Selection.Objects.Where(o => Editor.GetObjectType(o) == type).ToList();
+            var type = editor.GetObjectType(target);
+            return editor.selection.objects.Where(o => editor.GetObjectType(o) == type).ToList();
         }
     }
 
@@ -77,7 +80,7 @@ public sealed class EditorContextMenuBuilder
     /// <summary>Option that goes through undo/redo.</summary>
     public void AddUndoable(string label, Action doIt, Action undoIt, bool disabled = false)
     {
-        Add(label, () => Editor.History.Execute(new ActionCommand(doIt, undoIt)), disabled);
+        Add(label, () => editor.history.Execute(new ActionCommand(doIt, undoIt)), disabled);
     }
 
     /// <summary>Undoable option applied to every selected object of the target's type.</summary>
@@ -144,7 +147,7 @@ public sealed class EditorContextMenu
 
     public void Open()
     {
-        var selection = editor.Selection;
+        var selection = editor.selection;
         Vector2I cell = editor.cell;
 
         // Right-clicking something that isn't selected selects it first (like most editors).
@@ -169,12 +172,12 @@ public sealed class EditorContextMenu
             EditorContextRegistry.Apply(editor.GetObjectType(target), builder);
         }
 
-        // 2. Selection options
+        // 2. selection options
         builder.AddSeparator();
 
-        if (!selection.IsEmpty)
+        if (!selection.isEmpty)
         {
-            builder.Add($"Delete ({selection.Count})", editor.DeleteSelection);
+            builder.Add($"Delete ({selection.count})", editor.DeleteSelection);
         }
 
         if (target != null)
@@ -183,15 +186,15 @@ public sealed class EditorContextMenu
             builder.Add("Select All of This Type", () => selection.SelectAllOfType(type));
         }
 
-        if (!selection.IsEmpty)
+        if (!selection.isEmpty)
         {
             builder.Add("Deselect All", selection.Clear);
         }
 
-        // 3. History
+        // 3. history
         builder.AddSeparator();
-        builder.Add("Undo", editor.Undo, !editor.History.canUndo);
-        builder.Add("Redo", editor.Redo, !editor.History.canRedo);
+        builder.Add("Undo", editor.Undo, !editor.history.canUndo);
+        builder.Add("Redo", editor.Redo, !editor.history.canRedo);
 
         Show(builder.Options);
     }

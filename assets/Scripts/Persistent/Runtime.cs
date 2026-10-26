@@ -508,13 +508,22 @@ public partial class Runtime : Node2D
             return;
         }
 
-        if (mode.ToString() != "Select")
+        if (mode.ToString() == "Select")
+        {
+            Input.SetCustomMouseCursor(texture, Input.CursorShape.Ibeam, new(16, 16));
+            return;
+        }
+
+
+        if (mode.ToString() == "Mouse")
         {
             Input.SetCustomMouseCursor(texture, Input.CursorShape.Arrow);
+            return;
         }
         else
         {
-            Input.SetCustomMouseCursor(texture, Input.CursorShape.Arrow, new(16, 16));
+            Input.SetCustomMouseCursor(texture, Input.CursorShape.Ibeam);
+            return;
         }
 
     }

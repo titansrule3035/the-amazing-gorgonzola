@@ -48,7 +48,7 @@ public partial class OnOffSwitch : Node2D
     // Play a local animation
     protected virtual void PlayAnimation(string animation)
     {
-        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play(animation);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D")?.Play(animation);
     }
 
     public override void _ExitTree()

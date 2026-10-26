@@ -27,7 +27,7 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
 
         OnOffManager.OnStateChanged += OnStateChanged;
 
-        masterSwitch = ThisScene;
+        masterSwitch = thisScene;
 
         base._Ready();
     }
@@ -39,7 +39,7 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
 
     public void RegisterMasterSwitch(OnOffSwitchMaster masterSwitch)
     {
-        ThisScene = normalSwitch;
+        thisScene = normalSwitch;
 
         if (selected)
         {
@@ -53,7 +53,7 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
 
         if (selected)
         {
-            ThisScene = masterSwitch;
+            thisScene = masterSwitch;
         }
     }
 

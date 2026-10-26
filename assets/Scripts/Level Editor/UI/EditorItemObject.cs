@@ -13,42 +13,42 @@ public partial class EditorItemObject : TextureRect
     // ------------------------------------------------------------------
     // Config
     // ------------------------------------------------------------------
-    const string EditorPath = "editor/main/EditorObject";
-    const string MainPath = "editor/main";
+    string editorPath = "editor/main/EditorObject";
+    string mainPath = "editor/main";
 
-    const string AnimDefault = "default";
-    const string AnimSelected = "selected";
-    const string AnimDisabled = "disabled";
+    string animDefault = "default";
+    string animSelected = "selected";
+    string animDisabled = "disabled";
 
     [Export] public ItemType itemType;
-    [Export] public PackedScene ThisScene { get; set; }
+    [Export] public PackedScene thisScene { get; set; }
     [Export] public Vector2 cursorOffset = Vector2.Zero;
 
     // ------------------------------------------------------------------
     // State
     // ------------------------------------------------------------------
-    public AnimationPlayer Player;
+    public AnimationPlayer player;
     public bool selected = false;
     public bool disabled = false;
 
     /// <summary>Raised with the newly selected item, or null to clear the selection.</summary>
     public static Action<EditorItemObject>? ChangeTexture;
 
-    LevelEditorMain _main;
-    EditorObject _editor;
-    bool _idleStateApplied;
+    LevelEditorMain main;
+    EditorObject editor;
+    bool idleStateApplied;
 
     /// <summary>The editor cursor node. Cached on first use.</summary>
     protected EditorObject Editor
     {
         get
         {
-            if (!IsInstanceValid(_editor))
+            if (!IsInstanceValid(editor))
             {
-                _editor = GetTree().CurrentScene.GetNode<EditorObject>(EditorPath);
+                editor = GetTree().CurrentScene.GetNode<EditorObject>(editorPath);
             }
 
-            return _editor;
+            return editor;
         }
     }
 
@@ -57,12 +57,12 @@ public partial class EditorItemObject : TextureRect
     // ------------------------------------------------------------------
     public override void _Ready()
     {
-        Player = GetParent().GetNode<AnimationPlayer>("AnimationPlayer");
+        player = GetParent().GetNode<AnimationPlayer>("AnimationPlayer");
 
         ChangeTexture += SetActiveItem;
 
-        _main = GetTree().CurrentScene.GetNode<LevelEditorMain>(MainPath);
-        _main.OnGamePaused += OnGamePaused;
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>(mainPath);
+        main.OnGamePaused += OnGamePaused;
     }
 
     public override void _EnterTree()
@@ -77,9 +77,9 @@ public partial class EditorItemObject : TextureRect
 
         GuiInput -= OnGuiInput;
 
-        if (IsInstanceValid(_main))
+        if (IsInstanceValid(main))
         {
-            _main.OnGamePaused -= OnGamePaused;
+            main.OnGamePaused -= OnGamePaused;
         }
     }
 
@@ -87,7 +87,7 @@ public partial class EditorItemObject : TextureRect
     {
         if (disabled)
         {
-            MouseDefaultCursorShape = Control.CursorShape.Arrow;
+            //((Runtime)GetTree().CurrentScene).ApplyCursor(GetNode<EditorObject>("editor/main/EditorObject").currentCursorMode);
         }
         else
         {
@@ -100,10 +100,10 @@ public partial class EditorItemObject : TextureRect
             return;
         }
 
-        if (!_idleStateApplied)
+        if (!idleStateApplied)
         {
-            _idleStateApplied = true;
-            Player.Play(AnimDisabled);
+            idleStateApplied = true;
+            player.Play(animDisabled);
             MouseFilter = MouseFilterEnum.Ignore;
             selected = false;
         }
@@ -111,7 +111,7 @@ public partial class EditorItemObject : TextureRect
 
     void OnGamePaused()
     {
-        _idleStateApplied = false;
+        idleStateApplied = false;
 
         if (!disabled)
         {
@@ -161,7 +161,7 @@ public partial class EditorItemObject : TextureRect
     {
         selected = !disabled && item == this;
 
-        Player.Play(disabled ? AnimDisabled : selected ? AnimSelected : AnimDefault);
+        player.Play(disabled ? animDisabled : selected ? animSelected : animDefault);
 
         // Every palette item receives this call, so the clear is repeated. It is idempotent.
         if (item == null)
@@ -175,7 +175,7 @@ public partial class EditorItemObject : TextureRect
     // ------------------------------------------------------------------
     public void DisableItem()
     {
-        Player.Play(AnimDisabled);
+        player.Play(animDisabled);
         MouseFilter = MouseFilterEnum.Ignore;
         disabled = true;
         selected = false;
@@ -183,7 +183,7 @@ public partial class EditorItemObject : TextureRect
 
     public void EnableItem()
     {
-        Player.Play(AnimDefault);
+        player.Play(animDefault);
         MouseFilter = MouseFilterEnum.Pass;
         disabled = false;
     }

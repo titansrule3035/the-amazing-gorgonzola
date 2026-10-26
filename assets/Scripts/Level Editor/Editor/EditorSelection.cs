@@ -15,17 +15,17 @@ public readonly record struct Pick(Vector2I Cell, Node2D? Object)
 /// </summary>
 public sealed class EditorSelection
 {
-    readonly EditorObject _e;
+    readonly EditorObject editor;
 
-    public readonly HashSet<Vector2I> Tiles = new();
-    public readonly HashSet<Node2D> Objects = new();
+    public readonly HashSet<Vector2I> tiles = new();
+    public readonly HashSet<Node2D> objects = new();
 
     public event Action? Changed;
 
-    public EditorSelection(EditorObject editor) => _e = editor;
+    public EditorSelection(EditorObject editor) => this.editor = editor;
 
-    public bool IsEmpty => Tiles.Count == 0 && Objects.Count == 0;
-    public int Count => Tiles.Count + Objects.Count;
+    public bool isEmpty => tiles.Count == 0 && objects.Count == 0;
+    public int count => tiles.Count + objects.Count;
 
     void Notify() => Changed?.Invoke();
 
@@ -34,29 +34,32 @@ public sealed class EditorSelection
     // ------------------------------------------------------------------
     public void Clear()
     {
-        if (IsEmpty)
+        if (isEmpty)
         {
             return;
         }
 
-        Tiles.Clear();
-        Objects.Clear();
+        tiles.Clear();
+        objects.Clear();
         Notify();
     }
 
     public void Set(IEnumerable<Vector2I> tiles, IEnumerable<Node2D> objects)
     {
-        Tiles.Clear();
-        Objects.Clear();
+        this.tiles.Clear();
+        this.objects.Clear();
 
         foreach (var c in tiles)
         {
-            Tiles.Add(c);
+            this.tiles.Add(c);
         }
 
         foreach (var o in objects)
         {
-            if (GodotObject.IsInstanceValid(o)) Objects.Add(o);
+            if (GodotObject.IsInstanceValid(o))
+            {
+                this.objects.Add(o);
+            }
         }
 
         Notify();
@@ -64,16 +67,16 @@ public sealed class EditorSelection
 
     public void SelectOnly(Pick pick)
     {
-        Tiles.Clear();
-        Objects.Clear();
+        tiles.Clear();
+        objects.Clear();
 
         if (pick.Object != null)
         {
-            Objects.Add(pick.Object);
+            objects.Add(pick.Object);
         }
         else
         {
-            Tiles.Add(pick.Cell);
+            tiles.Add(pick.Cell);
         }
 
         Notify();
@@ -81,16 +84,16 @@ public sealed class EditorSelection
 
     public bool Contains(Pick pick)
     {
-        return pick.Object != null ? Objects.Contains(pick.Object) : Tiles.Contains(pick.Cell);
+        return pick.Object != null ? objects.Contains(pick.Object) : tiles.Contains(pick.Cell);
     }
     /// <summary>True if a selected tile or object occupies this cell.</summary>
     public bool HitsSelection(Vector2I cell)
     {
-        if (Tiles.Contains(cell)) return true;
+        if (tiles.Contains(cell)) return true;
 
-        foreach (var o in Objects)
+        foreach (var o in objects)
         {
-            if (GodotObject.IsInstanceValid(o) && _e.GetObjectCell(o) == cell) return true;
+            if (GodotObject.IsInstanceValid(o) && editor.GetObjectCell(o) == cell) return true;
         }
 
         return false;
@@ -99,12 +102,12 @@ public sealed class EditorSelection
     /// <summary>Drops anything that no longer exists (after undo, erase, etc).</summary>
     public void Prune()
     {
-        int before = Count;
+        int before = count;
 
-        Tiles.RemoveWhere(c => _e.TileMap.GetCellSourceId(c) == -1);
-        Objects.RemoveWhere(o => !GodotObject.IsInstanceValid(o) || !o.IsInsideTree());
+        tiles.RemoveWhere(c => editor.tileMap.GetCellSourceId(c) == -1);
+        objects.RemoveWhere(o => !GodotObject.IsInstanceValid(o) || !o.IsInsideTree());
 
-        if (Count != before)
+        if (count != before)
         {
             Notify();
         }
@@ -117,18 +120,18 @@ public sealed class EditorSelection
     /// <summary>Topmost object at the cell (that passes the filter), else the tile.</summary>
     public bool TryPick(Vector2I cell, out Pick pick)
     {
-        var objects = _e.ObjectsAtCell(cell);
+        var objects = editor.ObjectsAtCell(cell);
 
         for (int i = objects.Count - 1; i >= 0; i--)
         {
-            if (_e.PassesFilter(objects[i]))
+            if (editor.PassesFilter(objects[i]))
             {
                 pick = new Pick(cell, objects[i]);
                 return true;
             }
         }
 
-        if (_e.TilesPassFilter && _e.TileMap.GetCellSourceId(cell) != -1)
+        if (editor.TilesPassFilter && editor.tileMap.GetCellSourceId(cell) != -1)
         {
             pick = new Pick(cell, null);
             return true;
@@ -142,8 +145,8 @@ public sealed class EditorSelection
     {
         if (!additive)
         {
-            Tiles.Clear();
-            Objects.Clear();
+            tiles.Clear();
+            objects.Clear();
         }
 
         int minX = Math.Min(a.X, b.X);
@@ -151,26 +154,26 @@ public sealed class EditorSelection
         int minY = Math.Min(a.Y, b.Y);
         int maxY = Math.Max(a.Y, b.Y);
 
-        if (_e.TilesPassFilter)
+        if (editor.TilesPassFilter)
         {
-            foreach (Vector2I c in _e.TileMap.GetUsedCells())
+            foreach (Vector2I c in editor.tileMap.GetUsedCells())
             {
                 if (c.X >= minX && c.X <= maxX && c.Y >= minY && c.Y <= maxY)
                 {
-                    Tiles.Add(c);
+                    tiles.Add(c);
                 }
             }
         }
 
-        foreach (var obj in _e.PlaceableObjects())
+        foreach (var obj in editor.PlaceableObjects())
         {
-            if (!_e.PassesFilter(obj)) continue;
+            if (!editor.PassesFilter(obj)) continue;
 
-            Vector2I c = _e.GetObjectCell(obj);
+            Vector2I c = editor.GetObjectCell(obj);
 
             if (c.X >= minX && c.X <= maxX && c.Y >= minY && c.Y <= maxY)
             {
-                Objects.Add(obj);
+                objects.Add(obj);
             }
         }
 
@@ -179,12 +182,12 @@ public sealed class EditorSelection
 
     public void SelectAllOfType(EditorItemObject.ItemType type)
     {
-        Tiles.Clear();
-        Objects.Clear();
+        tiles.Clear();
+        objects.Clear();
 
-        foreach (var obj in _e.PlaceableObjects())
+        foreach (var obj in editor.PlaceableObjects())
         {
-            if (_e.GetObjectType(obj) == type) Objects.Add(obj);
+            if (editor.GetObjectType(obj) == type) objects.Add(obj);
         }
 
         Notify();
@@ -199,9 +202,9 @@ public sealed class EditorSelection
     {
         var cells = new HashSet<Vector2I>();
 
-        foreach (var obj in _e.PlaceableObjects())
+        foreach (var obj in editor.PlaceableObjects())
         {
-            if (!Objects.Contains(obj)) cells.Add(_e.GetObjectCell(obj));
+            if (!objects.Contains(obj)) cells.Add(editor.GetObjectCell(obj));
         }
 
         return cells;
@@ -211,23 +214,23 @@ public sealed class EditorSelection
     public bool CanMove(Vector2I delta, HashSet<Vector2I> otherObjectCells)
     {
         var tileDestinations = new HashSet<Vector2I>();
-        foreach (var c in Tiles) tileDestinations.Add(c + delta);
+        foreach (var c in tiles) tileDestinations.Add(c + delta);
 
-        foreach (var c in Tiles)
+        foreach (var c in tiles)
         {
             Vector2I d = c + delta;
 
-            bool blockedByTile = !Tiles.Contains(d) && _e.TileMap.GetCellSourceId(d) != -1;
+            bool blockedByTile = !tiles.Contains(d) && editor.tileMap.GetCellSourceId(d) != -1;
             if (blockedByTile || otherObjectCells.Contains(d)) return false;
         }
 
-        foreach (var obj in Objects)
+        foreach (var obj in objects)
         {
             if (!GodotObject.IsInstanceValid(obj)) continue;
 
-            Vector2I d = _e.GetObjectCell(obj) + delta;
+            Vector2I d = editor.GetObjectCell(obj) + delta;
 
-            bool blockedByTile = !Tiles.Contains(d) && _e.TileMap.GetCellSourceId(d) != -1;
+            bool blockedByTile = !tiles.Contains(d) && editor.tileMap.GetCellSourceId(d) != -1;
             if (blockedByTile || otherObjectCells.Contains(d) || tileDestinations.Contains(d)) return false;
         }
 
@@ -237,15 +240,22 @@ public sealed class EditorSelection
     /// <summary>Moves the whole selection by a cell offset as one undo step.</summary>
     public bool TryMove(Vector2I delta)
     {
-        if (delta == Vector2I.Zero || IsEmpty) return false;
-        if (!CanMove(delta, OtherObjectCells())) return false;
+        if (delta == Vector2I.Zero || isEmpty)
+        {
+            return false;
+        }
+
+        if (!CanMove(delta, OtherObjectCells()))
+        {
+            return false;
+        }
 
         var commands = new List<EditorCommand>();
-        var map = _e.TileMap;
+        var map = editor.tileMap;
 
-        var originalTiles = Tiles.ToList();
+        var originalTiles = tiles.ToList();
         var shiftedTiles = originalTiles.Select(c => c + delta).ToList();
-        var objects = Objects.Where(GodotObject.IsInstanceValid).ToList();
+        var objects = this.objects.Where(GodotObject.IsInstanceValid).ToList();
 
         // --- tiles ---
         if (originalTiles.Count > 0)
@@ -267,12 +277,12 @@ public sealed class EditorSelection
         // --- objects ---
         if (objects.Count > 0)
         {
-            Vector2 step = _e.CellToWorld(delta) - _e.CellToWorld(Vector2I.Zero);
+            Vector2 step = editor.CellToWorld(delta) - editor.CellToWorld(Vector2I.Zero);
             var entries = new List<ObjectMoveCommand.Entry>();
 
             foreach (var obj in objects)
             {
-                Vector2I cell = _e.GetObjectCell(obj);
+                Vector2I cell = editor.GetObjectCell(obj);
                 entries.Add(new ObjectMoveCommand.Entry(obj, obj.GlobalPosition, obj.GlobalPosition + step, cell, cell + delta));
             }
 
@@ -282,7 +292,7 @@ public sealed class EditorSelection
         var composite = new CompositeCommand(commands);
         composite.OnApplied = undo => Set(undo ? originalTiles : shiftedTiles, objects);
 
-        _e.History.Execute(composite);
+        editor.history.Execute(composite);
         return true;
     }
 }

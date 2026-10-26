@@ -61,7 +61,7 @@ public partial class LevelEditorMain : Node2D
     void FilePicked(string filePath)
     {
         levelName = Path.GetFileNameWithoutExtension(filePath);
-        EditorObject.GetInstance().History.Clear();
+        EditorObject.GetInstance().history.Clear();
     }
 
     public void FileSaved(string filePath)
@@ -69,7 +69,7 @@ public partial class LevelEditorMain : Node2D
         if (Path.GetFileName(filePath) != ".taglevel")
         {
             levelName = Path.GetFileNameWithoutExtension(filePath);
-            EditorObject.GetInstance().History.MarkSaved();
+            EditorObject.GetInstance().history.MarkSaved();
         }
     }
 

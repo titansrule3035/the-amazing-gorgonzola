@@ -492,7 +492,7 @@ public sealed class ObjectMoveCommand : EditorCommand
         }
 
         node.GlobalPosition = pos;
-        node.SetMeta(EditorObject.MetaCell, cell);
+        node.SetMeta(EditorObject.metaCell, cell);
     }
 }
 

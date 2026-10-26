@@ -11,20 +11,20 @@ using CursorMode = EditorObject.CursorMode;
 /// </summary>
 public abstract class EditorTool
 {
-    protected readonly EditorObject Editor;
+    protected readonly EditorObject editor;
 
-    protected EditorTool(EditorObject editor) => Editor = editor;
+    protected EditorTool(EditorObject editor) => this.editor = editor;
 
-    public abstract CursorMode Mode { get; }
+    public abstract CursorMode mode { get; }
 
     /// <summary>Whether the cursor sprite should be shown in this mode.</summary>
-    public virtual bool CursorVisible => false;
+    public virtual bool cursorVisible => false;
 
     /// <summary>Mid-drag / mid-stroke. Blocks the context menu.</summary>
-    public virtual bool IsBusy => false;
+    public virtual bool isBusy => false;
 
     /// <summary>Whether holding Ctrl may temporarily switch to the plain mouse.</summary>
-    public virtual bool AllowCtrlMouseOverride => true;
+    public virtual bool allowCtrlMouseOverride => true;
 
     public virtual void Enter()
     {
@@ -61,14 +61,14 @@ public class MouseTool : EditorTool
 
     }
 
-    public override CursorMode Mode => CursorMode.Mouse;
+    public override CursorMode mode => CursorMode.Mouse;
 
     public override void Enter()
     {
-        Editor.hideCursor = true;
+        editor.hideCursor = true;
     }
 
-    public override void UpdateCursor() => Editor.GlobalPosition = Editor.mouseGlobal;
+    public override void UpdateCursor() => editor.GlobalPosition = editor.mouseGlobal;
 }
 
 // ----------------------------------------------------------------------
@@ -77,23 +77,24 @@ public class MouseTool : EditorTool
 public class CopyTool : EditorTool
 {
     public CopyTool(EditorObject editor) : base(editor) { }
+
+    public override CursorMode mode => CursorMode.Copy;
+
     public override void Enter()
     {
-        Editor.hideCursor = true;
+        editor.hideCursor = true;
     }
-
-    public override CursorMode Mode => CursorMode.Copy;
 }
 
 public class DragCameraTool : EditorTool
 {
     public DragCameraTool(EditorObject editor) : base(editor) { }
 
-    public override CursorMode Mode => CursorMode.DragCamera;
+    public override CursorMode mode => CursorMode.DragCamera;
 
     public override void Enter()
     {
-        Editor.hideCursor = true;
+        editor.hideCursor = true;
     }
 }
 
@@ -103,80 +104,79 @@ public class DragCameraTool : EditorTool
 // ----------------------------------------------------------------------
 public class PlaceTool : EditorTool
 {
-    static readonly Vector2I NoCell = new(int.MinValue, int.MinValue);
+    static readonly Vector2I noCell = new(int.MinValue, int.MinValue);
 
-    Vector2I _lastPlacedCell = NoCell;
-    bool _stroke;
+    Vector2I lastPlacedCell = noCell;
+    bool stroke;
 
     public PlaceTool(EditorObject editor) : base(editor) { }
 
-    public override CursorMode Mode => CursorMode.Place;
-    public override bool CursorVisible => Editor.HasPlaceableItem;
-    public override bool IsBusy => _stroke;
+    public override CursorMode mode => CursorMode.Place;
+    public override bool cursorVisible => editor.hasPlaceableItem;
+    public override bool isBusy => stroke;
 
     public override void Enter()
     {
-        Editor.hideCursor = false;
-        _lastPlacedCell = NoCell;
-        Editor.RefreshCursorItem();
-        Editor.hideCursor = true;
+        lastPlacedCell = noCell;
+        editor.RefreshCursorItem();
+        editor.hideCursor = false;
     }
 
     public override void Exit() => EndStroke();
 
     public override void UpdateCursor()
     {
-        if (Editor.itemObject != null && Editor.itemObject.disabled)
+        if (editor.itemObject != null && editor.itemObject.disabled)
         {
-            Editor.ClearEditorItem();
+            editor.ClearEditorItem();
         }
 
         // Origin sits at the BOTTOM of the hovered tile; the sprite is lifted by half
         // its height so non-tile objects stand on the bottom edge.
-        float offset = Editor.CursorSprite.Texture != null ? Editor.CursorSprite.GetRect().Size.Y / 2f : 0f;
+        float offset = editor.cursorSprite.Texture != null ? editor.cursorSprite.GetRect().Size.Y / 2f : 0f;
 
-        Editor.GlobalPosition = Editor.snappedWorld + Editor.HalfTileDown;
-        Editor.CursorSprite.Position = new Vector2(0, -offset);
+        editor.GlobalPosition = editor.snappedWorld + editor.halfTileDown;
+        editor.cursorSprite.Position = new Vector2(0, -offset);
     }
 
     public override void Update(double delta)
     {
-        if (!Editor.CanInteract || !Editor.PrimaryHeld)
+        if (!editor.canInteract || !editor.primaryHeld)
         {
             EndStroke();
-            _lastPlacedCell = NoCell;
+            lastPlacedCell = noCell;
             return;
         }
 
-        if (!Editor.HasPlaceableItem)
+        if (!editor.hasPlaceableItem)
         {
             return;
         }
-        if (Editor.cell == _lastPlacedCell)
+        if (editor.cell == lastPlacedCell)
         {
             return;
         }
-        if (Editor.IsHoveredCellBlocked())
+        if (editor.IsHoveredCellBlocked())
         {
             return;
         }
 
-        if (!_stroke)
+        if (!stroke)
         {
-            Editor.History.BeginGroup();
-            _stroke = true;
+            editor.history.BeginGroup();
+            stroke = true;
         }
 
-        _lastPlacedCell = Editor.cell;
-        Editor.PlaceCurrentItem();
+        lastPlacedCell = editor.cell;
+        editor.PlaceCurrentItem();
     }
 
     void EndStroke()
     {
-        if (!_stroke) return;
+        if (!stroke) return;
 
-        Editor.History.EndGroup();
-        _stroke = false;
+        editor.history.EndGroup();
+        stroke = false;
     }
 }
 
@@ -186,50 +186,53 @@ public class PlaceTool : EditorTool
 // ----------------------------------------------------------------------
 public class EraserTool : EditorTool
 {
-    bool _stroke;
+    bool stroke;
 
     public EraserTool(EditorObject editor) : base(editor) { }
 
-    public override CursorMode Mode => CursorMode.Eraser;
-    public override bool CursorVisible => true;
-    public override bool IsBusy => _stroke;
+    public override CursorMode mode => CursorMode.Eraser;
+    public override bool cursorVisible => true;
+    public override bool isBusy => stroke;
 
     public override void Enter()
     {
-        Editor.SetCursorTexture(null);
-        Editor.CursorSprite.Material = null;
-        Editor.CursorSprite.Modulate = Colors.White;
-        Editor.CursorSprite.Position = Vector2.Zero;
-        Editor.hideCursor = true;
+        editor.SetCursorTexture(null);
+        editor.cursorSprite.Material = null;
+        editor.cursorSprite.Modulate = Colors.White;
+        editor.cursorSprite.Position = Vector2.Zero;
+        editor.hideCursor = true;
     }
 
     public override void Exit() => EndStroke();
 
-    public override void UpdateCursor() => Editor.GlobalPosition = Editor.mouseGlobal;
+    public override void UpdateCursor() => editor.GlobalPosition = editor.mouseGlobal;
 
     public override void Update(double delta)
     {
-        if (!Editor.CanInteract || !Editor.PrimaryHeld)
+        if (!editor.canInteract || !editor.primaryHeld)
         {
             EndStroke();
             return;
         }
 
-        if (!_stroke)
+        if (!stroke)
         {
-            Editor.History.BeginGroup();
-            _stroke = true;
+            editor.history.BeginGroup();
+            stroke = true;
         }
 
-        Editor.EraseAt(Editor.cell, Editor.snappedWorld);
+        editor.EraseAt(editor.cell, editor.snappedWorld);
     }
 
     void EndStroke()
     {
-        if (!_stroke) return;
+        if (!stroke)
+        {
+            return;
+        }
 
-        Editor.History.EndGroup();
-        _stroke = false;
+        editor.history.EndGroup();
+        stroke = false;
     }
 }
 
@@ -242,38 +245,41 @@ public class SelectTool : EditorTool
     static readonly Color FillColor = new(0.3f, 0.6f, 1f, 0.25f);
     static readonly Color BorderColor = new(0.3f, 0.6f, 1f, 0.9f);
 
-    Vector2I _start;
-    Vector2I _end;
-    bool _dragging;
+    Vector2I start;
+    Vector2I end;
+    bool dragging;
 
     public SelectTool(EditorObject editor) : base(editor) { }
 
-    public override CursorMode Mode => CursorMode.Select;
-    public override bool IsBusy => _dragging;
-    public override bool AllowCtrlMouseOverride => false;
+    public override CursorMode mode => CursorMode.Select;
+    public override bool isBusy => dragging;
+    public override bool allowCtrlMouseOverride => false;
 
     public override void Enter()
     {
-        Editor.hideCursor = true;
+        editor.hideCursor = true;
     }
 
     public override void Exit()
     {
-        if (!_dragging) return;
+        if (!dragging)
+        {
+            return;
+        }
 
-        _dragging = false;
-        Editor.RedrawOverlay();
+        dragging = false;
+        editor.RedrawOverlay();
     }
 
     public override void Update(double delta)
     {
-        if (!_dragging)
+        if (!dragging)
         {
-            if (Input.IsActionJustPressed("mb_left") && Editor.CanInteract)
+            if (Input.IsActionJustPressed("mb_left") && editor.canInteract)
             {
-                _start = _end = Editor.cell;
-                _dragging = true;
-                Editor.RedrawOverlay();
+                start = end = editor.cell;
+                dragging = true;
+                editor.RedrawOverlay();
             }
 
             return;
@@ -285,28 +291,28 @@ public class SelectTool : EditorTool
             return;
         }
 
-        if (_end != Editor.cell)
+        if (end != editor.cell)
         {
-            _end = Editor.cell;
-            Editor.RedrawOverlay();
+            end = editor.cell;
+            editor.RedrawOverlay();
         }
 
         if (!Input.IsActionPressed("mb_left"))
         {
-            _dragging = false;
-            Editor.Selection.SelectRect(_start, _end, additive: Input.IsActionPressed("ctrl"));
-            Editor.RedrawOverlay();
+            dragging = false;
+            editor.selection.SelectRect(start, end, additive: Input.IsActionPressed("ctrl"));
+            editor.RedrawOverlay();
         }
     }
 
     public override void Draw(CanvasItem canvas)
     {
-        if (!_dragging) return;
+        if (!dragging) return;
 
-        var min = new Vector2I(Math.Min(_start.X, _end.X), Math.Min(_start.Y, _end.Y));
-        var max = new Vector2I(Math.Max(_start.X, _end.X), Math.Max(_start.Y, _end.Y));
+        var min = new Vector2I(Math.Min(start.X, end.X), Math.Min(start.Y, end.Y));
+        var max = new Vector2I(Math.Max(start.X, end.X), Math.Max(start.Y, end.Y));
 
-        Rect2 rect = Editor.CellRect(min).Merge(Editor.CellRect(max));
+        Rect2 rect = editor.CellRect(min).Merge(editor.CellRect(max));
 
         canvas.DrawRect(rect, FillColor, filled: true);
         canvas.DrawRect(rect, BorderColor, filled: false, width: 1.5f);
@@ -319,35 +325,35 @@ public class SelectTool : EditorTool
 // ----------------------------------------------------------------------
 public class MoveTool : EditorTool
 {
-    static readonly Color ValidFill = new(0.3f, 1f, 0.4f, 0.25f);
-    static readonly Color ValidLine = new(0.3f, 1f, 0.4f, 0.95f);
-    static readonly Color InvalidFill = new(1f, 0.3f, 0.3f, 0.25f);
-    static readonly Color InvalidLine = new(1f, 0.3f, 0.3f, 0.95f);
+    static readonly Color validFill = new(0.3f, 1f, 0.4f, 0.25f);
+    static readonly Color validLine = new(0.3f, 1f, 0.4f, 0.95f);
+    static readonly Color invalidFill = new(1f, 0.3f, 0.3f, 0.25f);
+    static readonly Color invalidLine = new(1f, 0.3f, 0.3f, 0.95f);
 
-    bool _dragging;
-    bool _valid = true;
-    Vector2I _grabCell;
-    Vector2I _delta;
-    HashSet<Vector2I> _otherObjectCells = new();
+    bool dragging;
+    bool valid = true;
+    Vector2I grabCell;
+    Vector2I delta;
+    HashSet<Vector2I> otherObjectCells = new();
 
     public MoveTool(EditorObject editor) : base(editor) { }
 
-    public override CursorMode Mode => CursorMode.Move;
-    public override bool IsBusy => _dragging;
-    public override bool AllowCtrlMouseOverride => !_dragging;
+    public override CursorMode mode => CursorMode.Move;
+    public override bool isBusy => dragging;
+    public override bool allowCtrlMouseOverride => !dragging;
 
     public override void Enter()
     {
-        Editor.hideCursor = true;
+        editor.hideCursor = true;
     }
 
     public override void Exit() => Cancel();
 
     public override void Update(double delta)
     {
-        if (!_dragging)
+        if (!dragging)
         {
-            if (Input.IsActionJustPressed("mb_left") && Editor.CanInteract)
+            if (Input.IsActionJustPressed("mb_left") && editor.canInteract)
             {
                 Begin();
             }
@@ -361,21 +367,21 @@ public class MoveTool : EditorTool
             return;
         }
 
-        Vector2I newDelta = Editor.cell - _grabCell;
-        bool valid = newDelta == Vector2I.Zero || Editor.Selection.CanMove(newDelta, _otherObjectCells);
+        Vector2I newDelta = editor.cell - grabCell;
+        bool valid = newDelta == Vector2I.Zero || editor.selection.CanMove(newDelta, otherObjectCells);
 
-        if (newDelta != _delta || valid != _valid)
+        if (newDelta != this.delta || valid != this.valid)
         {
-            _delta = newDelta;
-            _valid = valid;
-            Editor.RedrawOverlay();
+            this.delta = newDelta;
+            this.valid = valid;
+            editor.RedrawOverlay();
         }
 
         if (!Input.IsActionPressed("mb_left"))
         {
-            if (_delta != Vector2I.Zero && _valid)
+            if (this.delta != Vector2I.Zero && this.valid)
             {
-                Editor.Selection.TryMove(_delta);
+                editor.selection.TryMove(this.delta);
             }
 
             Cancel();
@@ -384,56 +390,60 @@ public class MoveTool : EditorTool
 
     void Begin()
     {
-        var selection = Editor.Selection;
+        var selection = editor.selection;
 
         // Grabbing something outside the selection selects it (honouring the filter) and drags just that.
-        if (!selection.HitsSelection(Editor.cell))
+        if (!selection.HitsSelection(editor.cell))
         {
-            if (!selection.TryPick(Editor.cell, out Pick pick)) return;
+            if (!selection.TryPick(editor.cell, out Pick pick))
+            {
+                return;
+            }
+
             selection.SelectOnly(pick);
         }
 
-        _dragging = true;
-        _valid = true;
-        _grabCell = Editor.cell;
-        _delta = Vector2I.Zero;
-        _otherObjectCells = selection.OtherObjectCells();
-        Editor.RedrawOverlay();
+        dragging = true;
+        valid = true;
+        grabCell = editor.cell;
+        delta = Vector2I.Zero;
+        otherObjectCells = selection.OtherObjectCells();
+        editor.RedrawOverlay();
     }
 
     void Cancel()
     {
-        if (!_dragging) return;
+        if (!dragging) return;
 
-        _dragging = false;
-        _delta = Vector2I.Zero;
-        Editor.RedrawOverlay();
+        dragging = false;
+        delta = Vector2I.Zero;
+        editor.RedrawOverlay();
     }
 
     public override void Draw(CanvasItem canvas)
     {
-        if (!_dragging || _delta == Vector2I.Zero) return;
+        if (!dragging || delta == Vector2I.Zero) return;
 
-        Color fill = _valid ? ValidFill : InvalidFill;
-        Color line = _valid ? ValidLine : InvalidLine;
+        Color fill = valid ? validFill : invalidFill;
+        Color line = valid ? validLine : invalidLine;
 
-        foreach (var cell in Editor.Selection.Tiles)
+        foreach (var cell in editor.selection.tiles)
         {
-            DrawCell(canvas, cell + _delta, fill, line);
+            DrawCell(canvas, cell + delta, fill, line);
         }
 
-        foreach (var obj in Editor.Selection.Objects)
+        foreach (var obj in editor.selection.objects)
         {
             if (GodotObject.IsInstanceValid(obj))
             {
-                DrawCell(canvas, Editor.GetObjectCell(obj) + _delta, fill, line);
+                DrawCell(canvas, editor.GetObjectCell(obj) + delta, fill, line);
             }
         }
     }
 
     void DrawCell(CanvasItem canvas, Vector2I cell, Color fill, Color line)
     {
-        Rect2 rect = Editor.CellRect(cell);
+        Rect2 rect = editor.CellRect(cell);
 
         canvas.DrawRect(rect, fill, filled: true);
         canvas.DrawRect(rect, line, filled: false, width: 1.5f);

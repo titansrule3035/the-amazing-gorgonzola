@@ -46,10 +46,10 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Constants
     // ------------------------------------------------------------------
-    public const string PlaceableGroup = "editor_placeable";
-    public const string MetaCell = "editor_cell";       // Vector2I: the cell an object was placed in
-    public const string MetaType = "editor_item_type";  // int: EditorItemObject.ItemType
-    const string LevelRoot = "level/level_assets";
+    public const string placeableGroup = "editor_placeable";
+    public const string metaCell = "editor_cell";       // Vector2I: the cell an object was placed in
+    public const string metaType = "editor_item_type";  // int: EditorItemObject.ItemType
+    const string levelRoot = "level/level_assets";
 
     // Input action -> mode. Add a row here to bind a new hotkey.
     static readonly (string Action, CursorMode Mode, bool NeedsEditorActive)[] Hotkeys =
@@ -74,32 +74,32 @@ public partial class EditorObject : Node2D
     [ExportGroup("Editor")]
     [Export] public bool canPlace = false; // set by your UI: true while the mouse is over the level
     [Export] public Node2D level;
-    [Export] public PackedScene CurrentItem = null;
-    [Export] public Texture2D CurrentTile = null;
+    [Export] public PackedScene currentItem = null;
+    [Export] public Texture2D currentTile = null;
     [Export] public CursorMode lastCursorMode = CursorMode.Null;
-    [Export] public int MaxUndoSteps = 200;
-    [Export] public bool BuildFilterUi = true; // adds a small "Select:" dropdown (top right) while the editor is active
+    [Export] public int maxUndoSteps = 200;
+    [Export] public bool buildFilterUi = true; // adds a small "Select:" dropdown (top right) while the editor is active
 
-    CursorMode _mode = CursorMode.Place;
+    CursorMode mode = CursorMode.Place;
 
     /// <summary>Setting this (from UI, other scripts, etc.) properly switches tools.</summary>
     [Export]
     public CursorMode currentCursorMode
     {
-        get => _mode;
+        get => mode;
         set => SetCursorMode(value);
     }
 
-    FilterMode _filter = FilterMode.All;
+    FilterMode filter = FilterMode.All;
 
     /// <summary>Which kinds of things selecting and grabbing can pick up.</summary>
     [Export]
     public FilterMode currentFilterMode
     {
-        get => _filter;
+        get => filter;
         set
         {
-            _filter = value;
+            filter = value;
             SyncFilterUi();
             FilterChanged?.Invoke(value);
         }
@@ -108,10 +108,10 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Shared state
     // ------------------------------------------------------------------
-    public Sprite2D CursorSprite { get; private set; }
-    public TileMapLayer TileMap { get; private set; }
-    public EditorSelection Selection { get; private set; }
-    public EditorHistory History { get; private set; }
+    public Sprite2D cursorSprite { get; private set; }
+    public TileMapLayer tileMap { get; private set; }
+    public EditorSelection selection { get; private set; }
+    public EditorHistory history { get; private set; }
     public string levelName { get; set; } = "Untitled";
 
     public EditorItemObject itemObject;
@@ -129,25 +129,22 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
 
     /// <summary>The single "is the editor live" check. Change it here and everything follows.</summary>
-    public bool EditorActive => GetTree().Paused;
+    public bool editorActive => GetTree().Paused;
 
-    public bool PrimaryHeld => Input.IsActionPressed("mb_left");
+    public bool primaryHeld => Input.IsActionPressed("mb_left");
 
     /// <summary>Editor is live, the mouse is over the level, and no popup or editor UI is eating the click.</summary>
-    public bool CanInteract => EditorActive && canPlace && !overOwnUi && Engine.GetProcessFrames() > uiBlockUntilFrame && !(contextMenu?.Menu.Visible ?? false);
+    public bool canInteract => editorActive && canPlace && !overOwnUi && Engine.GetProcessFrames() > uiBlockUntilFrame && !(contextMenu?.Menu.Visible ?? false);
 
     /// <summary>Offset from a tile's center to its bottom edge.</summary>
-    public Vector2 HalfTileDown => new(0, TileMap.TileSet.TileSize.Y / 2f);
+    public Vector2 halfTileDown => new(0, tileMap.TileSet.TileSize.Y / 2f);
 
-    public bool HasPlaceableItem =>
-        itemObject != null
-        && itemType != EditorItemObject.ItemType.Null
-        && (CurrentItem != null || CurrentTile != null);
+    public bool hasPlaceableItem => itemObject != null && itemType != EditorItemObject.ItemType.Null && (currentItem != null || currentTile != null);
 
     // ------------------------------------------------------------------
     // Private state
     // ------------------------------------------------------------------
-    Dictionary<CursorMode, EditorTool> _tools;
+    Dictionary<CursorMode, EditorTool> tools;
     EditorContextMenu contextMenu;
     Node2D overlay;
     CanvasLayer filterLayer;
@@ -164,14 +161,14 @@ public partial class EditorObject : Node2D
 
     static EditorObject instance;
 
-    EditorTool ActiveTool => _tools != null && _tools.TryGetValue(_mode, out var tool) ? tool : null;
+    EditorTool activeTool => tools != null && tools.TryGetValue(mode, out var tool) ? tool : null;
 
     // ------------------------------------------------------------------
     // Tools / modes
     // ------------------------------------------------------------------
     void BuildTools()
     {
-        _tools = new();
+        tools = new();
         Register(new MouseTool(this));
         Register(new MoveTool(this));
         Register(new SelectTool(this));
@@ -181,7 +178,7 @@ public partial class EditorObject : Node2D
         Register(new DragCameraTool(this));
     }
 
-    void Register(EditorTool tool) => _tools[tool.Mode] = tool;
+    void Register(EditorTool tool) => tools[tool.mode] = tool;
 
     /// <summary>Public mode switch. Cancels any pending Ctrl override.</summary>
     public void SetCursorMode(CursorMode mode)
@@ -192,16 +189,16 @@ public partial class EditorObject : Node2D
 
     void SwitchMode(CursorMode mode)
     {
-        ActiveTool?.Exit();
-        _mode = mode;
-        ActiveTool?.Enter();
+        activeTool?.Exit();
+        this.mode = mode;
+        activeTool?.Enter();
         UpdateMouseCursor();
         RedrawOverlay();
     }
 
     void UpdateMouseCursor()
     {
-        string currentCursor = _mode.ToString();
+        string currentCursor = mode.ToString();
     }
 
     // ------------------------------------------------------------------
@@ -216,31 +213,29 @@ public partial class EditorObject : Node2D
 
         instance = this;
 
-        ProcessMode = ProcessModeEnum.Always; // keep running while the tree is paused
-
-        CursorSprite = GetNode<Sprite2D>("Sprite");
+        cursorSprite = GetNode<Sprite2D>("Sprite");
         level = GetParent().GetNode<Node2D>("level");
-        TileMap = level.GetNode<TileMapLayer>("tiles/Foreground");
+        tileMap = level.GetNode<TileMapLayer>("tiles/Foreground");
 
-        History = new EditorHistory(MaxUndoSteps);
-        History.Changed += OnHistoryChanged;
+        history = new EditorHistory(maxUndoSteps);
+        history.Changed += OnHistoryChanged;
 
-        Selection = new EditorSelection(this);
-        Selection.Changed += OnSelectionChanged;
+        selection = new EditorSelection(this);
+        selection.Changed += OnSelectionChanged;
 
         CreateOverlay();
 
         contextMenu = new EditorContextMenu(this);
         AddChild(contextMenu.Menu);
 
-        if (BuildFilterUi)
+        if (buildFilterUi)
         {
             CreateFilterUi();
         }
 
         RegisterItemContextOptions();
         BuildTools();
-        ActiveTool?.Enter();
+        activeTool?.Enter();
     }
 
     public static EditorObject GetInstance()
@@ -260,11 +255,11 @@ public partial class EditorObject : Node2D
     void RequestAction(Action proceed)
     {
         LevelEditorMain editorMain = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-        
-        if (!History.IsDirty || editorMain.ui.quitMenu.Visible) 
-        { 
-            proceed(); 
-            return; 
+
+        if (!history.IsDirty || editorMain.ui.quitMenu.Visible)
+        {
+            proceed();
+            return;
         }
 
         OnSaveComplete = proceed;
@@ -281,12 +276,12 @@ public partial class EditorObject : Node2D
             instance = null;
         }
         // Frees any objects that are only kept alive by the undo stacks.
-        History?.Clear();
+        history?.Clear();
     }
 
     public override void _Process(double delta)
     {
-        bool active = EditorActive;
+        bool active = editorActive;
 
         if (active != wasActive)
         {
@@ -297,11 +292,11 @@ public partial class EditorObject : Node2D
         UpdateMouseCell();
         HandleModeHotkeys();
 
-        var tool = ActiveTool;
+        var tool = activeTool;
 
         if (tool == null)
         {
-            CursorSprite.Visible = false;
+            cursorSprite.Visible = false;
             return;
         }
 
@@ -312,12 +307,12 @@ public partial class EditorObject : Node2D
             tool.Update(delta);
         }
 
-        hideCursor = !(active && tool.CursorVisible);
-        CursorSprite.Visible = !hideCursor;
+        hideCursor = !(active && tool.cursorVisible);
+        cursorSprite.Visible = !hideCursor;
 
-        GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().History.IsDirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
+        GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().history.IsDirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
 
-        if (History.IsDirty)
+        if (history.IsDirty)
         {
             GetTree().AutoAcceptQuit = false;
         }
@@ -329,26 +324,34 @@ public partial class EditorObject : Node2D
 
     public override void _Input(InputEvent @event)
     {
-        if (!EditorActive || !canPlace)
+        if (!editorActive || !canPlace)
+        {
             return;
+        }
 
         if (@event is not InputEventMouseButton mouseButton)
+        {
             return;
+        }
 
         if (mouseButton.ButtonIndex != MouseButton.Left)
+        {
             return;
+        }
 
         if (mouseButton.Pressed)
         {
             pressedButton = MouseButton.Left;
             pressPos = GetGlobalMousePosition();
-            selectionPressStarted = !Selection.IsEmpty;
+            selectionPressStarted = !selection.isEmpty;
             return;
         }
 
         // Only handle the release matching our recorded press.
         if (pressedButton != MouseButton.Left)
+        {
             return;
+        }
 
         Vector2 releasePos = GetGlobalMousePosition();
         float distance = pressPos.DistanceTo(releasePos);
@@ -358,11 +361,11 @@ public partial class EditorObject : Node2D
         {
             Vector2I releaseCell = WorldToCell(releasePos);
 
-            bool clickedEmptySpace = ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && TileMap.GetCellSourceId(releaseCell) == -1;
+            bool clickedEmptySpace = ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && tileMap.GetCellSourceId(releaseCell) == -1;
 
             if (clickedEmptySpace)
             {
-                Selection.Clear();
+                selection.Clear();
             }
         }
 
@@ -372,7 +375,7 @@ public partial class EditorObject : Node2D
 
     public override void _UnhandledKeyInput(InputEvent @event)
     {
-        if (!EditorActive || @event is not InputEventKey { Pressed: true } key) return;
+        if (!editorActive || @event is not InputEventKey { Pressed: true } key) return;
 
         bool command = key.IsCommandOrControlPressed();
 
@@ -398,10 +401,25 @@ public partial class EditorObject : Node2D
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (@event is not InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Right }) return;
-        if (!CanInteract) return;
-        if (_mode is CursorMode.Mouse or CursorMode.DragCamera) return;
-        if (ActiveTool?.IsBusy == true) return;
+        if (@event is not InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Right })
+        {
+            return;
+        }
+
+        if (!canInteract)
+        {
+            return;
+        }
+
+        if (mode is CursorMode.Mouse or CursorMode.DragCamera)
+        {
+            return;
+        }
+
+        if (activeTool?.isBusy == true)
+        {
+            return;
+        }
 
         contextMenu.Open();
         GetViewport().SetInputAsHandled();
@@ -419,7 +437,7 @@ public partial class EditorObject : Node2D
         if (!active)
         {
             overOwnUi = false;
-            ActiveTool?.OnEditorDeactivated();
+            activeTool?.OnEditorDeactivated();
         }
 
         RedrawOverlay();
@@ -431,16 +449,16 @@ public partial class EditorObject : Node2D
     void UpdateMouseCell()
     {
         mouseGlobal = GetGlobalMousePosition();
-        local = TileMap.ToLocal(mouseGlobal);
-        cell = TileMap.LocalToMap(local);
-        snappedWorld = TileMap.ToGlobal(TileMap.MapToLocal(cell));
+        local = tileMap.ToLocal(mouseGlobal);
+        cell = tileMap.LocalToMap(local);
+        snappedWorld = tileMap.ToGlobal(tileMap.MapToLocal(cell));
     }
 
     void HandleModeHotkeys()
     {
         foreach (var (action, mode, needsEditor) in Hotkeys)
         {
-            if (needsEditor && !EditorActive) continue;
+            if (needsEditor && !editorActive) continue;
 
             if (Input.IsActionJustPressed(action))
             {
@@ -451,9 +469,9 @@ public partial class EditorObject : Node2D
 
         // Ctrl temporarily becomes the plain mouse, then restores the previous mode.
         // Tools can opt out (Select uses Ctrl for "add to selection", and drags must not be interrupted).
-        if (Input.IsActionJustPressed("ctrl") && _mode != CursorMode.Mouse && ActiveTool is { AllowCtrlMouseOverride: true })
+        if (Input.IsActionJustPressed("ctrl") && mode != CursorMode.Mouse && activeTool is { allowCtrlMouseOverride: true })
         {
-            lastCursorMode = _mode;
+            lastCursorMode = mode;
             ctrlOverride = true;
             SwitchMode(CursorMode.Mouse);
         }
@@ -472,14 +490,14 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Grid / object helpers
     // ------------------------------------------------------------------
-    public Vector2 CellToWorld(Vector2I c) => TileMap.ToGlobal(TileMap.MapToLocal(c));
+    public Vector2 CellToWorld(Vector2I c) => tileMap.ToGlobal(tileMap.MapToLocal(c));
 
-    public Vector2I WorldToCell(Vector2 world) => TileMap.LocalToMap(TileMap.ToLocal(world));
+    public Vector2I WorldToCell(Vector2 world) => tileMap.LocalToMap(tileMap.ToLocal(world));
 
     /// <summary>World-space rectangle covering one grid cell.</summary>
     public Rect2 CellRect(Vector2I c)
     {
-        Vector2 size = TileMap.TileSet.TileSize;
+        Vector2 size = tileMap.TileSet.TileSize;
         return new Rect2(CellToWorld(c) - size / 2f, size);
     }
 
@@ -490,19 +508,19 @@ public partial class EditorObject : Node2D
     /// </summary>
     public Vector2I GetObjectCell(Node2D obj)
     {
-        if (obj.HasMeta(MetaCell))
+        if (obj.HasMeta(metaCell))
         {
-            return obj.GetMeta(MetaCell).AsVector2I();
+            return obj.GetMeta(metaCell).AsVector2I();
         }
 
-        return WorldToCell(obj.GlobalPosition - HalfTileDown);
+        return WorldToCell(obj.GlobalPosition - halfTileDown);
     }
 
     public EditorItemObject.ItemType GetObjectType(Node2D obj)
     {
-        if (obj.HasMeta(MetaType))
+        if (obj.HasMeta(metaType))
         {
-            return (EditorItemObject.ItemType)obj.GetMeta(MetaType).AsInt32();
+            return (EditorItemObject.ItemType)obj.GetMeta(metaType).AsInt32();
         }
 
         // Fallback for objects that weren't placed this session: infer from their container.
@@ -519,7 +537,7 @@ public partial class EditorObject : Node2D
 
     public IEnumerable<Node2D> PlaceableObjects()
     {
-        foreach (Node node in GetTree().GetNodesInGroup(PlaceableGroup))
+        foreach (Node node in GetTree().GetNodesInGroup(placeableGroup))
         {
             if (node is Node2D obj) yield return obj;
         }
@@ -552,19 +570,19 @@ public partial class EditorObject : Node2D
     /// <summary>True if a tile or any object already occupies the hovered cell.</summary>
     public bool IsHoveredCellBlocked()
     {
-        return TileMap.GetCellSourceId(cell) != -1 || ObjectsAtCell(cell).Count > 0 || QueryObjectsAt(snappedWorld).Count > 0;
+        return tileMap.GetCellSourceId(cell) != -1 || ObjectsAtCell(cell).Count > 0 || QueryObjectsAt(snappedWorld).Count > 0;
     }
 
     // ------------------------------------------------------------------
     // Selection filter
     // ------------------------------------------------------------------
-    public bool TilesPassFilter => _filter is FilterMode.All or FilterMode.Tiles;
+    public bool TilesPassFilter => filter is FilterMode.All or FilterMode.Tiles;
 
     public bool PassesFilter(Node2D obj)
     {
         var type = GetObjectType(obj);
 
-        return _filter switch
+        return filter switch
         {
             FilterMode.All => true,
             FilterMode.Tiles => false,
@@ -597,14 +615,14 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Actions (all undoable)
     // ------------------------------------------------------------------
-    public void Undo() => History.Undo();
-    public void Redo() => History.Redo();
+    public void Undo() => history.Undo();
+    public void Redo() => history.Redo();
 
-    public void ClearHistory() => History.Clear();
+    public void ClearHistory() => history.Clear();
 
     public void PlaceCurrentItem()
     {
-        if (!HasPlaceableItem) return;
+        if (!hasPlaceableItem) return;
 
         ItemPlaced?.Invoke();
 
@@ -612,48 +630,47 @@ public partial class EditorObject : Node2D
         {
             var tile = (EditorTileObject)itemObject;
 
-            var before = TileSnapshot.Capture(TileMap, cell);
+            var before = TileSnapshot.Capture(tileMap, cell);
             var after = new TileSnapshot(tile.tileID, tile.GetAtlasCoords(), 0);
             if (before == after) return;
 
-            var command = new TileChangeCommand(TileMap);
+            var command = new TileChangeCommand(tileMap);
             command.Set(cell, before, after);
-            History.Execute(command);
+            history.Execute(command);
             return;
         }
 
-        if (CurrentItem == null) return;
+        if (currentItem == null) return;
 
         string destination = itemObject.GetGroupDestination();
-        Node2D parent = GetTree().CurrentScene
-            .GetNodeOrNull<Node2D>($"editor/main/{LevelRoot}/{destination}");
+        Node2D parent = GetTree().CurrentScene.GetNodeOrNull<Node2D>($"editor/main/{levelRoot}/{destination}");
 
         if (parent == null)
         {
-            GD.PushWarning($"Can't place item: no node at editor/main/{LevelRoot}/{destination}");
+            GD.PushWarning($"Can't place item: no node at editor/main/{levelRoot}/{destination}");
             return;
         }
 
-        Node2D node = CurrentItem.Instantiate<Node2D>();
-        node.AddToGroup(PlaceableGroup);
-        node.SetMeta(MetaCell, cell);
-        node.SetMeta(MetaType, (int)itemType);
+        Node2D node = currentItem.Instantiate<Node2D>();
+        node.AddToGroup(placeableGroup);
+        node.SetMeta(metaCell, cell);
+        node.SetMeta(metaType, (int)itemType);
 
         // The command sets GlobalPosition AFTER adding the node, so a container that is offset
         // or scaled doesn't shift the item.
-        Vector2 globalPos = snappedWorld + HalfTileDown + new Vector2(0, itemObject.cursorOffset.Y);
-        History.Execute(ObjectAttachCommand.Add(parent, node, globalPos));
+        Vector2 globalPos = snappedWorld + halfTileDown + new Vector2(0, itemObject.cursorOffset.Y);
+        history.Execute(ObjectAttachCommand.Add(parent, node, globalPos));
     }
 
     public void EraseAt(Vector2I targetCell, Vector2 worldPos)
     {
         var commands = new List<EditorCommand>();
 
-        var before = TileSnapshot.Capture(TileMap, targetCell);
+        var before = TileSnapshot.Capture(tileMap, targetCell);
 
         if (before != TileSnapshot.Empty)
         {
-            var tileCommand = new TileChangeCommand(TileMap);
+            var tileCommand = new TileChangeCommand(tileMap);
             tileCommand.Set(targetCell, before, TileSnapshot.Empty);
             commands.Add(tileCommand);
         }
@@ -667,7 +684,7 @@ public partial class EditorObject : Node2D
 
             while (current != null)
             {
-                if (current.IsInGroup(PlaceableGroup))
+                if (current.IsInGroup(placeableGroup))
                 {
                     if (current is Node2D obj) victims.Add(obj);
                     break;
@@ -684,24 +701,24 @@ public partial class EditorObject : Node2D
 
         if (commands.Count == 0) return;
 
-        History.Execute(commands.Count == 1 ? commands[0] : new CompositeCommand(commands));
+        history.Execute(commands.Count == 1 ? commands[0] : new CompositeCommand(commands));
     }
 
     public void DeleteSelection()
     {
-        if (Selection.IsEmpty) return;
+        if (selection.isEmpty) return;
 
-        var tiles = Selection.Tiles.ToList();
-        var objects = Selection.Objects.Where(GodotObject.IsInstanceValid).ToList();
+        var tiles = selection.tiles.ToList();
+        var objects = selection.objects.Where(GodotObject.IsInstanceValid).ToList();
         var commands = new List<EditorCommand>();
 
         if (tiles.Count > 0)
         {
-            var tileCommand = new TileChangeCommand(TileMap);
+            var tileCommand = new TileChangeCommand(tileMap);
 
             foreach (var c in tiles)
             {
-                tileCommand.Set(c, TileSnapshot.Capture(TileMap, c), TileSnapshot.Empty);
+                tileCommand.Set(c, TileSnapshot.Capture(tileMap, c), TileSnapshot.Empty);
             }
 
             commands.Add(tileCommand);
@@ -719,15 +736,15 @@ public partial class EditorObject : Node2D
         {
             if (undo)
             {
-                Selection.Set(tiles, objects);
+                selection.Set(tiles, objects);
             }
             else
             {
-                Selection.Clear();
+                selection.Clear();
             }
         };
 
-        History.Execute(composite);
+        history.Execute(composite);
     }
 
     // ------------------------------------------------------------------
@@ -776,26 +793,30 @@ public partial class EditorObject : Node2D
 
     void DrawOverlay()
     {
-        if (!EditorActive || Selection == null) return;
+        if (!editorActive || selection == null) return;
 
         var tileFill = new Color(0.3f, 0.6f, 1f, 0.18f);
         var tileLine = new Color(0.3f, 0.6f, 1f, 0.9f);
         var objectLine = new Color(1f, 0.7f, 0.2f, 0.95f);
 
-        foreach (var c in Selection.Tiles)
+        foreach (var c in selection.tiles)
         {
             Rect2 rect = CellRect(c);
             overlay.DrawRect(rect, tileFill, filled: true);
             overlay.DrawRect(rect, tileLine, filled: false, width: 1f);
         }
 
-        foreach (var obj in Selection.Objects)
+        foreach (var obj in selection.objects)
         {
-            if (!GodotObject.IsInstanceValid(obj)) continue;
+            if (!GodotObject.IsInstanceValid(obj))
+            {
+                continue;
+            }
+
             overlay.DrawRect(CellRect(GetObjectCell(obj)), objectLine, filled: false, width: 1.5f);
         }
 
-        ActiveTool?.Draw(overlay);
+        activeTool?.Draw(overlay);
     }
 
     void OnSelectionChanged()
@@ -806,7 +827,7 @@ public partial class EditorObject : Node2D
 
     void OnHistoryChanged()
     {
-        Selection?.Prune();
+        selection?.Prune();
         RedrawOverlay();
         HistoryChanged?.Invoke();
     }
@@ -830,7 +851,7 @@ public partial class EditorObject : Node2D
             filterOption.AddItem(FilterLabel(mode), (int)mode);
         }
 
-        filterOption.Selected = filterOption.GetItemIndex((int)_filter);
+        filterOption.Selected = filterOption.GetItemIndex((int)filter);
         filterOption.ItemSelected += index => SetFilterMode((FilterMode)filterOption.GetItemId((int)index));
         filterOption.GetPopup().VisibilityChanged += MarkUiInteraction;
 
@@ -850,7 +871,7 @@ public partial class EditorObject : Node2D
     {
         if (filterOption == null) return;
 
-        int index = filterOption.GetItemIndex((int)_filter);
+        int index = filterOption.GetItemIndex((int)filter);
         if (filterOption.Selected != index) filterOption.Selected = index;
     }
 
@@ -877,12 +898,12 @@ public partial class EditorObject : Node2D
         {
             SetCursorTexture(editorItem.Texture, editorItem.FlipH);
 
-            CursorSprite.Material = editorItem.itemType == EditorItemObject.ItemType.Clone ? editorItem.Material : null;
+            cursorSprite.Material = editorItem.itemType == EditorItemObject.ItemType.Clone ? editorItem.Material : null;
 
-            SetCurrentScene(editorItem.ThisScene);
+            SetCurrentScene(editorItem.thisScene);
         }
 
-        CursorSprite.Modulate = new Color(1, 1, 1, 0.5f);
+        cursorSprite.Modulate = new Color(1, 1, 1, 0.5f);
     }
 
     /// <summary>Re-applies the selected item to the cursor sprite (used when entering Place mode).</summary>
@@ -903,25 +924,25 @@ public partial class EditorObject : Node2D
         SetCursorTexture(null);
         itemObject = null;
         itemType = EditorItemObject.ItemType.Null;
-        CurrentItem = null;
-        CurrentTile = null;
+        currentItem = null;
+        currentTile = null;
     }
 
     public void SetCursorTexture(Texture2D texture, bool flipH = false)
     {
-        CursorSprite.Texture = texture;
-        CursorSprite.FlipH = flipH;
+        cursorSprite.Texture = texture;
+        cursorSprite.FlipH = flipH;
     }
 
     public void SetCurrentTile(Texture2D tile)
     {
-        CurrentItem = null;
-        CurrentTile = tile;
+        currentItem = null;
+        currentTile = tile;
     }
 
     void SetCurrentScene(PackedScene newScene)
     {
-        CurrentTile = null;
-        CurrentItem = newScene;
+        currentTile = null;
+        currentItem = newScene;
     }
 }

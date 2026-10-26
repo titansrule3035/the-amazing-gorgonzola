@@ -10,6 +10,8 @@ public partial class FileButton : ToolBarButton
     public Action<string>? filePicked;
     public Action<string>? fileSaved;
 
+    public EditorObject.CursorMode oldCursorMode;
+
     public override void _Ready()
     {
         GetTree().CurrentScene.GetNode<QuitMenu>("editor/main/CanvasLayer/UI/QuitMenu").cancelButton.Pressed += HideMenuAndEnableClicks;
@@ -33,6 +35,7 @@ public partial class FileButton : ToolBarButton
             {
                 blockMouse.MouseFilter = MouseFilterEnum.Ignore;
                 UpdateMenuAndButton(false);
+                return;
             }
         };
 
@@ -121,7 +124,7 @@ public partial class FileButton : ToolBarButton
         runtime.filePath = "";
         LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         main.levelName = "Untitled";
-        EditorObject.GetInstance().History.Clear();
+        EditorObject.GetInstance().history.Clear();
         await runtime.ClearGroups();
         main.SetGameState(true);
         main.GetNode<EditorObject>("EditorObject").itemObject?.SetActiveItem(null);
