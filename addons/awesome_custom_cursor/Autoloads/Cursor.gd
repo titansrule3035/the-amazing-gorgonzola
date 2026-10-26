@@ -5,13 +5,23 @@ extends Node2D
 
 ## Done like this so we can iterate over them
 enum Shapes {
-	CURSOR_MOUSE,
-	CURSOR_COPY,
-	CURSOR_CLICK,
-	CURSOR_ERASE,
+	CURSOR_ARROW,
+	CURSOR_IBEAM,
+	CURSOR_POINTING_HAND,
+	CURSOR_CROSS,
+	CURSOR_WAIT,
+	CURSOR_BUSY,
+	CURSOR_DRAG,
+	CURSOR_CAN_DROP,
+	CURSOR_FORBIDDEN,
+	CURSOR_VSIZE,
+	CURSOR_HSIZE,
+	CURSOR_BDIAGSIZE,
+	CURSOR_FDIAGSIZE,
 	CURSOR_MOVE,
-	CURSOR_PLACE,
-	CURSOR_SELECT
+	CURSOR_HSPLIT,
+	CURSOR_VSPLIT,
+	CURSOR_HELP,
 }
 
 ## Instead of the Input function, use this as it only shows the sprite and never the cursor
