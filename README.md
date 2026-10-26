@@ -1,4 +1,7 @@
 # THE AMAZING GORGONZOLA
+<small>Using:
+- Godot 4.7.2 .NET
+- .NET SDK 10.0</small>
 ## [To-Do List:](https://app.milanote.com/1WuT6p1WtrDuaJ?p=55raVfvIZyo)
 
 ### Designers:
