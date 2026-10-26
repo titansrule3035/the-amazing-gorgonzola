@@ -257,12 +257,16 @@ public partial class EditorObject : Node2D
         }
     }
 
-    /// <summary>Runs `proceed` immediately if clean, otherwise asks Save / Discard / Cancel first.</summary>
+    /// <summary>Runs `proceed` immediately if history is clean or if already prompted, otherwise asks first.</summary>
     void RequestAction(Action proceed)
     {
         LevelEditorMain editorMain = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         
-        if (!History.IsDirty || editorMain.ui.quitMenu.Visible) { proceed(); return; }
+        if (!History.IsDirty || editorMain.ui.quitMenu.Visible) 
+        { 
+            proceed(); 
+            return; 
+        }
 
         OnSaveComplete = proceed;
 
