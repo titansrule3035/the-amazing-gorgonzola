@@ -144,16 +144,6 @@ offset_bottom = 864.0
 script = ExtResource("24_3ar2r")
 quitMenu = NodePath("QuitMenu")
 
-[node name="MenuBackdrop" type="ColorRect" parent="CanvasLayer/UI" unique_id=1930504820]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.037
-anchor_right = 0.24100001
-anchor_bottom = 1.0
-offset_top = 0.031999588
-offset_right = 63.55197
-color = Color(0, 0, 0, 1)
-
 [node name="ToolBar" type="Control" parent="CanvasLayer/UI" unique_id=1416856586]
 process_mode = 3
 anchors_preset = 0
@@ -167,31 +157,6 @@ offset_right = 1728.0
 offset_bottom = 32.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
-
-[node name="ToolBarForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar" unique_id=1997947204]
-layout_mode = 0
-offset_left = 482.0
-offset_top = 2.0
-offset_right = 1726.0
-offset_bottom = 30.0
-mouse_filter = 2
-color = Color(0, 0.53333336, 0, 1)
-
-[node name="ToolBarLabel" type="Label" parent="CanvasLayer/UI/ToolBar" unique_id=1695420679]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.27800003
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -0.3840332
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 19
-text = "Untitled"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="FileButton" type="Button" parent="CanvasLayer/UI/ToolBar" unique_id=1187218834 node_paths=PackedStringArray("menu", "menuButtons")]
 process_mode = 3
@@ -311,6 +276,31 @@ text = "Editor"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ToolBarForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar" unique_id=1997947204]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 2.0
+offset_right = 1726.0
+offset_bottom = 30.0
+mouse_filter = 2
+color = Color(0, 0.53333336, 0, 1)
+
+[node name="ToolBarLabel" type="Label" parent="CanvasLayer/UI/ToolBar" unique_id=1695420679]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.27800003
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.3840332
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("27_v344w")
+theme_override_font_sizes/font_size = 19
+text = "Untitled"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ImportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=550291066]
 oversampling_override = 1.0
 title = "Open a File"
@@ -363,6 +353,16 @@ root_subfolder = "assets/TAGLEVELs"
 hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
 layout_toggle_enabled = false
+
+[node name="MenuBackdrop" type="ColorRect" parent="CanvasLayer/UI" unique_id=1930504820]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.037
+anchor_right = 0.24100001
+anchor_bottom = 1.0
+offset_top = 0.031999588
+offset_right = 63.55197
+color = Color(0, 0, 0, 1)
 
 [node name="ScrollButton" type="Control" parent="CanvasLayer/UI" unique_id=1801667640 node_paths=PackedStringArray("scrollButtonMenus")]
 custom_minimum_size = Vector2(352, 32)
@@ -461,7 +461,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ClonesMenu" type="Control" parent="CanvasLayer/UI" unique_id=594398989]
-visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -489,26 +488,34 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.53333336, 0, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ClonesMenu" unique_id=1051830274]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ClonesMenu" unique_id=1094621]
+custom_maximum_size = Vector2(476, -1)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.004
+anchor_top = 0.003
+anchor_right = 0.99600005
+anchor_bottom = 0.99700004
+offset_left = 0.07999992
+offset_top = -0.16000223
+offset_right = -0.08001709
+offset_bottom = 2.1629639
 mouse_filter = 0
+horizontal_scroll_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer" unique_id=1044628856]
-custom_minimum_size = Vector2(480, 0)
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer" unique_id=1837668825]
+custom_minimum_size = Vector2(476, 750)
+propagate_maximum_size = false
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer" unique_id=881454618]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer" unique_id=751740593]
 custom_minimum_size = Vector2(0, 245)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ClonesItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=987041097]
+[node name="ClonesItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1394840934]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
@@ -517,23 +524,24 @@ alignment = 1
 process_mode = 0
 layout_mode = 2
 
-[node name="ItemNormClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer" unique_id=713857069 instance=ExtResource("33_10656")]
+[node name="ItemNormClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer" unique_id=569672106 instance=ExtResource("33_10656")]
 process_mode = 0
 layout_mode = 2
 
-[node name="ClonesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1657921101]
+[node name="ClonesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1315606873]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemRevClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=1100878956 instance=ExtResource("34_xibel")]
+[node name="ItemRevClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=1816618345 instance=ExtResource("34_xibel")]
 process_mode = 0
 layout_mode = 2
 
-[node name="ItemDefaultClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=56973461 instance=ExtResource("35_o432r")]
+[node name="ItemDefaultClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=420855153 instance=ExtResource("35_o432r")]
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
+visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -574,7 +582,7 @@ offset_top = -0.16000223
 offset_right = -0.08001709
 offset_bottom = 0.1630249
 mouse_filter = 0
-scroll_vertical = 699
+scroll_vertical = 33
 horizontal_scroll_mode = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer" unique_id=1887784356]
@@ -751,7 +759,7 @@ layout_mode = 1
 anchor_top = 0.075
 anchor_right = 0.27800003
 anchor_bottom = 0.91
-offset_top = 0.19999695
+offset_top = 1.199997
 offset_right = -0.3840332
 offset_bottom = -0.24005127
 grow_horizontal = 2
@@ -762,9 +770,9 @@ mouse_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.004
-anchor_top = 0.004
+anchor_top = 0.0026166637
 anchor_right = 0.99600005
-anchor_bottom = 0.99700004
+anchor_bottom = 0.9970001
 offset_left = 0.07999992
 offset_top = 0.11599994
 offset_right = -0.08001709
@@ -774,122 +782,130 @@ grow_vertical = 2
 color = Color(0, 0.53333336, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=266085711]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=1775274923]
+custom_maximum_size = Vector2(476, -1)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.004
+anchor_top = 0.003
+anchor_right = 0.99600005
+anchor_bottom = 0.99700004
+offset_left = 0.07999992
+offset_top = -0.16000223
+offset_right = -0.08001709
+offset_bottom = 0.1630249
 mouse_filter = 0
+horizontal_scroll_mode = 0
 
-[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer" unique_id=1632881445]
-custom_minimum_size = Vector2(480, 0)
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer" unique_id=812660937]
+custom_minimum_size = Vector2(476, 750)
+propagate_maximum_size = false
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2" unique_id=1347255536]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer" unique_id=1347255536]
 custom_minimum_size = Vector2(0, 245)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="LevelEndpointsContainer" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=535616373]
+[node name="LevelEndpointsContainer" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=535616373]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/LevelEndpointsContainer" unique_id=328486715 instance=ExtResource("50_t3qxf")]
+[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=328486715 instance=ExtResource("50_t3qxf")]
 layout_mode = 2
 
-[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/LevelEndpointsContainer" unique_id=1534183261 instance=ExtResource("51_voii0")]
+[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=1534183261 instance=ExtResource("51_voii0")]
 layout_mode = 2
 
-[node name="OnOffsContainer1" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=1668982465]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemGreenOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer1" unique_id=685597023 instance=ExtResource("38_nb3xa")]
-layout_mode = 2
-
-[node name="ItemRedOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer1" unique_id=1761066863 instance=ExtResource("39_hgw8s")]
-layout_mode = 2
-
-[node name="OnOffsContainer8" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=2042602988]
+[node name="OnOffsContainer1" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1668982465]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemOnOffSwitchMaster" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer8" unique_id=1353392283 instance=ExtResource("40_5j6bi")]
+[node name="ItemOnOffSwitchMaster" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer1" unique_id=1353392283 instance=ExtResource("40_5j6bi")]
 layout_mode = 2
 
-[node name="ItemBg" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer8" unique_id=429919840 instance=ExtResource("41_pw0c8")]
+[node name="ItemGreenOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer1" unique_id=685597023 instance=ExtResource("38_nb3xa")]
 layout_mode = 2
 
-[node name="OnOffsContainer2" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=924376297]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTheBoat" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer2" unique_id=1763303685 instance=ExtResource("39_gqpjf")]
+[node name="ItemRedOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer1" unique_id=1761066863 instance=ExtResource("39_hgw8s")]
 layout_mode = 2
 
-[node name="ItemBlinky" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer2" unique_id=1311309130 instance=ExtResource("40_gkvni")]
-layout_mode = 2
-
-[node name="OnOffsContainer3" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=20738546]
+[node name="OnOffsContainer8" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=2042602988]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemBuj" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer3" unique_id=1892679975 instance=ExtResource("41_hgw8s")]
+[node name="ItemBg" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer8" unique_id=429919840 instance=ExtResource("41_pw0c8")]
 layout_mode = 2
 
-[node name="ItemEsse" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer3" unique_id=1164290807 instance=ExtResource("42_cqmv0")]
+[node name="ItemTheBoat" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer8" unique_id=1763303685 instance=ExtResource("39_gqpjf")]
 layout_mode = 2
 
-[node name="OnOffsContainer4" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=1063497192]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemFleshebry" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer4" unique_id=1809376676 instance=ExtResource("43_trpam")]
-layout_mode = 2
-
-[node name="ItemGergenschpooglus" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer4" unique_id=1015314153 instance=ExtResource("44_ww0cc")]
-layout_mode = 2
-
-[node name="OnOffsContainer5" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=1908533833]
+[node name="OnOffsContainer2" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=924376297]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemJub" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer5" unique_id=1510559579 instance=ExtResource("45_nmkc5")]
+[node name="ItemBlinky" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=1311309130 instance=ExtResource("40_gkvni")]
 layout_mode = 2
 
-[node name="ItemLixe" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer5" unique_id=948001620 instance=ExtResource("46_dtfw6")]
+[node name="ItemEsse" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=1164290807 instance=ExtResource("42_cqmv0")]
 layout_mode = 2
 
-[node name="OnOffsContainer6" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=1926078036]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemPasghetti" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer6" unique_id=1121468720 instance=ExtResource("47_402pb")]
-layout_mode = 2
-
-[node name="ItemMoonman" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer6" unique_id=1908336145 instance=ExtResource("48_rki5p")]
-layout_mode = 2
-
-[node name="OnOffsContainer7" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer" unique_id=1099939534]
+[node name="OnOffsContainer3" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=20738546]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemPeter" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer7" unique_id=1917971822 instance=ExtResource("49_5eyoa")]
+[node name="ItemJub" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=1510559579 instance=ExtResource("45_nmkc5")]
 layout_mode = 2
 
-[node name="ItemRation" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer2/VBoxContainer/OnOffsContainer7" unique_id=361302338 instance=ExtResource("50_bwbtq")]
+[node name="ItemBuj" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=1892679975 instance=ExtResource("41_hgw8s")]
+layout_mode = 2
+
+[node name="OnOffsContainer4" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1063497192]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemFleshebry" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer4" unique_id=1809376676 instance=ExtResource("43_trpam")]
+layout_mode = 2
+
+[node name="ItemGergenschpooglus" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer4" unique_id=1015314153 instance=ExtResource("44_ww0cc")]
+layout_mode = 2
+
+[node name="OnOffsContainer5" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1908533833]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemPasghetti" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer5" unique_id=1121468720 instance=ExtResource("47_402pb")]
+layout_mode = 2
+
+[node name="ItemMoonman" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer5" unique_id=1908336145 instance=ExtResource("48_rki5p")]
+layout_mode = 2
+
+[node name="OnOffsContainer6" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1926078036]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemPeter" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer6" unique_id=1917971822 instance=ExtResource("49_5eyoa")]
+layout_mode = 2
+
+[node name="ItemRation" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer6" unique_id=361302338 instance=ExtResource("50_bwbtq")]
+layout_mode = 2
+
+[node name="OnOffsContainer7" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1099939534]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemLixe" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer7" unique_id=948001620 instance=ExtResource("46_dtfw6")]
 layout_mode = 2
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
