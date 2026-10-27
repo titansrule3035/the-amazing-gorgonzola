@@ -103,8 +103,8 @@ autoplay = "default"
 frame_progress = 0.15771209
 
 [node name="kill_zone" parent="." unique_id=1213737563 instance=ExtResource("2_1d3oa")]
-position = Vector2(0, -29.000002)
-scale = Vector2(4.2, 3.65)
+position = Vector2(0, -25.999998)
+scale = Vector2(4.2, 3.3)
 
 [node name="ray_left" type="RayCast2D" parent="." unique_id=571369820]
 position = Vector2(0, -21)
