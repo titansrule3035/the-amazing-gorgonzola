@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://qiaoiwvifwhi"]
 
+[ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="2_fh7j2"]
 [ext_resource type="Script" uid="uid://bocx52prmctxo" path="res://assets/Scripts/UI/LevelClearedMenu.cs" id="2_vdtov"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvpo4"]
-bg_color = Color(1, 0.43, 0.100000024, 1)
+bg_color = Color(0, 0.74509805, 0.45882353, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sa586"]
 bg_color = Color(2.4546682e-06, 0.72518116, 0.20955053, 1)
@@ -26,9 +27,11 @@ offset_left = 124.0
 offset_top = 94.0
 offset_right = 281.0
 offset_bottom = 147.0
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_fh7j2")
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_sa586")
-text = "next level"
+text = "next
+level"
 
 [node name="Button2" type="Button" parent="." unique_id=913908028]
 process_mode = 3
@@ -37,7 +40,8 @@ offset_left = 124.0
 offset_top = 190.0
 offset_right = 281.0
 offset_bottom = 243.0
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_fh7j2")
+theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_i3x44")
 text = "quit"
 
@@ -45,7 +49,9 @@ text = "quit"
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 78.0
-theme_override_font_sizes/font_size = 35
-text = "Level completed!!!!!!"
+theme_override_fonts/font = ExtResource("2_fh7j2")
+theme_override_font_sizes/font_size = 25
+text = "Level 
+completed!!!!!!"
 horizontal_alignment = 1
 vertical_alignment = 1
