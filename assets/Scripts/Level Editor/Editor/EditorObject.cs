@@ -6,19 +6,21 @@ using System.Linq;
 /// <summary>
 /// The node. Mouse-to-cell math, mode switching, hotkeys, shared actions (place, erase, delete), overlay drawing, filter dropdown.
 /// Behaviour lives elsewhere:
-///   EditorTools.cs        - one class per cursor mode
-///   EditorSelection.cs    - selection, picking, moving
-///   EditorHistory.cs      - undo/redo and every undoable command
-///   EditorContextMenu.cs  - right-click menu and its extension points
-///   
+/// EditorTools.cs - one class per cursor mode
+/// EditorSelection.cs - selection, picking, moving
+/// EditorHistory.cs - undo/redo and every undoable command
+/// EditorContextMenu.cs - right-click menu and its extension points
+///
 /// To add a mode: add a CursorMode value (append it), write an EditorTool, Register() it in BuildTools(),
-/// and optionally add a row to Hotkeys.
+/// and optionally add a row to hotkeys.
 /// </summary>
 public partial class EditorObject : Node2D
 {
     // ------------------------------------------------------------------
     // Types
     // ------------------------------------------------------------------
+
+    /// <summary>What the mouse does. Values are exported, so only ever append new ones.</summary>
     public enum CursorMode
     {
         Mouse,
@@ -31,6 +33,7 @@ public partial class EditorObject : Node2D
         Null
     }
 
+    /// <summary>Which kinds of things selecting and grabbing can pick up.</summary>
     public enum FilterMode
     {
         All,
@@ -46,25 +49,37 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Constants
     // ------------------------------------------------------------------
+
+    /// <summary>Group every editor-placed object belongs to.</summary>
     public const string placeableGroup = "editor_placeable";
-    public const string metaCell = "editor_cell";       // Vector2I: the cell an object was placed in
-    public const string metaType = "editor_item_type";  // int: EditorItemObject.ItemType
+
+    /// <summary>Meta key, Vector2I: the cell an object was placed in.</summary>
+    public const string metaCell = "editor_cell";
+
+    /// <summary>Meta key, int: EditorItemObject.ItemType.</summary>
+    public const string metaType = "editor_item_type";
+
     const string levelRoot = "level/level_assets";
+    const string editorMainPath = "editor/main";
+
+    // A press and release closer together than this (in world pixels) counts as a click, not a drag.
+    const float clickDragThreshold = 5f;
 
     // Input action -> mode. Add a row here to bind a new hotkey.
-    static readonly (string Action, CursorMode Mode, bool NeedsEditorActive)[] Hotkeys =
+    static (string Action, CursorMode Mode, bool NeedsEditorActive)[] hotkeys =
     {
-        ("mouse_mouse",  CursorMode.Mouse,  false),
-        ("mouse_move",   CursorMode.Move,   false),
+        ("mouse_mouse", CursorMode.Mouse, false),
+        ("mouse_move", CursorMode.Move, false),
         ("mouse_select", CursorMode.Select, false),
-        ("mouse_place",  CursorMode.Place,  false),
+        ("mouse_place", CursorMode.Place, false),
         ("mouse_eraser", CursorMode.Eraser, false),
-        ("mouse_copy",   CursorMode.Copy,   true),
+        ("mouse_copy", CursorMode.Copy, true),
     };
 
     // ------------------------------------------------------------------
     // Exported / inspector state
     // ------------------------------------------------------------------
+
     [ExportGroup("Debug")]
     [Export] public Vector2 mouseGlobal;
     [Export] public Vector2 local;
@@ -74,8 +89,8 @@ public partial class EditorObject : Node2D
     [ExportGroup("Editor")]
     [Export] public bool canPlace = false; // set by your UI: true while the mouse is over the level
     [Export] public Node2D level;
-    [Export] public PackedScene currentItem = null;
-    [Export] public Texture2D currentTile = null;
+    [Export] public PackedScene? currentItem = null;
+    [Export] public Texture2D? currentTile = null;
     [Export] public CursorMode lastCursorMode = CursorMode.Null;
     [Export] public int maxUndoSteps = 200;
     [Export] public bool buildFilterUi = true; // adds a small "Select:" dropdown (top right) while the editor is active
@@ -108,21 +123,33 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Shared state
     // ------------------------------------------------------------------
+
     public Sprite2D cursorSprite { get; private set; }
     public TileMapLayer tileMap { get; private set; }
     public EditorSelection selection { get; private set; }
     public EditorHistory history { get; private set; }
     public string levelName { get; set; } = "Untitled";
-
-    public EditorItemObject itemObject;
+    public EditorItemObject? itemObject;
     public EditorItemObject.ItemType itemType;
-    public bool hideCursor = false;
 
+    public bool hideCursor
+    {
+        get => !cursorSprite.Visible;
+        set => cursorSprite.Visible = !value;
+    }
+
+    /// <summary>Raised after an item was actually placed (not when placement was blocked or a no-op).</summary>
     public Action? ItemPlaced;
+
     public Action? SelectionChanged;
     public Action? HistoryChanged;
     public event Action<FilterMode>? FilterChanged;
-    public event Action? OnSaveComplete;
+
+    /// <summary>
+    /// The action to run once a pending save finishes (set by <see cref="RequestAction"/>).
+    /// Call <see cref="NotifySaveComplete"/> from the save code, and <see cref="CancelPendingAction"/> if the user cancels.
+    /// </summary>
+    public Action? OnSaveComplete;
 
     // ------------------------------------------------------------------
     // Convenience accessors
@@ -141,31 +168,47 @@ public partial class EditorObject : Node2D
 
     public bool hasPlaceableItem => itemObject != null && itemType != EditorItemObject.ItemType.Null && (currentItem != null || currentTile != null);
 
+    /// <summary>True while a mouse stroke or drag is in progress (the active tool says so).</summary>
+    public bool toolBusy => activeTool?.isBusy == true;
+
     // ------------------------------------------------------------------
     // Private state
     // ------------------------------------------------------------------
-    Dictionary<CursorMode, EditorTool> tools;
-    EditorContextMenu contextMenu;
-    Node2D overlay;
-    CanvasLayer filterLayer;
-    OptionButton filterOption;
 
+    Dictionary<CursorMode, EditorTool>? tools;
+    EditorContextMenu? contextMenu;
+    Node2D? overlay;
+    CanvasLayer? filterLayer;
+    OptionButton? filterOption;
+    LevelEditorMain? editorMain;
+    string lastWindowTitle = "";
     bool ctrlOverride;
     bool wasActive;
     bool overOwnUi;
+    bool isDuplicate;
     ulong uiBlockUntilFrame;
-    private MouseButton pressedButton = MouseButton.None;
-    private Vector2 pressPos;
-    private bool selectionPressStarted;
-    private const float ClickDragThreshold = 5f;
+    MouseButton pressedButton = MouseButton.None;
+    Vector2 pressPos;
+    bool selectionPressStarted;
 
-    static EditorObject instance;
+    static EditorObject? instance;
 
-    EditorTool activeTool => tools != null && tools.TryGetValue(mode, out var tool) ? tool : null;
+    EditorTool? activeTool
+    {
+        get
+        {
+            if (tools != null && tools.TryGetValue(mode, out EditorTool? tool))
+            {
+                return tool;
+            }
+            return null;
+        }
+    }
 
     // ------------------------------------------------------------------
     // Tools / modes
     // ------------------------------------------------------------------
+
     void BuildTools()
     {
         tools = new();
@@ -178,74 +221,84 @@ public partial class EditorObject : Node2D
         Register(new DragCameraTool(this));
     }
 
-    void Register(EditorTool tool) => tools[tool.mode] = tool;
-
-    /// <summary>Public mode switch. Cancels any pending Ctrl override.</summary>
-    public void SetCursorMode(CursorMode mode)
+    void Register(EditorTool tool)
     {
-        ctrlOverride = false;
-        SwitchMode(mode);
+        tools![tool.mode] = tool;
     }
 
-    void SwitchMode(CursorMode mode)
+    /// <summary>Public mode switch. Cancels any pending Ctrl override.</summary>
+    public void SetCursorMode(CursorMode newMode)
+    {
+        ctrlOverride = false;
+        SwitchMode(newMode);
+    }
+
+    void SwitchMode(CursorMode newMode)
     {
         activeTool?.Exit();
-        this.mode = mode;
+        mode = newMode;
         activeTool?.Enter();
         UpdateMouseCursor();
         RedrawOverlay();
     }
 
+    /// <summary>Tells the runtime which OS cursor to show for the current mode.</summary>
     void UpdateMouseCursor()
     {
-        string currentCursor = mode.ToString();
+        // The exported setter can run while the scene loads, before this node is in the tree.
+        if (!IsInsideTree())
+        {
+            return;
+        }
+        (GetTree().CurrentScene as Runtime)?.ApplyCursor(mode.ToString());
     }
 
     // ------------------------------------------------------------------
     // Godot lifecycle
     // ------------------------------------------------------------------
+
     public override void _Ready()
     {
-        if (instance != null)
+        if (instance != null && instance != this && IsInstanceValid(instance))
         {
             GD.PrintErr("Error: only one EditorObject allowed, deleting this one...");
+            // QueueFree is deferred, so stop this node from running in the meantime.
+            isDuplicate = true;
+            SetProcess(false);
+            SetProcessInput(false);
+            SetProcessUnhandledInput(false);
+            SetProcessUnhandledKeyInput(false);
+            QueueFree();
+            return;
         }
-
         instance = this;
-
         cursorSprite = GetNode<Sprite2D>("Sprite");
         level = GetParent().GetNode<Node2D>("level");
         tileMap = level.GetNode<TileMapLayer>("tiles/Foreground");
-
         history = new EditorHistory(maxUndoSteps);
         history.Changed += OnHistoryChanged;
-
         selection = new EditorSelection(this);
         selection.Changed += OnSelectionChanged;
-
         CreateOverlay();
-
         contextMenu = new EditorContextMenu(this);
         AddChild(contextMenu.Menu);
-
         if (buildFilterUi)
         {
             CreateFilterUi();
         }
-
         RegisterItemContextOptions();
         BuildTools();
         activeTool?.Enter();
     }
 
-    public static EditorObject GetInstance()
+    public static EditorObject? GetInstance()
     {
         return instance;
     }
 
     public override void _Notification(int what)
     {
-        if (what == NotificationWMCloseRequest)
+        if (what == NotificationWMCloseRequest && !isDuplicate && history != null)
         {
             RequestAction(() => GetTree().Quit());
         }
@@ -254,19 +307,30 @@ public partial class EditorObject : Node2D
     /// <summary>Runs `proceed` immediately if history is clean or if already prompted, otherwise asks first.</summary>
     void RequestAction(Action proceed)
     {
-        LevelEditorMain editorMain = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-
-        if (!history.IsDirty || editorMain.ui.quitMenu.Visible)
+        LevelEditorMain? main = GetEditorMain();
+        if (main == null || !history.IsDirty || main.ui.quitMenu.Visible)
         {
             proceed();
             return;
         }
-
         OnSaveComplete = proceed;
+        main.ui.quitMenu.SetMenuVisibility(true);
+        main.ui.quitMenu.programMode = true;
+        main.ui.blockMouse.MouseFilter = Control.MouseFilterEnum.Stop;
+    }
 
-        editorMain.ui.quitMenu.SetMenuVisibility(true);
-        editorMain.ui.quitMenu.programMode = true;
-        editorMain.ui.blockMouse.MouseFilter = Control.MouseFilterEnum.Stop;
+    /// <summary>Call from the save code once the file is written. Runs the pending action (once) and clears it.</summary>
+    public void NotifySaveComplete()
+    {
+        Action? pending = OnSaveComplete;
+        OnSaveComplete = null;
+        pending?.Invoke();
+    }
+
+    /// <summary>Call if the user backs out of the save prompt, so the pending action doesn't fire on a later save.</summary>
+    public void CancelPendingAction()
+    {
+        OnSaveComplete = null;
     }
 
     public override void _ExitTree()
@@ -275,127 +339,143 @@ public partial class EditorObject : Node2D
         {
             instance = null;
         }
-        // Frees any objects that are only kept alive by the undo stacks.
-        history?.Clear();
+        if (isDuplicate)
+        {
+            return;
+        }
+        if (history != null)
+        {
+            // Detach first: nobody downstream (UI, selection) should be told about a teardown.
+            history.Changed -= OnHistoryChanged;
+            // Frees any objects that are only kept alive by the undo stacks.
+            history.Clear();
+        }
+        if (selection != null)
+        {
+            selection.Changed -= OnSelectionChanged;
+        }
     }
 
     public override void _Process(double delta)
     {
         bool active = editorActive;
-
         if (active != wasActive)
         {
             wasActive = active;
             OnActiveChanged(active);
         }
-
         UpdateMouseCell();
         HandleModeHotkeys();
-
-        var tool = activeTool;
-
+        UpdateWindowState();
+        EditorTool? tool = activeTool;
         if (tool == null)
         {
-            cursorSprite.Visible = false;
+            hideCursor = true;
             return;
         }
-
         tool.UpdateCursor();
-
         if (active)
         {
             tool.Update(delta);
         }
-
         hideCursor = !(active && tool.cursorVisible);
-        cursorSprite.Visible = !hideCursor;
+    }
 
-        GetWindow().Title = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().history.IsDirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
+    /// <summary>Window title (with an unsaved marker) and whether closing the window asks first.</summary>
+    void UpdateWindowState()
+    {
+        bool dirty = history.IsDirty;
+        GetTree().AutoAcceptQuit = !dirty;
+        LevelEditorMain? main = GetEditorMain();
+        if (main == null)
+        {
+            return;
+        }
+        string title = main.levelName + (dirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
+        if (title != lastWindowTitle)
+        {
+            lastWindowTitle = title;
+            GetWindow().Title = title;
+        }
+    }
 
-        if (history.IsDirty)
+    LevelEditorMain? GetEditorMain()
+    {
+        if (!IsInstanceValid(editorMain))
         {
-            GetTree().AutoAcceptQuit = false;
+            editorMain = GetTree().CurrentScene?.GetNodeOrNull<LevelEditorMain>(editorMainPath);
         }
-        else
-        {
-            GetTree().AutoAcceptQuit = true;
-        }
+        return editorMain;
     }
 
     public override void _Input(InputEvent @event)
     {
-        if (!editorActive || !canPlace)
+        if (@event is not InputEventMouseButton mouseButton || mouseButton.ButtonIndex != MouseButton.Left)
         {
             return;
         }
-
-        if (@event is not InputEventMouseButton mouseButton)
-        {
-            return;
-        }
-
-        if (mouseButton.ButtonIndex != MouseButton.Left)
-        {
-            return;
-        }
-
         if (mouseButton.Pressed)
         {
-            pressedButton = MouseButton.Left;
+            // Only track presses that the editor itself would act on (not clicks on its own UI or popups).
+            bool tracking = canInteract;
+            pressedButton = tracking ? MouseButton.Left : MouseButton.None;
             pressPos = GetGlobalMousePosition();
-            selectionPressStarted = !selection.isEmpty;
+            selectionPressStarted = tracking && !selection.isEmpty;
             return;
         }
 
-        // Only handle the release matching our recorded press.
-        if (pressedButton != MouseButton.Left)
-        {
-            return;
-        }
-
-        Vector2 releasePos = GetGlobalMousePosition();
-        float distance = pressPos.DistanceTo(releasePos);
-
-        // Only cancel selection on a click, not a drag.
-        if (selectionPressStarted && distance < ClickDragThreshold)
-        {
-            Vector2I releaseCell = WorldToCell(releasePos);
-
-            bool clickedEmptySpace = ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && tileMap.GetCellSourceId(releaseCell) == -1;
-
-            if (clickedEmptySpace)
-            {
-                selection.Clear();
-            }
-        }
-
+        // Release. Always reset the press state, even when we bail out below, so it can't go stale.
+        bool pressWasTracked = pressedButton == MouseButton.Left && selectionPressStarted;
+        Vector2 startPos = pressPos;
         pressedButton = MouseButton.None;
         selectionPressStarted = false;
+        if (!pressWasTracked || !editorActive || !canPlace)
+        {
+            return;
+        }
+
+        // Only cancel selection on a click, not a drag.
+        Vector2 releasePos = GetGlobalMousePosition();
+        if (startPos.DistanceTo(releasePos) >= clickDragThreshold)
+        {
+            return;
+        }
+        Vector2I releaseCell = WorldToCell(releasePos);
+        bool clickedEmptySpace = ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && tileMap.GetCellSourceId(releaseCell) == -1;
+        if (clickedEmptySpace)
+        {
+            selection.Clear();
+        }
     }
 
     public override void _UnhandledKeyInput(InputEvent @event)
     {
-        if (!editorActive || @event is not InputEventKey { Pressed: true } key) return;
-
+        if (!editorActive || @event is not InputEventKey { Pressed: true } key)
+        {
+            return;
+        }
         bool command = key.IsCommandOrControlPressed();
-
         switch (key.Keycode)
         {
             case Godot.Key.Z when command:
-                Undo();
-                GetViewport().SetInputAsHandled();
-                break;
-
+                {
+                    Undo();
+                    GetViewport().SetInputAsHandled();
+                    break;
+                }
             case Godot.Key.Y when command:
-                Redo();
-                GetViewport().SetInputAsHandled();
-                break;
-
+                {
+                    Redo();
+                    GetViewport().SetInputAsHandled();
+                    break;
+                }
             case Godot.Key.Delete when !command:
             case Godot.Key.Backspace when !command:
-                DeleteSelection();
-                GetViewport().SetInputAsHandled();
-                break;
+                {
+                    DeleteSelection();
+                    GetViewport().SetInputAsHandled();
+                    break;
+                }
         }
     }
 
@@ -405,47 +485,44 @@ public partial class EditorObject : Node2D
         {
             return;
         }
-
         if (!canInteract)
         {
             return;
         }
-
         if (mode is CursorMode.Mouse or CursorMode.DragCamera)
         {
             return;
         }
-
-        if (activeTool?.isBusy == true)
+        if (toolBusy)
         {
             return;
         }
-
-        contextMenu.Open();
+        contextMenu?.Open();
         GetViewport().SetInputAsHandled();
     }
 
     void OnActiveChanged(bool active)
     {
-        overlay.Visible = active;
-
+        if (overlay != null)
+        {
+            overlay.Visible = active;
+        }
         if (filterLayer != null)
         {
             filterLayer.Visible = active;
         }
-
         if (!active)
         {
             overOwnUi = false;
             activeTool?.OnEditorDeactivated();
         }
-
         RedrawOverlay();
     }
 
     // ------------------------------------------------------------------
     // Per-frame helpers
     // ------------------------------------------------------------------
+
     void UpdateMouseCell()
     {
         mouseGlobal = GetGlobalMousePosition();
@@ -456,30 +533,31 @@ public partial class EditorObject : Node2D
 
     void HandleModeHotkeys()
     {
-        foreach (var (action, mode, needsEditor) in Hotkeys)
+        foreach (var (action, hotkeyMode, needsEditorActive) in hotkeys)
         {
-            if (needsEditor && !editorActive) continue;
-
+            if (needsEditorActive && !editorActive)
+            {
+                continue;
+            }
             if (Input.IsActionJustPressed(action))
             {
-                SetCursorMode(mode);
-                ((Runtime)GetTree().CurrentScene).ApplyCursor(mode.ToString());
+                // SwitchMode also updates the OS cursor.
+                SetCursorMode(hotkeyMode);
             }
         }
 
         // Ctrl temporarily becomes the plain mouse, then restores the previous mode.
         // Tools can opt out (Select uses Ctrl for "add to selection", and drags must not be interrupted).
-        if (Input.IsActionJustPressed("ctrl") && mode != CursorMode.Mouse && activeTool is { allowCtrlMouseOverride: true })
+        // Only while the editor is live, so Ctrl in gameplay can't flip the tool or the OS cursor.
+        if (editorActive && Input.IsActionJustPressed("ctrl") && mode != CursorMode.Mouse && activeTool is { allowCtrlMouseOverride: true })
         {
             lastCursorMode = mode;
             ctrlOverride = true;
             SwitchMode(CursorMode.Mouse);
         }
-
         if (Input.IsActionJustReleased("ctrl") && ctrlOverride)
         {
             ctrlOverride = false;
-
             if (lastCursorMode != CursorMode.Null)
             {
                 SwitchMode(lastCursorMode);
@@ -490,9 +568,16 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Grid / object helpers
     // ------------------------------------------------------------------
-    public Vector2 CellToWorld(Vector2I c) => tileMap.ToGlobal(tileMap.MapToLocal(c));
 
-    public Vector2I WorldToCell(Vector2 world) => tileMap.LocalToMap(tileMap.ToLocal(world));
+    public Vector2 CellToWorld(Vector2I c)
+    {
+        return tileMap.ToGlobal(tileMap.MapToLocal(c));
+    }
+
+    public Vector2I WorldToCell(Vector2 world)
+    {
+        return tileMap.LocalToMap(tileMap.ToLocal(world));
+    }
 
     /// <summary>World-space rectangle covering one grid cell.</summary>
     public Rect2 CellRect(Vector2I c)
@@ -512,18 +597,19 @@ public partial class EditorObject : Node2D
         {
             return obj.GetMeta(metaCell).AsVector2I();
         }
-
         return WorldToCell(obj.GlobalPosition - halfTileDown);
     }
 
+    /// <summary>
+    /// The item type of a placed object. Uses the type stored when it was placed. Objects that weren't
+    /// placed this session fall back to their container's name (so an Enemy loaded from disk reads as a Hazard).
+    /// </summary>
     public EditorItemObject.ItemType GetObjectType(Node2D obj)
     {
         if (obj.HasMeta(metaType))
         {
             return (EditorItemObject.ItemType)obj.GetMeta(metaType).AsInt32();
         }
-
-        // Fallback for objects that weren't placed this session: infer from their container.
         return obj.GetParent()?.Name.ToString() switch
         {
             "clones" => EditorItemObject.ItemType.Clone,
@@ -535,26 +621,32 @@ public partial class EditorObject : Node2D
         };
     }
 
+    /// <summary>Every node in the placeable group that is currently in the tree.</summary>
     public IEnumerable<Node2D> PlaceableObjects()
     {
         foreach (Node node in GetTree().GetNodesInGroup(placeableGroup))
         {
-            if (node is Node2D obj) yield return obj;
+            if (node is Node2D obj)
+            {
+                yield return obj;
+            }
         }
     }
 
     public List<Node2D> ObjectsAtCell(Vector2I c)
     {
         var list = new List<Node2D>();
-
-        foreach (var obj in PlaceableObjects())
+        foreach (Node2D obj in PlaceableObjects())
         {
-            if (GetObjectCell(obj) == c) list.Add(obj);
+            if (GetObjectCell(obj) == c)
+            {
+                list.Add(obj);
+            }
         }
-
         return list;
     }
 
+    /// <summary>Physics hits (areas and bodies) at a world position.</summary>
     public Godot.Collections.Array<Godot.Collections.Dictionary> QueryObjectsAt(Vector2 worldPos)
     {
         var query = new PhysicsPointQueryParameters2D
@@ -563,7 +655,6 @@ public partial class EditorObject : Node2D
             CollideWithAreas = true,
             CollideWithBodies = true
         };
-
         return GetWorld2D().DirectSpaceState.IntersectPoint(query);
     }
 
@@ -576,12 +667,13 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Selection filter
     // ------------------------------------------------------------------
+
     public bool TilesPassFilter => filter is FilterMode.All or FilterMode.Tiles;
 
+    /// <summary>True if the current filter lets selecting and grabbing pick this object up.</summary>
     public bool PassesFilter(Node2D obj)
     {
-        var type = GetObjectType(obj);
-
+        EditorItemObject.ItemType type = GetObjectType(obj);
         return filter switch
         {
             FilterMode.All => true,
@@ -590,16 +682,19 @@ public partial class EditorObject : Node2D
             FilterMode.Enemies => type == EditorItemObject.ItemType.Enemy,
             FilterMode.Hazards => type == EditorItemObject.ItemType.Hazard,
             FilterMode.LevelMechanics => type is EditorItemObject.ItemType.LevelMechanic
-                                              or EditorItemObject.ItemType.TileObj,
+                or EditorItemObject.ItemType.TileObj,
             FilterMode.OnOff => type == EditorItemObject.ItemType.OnOff,
             FilterMode.NPCs => type == EditorItemObject.ItemType.NPC,
             _ => true
         };
     }
 
-    public void SetFilterMode(FilterMode mode) => currentFilterMode = mode;
+    public void SetFilterMode(FilterMode newFilter)
+    {
+        currentFilterMode = newFilter;
+    }
 
-    static string FilterLabel(FilterMode mode) => mode switch
+    static string FilterLabel(FilterMode filterMode) => filterMode switch
     {
         FilterMode.All => "All",
         FilterMode.Clones => "Clones",
@@ -609,128 +704,156 @@ public partial class EditorObject : Node2D
         FilterMode.LevelMechanics => "Level Mechanics",
         FilterMode.OnOff => "On/Off Blocks",
         FilterMode.NPCs => "NPCs",
-        _ => mode.ToString()
+        _ => filterMode.ToString()
     };
 
     // ------------------------------------------------------------------
     // Actions (all undoable)
     // ------------------------------------------------------------------
-    public void Undo() => history.Undo();
-    public void Redo() => history.Redo();
 
-    public void ClearHistory() => history.Clear();
+    public void Undo()
+    {
+        history.Undo();
+    }
 
+    public void Redo()
+    {
+        history.Redo();
+    }
+
+    public void ClearHistory()
+    {
+        history.Clear();
+    }
+
+    /// <summary>Places the current palette item on the hovered cell as one undoable command.</summary>
     public void PlaceCurrentItem()
     {
-        if (!hasPlaceableItem) return;
-
-        ItemPlaced?.Invoke();
-
-        if (itemType == EditorItemObject.ItemType.Tile)
+        if (!hasPlaceableItem)
         {
-            var tile = (EditorTileObject)itemObject;
-
-            var before = TileSnapshot.Capture(tileMap, cell);
-            var after = new TileSnapshot(tile.tileID, tile.GetAtlasCoords(), 0);
-            if (before == after) return;
-
-            var command = new TileChangeCommand(tileMap);
-            command.Set(cell, before, after);
-            history.Execute(command);
             return;
         }
+        bool placed = itemType == EditorItemObject.ItemType.Tile ? PlaceTile() : PlaceObject();
+        if (placed)
+        {
+            ItemPlaced?.Invoke();
+        }
+    }
 
-        if (currentItem == null) return;
+    bool PlaceTile()
+    {
+        var tile = (EditorTileObject)itemObject!;
+        TileSnapshot before = TileSnapshot.Capture(tileMap, cell);
+        var after = new TileSnapshot(tile.tileID, tile.GetAtlasCoords(), 0);
+        if (before == after)
+        {
+            return false;
+        }
+        var command = new TileChangeCommand(tileMap);
+        command.Set(cell, before, after);
+        history.Execute(command);
+        return true;
+    }
 
-        string destination = itemObject.GetGroupDestination();
-        Node2D parent = GetTree().CurrentScene.GetNodeOrNull<Node2D>($"editor/main/{levelRoot}/{destination}");
-
+    bool PlaceObject()
+    {
+        if (currentItem == null)
+        {
+            return false;
+        }
+        string destination = itemObject!.GetGroupDestination();
+        if (string.IsNullOrEmpty(destination))
+        {
+            // An empty path would resolve to level_assets itself and drop the object in the wrong container.
+            return false;
+        }
+        Node2D? parent = GetTree().CurrentScene.GetNodeOrNull<Node2D>($"{editorMainPath}/{levelRoot}/{destination}");
         if (parent == null)
         {
-            GD.PushWarning($"Can't place item: no node at editor/main/{levelRoot}/{destination}");
-            return;
+            GD.PushWarning($"Can't place item: no node at {editorMainPath}/{levelRoot}/{destination}");
+            return false;
         }
-
         Node2D node = currentItem.Instantiate<Node2D>();
         node.AddToGroup(placeableGroup);
         node.SetMeta(metaCell, cell);
         node.SetMeta(metaType, (int)itemType);
-
         // The command sets GlobalPosition AFTER adding the node, so a container that is offset
         // or scaled doesn't shift the item.
         Vector2 globalPos = snappedWorld + halfTileDown + new Vector2(0, itemObject.cursorOffset.Y);
         history.Execute(ObjectAttachCommand.Add(parent, node, globalPos));
+        return true;
     }
 
+    /// <summary>Erases the tile in a cell and every placed object in that cell or whose collider is at the world position.</summary>
     public void EraseAt(Vector2I targetCell, Vector2 worldPos)
     {
         var commands = new List<EditorCommand>();
-
-        var before = TileSnapshot.Capture(tileMap, targetCell);
-
+        TileSnapshot before = TileSnapshot.Capture(tileMap, targetCell);
         if (before != TileSnapshot.Empty)
         {
             var tileCommand = new TileChangeCommand(tileMap);
             tileCommand.Set(targetCell, before, TileSnapshot.Empty);
             commands.Add(tileCommand);
         }
-
         var victims = new HashSet<Node2D>(ObjectsAtCell(targetCell));
-
         // Also anything whose collider is under the cursor.
         foreach (var result in QueryObjectsAt(worldPos))
         {
-            Node current = result["collider"].As<Node>();
-
+            Node? current = result["collider"].As<Node>();
             while (current != null)
             {
                 if (current.IsInGroup(placeableGroup))
                 {
-                    if (current is Node2D obj) victims.Add(obj);
+                    if (current is Node2D obj)
+                    {
+                        victims.Add(obj);
+                    }
                     break;
                 }
-
                 current = current.GetParent();
             }
         }
-
         if (victims.Count > 0)
         {
             commands.Add(ObjectAttachCommand.Remove(victims));
         }
-
-        if (commands.Count == 0) return;
-
+        if (commands.Count == 0)
+        {
+            return;
+        }
         history.Execute(commands.Count == 1 ? commands[0] : new CompositeCommand(commands));
     }
 
+    /// <summary>Deletes the selected tiles and objects as one undo step. Undo restores the selection too.</summary>
     public void DeleteSelection()
     {
-        if (selection.isEmpty) return;
-
-        var tiles = selection.tiles.ToList();
-        var objects = selection.objects.Where(GodotObject.IsInstanceValid).ToList();
+        if (selection.isEmpty)
+        {
+            return;
+        }
+        List<Vector2I> tiles = selection.tiles.ToList();
+        List<Node2D> objects = selection.objects.Where(GodotObject.IsInstanceValid).ToList();
         var commands = new List<EditorCommand>();
-
         if (tiles.Count > 0)
         {
             var tileCommand = new TileChangeCommand(tileMap);
-
-            foreach (var c in tiles)
+            foreach (Vector2I c in tiles)
             {
                 tileCommand.Set(c, TileSnapshot.Capture(tileMap, c), TileSnapshot.Empty);
             }
-
             commands.Add(tileCommand);
         }
-
         if (objects.Count > 0)
         {
             commands.Add(ObjectAttachCommand.Remove(objects));
         }
-
+        if (commands.Count == 0)
+        {
+            // Only freed objects were selected. Nothing to delete, but don't leave a stale selection behind.
+            selection.Clear();
+            return;
+        }
         var composite = new CompositeCommand(commands);
-
         // Undo brings the selection back along with the items.
         composite.OnApplied = undo =>
         {
@@ -743,7 +866,6 @@ public partial class EditorObject : Node2D
                 selection.Clear();
             }
         };
-
         history.Execute(composite);
     }
 
@@ -770,52 +892,57 @@ public partial class EditorObject : Node2D
     }
 
     /// <summary>Call when any editor popup closes so the click that closed it isn't also used on the level.</summary>
-    public void MarkUiInteraction() => uiBlockUntilFrame = Engine.GetProcessFrames() + 2;
+    public void MarkUiInteraction()
+    {
+        uiBlockUntilFrame = Engine.GetProcessFrames() + 2;
+    }
 
     // ------------------------------------------------------------------
     // Overlay (selection highlight + tool previews, drawn in world space)
     // ------------------------------------------------------------------
-    public void RedrawOverlay() => overlay?.QueueRedraw();
+
+    public void RedrawOverlay()
+    {
+        overlay?.QueueRedraw();
+    }
 
     void CreateOverlay()
     {
-        overlay = new Node2D
+        var newOverlay = new Node2D
         {
             Name = "EditorOverlay",
             TopLevel = true, // independent of this node's position, which follows the cursor
             ZIndex = 100,
             ZAsRelative = false
         };
-
-        overlay.Draw += DrawOverlay;
-        AddChild(overlay);
+        newOverlay.Draw += DrawOverlay;
+        overlay = newOverlay;
+        AddChild(newOverlay);
     }
 
     void DrawOverlay()
     {
-        if (!editorActive || selection == null) return;
-
+        if (overlay == null || !editorActive || selection == null)
+        {
+            return;
+        }
         var tileFill = new Color(0.3f, 0.6f, 1f, 0.18f);
         var tileLine = new Color(0.3f, 0.6f, 1f, 0.9f);
         var objectLine = new Color(1f, 0.7f, 0.2f, 0.95f);
-
-        foreach (var c in selection.tiles)
+        foreach (Vector2I c in selection.tiles)
         {
             Rect2 rect = CellRect(c);
             overlay.DrawRect(rect, tileFill, filled: true);
             overlay.DrawRect(rect, tileLine, filled: false, width: 1f);
         }
-
-        foreach (var obj in selection.objects)
+        foreach (Node2D obj in selection.objects)
         {
             if (!GodotObject.IsInstanceValid(obj))
             {
                 continue;
             }
-
             overlay.DrawRect(CellRect(GetObjectCell(obj)), objectLine, filled: false, width: 1.5f);
         }
-
         activeTool?.Draw(overlay);
     }
 
@@ -835,74 +962,74 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Built-in filter dropdown
     // ------------------------------------------------------------------
+
     void CreateFilterUi()
     {
-        filterLayer = new CanvasLayer { Layer = 20, Visible = false };
-
+        var layer = new CanvasLayer { Layer = 20, Visible = false };
         var panel = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Stop };
         var row = new HBoxContainer();
         row.AddThemeConstantOverride("separation", 6);
         row.AddChild(new Label { Text = "Select:" });
-
-        filterOption = new OptionButton { FocusMode = Control.FocusModeEnum.None };
-
-        foreach (var mode in Enum.GetValues<FilterMode>())
+        var option = new OptionButton { FocusMode = Control.FocusModeEnum.None };
+        foreach (FilterMode filterMode in Enum.GetValues<FilterMode>())
         {
-            filterOption.AddItem(FilterLabel(mode), (int)mode);
+            option.AddItem(FilterLabel(filterMode), (int)filterMode);
         }
-
-        filterOption.Selected = filterOption.GetItemIndex((int)filter);
-        filterOption.ItemSelected += index => SetFilterMode((FilterMode)filterOption.GetItemId((int)index));
-        filterOption.GetPopup().VisibilityChanged += MarkUiInteraction;
-
-        row.AddChild(filterOption);
+        option.Selected = option.GetItemIndex((int)filter);
+        option.ItemSelected += index => SetFilterMode((FilterMode)option.GetItemId((int)index));
+        option.GetPopup().VisibilityChanged += MarkUiInteraction;
+        row.AddChild(option);
         panel.AddChild(row);
-        filterLayer.AddChild(panel);
-        AddChild(filterLayer);
-
+        layer.AddChild(panel);
+        AddChild(layer);
         panel.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.TopRight, Control.LayoutPresetMode.Minsize, 8);
         panel.GrowHorizontal = Control.GrowDirection.Begin;
-
         panel.MouseEntered += () => overOwnUi = true;
         panel.MouseExited += () => overOwnUi = false;
+        filterLayer = layer;
+        filterOption = option;
     }
 
     void SyncFilterUi()
     {
-        if (filterOption == null) return;
-
+        if (filterOption == null)
+        {
+            return;
+        }
         int index = filterOption.GetItemIndex((int)filter);
-        if (filterOption.Selected != index) filterOption.Selected = index;
+        if (filterOption.Selected != index)
+        {
+            filterOption.Selected = index;
+        }
     }
 
     // ------------------------------------------------------------------
     // Current item / cursor sprite
     // ------------------------------------------------------------------
+
+    /// <summary>Makes a palette entry the current item and shows it on the cursor sprite.</summary>
     public void SetEditorItem(EditorItemObject editorItem)
     {
         if (editorItem == null)
         {
             return;
         }
-
         itemObject = editorItem;
         itemType = editorItem.itemType;
-
         if (editorItem.itemType == EditorItemObject.ItemType.Tile)
         {
             var tileObject = (EditorTileObject)editorItem;
             SetCursorTexture(tileObject.GetTileTexture());
+            cursorSprite.Material = null;
             SetCurrentTile(tileObject.Texture);
         }
         else
         {
             SetCursorTexture(editorItem.Texture, editorItem.FlipH);
-
+            // Reset every time, otherwise a clone's material sticks to the cursor when switching to another type.
             cursorSprite.Material = editorItem.itemType == EditorItemObject.ItemType.Clone ? editorItem.Material : null;
-
             SetCurrentScene(editorItem.thisScene);
         }
-
         cursorSprite.Modulate = new Color(1, 1, 1, 0.5f);
     }
 
@@ -919,28 +1046,30 @@ public partial class EditorObject : Node2D
         }
     }
 
+    /// <summary>Forgets the current item and blanks the cursor sprite.</summary>
     public void ClearEditorItem()
     {
         SetCursorTexture(null);
+        cursorSprite.Material = null;
         itemObject = null;
         itemType = EditorItemObject.ItemType.Null;
         currentItem = null;
         currentTile = null;
     }
 
-    public void SetCursorTexture(Texture2D texture, bool flipH = false)
+    public void SetCursorTexture(Texture2D? texture, bool flipH = false)
     {
         cursorSprite.Texture = texture;
         cursorSprite.FlipH = flipH;
     }
 
-    public void SetCurrentTile(Texture2D tile)
+    public void SetCurrentTile(Texture2D? tile)
     {
         currentItem = null;
         currentTile = tile;
     }
 
-    void SetCurrentScene(PackedScene newScene)
+    void SetCurrentScene(PackedScene? newScene)
     {
         currentTile = null;
         currentItem = newScene;
