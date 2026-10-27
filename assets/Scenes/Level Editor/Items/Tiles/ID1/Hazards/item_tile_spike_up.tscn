@@ -13,4 +13,8 @@ region = Rect2(384, 192, 32, 32)
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = SubResource("AtlasTexture_tj0l7")
 itemType = 5
-ThisScene = ExtResource("3_fft5w")
+thisScene = ExtResource("3_fft5w")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2
