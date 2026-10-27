@@ -14,4 +14,8 @@ region = Rect2(0, 96, 112, 119)
 offset_top = 1.0479999
 offset_bottom = 1.0479965
 texture = SubResource("AtlasTexture_1jatr")
-ThisScene = ExtResource("3_qrv1f")
+thisScene = ExtResource("3_qrv1f")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

@@ -10,4 +10,8 @@
 texture = ExtResource("2_m4dki")
 flip_h = true
 itemType = 0
-ThisScene = ExtResource("3_m4dki")
+thisScene = ExtResource("3_m4dki")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

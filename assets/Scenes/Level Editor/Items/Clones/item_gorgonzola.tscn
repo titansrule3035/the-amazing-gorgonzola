@@ -11,4 +11,8 @@
 texture = ExtResource("2_nfaau")
 script = ExtResource("3_nfaau")
 itemType = 0
-ThisScene = ExtResource("4_xnpsc")
+thisScene = ExtResource("4_xnpsc")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

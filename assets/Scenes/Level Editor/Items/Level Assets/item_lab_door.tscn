@@ -15,4 +15,8 @@ region = Rect2(16, 16, 128, 134)
 texture = SubResource("AtlasTexture_ahspa")
 script = ExtResource("3_2w46o")
 itemType = 6
-ThisScene = ExtResource("4_o8veg")
+thisScene = ExtResource("4_o8veg")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

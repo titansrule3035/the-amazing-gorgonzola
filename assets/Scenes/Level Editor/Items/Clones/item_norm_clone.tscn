@@ -9,4 +9,8 @@
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = ExtResource("2_2rrou")
 itemType = 0
-ThisScene = ExtResource("3_2rrou")
+thisScene = ExtResource("3_2rrou")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

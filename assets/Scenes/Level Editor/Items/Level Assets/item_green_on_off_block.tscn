@@ -53,7 +53,11 @@ _data = {
 texture = SubResource("AtlasTexture_iq7ac")
 script = ExtResource("3_rwdd6")
 itemType = 7
-ThisScene = ExtResource("3_qndjg")
+thisScene = ExtResource("3_qndjg")
 
 [node name="TextureAnimationPlayer" type="AnimationPlayer" parent="ItemTexture" index="0" unique_id=1622148009]
 libraries/ = SubResource("AnimationLibrary_p12f7")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2
