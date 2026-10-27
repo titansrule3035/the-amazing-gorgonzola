@@ -16,3 +16,7 @@ script = ExtResource("2_k0tnk")
 tileID = 2
 collider = null
 itemType = 2
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2
