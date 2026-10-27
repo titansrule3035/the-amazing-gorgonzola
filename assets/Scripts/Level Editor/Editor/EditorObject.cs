@@ -65,6 +65,15 @@ public partial class EditorObject : Node2D
     // A press and release closer together than this (in world pixels) counts as a click, not a drag.
     const float clickDragThreshold = 5f;
 
+    // Input Map action names for the edit shortcuts. Replace the placeholders with your real action names.
+    // Until an action exists in the Input Map, ActionJustPressed() simply returns false.
+    const string undoAction = "undo";
+    const string redoAction = "redo";
+    const string deleteAction = "delete";
+    const string ctrlAction = "ctrl";
+    const string shiftAction = "shift";
+    const string altAction = "alt";
+
     // Input action -> mode. Add a row here to bind a new hotkey.
     static (string Action, CursorMode Mode, bool NeedsEditorActive)[] hotkeys =
     {
@@ -366,6 +375,7 @@ public partial class EditorObject : Node2D
         }
         UpdateMouseCell();
         HandleModeHotkeys();
+        HandleEditHotkeys();
         UpdateWindowState();
         EditorTool? tool = activeTool;
         if (tool == null)
@@ -448,34 +458,80 @@ public partial class EditorObject : Node2D
         }
     }
 
-    public override void _UnhandledKeyInput(InputEvent @event)
+    // ------------------------------------------------------------------
+    // Hotkey gatekeeps
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    /// Gatekeep for EVERY hotkey, mode hotkeys included. Return true to swallow the shortcut.
+    /// Add your own conditions here.
+    /// </summary>
+    bool HotkeysBlocked()
     {
-        if (!editorActive || @event is not InputEventKey { Pressed: true } key)
+        // A text field has focus: typing must not trigger shortcuts.
+        Control? focused = GetViewport().GuiGetFocusOwner();
+        if (focused is LineEdit or TextEdit)
+        {
+            return true;
+        }
+        // A popup or the context menu is open.
+        if (contextMenu?.Menu.Visible ?? false)
+        {
+            return true;
+        }
+        // PLACEHOLDER: your own global gatekeep (e.g. a rebind screen is open, a dialog is showing).
+        // if (Input.IsActionPressed("PLACEHOLDER_gate"))
+        // {
+        //     return true;
+        // }
+        return false;
+    }
+
+    /// <summary>
+    /// Gatekeep for the edit shortcuts (undo, redo, delete). Return true to allow.
+    /// These only make sense while the editor is live and no stroke or drag is in progress.
+    /// </summary>
+    bool EditHotkeysAllowed()
+    {
+        return editorActive && !toolBusy && !HotkeysBlocked();
+    }
+
+    /// <summary>
+    /// Input.IsActionJustPressed that tolerates an action that is not in the Input Map yet.
+    /// Godot logs an error for unknown actions, which would spam every frame while placeholders are in place.
+    /// </summary>
+    static bool ActionJustPressed(string action)
+    {
+        return InputMap.HasAction(action) && Input.IsActionJustPressed(action);
+    }
+
+    /// <summary>Undo, redo and delete through the Input Map. Bind the keys (and modifiers) there.</summary>
+    void HandleEditHotkeys()
+    {
+        if (!EditHotkeysAllowed())
         {
             return;
         }
-        bool command = key.IsCommandOrControlPressed();
-        switch (key.Keycode)
+
+        bool ctrl = InputMap.HasAction(ctrlAction) && Input.IsActionPressed(ctrlAction);
+
+        bool shift = InputMap.HasAction(shiftAction) && Input.IsActionPressed(shiftAction);
+
+        bool alt = InputMap.HasAction(altAction) && Input.IsActionPressed(altAction);
+
+        if (ActionJustPressed(undoAction) && ctrl && !shift && !alt)
         {
-            case Godot.Key.Z when command:
-                {
-                    Undo();
-                    GetViewport().SetInputAsHandled();
-                    break;
-                }
-            case Godot.Key.Y when command:
-                {
-                    Redo();
-                    GetViewport().SetInputAsHandled();
-                    break;
-                }
-            case Godot.Key.Delete when !command:
-            case Godot.Key.Backspace when !command:
-                {
-                    DeleteSelection();
-                    GetViewport().SetInputAsHandled();
-                    break;
-                }
+            Undo();
+        }
+
+        if (ActionJustPressed(redoAction) && ctrl && shift && !alt)
+        {
+            Redo();
+        }
+
+        if (ActionJustPressed(deleteAction) && !ctrl && !shift && !alt)
+        {
+            DeleteSelection();
         }
     }
 
@@ -531,17 +587,29 @@ public partial class EditorObject : Node2D
         snappedWorld = tileMap.ToGlobal(tileMap.MapToLocal(cell));
     }
 
+    bool ModifierHeld()
+    {
+        return InputMap.HasAction(ctrlAction) && Input.IsActionPressed(ctrlAction) || InputMap.HasAction(shiftAction) && Input.IsActionPressed(shiftAction) || InputMap.HasAction(altAction) && Input.IsActionPressed(altAction);
+    }
+
+    bool NoModifiersHeld()
+    {
+        return !ModifierHeld();
+    }
+
     void HandleModeHotkeys()
     {
+        bool blocked = HotkeysBlocked() || !NoModifiersHeld();
+
         foreach (var (action, hotkeyMode, needsEditorActive) in hotkeys)
         {
-            if (needsEditorActive && !editorActive)
+            if (blocked || (needsEditorActive && !editorActive))
             {
                 continue;
             }
-            if (Input.IsActionJustPressed(action))
+
+            if (InputMap.HasAction(action) && Input.IsActionJustPressed(action))
             {
-                // SwitchMode also updates the OS cursor.
                 SetCursorMode(hotkeyMode);
             }
         }
