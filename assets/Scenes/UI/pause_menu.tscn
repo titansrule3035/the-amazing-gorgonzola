@@ -29,7 +29,7 @@ offset_top = 94.0
 offset_right = 281.0
 offset_bottom = 147.0
 theme_override_fonts/font = ExtResource("2_bc74l")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_sa586")
 text = "resume"
 
@@ -41,7 +41,7 @@ offset_top = 190.0
 offset_right = 281.0
 offset_bottom = 243.0
 theme_override_fonts/font = ExtResource("2_bc74l")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_i3x44")
 text = "quit"
 
