@@ -14,6 +14,8 @@ public partial class EditorTileObject : EditorItemObject
     {
         base._Ready();
 
+        itemType = ItemType.Tile;
+
         Texture = GetTileTexture();
     }
 
@@ -41,23 +43,22 @@ public partial class EditorTileObject : EditorItemObject
     public override void UpdateTextures(Texture2D texture, bool flipH, bool selected)
     {
         Sprite2D objectCursor = GetTree().CurrentScene.GetNode<Sprite2D>("editor/main/EditorObject/Sprite");
-        EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
 
-        editorObject.SetEditorItem(this);
+        // Cursor ghost: visible while a tile is selected, hidden when cleared.
+        Godot.Color modulate = objectCursor.Modulate;
+        objectCursor.Modulate = new Godot.Color(modulate.R, modulate.G, modulate.B, selected ? 0.5f : 0f);
 
-        editorObject.Set("current_tile", Texture);
-
-        float alpha = 0f;
         if (selected)
         {
-            alpha = 0.5f;
+            SendItemToEditor();
+            Editor.Set("current_tile", Texture);
+            ChangeTexture?.Invoke(this);
         }
-        Godot.Color modulate = objectCursor.Modulate;
-        modulate = new(modulate.R, modulate.G, modulate.B, alpha);
-
-        objectCursor.Modulate = modulate;
-
-        ChangeTexture.Invoke(this);
+        else
+        {
+            // Resets every palette item to "default" and calls Editor.ClearEditorItem() (see SetActiveItem).
+            ChangeTexture?.Invoke(null);
+        }
     }
 
     public override void SendItemToEditor()
