@@ -463,7 +463,7 @@ public partial class EditorObject : Node2D
             if (Input.IsActionJustPressed(action))
             {
                 SetCursorMode(mode);
-                ((Runtime)GetTree().CurrentScene).ApplyCursor(mode);
+                ((Runtime)GetTree().CurrentScene).ApplyCursor(mode.ToString());
             }
         }
 

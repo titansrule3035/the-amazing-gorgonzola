@@ -37,25 +37,46 @@ public partial class Runtime : Node2D
     public event Action<string>? OnFilePicked;
     public event Action? OnLevelImported;
 
+    // cursor info
     [Export] Godot.Collections.Dictionary<string, Texture2D> cursorCache = new();
+    private static readonly Input.CursorShape[] AllShapes = {
+    Input.CursorShape.Arrow,
+    Input.CursorShape.Ibeam,
+    Input.CursorShape.PointingHand,
+    Input.CursorShape.Cross,
+    Input.CursorShape.Wait,
+    Input.CursorShape.Busy,
+    Input.CursorShape.Drag,
+    Input.CursorShape.CanDrop,
+    Input.CursorShape.Forbidden,
+    Input.CursorShape.Vsize,
+    Input.CursorShape.Hsize,
+    Input.CursorShape.Bdiagsize,
+    Input.CursorShape.Fdiagsize,
+    Input.CursorShape.Move,
+    Input.CursorShape.Vsplit,
+    Input.CursorShape.Hsplit,
+    Input.CursorShape.Help};
+
+    BaseButton hoveredButton;
 
     public override void _Ready()
     {
-        GetTree().NodeAdded += node =>
-        {
-            if (node is BaseButton b)
-            {
-                b.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
-            }
-        };
+        GetTree().NodeAdded += OnNodeAdded;
+
+        // Handle buttons that already exist in the scene.
+        SetButtonCursorRecursive(GetTree().Root);
+
+        HookExistingButtons(GetTree().Root);
 
         if (!cursorCache.TryGetValue("Point", out Texture2D texture) || texture == null)
         {
-            GD.PrintErr($"No texture mapped for type 'Point' in cursor cache.");
-            Input.SetCustomMouseCursor(null, Input.CursorShape.PointingHand);
+            GD.PrintErr("No texture mapped for type 'Point' in cursor cache.");
         }
+        else
+        {
 
-        Input.SetCustomMouseCursor(texture, Input.CursorShape.PointingHand);
+        }
 
         levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
         gameContainer = GetNode<Node2D>("game");
@@ -74,6 +95,101 @@ public partial class Runtime : Node2D
     public override void _Process(double delta)
     {
         levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
+
+        if (hoveredButton != null &&
+        (!IsInstanceValid(hoveredButton) || hoveredButton.Disabled || !hoveredButton.IsVisibleInTree()))
+        {
+            hoveredButton = null;
+
+            if (GetNodeOrNull<LevelEditorMain>("editor/main") != null)
+            {
+                ApplyCursor(GetNode<EditorObject>("editor/main/EditorObject").currentCursorMode.ToString());
+            }
+            else
+            {
+                ApplyCursor("Mouse");
+            }
+        }
+    }
+
+    private void OnNodeAdded(Node node)
+    {
+        // NodeAdded fires for every node individually, so no recursion needed here
+        if (node is BaseButton button)
+        {
+            HookButton(button);
+        }
+    }
+
+    private void HookExistingButtons(Node node)
+    {
+        if (node is BaseButton button)
+        {
+            HookButton(button);
+        }
+
+        foreach (Node child in node.GetChildren())
+        {
+            HookExistingButtons(child);
+        }
+    }
+
+    private void HookButton(BaseButton button)
+    {
+        // Guard against double-hooking (e.g. node reparented -> NodeAdded fires again)
+        if (button.HasMeta("cursor_hooked"))
+        {
+            return;
+        }
+
+        button.SetMeta("cursor_hooked", true);
+
+        button.MouseEntered += () => OnButtonMouseEntered(button);
+        button.MouseExited += () => OnButtonMouseExited(button);
+    }
+
+    private void OnButtonMouseEntered(BaseButton button)
+    {
+        if (button.Disabled)
+        {
+            return; // disabled buttons keep the current cursor
+        }
+
+        hoveredButton = button;
+        ApplyCursor("Point");
+    }
+
+    private void OnButtonMouseExited(BaseButton button)
+    {
+        // Only react if this is the button we think we're on
+        if (hoveredButton != button)
+        {
+            return;
+        }
+
+        hoveredButton = null;
+
+        if (GetNodeOrNull<LevelEditorMain>("editor/main") != null)
+        {
+            ApplyCursor(GetNode<EditorObject>("editor/main/EditorObject").currentCursorMode.ToString());
+        }
+        else
+        {
+            ApplyCursor("Mouse");
+        }
+    }
+
+    private void SetButtonCursorRecursive(Node node)
+    {
+        if (node is BaseButton button)
+        {
+            button.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+        }
+
+        foreach (Node child in node.GetChildren())
+        {
+            SetButtonCursorRecursive(child);
+        }
     }
 
     public void SwitchToEditor(bool fade)
@@ -149,13 +265,13 @@ public partial class Runtime : Node2D
         if (editorMode)
         {
             window.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems;
-            ApplyCursor(CursorMode.Place);
+            ApplyCursor(CursorMode.Place.ToString());
         }
         else
         {
             window.ContentScaleMode = Window.ContentScaleModeEnum.Disabled;
             window.Title = "The Amazing Gorgonzola";
-            ApplyCursor(CursorMode.Mouse);
+            ApplyCursor(CursorMode.Mouse.ToString());
         }
 
         target.AddChild(mode);
@@ -493,39 +609,27 @@ public partial class Runtime : Node2D
         }
     }
 
-    public void ApplyCursor(CursorMode mode)
+    public void ApplyCursor(string mode)
     {
-        if (mode == CursorMode.Null)
+        if (mode == "Null")
         {
-            Input.SetCustomMouseCursor(null, Input.CursorShape.Arrow);
+            foreach (var shape in AllShapes)
+                Input.SetCustomMouseCursor(null, shape);
             return;
         }
 
-        if (!cursorCache.TryGetValue(mode.ToString(), out Texture2D texture) || texture == null)
+        if (!cursorCache.TryGetValue(mode, out Texture2D texture) || texture == null)
         {
-            GD.PrintErr($"No texture mapped for type '{mode.ToString()}' in cursor cache.");
-            Input.SetCustomMouseCursor(null, Input.CursorShape.Arrow);
+            GD.PrintErr($"No texture mapped for type '{mode}' in cursor cache.");
+            foreach (var shape in AllShapes)
+                Input.SetCustomMouseCursor(null, shape);
             return;
         }
 
-        if (mode.ToString() == "Select")
-        {
-            Input.SetCustomMouseCursor(texture, Input.CursorShape.Ibeam, new(16, 16));
-            return;
-        }
+        Vector2 hotspot = mode == "Select" ? new Vector2(16, 16) : Vector2.Zero;
 
-
-        if (mode.ToString() == "Mouse")
-        {
-            Input.SetCustomMouseCursor(texture, Input.CursorShape.Arrow);
-            return;
-        }
-        else
-        {
-            Input.SetCustomMouseCursor(texture, Input.CursorShape.Ibeam);
-            return;
-        }
-
+        foreach (var shape in AllShapes)
+            Input.SetCustomMouseCursor(texture, shape, hotspot);
     }
 
     // Game control

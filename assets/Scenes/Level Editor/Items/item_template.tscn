@@ -57,6 +57,39 @@ _data = {
 &"selected": SubResource("Animation_fqurw")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x44h1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8scmh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p75mh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqgxi"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unte2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hecgk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_am1p0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jj8nb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2kfm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gaeju"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0o8a"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="ItemBg" type="TextureRect" unique_id=1663939762]
 process_mode = 3
 texture_filter = 1
@@ -86,3 +119,20 @@ itemType = 4
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=939757834]
 libraries/ = SubResource("AnimationLibrary_kj7cm")
 autoplay = &"default"
+
+[node name="Button" type="Button" parent="." unique_id=1710020461]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_x44h1")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_8scmh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_p75mh")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_kqgxi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_unte2")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_hecgk")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_am1p0")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_jj8nb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_x2kfm")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_gaeju")
+theme_override_styles/focus = SubResource("StyleBoxFlat_n0o8a")

@@ -24,6 +24,8 @@ public partial class EditorItemObject : TextureRect
     [Export] public PackedScene thisScene { get; set; }
     [Export] public Vector2 cursorOffset = Vector2.Zero;
 
+    public Button button;
+
     // ------------------------------------------------------------------
     // State
     // ------------------------------------------------------------------
@@ -63,11 +65,10 @@ public partial class EditorItemObject : TextureRect
 
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>(mainPath);
         main.OnGamePaused += OnGamePaused;
-    }
 
-    public override void _EnterTree()
-    {
-        GuiInput += OnGuiInput;
+        button = GetParent().GetNode<Button>("Button");
+
+        button.Pressed += OnPressed;
     }
 
     public override void _ExitTree()
@@ -75,7 +76,7 @@ public partial class EditorItemObject : TextureRect
         // ChangeTexture is static, so without this, freed items stay subscribed after a scene reload.
         ChangeTexture -= SetActiveItem;
 
-        GuiInput -= OnGuiInput;
+        button.Pressed -= OnPressed;
 
         if (IsInstanceValid(main))
         {
@@ -122,10 +123,12 @@ public partial class EditorItemObject : TextureRect
     // ------------------------------------------------------------------
     // Input
     // ------------------------------------------------------------------
-    void OnGuiInput(InputEvent @event)
+    void OnPressed()
     {
-        if (!GetTree().Paused || disabled) return;
-        if (!@event.IsActionPressed("mb_left")) return;
+        if (!GetTree().Paused || disabled)
+        {
+            return;
+        }
 
         UpdateTextures(Texture, FlipH, !selected);
     }
