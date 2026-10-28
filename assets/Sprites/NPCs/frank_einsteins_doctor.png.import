@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq1xsy1h8s0p2"
-path="res://.godot/imported/frank_einsteins_doctor.png-7e257f057c71fc4c358c1a9c364b1e27.ctex"
+uid="uid://c315jqieb88xo"
+path="res://.godot/imported/frank_einsteins_doctor.png-a123d2fce83f66507beebebc8215a5a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/frank_einsteins_doctor.png"
-dest_files=["res://.godot/imported/frank_einsteins_doctor.png-7e257f057c71fc4c358c1a9c364b1e27.ctex"]
+source_file="res://assets/Sprites/NPCs/frank_einsteins_doctor.png"
+dest_files=["res://.godot/imported/frank_einsteins_doctor.png-a123d2fce83f66507beebebc8215a5a9.ctex"]
 
 [params]
 

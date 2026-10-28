@@ -2,13 +2,13 @@
 
 importer="ink"
 type="Resource"
-uid="uid://bioshi5oc4a3d"
-path="res://.godot/imported/ration_dialogue_2.ink-5ee4201bbe4af15b887df74ce60e5f69.res"
+uid="uid://crbo4o2e4aktt"
+path="res://.godot/imported/ration_dialogue_2.ink-dcca62a6e745b735cc50a737fdd8ae01.res"
 
 [deps]
 
-source_file="res://Assets/Dialogue/Ration/ration_dialogue_2.ink"
-dest_files=["res://.godot/imported/ration_dialogue_2.ink-5ee4201bbe4af15b887df74ce60e5f69.res"]
+source_file="res://assets/Dialogue/Ration/ration_dialogue_2.ink"
+dest_files=["res://.godot/imported/ration_dialogue_2.ink-dcca62a6e745b735cc50a737fdd8ae01.res"]
 
 [params]
 

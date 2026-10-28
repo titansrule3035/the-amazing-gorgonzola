@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qlc3iqlbqjou"
-path="res://.godot/imported/pasghettihappy.png-f4f4c150820857714df3b4cf0ff05576.ctex"
+uid="uid://rniodrmugb08"
+path="res://.godot/imported/pasghettihappy.png-90c617b1a04286776805ec2a68348639.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/pasghettihappy.png"
-dest_files=["res://.godot/imported/pasghettihappy.png-f4f4c150820857714df3b4cf0ff05576.ctex"]
+source_file="res://assets/Sprites/NPCs/pasghettihappy.png"
+dest_files=["res://.godot/imported/pasghettihappy.png-90c617b1a04286776805ec2a68348639.ctex"]
 
 [params]
 

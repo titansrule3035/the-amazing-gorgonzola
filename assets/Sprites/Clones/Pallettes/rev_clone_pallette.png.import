@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0auhcqfys1vl"
-path="res://.godot/imported/rev_clone_pallette.png-65df2489387a97cbb95cf99d4b9584fa.ctex"
+uid="uid://d1q2escmf2ll6"
+path="res://.godot/imported/rev_clone_pallette.png-1ae0920e8b1feb46f62dc708b52e6201.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Clones/Pallettes/rev_clone_pallette.png"
-dest_files=["res://.godot/imported/rev_clone_pallette.png-65df2489387a97cbb95cf99d4b9584fa.ctex"]
+source_file="res://assets/Sprites/Clones/Pallettes/rev_clone_pallette.png"
+dest_files=["res://.godot/imported/rev_clone_pallette.png-1ae0920e8b1feb46f62dc708b52e6201.ctex"]
 
 [params]
 

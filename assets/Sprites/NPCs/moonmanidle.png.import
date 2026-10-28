@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwodmlpf4xdgh"
-path="res://.godot/imported/moonmanidle.png-df89e5b27ec5fe065a8fbb2ff1b03a09.ctex"
+uid="uid://gq83howcxbk0"
+path="res://.godot/imported/moonmanidle.png-9c08c9c401dfe016756ce68f37e6ed93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/moonmanidle.png"
-dest_files=["res://.godot/imported/moonmanidle.png-df89e5b27ec5fe065a8fbb2ff1b03a09.ctex"]
+source_file="res://assets/Sprites/NPCs/moonmanidle.png"
+dest_files=["res://.godot/imported/moonmanidle.png-9c08c9c401dfe016756ce68f37e6ed93.ctex"]
 
 [params]
 

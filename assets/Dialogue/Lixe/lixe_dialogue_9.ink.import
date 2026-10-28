@@ -2,13 +2,13 @@
 
 importer="ink"
 type="Resource"
-uid="uid://lxme7685mwx"
-path="res://.godot/imported/lixe_dialogue_9.ink-a4e818aa1e527866caeb8539edc53cf8.res"
+uid="uid://dfrsvp7legmsd"
+path="res://.godot/imported/lixe_dialogue_9.ink-c621bf3ce45726b8cbd54cb27afcbc6a.res"
 
 [deps]
 
-source_file="res://Assets/Dialogue/Lixe/lixe_dialogue_9.ink"
-dest_files=["res://.godot/imported/lixe_dialogue_9.ink-a4e818aa1e527866caeb8539edc53cf8.res"]
+source_file="res://assets/Dialogue/Lixe/lixe_dialogue_9.ink"
+dest_files=["res://.godot/imported/lixe_dialogue_9.ink-c621bf3ce45726b8cbd54cb27afcbc6a.res"]
 
 [params]
 

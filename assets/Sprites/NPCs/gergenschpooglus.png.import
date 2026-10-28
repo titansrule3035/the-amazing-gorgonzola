@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvhexbq45d782"
-path="res://.godot/imported/gergenschpooglus.png-a10316b1300aeca71ba5bd6de774692d.ctex"
+uid="uid://cek6kufmov81s"
+path="res://.godot/imported/gergenschpooglus.png-0ab369ce6f81b7c7ba42ce00a0eacf49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/gergenschpooglus.png"
-dest_files=["res://.godot/imported/gergenschpooglus.png-a10316b1300aeca71ba5bd6de774692d.ctex"]
+source_file="res://assets/Sprites/NPCs/gergenschpooglus.png"
+dest_files=["res://.godot/imported/gergenschpooglus.png-0ab369ce6f81b7c7ba42ce00a0eacf49.ctex"]
 
 [params]
 

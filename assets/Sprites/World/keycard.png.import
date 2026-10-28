@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhmg02w0l46pu"
-path="res://.godot/imported/keycard.png-342aaa3be2aed735335ffaecc8691c44.ctex"
+path="res://.godot/imported/keycard.png-84de1787693f82f7acaa10cae6005b3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/World/keycard.png"
-dest_files=["res://.godot/imported/keycard.png-342aaa3be2aed735335ffaecc8691c44.ctex"]
+source_file="res://assets/Sprites/World/keycard.png"
+dest_files=["res://.godot/imported/keycard.png-84de1787693f82f7acaa10cae6005b3e.ctex"]
 
 [params]
 

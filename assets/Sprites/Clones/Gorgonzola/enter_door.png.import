@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u8hj5wlvsgt1"
-path="res://.godot/imported/enter_door.png-0828f175980efe4c64197fdb2412a63d.ctex"
+uid="uid://cx1i4xy1caoy6"
+path="res://.godot/imported/enter_door.png-01628c91036ec9ff104c9cf12dd5875b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Clones/Gorgonzola/enter_door.png"
-dest_files=["res://.godot/imported/enter_door.png-0828f175980efe4c64197fdb2412a63d.ctex"]
+source_file="res://assets/Sprites/Clones/Gorgonzola/enter_door.png"
+dest_files=["res://.godot/imported/enter_door.png-01628c91036ec9ff104c9cf12dd5875b.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

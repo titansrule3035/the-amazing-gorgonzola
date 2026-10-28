@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do3eeqf68m55c"
-path="res://.godot/imported/rationidle.png-606f2902e4b57346f3224fdc65970d86.ctex"
+uid="uid://c1m4lxx6nk7f1"
+path="res://.godot/imported/rationidle.png-27bd17bf78270e4cb280834347d85823.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/rationidle.png"
-dest_files=["res://.godot/imported/rationidle.png-606f2902e4b57346f3224fdc65970d86.ctex"]
+source_file="res://assets/Sprites/NPCs/rationidle.png"
+dest_files=["res://.godot/imported/rationidle.png-27bd17bf78270e4cb280834347d85823.ctex"]
 
 [params]
 

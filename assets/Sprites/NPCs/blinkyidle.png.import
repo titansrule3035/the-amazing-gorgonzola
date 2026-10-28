@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8us5tet0cfxu"
-path="res://.godot/imported/blinkyidle.png-b62732eef080e6ee28ae7e6493429d2c.ctex"
+uid="uid://csrgd6wiqkxu6"
+path="res://.godot/imported/blinkyidle.png-5a369145acdd683085e5e695a69a16e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/NPCs/blinkyidle.png"
-dest_files=["res://.godot/imported/blinkyidle.png-b62732eef080e6ee28ae7e6493429d2c.ctex"]
+source_file="res://assets/Sprites/NPCs/blinkyidle.png"
+dest_files=["res://.godot/imported/blinkyidle.png-5a369145acdd683085e5e695a69a16e0.ctex"]
 
 [params]
 

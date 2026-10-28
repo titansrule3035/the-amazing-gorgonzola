@@ -2,13 +2,13 @@
 
 importer="ink"
 type="Resource"
-uid="uid://8w2lv8icx7b8"
-path="res://.godot/imported/peter_dialogue_7.ink-6d7bae40030ac1ff6f2ce2c5e74a1340.res"
+uid="uid://bmw7e26ekj6ce"
+path="res://.godot/imported/peter_dialogue_7.ink-4c82add038fc31eec6082d8f4c595b8d.res"
 
 [deps]
 
-source_file="res://Assets/Dialogue/Peter/peter_dialogue_7.ink"
-dest_files=["res://.godot/imported/peter_dialogue_7.ink-6d7bae40030ac1ff6f2ce2c5e74a1340.res"]
+source_file="res://assets/Dialogue/Peter/peter_dialogue_7.ink"
+dest_files=["res://.godot/imported/peter_dialogue_7.ink-4c82add038fc31eec6082d8f4c595b8d.res"]
 
 [params]
 

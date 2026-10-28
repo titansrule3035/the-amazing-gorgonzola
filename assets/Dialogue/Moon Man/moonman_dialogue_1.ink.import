@@ -2,13 +2,13 @@
 
 importer="ink"
 type="Resource"
-uid="uid://ovsd0ipvpf37"
-path="res://.godot/imported/moonman_dialogue_1.ink-007b9183418b162c721ec78ed92f363c.res"
+uid="uid://c8d018r3bwt67"
+path="res://.godot/imported/moonman_dialogue_1.ink-c98e352f99040f4a0f7488a0edfc8a4d.res"
 
 [deps]
 
-source_file="res://Assets/Dialogue/Moon Man/moonman_dialogue_1.ink"
-dest_files=["res://.godot/imported/moonman_dialogue_1.ink-007b9183418b162c721ec78ed92f363c.res"]
+source_file="res://assets/Dialogue/Moon Man/moonman_dialogue_1.ink"
+dest_files=["res://.godot/imported/moonman_dialogue_1.ink-c98e352f99040f4a0f7488a0edfc8a4d.res"]
 
 [params]
 

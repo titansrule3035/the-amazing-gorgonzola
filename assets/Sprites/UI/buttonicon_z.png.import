@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://de03v5wxdme7k"
-path="res://.godot/imported/buttonicon_z.png-ac8c70a0160bb84b1b80699cb00cb7a8.ctex"
+path="res://.godot/imported/buttonicon_z.png-a1eb490ab282556403cbb571ffedc064.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/buttonicon_z.png"
-dest_files=["res://.godot/imported/buttonicon_z.png-ac8c70a0160bb84b1b80699cb00cb7a8.ctex"]
+source_file="res://assets/Sprites/UI/buttonicon_z.png"
+dest_files=["res://.godot/imported/buttonicon_z.png-a1eb490ab282556403cbb571ffedc064.ctex"]
 
 [params]
 
