@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0pu3yuhdtekq"
-path="res://.godot/imported/evilgorgidle.png-7926ba52e8fb2fd39774f5b369144727.ctex"
+uid="uid://jnapg34bkiee"
+path="res://.godot/imported/evilgorgidle.png-4fd06d02dfa13e2f114abab52c1c21a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgidle.png"
-dest_files=["res://.godot/imported/evilgorgidle.png-7926ba52e8fb2fd39774f5b369144727.ctex"]
+source_file="res://Assets/Sprites/Clones/Shadow Clone/evilgorgidle.png"
+dest_files=["res://.godot/imported/evilgorgidle.png-4fd06d02dfa13e2f114abab52c1c21a9.ctex"]
 
 [params]
 

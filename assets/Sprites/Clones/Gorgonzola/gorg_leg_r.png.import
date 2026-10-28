@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl0gnj24k5a3l"
-path="res://.godot/imported/gorg_leg_r.png-54d38d4bb6badebc48a66e88a520e8a3.ctex"
+uid="uid://bxfxvw848bnd6"
+path="res://.godot/imported/gorg_leg_r.png-d5ab615cecc22885bd5bc5e5d0c78871.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Gorgonzola/gorg_leg_r.png"
-dest_files=["res://.godot/imported/gorg_leg_r.png-54d38d4bb6badebc48a66e88a520e8a3.ctex"]
+source_file="res://Assets/Sprites/Clones/Gorgonzola/gorg_leg_r.png"
+dest_files=["res://.godot/imported/gorg_leg_r.png-d5ab615cecc22885bd5bc5e5d0c78871.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

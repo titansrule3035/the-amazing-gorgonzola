@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr7tdcn8krte3"
-path="res://.godot/imported/speechbubble_green_for_palettes_maybe.png-d4c8397208d800f0495012cade0231c7.ctex"
+path="res://.godot/imported/speechbubble_green_for_palettes_maybe.png-3d38c2524da87020fd92b6b22db2c214.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Dialogue/speechbubble_green_for_palettes_maybe.png"
-dest_files=["res://.godot/imported/speechbubble_green_for_palettes_maybe.png-d4c8397208d800f0495012cade0231c7.ctex"]
+source_file="res://Assets/Sprites/UI/Dialogue/speechbubble_green_for_palettes_maybe.png"
+dest_files=["res://.godot/imported/speechbubble_green_for_palettes_maybe.png-3d38c2524da87020fd92b6b22db2c214.ctex"]
 
 [params]
 

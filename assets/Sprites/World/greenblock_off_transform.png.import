@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxpgvtwm0xcnq"
-path="res://.godot/imported/greenblock_off_transform.png-473ddd5c8130587bc300fa621741fc15.ctex"
+path="res://.godot/imported/greenblock_off_transform.png-982ab2595205625b21223eecb1ab3672.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/greenblock_off_transform.png"
-dest_files=["res://.godot/imported/greenblock_off_transform.png-473ddd5c8130587bc300fa621741fc15.ctex"]
+source_file="res://Assets/Sprites/World/greenblock_off_transform.png"
+dest_files=["res://.godot/imported/greenblock_off_transform.png-982ab2595205625b21223eecb1ab3672.ctex"]
 
 [params]
 

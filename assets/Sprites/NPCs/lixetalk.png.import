@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn4uphirdty0q"
-path="res://.godot/imported/lixetalk.png-59262181322daa3970b5aa1512c1d103.ctex"
+uid="uid://cbsxlhxmq4wfl"
+path="res://.godot/imported/lixetalk.png-86843517f2324ac12e107b4b62d838db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/NPCs/lixetalk.png"
-dest_files=["res://.godot/imported/lixetalk.png-59262181322daa3970b5aa1512c1d103.ctex"]
+source_file="res://Assets/Sprites/NPCs/lixetalk.png"
+dest_files=["res://.godot/imported/lixetalk.png-86843517f2324ac12e107b4b62d838db.ctex"]
 
 [params]
 

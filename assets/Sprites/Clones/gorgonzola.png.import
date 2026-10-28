@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6fs4ibuhc67b"
-path="res://.godot/imported/gorgonzola.png-5843cadf595b9f473da318899605201b.ctex"
+uid="uid://dsl42g6ftteej"
+path="res://.godot/imported/gorgonzola.png-ca7ef0a95e1cb5d7fdce49b63983156e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/gorgonzola.png"
-dest_files=["res://.godot/imported/gorgonzola.png-5843cadf595b9f473da318899605201b.ctex"]
+source_file="res://Assets/Sprites/Clones/gorgonzola.png"
+dest_files=["res://.godot/imported/gorgonzola.png-ca7ef0a95e1cb5d7fdce49b63983156e.ctex"]
 
 [params]
 

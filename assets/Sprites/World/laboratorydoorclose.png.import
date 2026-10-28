@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dh8obka4fynom"
-path="res://.godot/imported/laboratorydoorclose.png-77f6e301aba9e91f3a0ac174b3a81b4f.ctex"
+path="res://.godot/imported/laboratorydoorclose.png-aa7088642c7bf32a4159ec696c6e036e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/laboratorydoorclose.png"
-dest_files=["res://.godot/imported/laboratorydoorclose.png-77f6e301aba9e91f3a0ac174b3a81b4f.ctex"]
+source_file="res://Assets/Sprites/World/laboratorydoorclose.png"
+dest_files=["res://.godot/imported/laboratorydoorclose.png-aa7088642c7bf32a4159ec696c6e036e.ctex"]
 
 [params]
 

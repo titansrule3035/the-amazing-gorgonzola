@@ -1,25 +1,40 @@
 [remap]
 
-importer="font_data_image"
-type="FontFile"
-uid="uid://sy8gc53buru6"
-path="res://.godot/imported/font_sheet.png-e55fd1d1b3bc98d7a9f1f1e510ca42ee.fontdata"
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://du14x3rs2y84k"
+path="res://.godot/imported/font_sheet.png-b828128f2adfcfae6374d1850d668d5e.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/Fonts/font_sheet.png"
-dest_files=["res://.godot/imported/font_sheet.png-e55fd1d1b3bc98d7a9f1f1e510ca42ee.fontdata"]
+source_file="res://Assets/Fonts/font_sheet.png"
+dest_files=["res://.godot/imported/font_sheet.png-b828128f2adfcfae6374d1850d668d5e.ctex"]
 
 [params]
 
-character_ranges=PackedStringArray("\' \'-\'~\'")
-kerning_pairs=PackedStringArray()
-columns=128
-rows=1
-image_margin=Rect2i(0, 0, 0, 0)
-character_margin=Rect2i(0, 0, 0, 0)
-ascent=0
-descent=0
-fallbacks=[]
-compress=true
-scaling_mode=2
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ymf260f5eiqf"
-path="res://.godot/imported/item_turn_right.png-a6a2f5bb39df9a6d8ac8606d2fa8a901.ctex"
+uid="uid://ggwkl0l4q1v6"
+path="res://.godot/imported/item_turn_right.png-85b6d3d4b8750c8cbe5745d937cfdf7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/item_turn_right.png"
-dest_files=["res://.godot/imported/item_turn_right.png-a6a2f5bb39df9a6d8ac8606d2fa8a901.ctex"]
+source_file="res://Assets/Sprites/Clones/item_turn_right.png"
+dest_files=["res://.godot/imported/item_turn_right.png-85b6d3d4b8750c8cbe5745d937cfdf7e.ctex"]
 
 [params]
 

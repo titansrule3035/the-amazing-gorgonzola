@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2gf4vci3tk1n"
-path="res://.godot/imported/ItemBGDisabled.png-e2d49a948531b233e7a03bba73581b5f.ctex"
+uid="uid://b52ktyjyjkp70"
+path="res://.godot/imported/ItemBGDisabled.png-87b148a322b1ae16f14603ec8e5fcb77.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Level Editor/ItemBGDisabled.png"
-dest_files=["res://.godot/imported/ItemBGDisabled.png-e2d49a948531b233e7a03bba73581b5f.ctex"]
+source_file="res://Assets/Sprites/Level Editor/ItemBGDisabled.png"
+dest_files=["res://.godot/imported/ItemBGDisabled.png-87b148a322b1ae16f14603ec8e5fcb77.ctex"]
 
 [params]
 

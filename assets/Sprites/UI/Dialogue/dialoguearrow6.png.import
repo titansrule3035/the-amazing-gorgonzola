@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1yrq8rf8seue"
-path="res://.godot/imported/dialoguearrow6.png-a7718502f08fec2d8fcffa20a77dc1f4.ctex"
+path="res://.godot/imported/dialoguearrow6.png-e77e7c4f164813bd8a0f237cf09b4898.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Dialogue/dialoguearrow6.png"
-dest_files=["res://.godot/imported/dialoguearrow6.png-a7718502f08fec2d8fcffa20a77dc1f4.ctex"]
+source_file="res://Assets/Sprites/UI/Dialogue/dialoguearrow6.png"
+dest_files=["res://.godot/imported/dialoguearrow6.png-e77e7c4f164813bd8a0f237cf09b4898.ctex"]
 
 [params]
 

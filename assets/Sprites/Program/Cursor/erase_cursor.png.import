@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://buomuktw7ss7h"
-path="res://.godot/imported/erase_cursor.png-2454e74a813b0d88e007e19ddf910481.ctex"
+path="res://.godot/imported/erase_cursor.png-89cf6109017b512b999ef48b7aca0503.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Program/Cursor/erase_cursor.png"
-dest_files=["res://.godot/imported/erase_cursor.png-2454e74a813b0d88e007e19ddf910481.ctex"]
+source_file="res://Assets/Sprites/Program/Cursor/erase_cursor.png"
+dest_files=["res://.godot/imported/erase_cursor.png-89cf6109017b512b999ef48b7aca0503.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://butpqo8rmdb7y"
-path="res://.godot/imported/evilgorgforming.png-13dada9a68ffb10c76bc2945ccea1d03.ctex"
+uid="uid://d3aau5tu22y4"
+path="res://.godot/imported/evilgorgforming.png-d5b673faba22186e6bdf57b89b686e8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgforming.png"
-dest_files=["res://.godot/imported/evilgorgforming.png-13dada9a68ffb10c76bc2945ccea1d03.ctex"]
+source_file="res://Assets/Sprites/Clones/Shadow Clone/evilgorgforming.png"
+dest_files=["res://.godot/imported/evilgorgforming.png-d5b673faba22186e6bdf57b89b686e8d.ctex"]
 
 [params]
 

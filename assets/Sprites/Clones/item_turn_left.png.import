@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ap40njb4fo2"
-path="res://.godot/imported/item_turn_left.png-54b07c6ca73622516ac9d9a7df6e145a.ctex"
+uid="uid://buqntqtnpmt0g"
+path="res://.godot/imported/item_turn_left.png-c2c05c1c793c4d5131bda8a781862447.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/item_turn_left.png"
-dest_files=["res://.godot/imported/item_turn_left.png-54b07c6ca73622516ac9d9a7df6e145a.ctex"]
+source_file="res://Assets/Sprites/Clones/item_turn_left.png"
+dest_files=["res://.godot/imported/item_turn_left.png-c2c05c1c793c4d5131bda8a781862447.ctex"]
 
 [params]
 

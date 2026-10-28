@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc50q62jtke45"
-path="res://.godot/imported/pasghettitrapped.png-8dc142c85f25e294b15c63acbdf09c91.ctex"
+uid="uid://cdi4yubks0tiy"
+path="res://.godot/imported/pasghettitrapped.png-82a5102b7e60722a25a2731c0f84f9df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/NPCs/pasghettitrapped.png"
-dest_files=["res://.godot/imported/pasghettitrapped.png-8dc142c85f25e294b15c63acbdf09c91.ctex"]
+source_file="res://Assets/Sprites/NPCs/pasghettitrapped.png"
+dest_files=["res://.godot/imported/pasghettitrapped.png-82a5102b7e60722a25a2731c0f84f9df.ctex"]
 
 [params]
 

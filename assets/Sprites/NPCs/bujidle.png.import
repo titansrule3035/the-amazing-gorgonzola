@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2gq0ys6jwdu8"
-path="res://.godot/imported/bujidle.png-7960228c35e9568cb626a1b27c76f611.ctex"
+uid="uid://cnpqwg41jqw7x"
+path="res://.godot/imported/bujidle.png-21e4fc3b6ca82c7876ad7eb13620dd2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/NPCs/bujidle.png"
-dest_files=["res://.godot/imported/bujidle.png-7960228c35e9568cb626a1b27c76f611.ctex"]
+source_file="res://Assets/Sprites/NPCs/bujidle.png"
+dest_files=["res://.godot/imported/bujidle.png-21e4fc3b6ca82c7876ad7eb13620dd2e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b87qpxhdflsa0"
-path="res://.godot/imported/evilgorgdeath.png-8e3564f3daf005eebed7cde46d9cd7d4.ctex"
+uid="uid://dmg2dpyn2gl6y"
+path="res://.godot/imported/evilgorgdeath.png-6cf4f7c597bc4f2705fe44d28f0c7428.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Shadow Clone/evilgorgdeath.png"
-dest_files=["res://.godot/imported/evilgorgdeath.png-8e3564f3daf005eebed7cde46d9cd7d4.ctex"]
+source_file="res://Assets/Sprites/Clones/Shadow Clone/evilgorgdeath.png"
+dest_files=["res://.godot/imported/evilgorgdeath.png-6cf4f7c597bc4f2705fe44d28f0c7428.ctex"]
 
 [params]
 
