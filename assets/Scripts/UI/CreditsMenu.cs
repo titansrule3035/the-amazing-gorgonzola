@@ -5,7 +5,7 @@ using Godot;
 
 public partial class CreditsMenu : Control
 {
-    public Button backButton;
+    public TextureButton backButton;
 
     public Action backButtonPressed { get; set; }
 
@@ -18,7 +18,7 @@ public partial class CreditsMenu : Control
     {
         if (backButton == null)
         {
-            backButton = GetNode<Button>("back");
+            backButton = GetNode<TextureButton>("back");
         }
 
         backButton.Disabled = true;
@@ -28,7 +28,9 @@ public partial class CreditsMenu : Control
     public void ShowMenu()
     {
         if (backButton == null)
-            backButton = GetNode<Button>("back");
+        {
+            backButton = GetNode<TextureButton>("back");
+        }
 
         backButton.Disabled = false;
         Visible = true;
