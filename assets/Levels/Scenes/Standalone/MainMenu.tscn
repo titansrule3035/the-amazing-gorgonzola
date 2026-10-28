@@ -418,12 +418,13 @@ Shadow Star"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="back" type="Button" parent="credits_menu" unique_id=1904841187]
+[node name="back" type="TextureButton" parent="credits_menu" unique_id=1987001433]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 728.0
-offset_right = 288.0
-offset_bottom = 792.0
-theme_override_fonts/font = ExtResource("20_73o8l")
-theme_override_font_sizes/font_size = 31
-text = "Back"
+offset_left = 96.0
+offset_top = 704.0
+offset_right = 244.0
+offset_bottom = 780.0
+texture_normal = ExtResource("21_y3piw")
+texture_pressed = ExtResource("22_ndnut")
+texture_hover = ExtResource("23_c8w5p")
+texture_disabled = ExtResource("24_0tqm5")
