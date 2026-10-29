@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
+using CursorMode = EditorObject.CursorMode;
 
 public partial class LevelEditorMain : Node2D
 {
@@ -28,6 +29,8 @@ public partial class LevelEditorMain : Node2D
     public Action? OnGamePaused;
 
     public string levelName = "Untitled";
+
+    public CursorMode storedMode;
 
     // Map each object's "Type" (the original node Name) to the scene that should be instantiated.
     // Populate these from the Editor or load them by convention, e.g. res://objects/{type}.tscn
@@ -56,6 +59,23 @@ public partial class LevelEditorMain : Node2D
         fileButton.fileSaved += runtime.FileSaved;
         runtime.OnFileSaved += FileSaved;
         runtime.OnLevelImported += ImportLevel;
+
+        OnGameStarted += OnGameStart;
+
+        OnGamePaused += OnGameStop;
+    }
+
+    void OnGameStart()
+    {
+        EditorObject editor = GetNode<EditorObject>("EditorObject");
+        storedMode = editor.currentCursorMode;
+        editor.SwitchMode(CursorMode.Mouse);
+    }
+
+    void OnGameStop()
+    {
+        EditorObject editor = GetNode<EditorObject>("EditorObject");
+        editor.SwitchMode(storedMode);
     }
 
     void FilePicked(string filePath)
