@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bkxr7goyyhc46"]
+
+[ext_resource type="PackedScene" uid="uid://c47ypiivjvu6o" path="res://assets/Scenes/Level Editor/Items/Tiles/item_tile_template.tscn" id="1_wvhl7"]
+[ext_resource type="Texture2D" uid="uid://bolckr30bd73c" path="res://assets/Sprites/World/tileset_template.png" id="2_ljsjo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jacej"]
+atlas = ExtResource("2_ljsjo")
+region = Rect2(256, 64, 32, 32)
+
+[node name="ItemTile0802" unique_id=1663939762 instance=ExtResource("1_wvhl7")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = SubResource("AtlasTexture_jacej")
+tileID = 4
