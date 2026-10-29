@@ -1,4 +1,5 @@
 using Godot;
+using Ink.Runtime;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,13 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static EditorObject;
+using LayerData = LevelData.LayerData;
+using ObjectData = LevelData.ObjectData;
+using OnOffAssetData = LevelData.OnOffAssetData;
+using OnOffBlockData = LevelData.OnOffBlockData;
+using OnOffSwitchMasterData = LevelData.OnOffSwitchMasterData;
+using TileData = LevelData.TileData;
+using Path = System.IO.Path;
 
 public partial class Runtime : Node2D
 {
@@ -282,120 +290,134 @@ public partial class Runtime : Node2D
         LevelData data = new();
         Node2D levelRoot = GetTree().CurrentScene.GetNode<Node2D>(levelRootPath);
 
-        foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
+        // if the game is running, there may be some objects that we don't want to export
+        // fix? save the tmp level to the path if game is running
+        if (!GetTree().Paused)
         {
-            if (tileMapLayer is not TileMapLayer layer)
-            {
-                continue;
-            }
+            string tmpPath = Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel");
 
-            LayerData layerData = new()
-            {
-                Name = layer.Name
-            };
+            //replace forward slashes with back slashes for valid path recognition
+            tmpPath = tmpPath.Replace("/", "\\");
 
-            foreach (Vector2I cell in layer.GetUsedCells())
+            File.Copy(tmpPath, filePath, true);
+        }
+        else
+        {
+            foreach (Node2D tileMapLayer in levelRoot.GetNode<Node2D>("tiles").GetChildren())
             {
-                Vector2I atlas = layer.GetCellAtlasCoords(cell);
-
-                layerData.Tiles.Add(new TileData
+                if (tileMapLayer is not TileMapLayer layer)
                 {
-                    X = cell.X,
-                    Y = cell.Y,
-                    SourceId = layer.GetCellSourceId(cell),
-                    AtlasX = atlas.X,
-                    AtlasY = atlas.Y,
-                    Alternative = layer.GetCellAlternativeTile(cell)
-                });
-            }
-
-            data.Layers.Add(layerData);
-        }
-
-        Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
-        Node2D level_mechanics = assetsRoot.GetNodeOrNull<Node2D>("level_mechanics");
-        Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
-        Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
-        Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
-        Node2D npcs = assetsRoot.GetNodeOrNull<Node2D>("npcs");
-        Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
-
-        if (level_mechanics != null)
-        {
-            foreach (Node2D level_essential in level_mechanics.GetChildren())
-            {
-                data.LevelMechanics.Add(new ObjectData(level_essential.GetType().Name, level_essential.GlobalPosition));
-            }
-        }
-
-        if (clones != null)
-        {
-            foreach (Node2D clone in clones.GetChildren())
-            {
-                data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.GlobalPosition));
-            }
-        }
-
-        if (on_off_assets != null)
-        {
-            foreach (Node2D on_off_asset in on_off_assets.GetChildren())
-            {
-                if (on_off_asset is OnOffSwitchMaster switchMaster)
-                {
-                    data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(switchMaster.GetType().ToString(), on_off_asset.GlobalPosition, switchMaster.opened);
+                    continue;
                 }
-                else if (on_off_asset is OnOffSwitch switchNormal)
+
+                LayerData layerData = new()
                 {
-                    data.OnOffs.OnOffSwitches.Add(new ObjectData(switchNormal.GetType().ToString(), on_off_asset.GlobalPosition));
+                    Name = layer.Name
+                };
+
+                foreach (Vector2I cell in layer.GetUsedCells())
+                {
+                    Vector2I atlas = layer.GetCellAtlasCoords(cell);
+
+                    layerData.Tiles.Add(new TileData
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        SourceId = layer.GetCellSourceId(cell),
+                        AtlasX = atlas.X,
+                        AtlasY = atlas.Y,
+                        Alternative = layer.GetCellAlternativeTile(cell)
+                    });
                 }
-                else if (on_off_asset is OnOffBlock onOffBlock)
+
+                data.Layers.Add(layerData);
+            }
+
+            Node2D assetsRoot = levelRoot.GetNode<Node2D>("level_assets");
+            Node2D level_mechanics = assetsRoot.GetNodeOrNull<Node2D>("level_mechanics");
+            Node2D clones = assetsRoot.GetNodeOrNull<Node2D>("clones");
+            Node2D hazards = assetsRoot.GetNodeOrNull<Node2D>("hazards");
+            Node2D on_off_assets = assetsRoot.GetNodeOrNull<Node2D>("on_off_assets");
+            Node2D npcs = assetsRoot.GetNodeOrNull<Node2D>("npcs");
+            Node2D semi_solid_tiles = assetsRoot.GetNodeOrNull<Node2D>("semi_solid_tiles");
+
+            if (level_mechanics != null)
+            {
+                foreach (Node2D level_essential in level_mechanics.GetChildren())
                 {
-                    data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? OnOffBlockData.blockTypes.green : OnOffBlockData.blockTypes.red, on_off_asset.GlobalPosition));
+                    data.LevelMechanics.Add(new ObjectData(level_essential.GetType().Name, level_essential.GlobalPosition));
                 }
             }
-        }
 
-        if (npcs != null)
-        {
-            foreach (Npc npc in npcs.GetChildren())
+            if (clones != null)
             {
-                data.NPCs.Add(new ObjectData(npc.npcType.ToString(), npc.GlobalPosition));
+                foreach (Node2D clone in clones.GetChildren())
+                {
+                    data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.GlobalPosition));
+                }
             }
-        }
 
-        if (hazards != null)
-        {
-            foreach (Node2D hazard in hazards.GetChildren())
+            if (on_off_assets != null)
             {
-                data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.GlobalPosition));
+                foreach (Node2D on_off_asset in on_off_assets.GetChildren())
+                {
+                    if (on_off_asset is OnOffSwitchMaster switchMaster)
+                    {
+                        data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(switchMaster.GetType().ToString(), on_off_asset.GlobalPosition, switchMaster.opened);
+                    }
+                    else if (on_off_asset is OnOffSwitch switchNormal)
+                    {
+                        data.OnOffs.OnOffSwitches.Add(new ObjectData(switchNormal.GetType().ToString(), on_off_asset.GlobalPosition));
+                    }
+                    else if (on_off_asset is OnOffBlock onOffBlock)
+                    {
+                        data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? OnOffBlockData.blockTypes.green : OnOffBlockData.blockTypes.red, on_off_asset.GlobalPosition));
+                    }
+                }
             }
-        }
 
-        if (semi_solid_tiles != null)
-        {
-            foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
+            if (npcs != null)
             {
-                data.SemiSolidTiles.Add(new ObjectData(semi_solid_tile.GetType().Name, semi_solid_tile.GlobalPosition));
+                foreach (Npc npc in npcs.GetChildren())
+                {
+                    data.NPCs.Add(new ObjectData(npc.npcType.ToString(), npc.GlobalPosition));
+                }
             }
+
+            if (hazards != null)
+            {
+                foreach (Node2D hazard in hazards.GetChildren())
+                {
+                    data.Hazards.Add(new ObjectData(hazard.GetType().Name, hazard.GlobalPosition));
+                }
+            }
+
+            if (semi_solid_tiles != null)
+            {
+                foreach (Node2D semi_solid_tile in semi_solid_tiles.GetChildren())
+                {
+                    data.SemiSolidTiles.Add(new ObjectData(semi_solid_tile.GetType().Name, semi_solid_tile.GlobalPosition));
+                }
+            }
+
+            string json = JsonSerializer.Serialize(data,
+            new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                IncludeFields = true
+            });
+
+            if (!DirAccess.DirExistsAbsolute("user://TAGLEVELs"))
+            {
+                DirAccess.MakeDirAbsolute("user://TAGLEVELs");
+            }
+
+            using Godot.FileAccess file = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Write);
+
+            file.StoreString(SaveManager.Encode(json));
         }
-
-        string json = JsonSerializer.Serialize(data,
-        new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            IncludeFields = true
-        });
-
-        if (!DirAccess.DirExistsAbsolute("user://TAGLEVELs"))
-        {
-            DirAccess.MakeDirAbsolute("user://TAGLEVELs");
-        }
-
-        using Godot.FileAccess file = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Write);
 
         OnFileSaved.Invoke(filePath);
-
-        file.StoreString(SaveManager.Encode(json));
     }
 
     public async void FilePicked(string filePath)
