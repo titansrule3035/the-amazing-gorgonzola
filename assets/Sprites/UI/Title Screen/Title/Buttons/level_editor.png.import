@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://feyk6fdcfnwe"
-path="res://.godot/imported/play_disabled.png-9a58b93647a27fc6d63530c5fbfc8400.ctex"
+uid="uid://dl3rpnqce5hl5"
+path="res://.godot/imported/level_editor.png-2e40c06a53f99fec160c5e6f32500769.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/Title Screen/Title/Buttons/play_disabled.png"
-dest_files=["res://.godot/imported/play_disabled.png-9a58b93647a27fc6d63530c5fbfc8400.ctex"]
+source_file="res://assets/Sprites/UI/Title Screen/Title/Buttons/level_editor.png"
+dest_files=["res://.godot/imported/level_editor.png-2e40c06a53f99fec160c5e6f32500769.ctex"]
 
 [params]
 
