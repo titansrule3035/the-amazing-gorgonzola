@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://ds1pfketvm2fq" path="res://assets/Sprites/Program/Cursor/copy_cursor.png" id="37_wq4sa"]
 [ext_resource type="Texture2D" uid="uid://pepm13bclbxq" path="res://assets/Sprites/Program/Cursor/cursor.png" id="38_5sgc1"]
 [ext_resource type="Texture2D" uid="uid://878r28isxpko" path="res://assets/Sprites/Program/Cursor/mouse_cursor.png" id="38_6u3x5"]
+[ext_resource type="Texture2D" uid="uid://bqsya1wglwr7p" path="res://assets/Sprites/Program/Cursor/drag_camera_cursor.png" id="40_rl1l2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5mxk"]
 atlas = ExtResource("38_5sgc1")
@@ -92,6 +93,7 @@ NPCScenes = Dictionary[String, PackedScene]({
 })
 cursorCache = Dictionary[String, Texture2D]({
 "Copy": ExtResource("37_wq4sa"),
+"DragCamera": ExtResource("40_rl1l2"),
 "Eraser": ExtResource("34_6u3x5"),
 "Mouse": ExtResource("38_6u3x5"),
 "Move": ExtResource("36_rl1l2"),
