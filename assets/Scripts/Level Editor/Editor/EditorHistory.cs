@@ -308,6 +308,9 @@ public sealed class TileChangeCommand : EditorCommand
 
     public bool IsEmpty => cells.Count == 0;
 
+    /// <summary>How many cells this command changes.</summary>
+    public int cellCount => cells.Count;
+
     public override bool IsNoOp => IsEmpty;
 
     /// <summary>

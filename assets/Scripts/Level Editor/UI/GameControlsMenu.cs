@@ -35,6 +35,12 @@ public partial class GameControlsMenu : Control
         LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         Runtime runtime = GetTree().CurrentScene as Runtime;
 
+        // save file before game begins if paused
+        if (GetTree().Paused)
+        {
+            runtime.FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
+        }
+
         main.ToggleGameState();
 
         if (!GetTree().Paused)
@@ -43,8 +49,6 @@ public partial class GameControlsMenu : Control
             {
                 DirAccess.MakeDirAbsolute("user://tmp");
             }
-
-            runtime.FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
 
             EditorGameManager.GetInstance().canMove = true;
 
