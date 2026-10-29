@@ -20,55 +20,37 @@
 [ext_resource type="PackedScene" uid="uid://c4pntgdl3uqjt" path="res://assets/Scenes/Level Editor/Items/Clones/item_rev_clone.tscn" id="34_xibel"]
 [ext_resource type="PackedScene" uid="uid://ccvkj7o7x1clo" path="res://assets/Scenes/Level Editor/Items/Clones/item_default_clone.tscn" id="35_o432r"]
 [ext_resource type="PackedScene" uid="uid://dbkpi47lq8mqv" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_08_02.tscn" id="36_fn5li"]
-[ext_resource type="PackedScene" uid="uid://qlvk4yh1mwmw" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_26_20.tscn" id="36_gy7mn"]
-[ext_resource type="PackedScene" uid="uid://d020bkor1cvmi" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_27_20.tscn" id="37_lk8sw"]
 [ext_resource type="PackedScene" uid="uid://dad1ndqt65ark" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_08_04.tscn" id="37_n0wal"]
-[ext_resource type="PackedScene" uid="uid://b3bp1q0nx44c5" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_28_20.tscn" id="38_8roxm"]
-[ext_resource type="PackedScene" uid="uid://s5r4yi1iphmc" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_02.tscn" id="38_d5mxk"]
 [ext_resource type="PackedScene" uid="uid://dkl2s68guvcg6" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_green_on_off_block.tscn" id="38_nb3xa"]
 [ext_resource type="PackedScene" uid="uid://ci52dg1teux7d" path="res://assets/Scenes/Level Editor/Items/NPCs/item_the_boat.tscn" id="39_gqpjf"]
-[ext_resource type="PackedScene" uid="uid://b5uhgtvouk20o" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_26_21.tscn" id="39_h4nmt"]
 [ext_resource type="PackedScene" uid="uid://j6teup3h4r6y" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_red_on_off_block.tscn" id="39_hgw8s"]
-[ext_resource type="PackedScene" uid="uid://dkp85amx4a7hg" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_02.tscn" id="39_i5g7p"]
-[ext_resource type="PackedScene" uid="uid://diw255c8tf45p" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_02.tscn" id="40_2emwo"]
 [ext_resource type="PackedScene" uid="uid://dlr7d3uibltro" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_on_off_switch_master.tscn" id="40_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://dqnofguoq48ag" path="res://assets/Scenes/Level Editor/Items/NPCs/item_blinky.tscn" id="40_gkvni"]
-[ext_resource type="PackedScene" uid="uid://cs80x0typx7d8" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_27_21.tscn" id="40_ife7p"]
-[ext_resource type="PackedScene" uid="uid://br5h3flkly3m" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_28_21.tscn" id="41_35n0d"]
 [ext_resource type="PackedScene" uid="uid://cbihc1dwmjj6q" path="res://assets/Scenes/Level Editor/Items/NPCs/item_buj.tscn" id="41_hgw8s"]
-[ext_resource type="PackedScene" uid="uid://csdycsdjtyr2g" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_03.tscn" id="41_ps382"]
 [ext_resource type="PackedScene" uid="uid://dmss5kybk5cbn" path="res://assets/Scenes/Level Editor/Items/Hazards/item_chunk.tscn" id="41_pw0c8"]
 [ext_resource type="PackedScene" uid="uid://dpjqqtkm7dx5i" path="res://assets/Scenes/UI/kill_panel.tscn" id="42_7pho1"]
-[ext_resource type="PackedScene" uid="uid://bopk24b7q8wgi" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_03.tscn" id="42_cbno7"]
 [ext_resource type="PackedScene" uid="uid://bsgup8ok6kj4d" path="res://assets/Scenes/Level Editor/Items/NPCs/item_esse.tscn" id="42_cqmv0"]
-[ext_resource type="PackedScene" uid="uid://csmi8n0nbp8af" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_26_22.tscn" id="42_naa78"]
-[ext_resource type="PackedScene" uid="uid://cstqyu754tyrw" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_27_22.tscn" id="43_b5r4v"]
 [ext_resource type="PackedScene" uid="uid://btvhr7g40o2de" path="res://assets/Scenes/Level Editor/Items/NPCs/item_fleshebry.tscn" id="43_trpam"]
-[ext_resource type="PackedScene" uid="uid://dp7p2khcqvax6" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_03.tscn" id="43_ym3da"]
-[ext_resource type="PackedScene" uid="uid://csnvi8xk33gxl" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_04.tscn" id="44_rsx2i"]
-[ext_resource type="PackedScene" uid="uid://bayks32xucsws" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_28_22.tscn" id="44_v8rx1"]
 [ext_resource type="PackedScene" uid="uid://1lxjy5igfqfn" path="res://assets/Scenes/Level Editor/Items/NPCs/item_gergenschpooglus.tscn" id="44_ww0cc"]
 [ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="45_krgg0"]
 [ext_resource type="PackedScene" uid="uid://2i1kwqpd53mi" path="res://assets/Scenes/Level Editor/Items/NPCs/item_jub.tscn" id="45_nmkc5"]
-[ext_resource type="PackedScene" uid="uid://854fxelifjbp" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_04.tscn" id="45_v5jjh"]
 [ext_resource type="PackedScene" uid="uid://daw8b8yyqitqu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_left.tscn" id="46_16gwb"]
 [ext_resource type="PackedScene" uid="uid://bfuuesifq8kay" path="res://assets/Scenes/Level Editor/Items/NPCs/item_lixe.tscn" id="46_dtfw6"]
-[ext_resource type="PackedScene" uid="uid://nosswiybrb8a" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_00_00.tscn" id="46_ps382"]
-[ext_resource type="PackedScene" uid="uid://cwtung26164n" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_04.tscn" id="46_y7cl0"]
 [ext_resource type="PackedScene" uid="uid://ca2ql5v56htt4" path="res://assets/Scenes/Level Editor/Items/NPCs/item_pasghetti.tscn" id="47_402pb"]
-[ext_resource type="PackedScene" uid="uid://ciustmbj0ux13" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_01_00.tscn" id="47_cbno7"]
 [ext_resource type="PackedScene" uid="uid://h7juj7n2816b" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_07_18.tscn" id="47_upxro"]
 [ext_resource type="PackedScene" uid="uid://ck86k773p7lc7" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_right.tscn" id="48_gwxgc"]
 [ext_resource type="PackedScene" uid="uid://dd8dnegl7ln3l" path="res://assets/Scenes/Level Editor/Items/NPCs/item_moonman.tscn" id="48_rki5p"]
-[ext_resource type="PackedScene" uid="uid://camre1nnr3xqb" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_02_00.tscn" id="48_ym3da"]
 [ext_resource type="PackedScene" uid="uid://cit4u73dsbtek" path="res://assets/Scenes/Level Editor/Items/NPCs/item_peter.tscn" id="49_5eyoa"]
 [ext_resource type="PackedScene" uid="uid://bwjeam3o5kvn5" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_down.tscn" id="49_n2ci5"]
 [ext_resource type="PackedScene" uid="uid://dbqwen6s1b3yg" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_08_00.tscn" id="49_rsx2i"]
 [ext_resource type="PackedScene" uid="uid://bigmo3674o2gg" path="res://assets/Scenes/Level Editor/Items/NPCs/item_ration.tscn" id="50_bwbtq"]
+[ext_resource type="PackedScene" uid="uid://bpn4b83eafc3s" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_04_06.tscn" id="50_cbno7"]
 [ext_resource type="PackedScene" uid="uid://1gscoiqbtax4" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_key_card.tscn" id="50_t3qxf"]
-[ext_resource type="PackedScene" uid="uid://d3o4cpx0kwkpe" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_semi_solid.tscn" id="51_5j6bi"]
+[ext_resource type="PackedScene" uid="uid://cf46e0p1nystl" path="res://assets/Scenes/Level Editor/Items/Tiles/ID20/item_tile_0406.tscn" id="50_ym3da"]
+[ext_resource type="PackedScene" uid="uid://d3o4cpx0kwkpe" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_semi_solid.tscn" id="51_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://c1jt7bh4kmxc1" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_lab_door.tscn" id="51_voii0"]
 [ext_resource type="Script" uid="uid://bb48444pii2fi" path="res://assets/Scripts/Level Editor/UI/GameControlsMenu.cs" id="52_8ul77"]
+[ext_resource type="PackedScene" uid="uid://bkxr7goyyhc46" path="res://assets/Scenes/Level Editor/Items/Tiles/ID20/item_tile_0802.tscn" id="52_rsx2i"]
 [ext_resource type="Script" uid="uid://baktb4st420aq" path="res://assets/Scripts/Level Editor/UI/ToolBarMenu.cs" id="53_h4shr"]
 [ext_resource type="Script" uid="uid://cnebv16m11afh" path="res://assets/Scripts/Level Editor/UI/QuitMenu.cs" id="53_tbr8v"]
 [ext_resource type="Texture2D" uid="uid://dm1ve5n7hm2qw" path="res://assets/Sprites/Level Editor/warning.png" id="54_0e44q"]
@@ -541,7 +523,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
-visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -594,162 +575,78 @@ size_flags_horizontal = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer" unique_id=1352687597]
 custom_minimum_size = Vector2(0, 485)
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TilesItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=322159537]
+[node name="TilesItemContainer1" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=339106463]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTile2620" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer" unique_id=291383213 instance=ExtResource("36_gy7mn")]
+[node name="ItemTileSpikeUp" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer1" unique_id=218435291 instance=ExtResource("45_krgg0")]
 layout_mode = 2
 
-[node name="ItemTile2720" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer" unique_id=148016085 instance=ExtResource("37_lk8sw")]
+[node name="TilesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1087283251]
 layout_mode = 2
-
-[node name="ItemTile2820" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer" unique_id=2003506313 instance=ExtResource("38_8roxm")]
-layout_mode = 2
-
-[node name="TilesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=731739471]
-layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTile2621" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=43901354 instance=ExtResource("39_h4nmt")]
+[node name="ItemTileSpikeLeft" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=758821428 instance=ExtResource("46_16gwb")]
 layout_mode = 2
 
-[node name="ItemTile2721" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=2129637363 instance=ExtResource("40_ife7p")]
+[node name="ItemTile0718" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=304621617 instance=ExtResource("47_upxro")]
 layout_mode = 2
 
-[node name="ItemTile2821" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=1149828513 instance=ExtResource("41_35n0d")]
+[node name="ItemTileSpikeRight" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=1920915507 instance=ExtResource("48_gwxgc")]
 layout_mode = 2
 
-[node name="TilesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1672995051]
+[node name="TilesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1687889666]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTile2622" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=1982269148 instance=ExtResource("42_naa78")]
+[node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=170586311 instance=ExtResource("49_n2ci5")]
 layout_mode = 2
 
-[node name="ItemTile2722" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=643815604 instance=ExtResource("43_b5r4v")]
+[node name="TilesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=864938905]
 layout_mode = 2
-
-[node name="ItemTile2822" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=2114365679 instance=ExtResource("44_v8rx1")]
-layout_mode = 2
-
-[node name="TilesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=339106463]
-layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeUp" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=218435291 instance=ExtResource("45_krgg0")]
+[node name="ItemSemiSolid" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=518054047 instance=ExtResource("51_5j6bi")]
 layout_mode = 2
 
-[node name="TilesItemContainer5" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1087283251]
+[node name="TilesItemContainer5" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=303550362]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeLeft" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=758821428 instance=ExtResource("46_16gwb")]
+[node name="ItemTile0802" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=2117370647 instance=ExtResource("36_fn5li")]
 layout_mode = 2
 
-[node name="ItemTile0718" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=304621617 instance=ExtResource("47_upxro")]
+[node name="ItemTile0406" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=893789050 instance=ExtResource("50_cbno7")]
 layout_mode = 2
 
-[node name="ItemTileSpikeRight" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=1920915507 instance=ExtResource("48_gwxgc")]
+[node name="TilesItemContainer6" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1748023440]
 layout_mode = 2
-
-[node name="TilesItemContainer6" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1687889666]
-layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer6" unique_id=170586311 instance=ExtResource("49_n2ci5")]
+[node name="ItemTile0804" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer6" unique_id=1028075565 instance=ExtResource("37_n0wal")]
 layout_mode = 2
 
-[node name="TilesItemContainer7" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=864938905]
+[node name="ItemTile0800" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer6" unique_id=966496836 instance=ExtResource("49_rsx2i")]
 layout_mode = 2
-theme_override_constants/separation = 24
+
+[node name="TilesItemContainer7" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=779890041]
+layout_mode = 2
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemSemiSolid" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer7" unique_id=518054047 instance=ExtResource("51_5j6bi")]
+[node name="ItemTile0802" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer7" unique_id=853136181 instance=ExtResource("52_rsx2i")]
 layout_mode = 2
 
-[node name="TilesItemContainer8" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=303550362]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTile0802" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer8" unique_id=2117370647 instance=ExtResource("36_fn5li")]
-layout_mode = 2
-
-[node name="ItemTile0804" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer8" unique_id=1028075565 instance=ExtResource("37_n0wal")]
-layout_mode = 2
-
-[node name="TilesItemContainer9" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=597339857]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTile0002" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer9" unique_id=1359179725 instance=ExtResource("38_d5mxk")]
-layout_mode = 2
-
-[node name="ItemTile0102" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer9" unique_id=2024173712 instance=ExtResource("39_i5g7p")]
-layout_mode = 2
-
-[node name="ItemTile0202" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer9" unique_id=1569585753 instance=ExtResource("40_2emwo")]
-layout_mode = 2
-
-[node name="TilesItemContainer10" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1073459496]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTile0003" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer10" unique_id=139210008 instance=ExtResource("41_ps382")]
-layout_mode = 2
-
-[node name="ItemTile0103" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer10" unique_id=1871938417 instance=ExtResource("42_cbno7")]
-layout_mode = 2
-
-[node name="ItemTile0203" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer10" unique_id=1595116467 instance=ExtResource("43_ym3da")]
-layout_mode = 2
-
-[node name="TilesItemContainer11" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=324018335]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTile0004" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer11" unique_id=230564409 instance=ExtResource("44_rsx2i")]
-layout_mode = 2
-
-[node name="ItemTile0104" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer11" unique_id=1693307857 instance=ExtResource("45_v5jjh")]
-layout_mode = 2
-
-[node name="ItemTile0204" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer11" unique_id=1546820809 instance=ExtResource("46_y7cl0")]
-layout_mode = 2
-
-[node name="TilesItemContainer12" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1463261786]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTile0000" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer12" unique_id=1617129789 instance=ExtResource("46_ps382")]
-layout_mode = 2
-
-[node name="ItemTile0100" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer12" unique_id=1083178656 instance=ExtResource("47_cbno7")]
-layout_mode = 2
-
-[node name="ItemTile0200" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer12" unique_id=97931932 instance=ExtResource("48_ym3da")]
-layout_mode = 2
-
-[node name="TilesItemContainer13" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1748023440]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemTile0800" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer13" unique_id=966496836 instance=ExtResource("49_rsx2i")]
+[node name="ItemTile0406" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer7" unique_id=1095457026 instance=ExtResource("50_ym3da")]
 layout_mode = 2
 
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
