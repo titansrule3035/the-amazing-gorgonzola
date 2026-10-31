@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy5iij7vu7d7u"
-path="res://.godot/imported/missilemorty_crash.png-5a3872677a7b7b893478c802458de942.ctex"
+uid="uid://cmxwde72pnai4"
+path="res://.godot/imported/missilemorty_death.png-bb9dcdce6ec498565190a8f2ec4d131a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Enemies/missilemorty_crash.png"
-dest_files=["res://.godot/imported/missilemorty_crash.png-5a3872677a7b7b893478c802458de942.ctex"]
+source_file="res://assets/Sprites/Enemies/Missile Morty/missilemorty_death.png"
+dest_files=["res://.godot/imported/missilemorty_death.png-bb9dcdce6ec498565190a8f2ec4d131a.ctex"]
 
 [params]
 

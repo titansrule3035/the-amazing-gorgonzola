@@ -7,18 +7,19 @@
 [ext_resource type="PackedScene" uid="uid://chwp3j7nqf0g3" path="res://assets/Scenes/Level Assets/lab_door.tscn" id="4_k6uq2"]
 [ext_resource type="PackedScene" uid="uid://dqf863cqow3ly" path="res://assets/Scenes/Level Assets/key_card.tscn" id="5_bvy6s"]
 [ext_resource type="PackedScene" uid="uid://k1nk5gsufp6b" path="res://assets/Scenes/Level Assets/semi_solid.tscn" id="6_8xlkq"]
-[ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Clones/default_clone.tscn" id="7_7eh16"]
-[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Clones/gorgonzola.tscn" id="8_tpjvn"]
-[ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Clones/norm_clone.tscn" id="9_g31lk"]
-[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Clones/rev_clone.tscn" id="10_ehoku"]
+[ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Level Assets/Clones/default_clone.tscn" id="7_7eh16"]
+[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Level Assets/Clones/gorgonzola.tscn" id="8_tpjvn"]
+[ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Level Assets/Clones/norm_clone.tscn" id="9_g31lk"]
+[ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Level Assets/Clones/rev_clone.tscn" id="10_ehoku"]
 [ext_resource type="PackedScene" uid="uid://ca4kqof5r3uth" path="res://assets/Scenes/Level Assets/Hazards/spike_down.tscn" id="11_7ei28"]
 [ext_resource type="PackedScene" uid="uid://cdjhcvnksu6fx" path="res://assets/Scenes/Level Assets/Hazards/spike_left.tscn" id="12_llobl"]
 [ext_resource type="PackedScene" uid="uid://bv2ddx00m3f3w" path="res://assets/Scenes/Level Assets/Hazards/spike_right.tscn" id="13_q3x6y"]
 [ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/Hazards/spike_up.tscn" id="14_pjdf6"]
 [ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="15_6fdsp"]
 [ext_resource type="PackedScene" uid="uid://1y7bnvgayekf" path="res://assets/Scenes/Level Assets/Hazards/chunk.tscn" id="15_u1uq0"]
-[ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Clones/shadow_clone.tscn" id="16_bgwub"]
+[ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Level Assets/Clones/shadow_clone.tscn" id="16_bgwub"]
 [ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="16_lnd6h"]
+[ext_resource type="PackedScene" uid="uid://drpvr8uxi62tu" path="res://assets/Scenes/Level Assets/Hazards/missile_morty_launcher.tscn" id="17_wq4sa"]
 [ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/Level Assets/on_off_switch.tscn" id="17_xe026"]
 [ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="18_txxry"]
 [ext_resource type="PackedScene" uid="uid://v6qygxrnjgva" path="res://assets/Scenes/Level Assets/NPCs/blinky.tscn" id="19_a6ee7"]
@@ -65,6 +66,7 @@ CloneScenes = Dictionary[String, PackedScene]({
 })
 HazardScenes = Dictionary[String, PackedScene]({
 "Chunk": ExtResource("15_u1uq0"),
+"MissileMortyLauncher": ExtResource("17_wq4sa"),
 "ShadowClone": ExtResource("16_bgwub"),
 "SpikeDown": ExtResource("11_7ei28"),
 "SpikeLeft": ExtResource("12_llobl"),

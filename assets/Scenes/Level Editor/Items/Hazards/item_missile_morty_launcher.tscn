@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b6r6yxlpuau2j"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_ngexv"]
+[ext_resource type="Texture2D" uid="uid://b4c75kknbcvcv" path="res://assets/Sprites/Enemies/Missile Morty/launcher_item.png" id="2_grmci"]
+[ext_resource type="PackedScene" uid="uid://drpvr8uxi62tu" path="res://assets/Scenes/Level Assets/Hazards/missile_morty_launcher.tscn" id="3_4y5gm"]
+
+[node name="ItemMissileMortyLauncher" unique_id=1663939762 instance=ExtResource("1_ngexv")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_grmci")
+itemType = 5
+thisScene = ExtResource("3_4y5gm")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

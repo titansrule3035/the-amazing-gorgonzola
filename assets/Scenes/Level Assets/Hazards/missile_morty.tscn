@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://m5niqrv8ejwl"]
 
-[ext_resource type="Texture2D" uid="uid://qsxibxg0wxtv" path="res://assets/Sprites/Enemies/missilemorty_fly.png" id="1_j1cbs"]
+[ext_resource type="Texture2D" uid="uid://qsxibxg0wxtv" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_fly.png" id="1_j1cbs"]
 [ext_resource type="Script" uid="uid://cjbe8ew4t3mda" path="res://assets/Scripts/Level Assets/Hazards/MissileMorty.cs" id="1_qrckl"]
-[ext_resource type="Texture2D" uid="uid://cy5iij7vu7d7u" path="res://assets/Sprites/Enemies/missilemorty_crash.png" id="2_lir01"]
-[ext_resource type="Texture2D" uid="uid://cmxwde72pnai4" path="res://assets/Sprites/Enemies/missilemorty_death.png" id="3_wv3va"]
+[ext_resource type="Texture2D" uid="uid://cy5iij7vu7d7u" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_crash.png" id="2_lir01"]
+[ext_resource type="Texture2D" uid="uid://cmxwde72pnai4" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_death.png" id="3_wv3va"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
 size = Vector2(56, 29)

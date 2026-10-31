@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpvspocthubso" path="res://assets/Sprites/World/world2_bg.png" id="2_7f42d"]
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/Layout/tiles.tscn" id="3_tyrx5"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="4_7f42d"]
-[ext_resource type="PackedScene" uid="uid://c5tsymung3jey" path="res://assets/Scenes/Clones/Spawners/shadow_clone_spawn.tscn" id="5_7f42d"]
+[ext_resource type="PackedScene" uid="uid://drpvr8uxi62tu" path="res://assets/Scenes/Level Assets/Hazards/missile_morty_launcher.tscn" id="5_7f42d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f52d5"]
 atlas = ExtResource("2_7f42d")
@@ -93,5 +93,5 @@ autoplay = "default"
 
 [node name="level_assets" parent="." unique_id=1309160586 instance=ExtResource("4_7f42d")]
 
-[node name="shadow_form_effect" parent="." unique_id=424745670 instance=ExtResource("5_7f42d")]
-position = Vector2(432, -336)
+[node name="missile_morty_launcher" parent="." unique_id=1333325532 instance=ExtResource("5_7f42d")]
+position = Vector2(-528, -160)

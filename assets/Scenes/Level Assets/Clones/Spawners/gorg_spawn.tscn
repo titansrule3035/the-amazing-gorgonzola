@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bs53y7p28fn3b"]
 
 [ext_resource type="Script" uid="uid://madmueyemxje" path="res://assets/Scripts/Level Assets/SpawnGorg.cs" id="1_w037m"]
-[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Clones/gorgonzola.tscn" id="2_05euk"]
+[ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Level Assets/Clones/gorgonzola.tscn" id="2_05euk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8j0bm"]
 size = Vector2(22, 53)

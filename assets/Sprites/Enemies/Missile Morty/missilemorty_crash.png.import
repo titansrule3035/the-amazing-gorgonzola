@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqk10rru8qtyn"
-path="res://.godot/imported/chunk_walk.png-26bc43d40f95db57bcfa5659a3ffef88.ctex"
+uid="uid://cy5iij7vu7d7u"
+path="res://.godot/imported/missilemorty_crash.png-f69b80fc389a9ac90dd5103118bfbb43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Enemies/chunk_walk.png"
-dest_files=["res://.godot/imported/chunk_walk.png-26bc43d40f95db57bcfa5659a3ffef88.ctex"]
+source_file="res://assets/Sprites/Enemies/Missile Morty/missilemorty_crash.png"
+dest_files=["res://.godot/imported/missilemorty_crash.png-f69b80fc389a9ac90dd5103118bfbb43.ctex"]
 
 [params]
 

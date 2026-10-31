@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5tsymung3jey"]
 
 [ext_resource type="Script" uid="uid://dktmay1vc1pvw" path="res://assets/Scripts/Level Assets/ShadowCloneSpawn.cs" id="1_aqeqh"]
-[ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Clones/shadow_clone.tscn" id="2_gk1mn"]
+[ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Level Assets/Clones/shadow_clone.tscn" id="2_gk1mn"]
 [ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_oj5u7"]
 [ext_resource type="Texture2D" uid="uid://butpqo8rmdb7y" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgforming.png" id="3_2o2g1"]
 

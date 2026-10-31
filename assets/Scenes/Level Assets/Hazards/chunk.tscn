@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://1y7bnvgayekf"]
 
 [ext_resource type="Script" uid="uid://d2fwuvkjvgqyj" path="res://assets/Scripts/Level Assets/Hazards/Chunk.cs" id="1_1d3oa"]
-[ext_resource type="Texture2D" uid="uid://dqk10rru8qtyn" path="res://assets/Sprites/Enemies/chunk_walk.png" id="1_v25da"]
+[ext_resource type="Texture2D" uid="uid://dqk10rru8qtyn" path="res://assets/Sprites/Enemies/Chunk/chunk_walk.png" id="1_v25da"]
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="2_1d3oa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]

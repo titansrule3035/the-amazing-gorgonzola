@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://ccvkj7o7x1clo" path="res://assets/Scenes/Level Editor/Items/Clones/item_default_clone.tscn" id="35_o432r"]
 [ext_resource type="PackedScene" uid="uid://dbkpi47lq8mqv" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_08_02.tscn" id="36_fn5li"]
 [ext_resource type="PackedScene" uid="uid://dad1ndqt65ark" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_08_04.tscn" id="37_n0wal"]
+[ext_resource type="PackedScene" uid="uid://b6r6yxlpuau2j" path="res://assets/Scenes/Level Editor/Items/Hazards/item_missile_morty_launcher.tscn" id="38_76dpg"]
 [ext_resource type="PackedScene" uid="uid://dkl2s68guvcg6" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_green_on_off_block.tscn" id="38_nb3xa"]
 [ext_resource type="PackedScene" uid="uid://ci52dg1teux7d" path="res://assets/Scenes/Level Editor/Items/NPCs/item_the_boat.tscn" id="39_gqpjf"]
 [ext_resource type="PackedScene" uid="uid://j6teup3h4r6y" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_red_on_off_block.tscn" id="39_hgw8s"]
@@ -443,6 +444,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ClonesMenu" type="Control" parent="CanvasLayer/UI" unique_id=594398989]
+visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -523,6 +525,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
+visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -650,7 +653,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
-visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -736,7 +738,10 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemBg" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer8" unique_id=429919840 instance=ExtResource("41_pw0c8")]
+[node name="ItemChunk" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer8" unique_id=429919840 instance=ExtResource("41_pw0c8")]
+layout_mode = 2
+
+[node name="ItemMissileMortyLauncher" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer8" unique_id=189049999 instance=ExtResource("38_76dpg")]
 layout_mode = 2
 
 [node name="ItemTheBoat" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer8" unique_id=1763303685 instance=ExtResource("39_gqpjf")]

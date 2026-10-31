@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://drpvr8uxi62tu"]
+
+[ext_resource type="Script" uid="uid://w5ij2rvxpi2t" path="res://assets/Scripts/Level Assets/Hazards/MissileMortyLauncher.cs" id="1_5qf1k"]
+[ext_resource type="Texture2D" uid="uid://clnpeq2hadpnq" path="res://assets/Sprites/Enemies/Missile Morty/launcher.png" id="2_qcndd"]
+[ext_resource type="PackedScene" uid="uid://m5niqrv8ejwl" path="res://assets/Scenes/Level Assets/Hazards/missile_morty.tscn" id="2_r0y5y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
+size = Vector2(140, 64)
+
+[node name="missile_morty_launcher" type="Node2D" unique_id=1333325532]
+script = ExtResource("1_5qf1k")
+missileMorty = ExtResource("2_r0y5y")
+shotSpeed = 2.0
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=1835462529]
+position = Vector2(0, -32)
+texture = ExtResource("2_qcndd")
+
+[node name="static_body_2d" type="StaticBody2D" parent="." unique_id=789336390]
+collision_layer = 2147483648
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="static_body_2d" unique_id=1042833802]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_iq7ac")
