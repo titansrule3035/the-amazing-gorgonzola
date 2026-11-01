@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 public partial class EditorTileObject : EditorItemObject
 {
     [Export] public int tileID = 0;
-
-    [Export] public PackedScene collider;
     public override void _Ready()
     {
         base._Ready();

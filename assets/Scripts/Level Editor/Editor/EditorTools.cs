@@ -202,10 +202,18 @@ public class PlaceTool : EditorTool
 // One mouse stroke = one undo step.
 // ----------------------------------------------------------------------
 
-/// <summary>Erases the tile and placed objects under the mouse while the primary button is held.</summary>
+/// <summary>
+/// Erases placed objects first, then the tile, under the mouse while the primary button is held.
+/// If a cell holds an object and a tile, the object goes first and the tile stays while the eraser
+/// remains in that cell. Releasing the button, or leaving and re-entering the cell, erases the tile.
+/// </summary>
 public class EraserTool : EditorTool
 {
+    // Sentinel for "no cell where an object was just erased".
+    static Vector2I noCell => new(int.MinValue, int.MinValue);
+
     bool stroke;
+    Vector2I objectErasedCell = noCell;
 
     public EraserTool(EditorObject editor) : base(editor)
     {
@@ -247,12 +255,22 @@ public class EraserTool : EditorTool
             editor.history.BeginGroup();
             stroke = true;
         }
+        if (editor.cell != objectErasedCell)
+        {
+            // Left the cell where an object was just erased, so its tile is fair game again.
+            objectErasedCell = noCell;
+        }
         // Query at the raw mouse position (not the cell center) so anything visibly under the pointer is hit.
-        editor.EraseAt(editor.cell, editor.mouseGlobal);
+        bool removedObject = editor.EraseAt(editor.cell, editor.mouseGlobal, objectErasedCell != editor.cell);
+        if (removedObject)
+        {
+            objectErasedCell = editor.cell;
+        }
     }
 
     void EndStroke()
     {
+        objectErasedCell = noCell;
         if (!stroke)
         {
             return;
@@ -399,7 +417,7 @@ public class MoveTool : EditorTool
             return;
         }
         Vector2I newDelta = editor.cell - grabCell;
-        bool nowValid = newDelta == Vector2I.Zero || editor.selection.CanMove(newDelta, otherObjectCells);
+        bool nowValid = newDelta == Vector2I.Zero || editor.selection.CanMoveSelection(newDelta, otherObjectCells);
         if (newDelta != moveDelta || nowValid != valid)
         {
             moveDelta = newDelta;

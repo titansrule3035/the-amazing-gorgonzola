@@ -64,9 +64,7 @@ public partial class EditorObject : Node2D
 
     // A press and release closer together than this (in world pixels) counts as a click, not a drag.
     const float clickDragThreshold = 5f;
-
-    // Input Map action names for the edit shortcuts. Replace the placeholders with your real action names.
-    // Until an action exists in the Input Map, ActionJustPressed() simply returns false.
+    // hotkeys
     const string undoAction = "undo";
     const string redoAction = "redo";
     const string deleteAction = "delete";
@@ -242,7 +240,7 @@ public partial class EditorObject : Node2D
         SwitchMode(newMode);
     }
 
-    void SwitchMode(CursorMode newMode)
+    public void SwitchMode(CursorMode newMode)
     {
         activeTool?.Exit();
         mode = newMode;
@@ -523,12 +521,10 @@ public partial class EditorObject : Node2D
         {
             Undo();
         }
-
         if (ActionJustPressed(redoAction) && ctrl && shift && !alt)
         {
             Redo();
         }
-
         if (ActionJustPressed(deleteAction) && !ctrl && !shift && !alt)
         {
             DeleteSelection();
@@ -578,13 +574,22 @@ public partial class EditorObject : Node2D
     // ------------------------------------------------------------------
     // Per-frame helpers
     // ------------------------------------------------------------------
-
-    void UpdateMouseCell()
+    public bool CellHasCollider(Vector2I c)
     {
-        mouseGlobal = GetGlobalMousePosition();
-        local = tileMap.ToLocal(mouseGlobal);
-        cell = tileMap.LocalToMap(local);
-        snappedWorld = tileMap.ToGlobal(tileMap.MapToLocal(cell));
+        TileData? data = tileMap.GetCellTileData(c);
+        if (data == null)
+        {
+            return false;
+        }
+        int layers = tileMap.TileSet.GetPhysicsLayersCount();
+        for (int i = 0; i < layers; i++)
+        {
+            if (data.GetCollisionPolygonsCount(i) > 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool ModifierHeld()
@@ -597,20 +602,31 @@ public partial class EditorObject : Node2D
         return !ModifierHeld();
     }
 
+    void UpdateMouseCell()
+    {
+        mouseGlobal = GetGlobalMousePosition();
+        local = tileMap.ToLocal(mouseGlobal);
+        cell = tileMap.LocalToMap(local);
+        snappedWorld = tileMap.ToGlobal(tileMap.MapToLocal(cell));
+    }
+
     void HandleModeHotkeys()
     {
         bool blocked = HotkeysBlocked() || !NoModifiersHeld();
-
         foreach (var (action, hotkeyMode, needsEditorActive) in hotkeys)
         {
             if (blocked || (needsEditorActive && !editorActive))
             {
                 continue;
             }
-
             if (InputMap.HasAction(action) && Input.IsActionJustPressed(action))
             {
-                SetCursorMode(hotkeyMode);
+                // PLACEHOLDER: per-mode gatekeep, e.g. skip Place while no item is selected.
+                // SwitchMode also updates the OS cursor.
+                if (GetTree().Paused)
+                {
+                    SetCursorMode(hotkeyMode);
+                }
             }
         }
 
@@ -729,8 +745,14 @@ public partial class EditorObject : Node2D
     /// <summary>True if a tile or any object already occupies the hovered cell.</summary>
     public bool IsHoveredCellBlocked()
     {
-        return tileMap.GetCellSourceId(cell) != -1 || ObjectsAtCell(cell).Count > 0 || QueryObjectsAt(snappedWorld).Count > 0;
+        bool objectHere = ObjectsAtCell(cell).Count > 0;
+        if (itemType == EditorItemObject.ItemType.Tile)
+        {
+            return objectHere || tileMap.GetCellSourceId(cell) != -1 || QueryObjectsAt(snappedWorld).Count > 0;
+        }
+        return objectHere || CellHasCollider(cell) || QueryObjectsAt(snappedWorld).Count > 0;
     }
+
 
     // ------------------------------------------------------------------
     // Selection filter
@@ -797,7 +819,7 @@ public partial class EditorObject : Node2D
     /// <summary>Places the current palette item on the hovered cell as one undoable command.</summary>
     public void PlaceCurrentItem()
     {
-        if (!hasPlaceableItem)
+        if (!hasPlaceableItem || IsHoveredCellBlocked())
         {
             return;
         }
@@ -811,8 +833,14 @@ public partial class EditorObject : Node2D
     bool PlaceTile()
     {
         var tile = (EditorTileObject)itemObject!;
+        Vector2I atlas = tile.GetAtlasCoords();
+        (int Set, int Terrain)? terrain = TerrainOfTile(tile.tileID, atlas);
+        if (terrain != null)
+        {
+            return PlaceAutotile(cell, terrain.Value.Set, terrain.Value.Terrain);
+        }
         TileSnapshot before = TileSnapshot.Capture(tileMap, cell);
-        var after = new TileSnapshot(tile.tileID, tile.GetAtlasCoords(), 0);
+        var after = new TileSnapshot(tile.tileID, atlas, 0);
         if (before == after)
         {
             return false;
@@ -852,17 +880,14 @@ public partial class EditorObject : Node2D
         return true;
     }
 
-    /// <summary>Erases the tile in a cell and every placed object in that cell or whose collider is at the world position.</summary>
-    public void EraseAt(Vector2I targetCell, Vector2 worldPos)
+    /// <summary>
+    /// Erases objects first. If any placed object is in the cell (or has a collider under the mouse),
+    /// only those objects are removed and the tile stays. The tile is erased only when no object was found
+    /// and <paramref name="allowTile"/> is true.
+    /// </summary>
+    /// <returns>True if one or more objects were found and removed.</returns>
+    public bool EraseAt(Vector2I targetCell, Vector2 worldPos, bool allowTile = true)
     {
-        var commands = new List<EditorCommand>();
-        TileSnapshot before = TileSnapshot.Capture(tileMap, targetCell);
-        if (before != TileSnapshot.Empty)
-        {
-            var tileCommand = new TileChangeCommand(tileMap);
-            tileCommand.Set(targetCell, before, TileSnapshot.Empty);
-            commands.Add(tileCommand);
-        }
         var victims = new HashSet<Node2D>(ObjectsAtCell(targetCell));
         // Also anything whose collider is under the cursor.
         foreach (var result in QueryObjectsAt(worldPos))
@@ -883,13 +908,19 @@ public partial class EditorObject : Node2D
         }
         if (victims.Count > 0)
         {
-            commands.Add(ObjectAttachCommand.Remove(victims));
+            history.Execute(ObjectAttachCommand.Remove(victims));
+            return true;
         }
-        if (commands.Count == 0)
+        if (!allowTile)
         {
-            return;
+            return false;
         }
-        history.Execute(commands.Count == 1 ? commands[0] : new CompositeCommand(commands));
+        TileChangeCommand? tileCommand = BuildEraseCommand(new[] { targetCell });
+        if (tileCommand != null)
+        {
+            history.Execute(tileCommand);
+        }
+        return false;
     }
 
     /// <summary>Deletes the selected tiles and objects as one undo step. Undo restores the selection too.</summary>
@@ -904,12 +935,11 @@ public partial class EditorObject : Node2D
         var commands = new List<EditorCommand>();
         if (tiles.Count > 0)
         {
-            var tileCommand = new TileChangeCommand(tileMap);
-            foreach (Vector2I c in tiles)
+            TileChangeCommand? tileCommand = BuildEraseCommand(tiles);
+            if (tileCommand != null)
             {
-                tileCommand.Set(c, TileSnapshot.Capture(tileMap, c), TileSnapshot.Empty);
+                commands.Add(tileCommand);
             }
-            commands.Add(tileCommand);
         }
         if (objects.Count > 0)
         {

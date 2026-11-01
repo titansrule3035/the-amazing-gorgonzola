@@ -8,30 +8,24 @@ public partial class MainMenu : Control
     // Node references used by the main menu
     public TextureButton[] buttons;
 
-    public Button editorButton;
-
     [Export] public OptionsMenu optionsMenu;
-
-    public Button creditsButton;
     [Export] public CreditsMenu creditsMenu;
 
     // Lifecycle 
     public override void _Ready()
     {
         // Cache button nodes and hook up their events
-        buttons = new TextureButton[3];
+        buttons = new TextureButton[5];
         buttons[0] = GetNode<TextureButton>("center_container/v_box_container/play");
         buttons[0].Pressed += PlayButtonPressed;
         buttons[1] = GetNode<TextureButton>("center_container/v_box_container/options");
         buttons[1].Pressed += OptionsButtonPressed;
         buttons[2] = GetNode<TextureButton>("center_container/v_box_container/quit");
         buttons[2].Pressed += QuitButtonPressed;
-
-        editorButton = GetNode<Button>("editor");
-        editorButton.Pressed += EditorButtonPressed;
-
-        creditsButton = GetNode<Button>("credits_button");
-        creditsButton.Pressed += CreditsButtonPressed;
+        buttons[3] = GetNode<TextureButton>("center_container2/v_box_container/level_editor");
+        buttons[3].Pressed += EditorButtonPressed;
+        buttons[4] = GetNode<TextureButton>("credits");
+        buttons[4].Pressed += CreditsButtonPressed;
 
         // Subscribe to canvas fade events
         FadePanel.GetInstance().OnFadeIn += OnFadeIn;
@@ -97,7 +91,7 @@ public partial class MainMenu : Control
 
     void EditorButtonPressed()
     {
-        creditsButton.Disabled = editorButton.Disabled = DisableButtonsState(true);
+        DisableButtonsState(true);
         ((Runtime)GetTree().CurrentScene).SwitchToEditor(true);
     }
 

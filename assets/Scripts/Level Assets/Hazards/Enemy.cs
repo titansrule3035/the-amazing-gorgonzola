@@ -20,3 +20,22 @@ public partial class Enemy : RigidBody2D
 
     public static void KillAllEnemies() => KillAll?.Invoke();
 }
+
+public class State()
+{
+    Action OnStateChanged;
+
+    void Enter()
+    {
+
+    }
+    void Exit()
+    {
+
+    }
+
+    void Update()
+    {
+
+    }
+}

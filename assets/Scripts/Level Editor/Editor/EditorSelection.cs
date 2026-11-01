@@ -234,22 +234,31 @@ public sealed class EditorSelection
     /// <summary>A move is valid if nothing outside the selection is in the way.</summary>
     /// <param name="delta">Offset in cells.</param>
     /// <param name="otherObjectCells">Result of <see cref="OtherObjectCells"/>. Pass a cached copy while dragging.</param>
-    public bool CanMove(Vector2I delta, HashSet<Vector2I> otherObjectCells)
+    public bool CanMoveSelection(Vector2I delta, HashSet<Vector2I> otherObjectCells)
     {
-        var tileDestinations = new HashSet<Vector2I>();
-        foreach (Vector2I cell in tiles)
+        var objectDestinations = new HashSet<Vector2I>();
+        foreach (Node2D obj in objects)
         {
-            tileDestinations.Add(cell + delta);
+            if (GodotObject.IsInstanceValid(obj))
+            {
+                objectDestinations.Add(editor.GetObjectCell(obj) + delta);
+            }
         }
+
+        // Tiles: blocked by tiles and objects outside the selection, and by a selected
+        // object arriving on a tile that has a collider.
         foreach (Vector2I cell in tiles)
         {
             Vector2I destination = cell + delta;
             bool blockedByTile = !tiles.Contains(destination) && editor.tileMap.GetCellSourceId(destination) != -1;
-            if (blockedByTile || otherObjectCells.Contains(destination))
+            bool blockedByMovingObject = objectDestinations.Contains(destination) && editor.CellHasCollider(cell);
+            if (blockedByTile || blockedByMovingObject || otherObjectCells.Contains(destination))
             {
                 return false;
             }
         }
+
+        // Objects: blocked by other objects, and by tiles with a collider that stay behind.
         foreach (Node2D obj in objects)
         {
             if (!GodotObject.IsInstanceValid(obj))
@@ -257,8 +266,8 @@ public sealed class EditorSelection
                 continue;
             }
             Vector2I destination = editor.GetObjectCell(obj) + delta;
-            bool blockedByTile = !tiles.Contains(destination) && editor.tileMap.GetCellSourceId(destination) != -1;
-            if (blockedByTile || otherObjectCells.Contains(destination) || tileDestinations.Contains(destination))
+            bool blockedByTile = !tiles.Contains(destination) && editor.CellHasCollider(destination);
+            if (blockedByTile || otherObjectCells.Contains(destination))
             {
                 return false;
             }
@@ -274,44 +283,24 @@ public sealed class EditorSelection
         {
             return false;
         }
-        if (!CanMove(delta, OtherObjectCells()))
+        if (!CanMoveSelection(delta, OtherObjectCells()))
         {
             return false;
         }
         var commands = new List<EditorCommand>();
-        TileMapLayer map = editor.tileMap;
         List<Vector2I> originalTiles = tiles.ToList();
         List<Vector2I> shiftedTiles = originalTiles.Select(cell => cell + delta).ToList();
         List<Node2D> selectedObjects = objects.Where(GodotObject.IsInstanceValid).ToList();
 
         // --- tiles ---
+        // Autotile aware: also re-tiles the neighbours of the old and new positions, and records them for undo.
         if (originalTiles.Count > 0)
         {
-            var before = new Dictionary<Vector2I, TileSnapshot>();
-            foreach (Vector2I cell in originalTiles)
+            TileChangeCommand? tileCommand = editor.BuildMoveCommand(originalTiles, delta);
+            if (tileCommand != null)
             {
-                before[cell] = TileSnapshot.Capture(map, cell);
+                commands.Add(tileCommand);
             }
-            foreach (Vector2I cell in originalTiles)
-            {
-                before.TryAdd(cell + delta, TileSnapshot.Capture(map, cell + delta));
-            }
-            // Empty every source cell first, then write the destinations, so overlapping moves resolve correctly.
-            var after = new Dictionary<Vector2I, TileSnapshot>(before);
-            foreach (Vector2I cell in originalTiles)
-            {
-                after[cell] = TileSnapshot.Empty;
-            }
-            foreach (Vector2I cell in originalTiles)
-            {
-                after[cell + delta] = before[cell];
-            }
-            var tileCommand = new TileChangeCommand(map);
-            foreach (var (cell, snapshot) in before)
-            {
-                tileCommand.Set(cell, snapshot, after[cell]);
-            }
-            commands.Add(tileCommand);
         }
 
         // --- objects ---

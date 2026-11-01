@@ -82,74 +82,74 @@ public class LevelData
         // UTF8 bytes -> original text
         return Encoding.UTF8.GetString(utf8Bytes);
     }
-}
 
-public class LayerData
-{
-    public string Name { get; set; } = "";
-    public List<TileData> Tiles { get; set; } = new();
-}
-
-public class TileData
-{
-    public int X { get; set; }
-    public int Y { get; set; }
-
-    public int SourceId { get; set; }
-
-    public int AtlasX { get; set; }
-    public int AtlasY { get; set; }
-
-    public int Alternative { get; set; }
-}
-
-public class ObjectData
-{
-    public string Type { get; set; } = "";
-
-    public Godot.Vector2 Position { get; set; } = Godot.Vector2.Zero;
-
-    public ObjectData(string type, Godot.Vector2 position)
+    public class LayerData
     {
-        this.Type = type;
-        this.Position = position;
-    }
-}
-
-public class OnOffSwitchMasterData : ObjectData
-{
-    public bool Opened { get; set; } = false;
-
-    public OnOffSwitchMasterData(string type, Godot.Vector2 position, bool opened) : base(type, position)
-    {
-        Opened = opened;
-    }
-}
-
-public class OnOffBlockData
-{
-    public enum blockTypes
-    {
-        green, 
-        red
+        public string Name { get; set; } = "";
+        public List<TileData> Tiles { get; set; } = new();
     }
 
-    public blockTypes blockType { get; set; }
-
-    public Godot.Vector2 Position { get; set; }
-
-    public OnOffBlockData(blockTypes blockType, Godot.Vector2 Position)
+    public class TileData
     {
-        this.blockType = blockType;
-        this.Position = Position;
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public int SourceId { get; set; }
+
+        public int AtlasX { get; set; }
+        public int AtlasY { get; set; }
+
+        public int Alternative { get; set; }
     }
-}
 
-public class OnOffAssetData
-{
-    public OnOffSwitchMasterData OnOffSwitchMaster { get; set; }
+    public class ObjectData
+    {
+        public string Type { get; set; } = "";
 
-    public List<ObjectData> OnOffSwitches { get; set; } = new();
+        public Godot.Vector2 Position { get; set; } = Godot.Vector2.Zero;
 
-    public List<OnOffBlockData> OnOffBlocks { get; set; } = new();
+        public ObjectData(string type, Godot.Vector2 position)
+        {
+            this.Type = type;
+            this.Position = position;
+        }
+    }
+
+    public class OnOffSwitchMasterData : ObjectData
+    {
+        public bool Opened { get; set; } = false;
+
+        public OnOffSwitchMasterData(string type, Godot.Vector2 position, bool opened) : base(type, position)
+        {
+            Opened = opened;
+        }
+    }
+
+    public class OnOffBlockData
+    {
+        public enum blockTypes
+        {
+            green,
+            red
+        }
+
+        public blockTypes blockType { get; set; }
+
+        public Godot.Vector2 Position { get; set; }
+
+        public OnOffBlockData(blockTypes blockType, Godot.Vector2 Position)
+        {
+            this.blockType = blockType;
+            this.Position = Position;
+        }
+    }
+
+    public class OnOffAssetData
+    {
+        public OnOffSwitchMasterData OnOffSwitchMaster { get; set; }
+
+        public List<ObjectData> OnOffSwitches { get; set; } = new();
+
+        public List<OnOffBlockData> OnOffBlocks { get; set; } = new();
+    }
 }

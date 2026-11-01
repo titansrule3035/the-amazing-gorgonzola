@@ -70,7 +70,9 @@ public partial class EditorGameManager : Node2D
     private async System.Threading.Tasks.Task WaitForGameLoaded()
     {
         while (Gorgonzola.GetInstance() == null)
+        {
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
 
         gorgonzola = Gorgonzola.GetInstance();
         OnFirstFrame?.Invoke();
