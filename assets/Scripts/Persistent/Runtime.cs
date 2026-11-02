@@ -118,6 +118,20 @@ public partial class Runtime : Node2D
                 ApplyCursor("Mouse");
             }
         }
+
+        if (!editorMode && Input.IsActionJustPressed("F5"))
+        {
+            GlobalGameManager ggm = GlobalGameManager.GetInstance();
+            ggm.LoadNextLevel();
+            ggm.OnNextLevelLoaded += OnLevelSkipped;
+        }
+    }
+
+    void OnLevelSkipped()
+    {
+        GlobalGameManager ggm = GlobalGameManager.GetInstance();
+        ggm.OnNextLevelLoaded -= OnLevelSkipped;
+        ggm.canMove = true;
     }
 
     private void OnNodeAdded(Node node)
