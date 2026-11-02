@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1d3oa"]
 atlas = ExtResource("2_1pkbm")
-region = Rect2(162, 0, 54, 46)
+region = Rect2(0, 0, 54, 46)
 
 [node name="ItemBg" unique_id=1663939762 instance=ExtResource("1_byu0d")]
 
