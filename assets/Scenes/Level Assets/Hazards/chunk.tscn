@@ -101,16 +101,15 @@ shape = SubResource("RectangleShape2D_iq7ac")
 z_index = 5
 position = Vector2(1, -23)
 sprite_frames = SubResource("SpriteFrames_iq7ac")
-animation = &"death"
 autoplay = "default"
 
 [node name="kill_zone" parent="." unique_id=1213737563 instance=ExtResource("2_1d3oa")]
 position = Vector2(0, -25.999998)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="kill_zone" unique_id=1752344525]
+[node name="collision_shape_2d" type="CollisionShape2D" parent="kill_zone" unique_id=1752344525]
 position = Vector2(1, 7.999998)
 shape = SubResource("RectangleShape2D_mlmaj")
-debug_color = Color(1, 0, 0, 0.603922)
+debug_color = Color(1, 0, 0, 0.5)
 
 [node name="ray_left" type="RayCast2D" parent="." unique_id=571369820]
 position = Vector2(0, -21)
