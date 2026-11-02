@@ -56,6 +56,9 @@
 [ext_resource type="Script" uid="uid://cnebv16m11afh" path="res://assets/Scripts/Level Editor/UI/QuitMenu.cs" id="53_tbr8v"]
 [ext_resource type="Texture2D" uid="uid://dm1ve5n7hm2qw" path="res://assets/Sprites/Level Editor/warning.png" id="54_0e44q"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
+size = Vector2(7008, 20)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdlv5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkxyu"]
@@ -100,7 +103,10 @@ script = ExtResource("18_xuh87")
 
 [node name="kill_zone" parent="level" unique_id=877916406 instance=ExtResource("21_x1w6y")]
 position = Vector2(0, 2156)
-scale = Vector2(350.455, 1)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="level/kill_zone" unique_id=1803090224]
+shape = SubResource("RectangleShape2D_iq7ac")
+debug_color = Color(1, 0, 0, 0.5)
 
 [node name="EditorObject" type="Node2D" parent="." unique_id=838321855]
 process_mode = 3

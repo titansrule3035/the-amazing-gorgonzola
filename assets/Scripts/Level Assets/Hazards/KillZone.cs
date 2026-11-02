@@ -2,17 +2,28 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class KillZone : Node2D
+[Tool]
+public partial class KillZone : Area2D
 {
-    // Node references
-    private Area2D area;
     private HashSet<Node> processedBodies = new();
 
     public override void _Ready()
     {
-        area = GetNode<Area2D>("Area2D");
-        area.BodyEntered += OnBodyEntered;
-        area.BodyExited += OnBodyExited;
+        BodyEntered += OnBodyEntered;
+        BodyExited += OnBodyExited;
+    }
+
+    public override void _Process(double delta)
+    {
+        CollisionShape2D collisionShape = GetNode<CollisionShape2D>("collision_shape_2d");
+
+        if (Engine.IsEditorHint())
+        {
+            if (collisionShape != null)
+            {
+                collisionShape.DebugColor = new Color(1, 0, 0, 0.5f);
+            }
+        }
     }
 
     private void OnBodyEntered(Node body)

@@ -5,51 +5,46 @@
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="2_1d3oa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
-size = Vector2(44, 36)
+size = Vector2(42, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d3oa"]
+atlas = ExtResource("1_v25da")
+region = Rect2(0, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_crhig"]
 atlas = ExtResource("1_v25da")
-region = Rect2(0, 0, 100, 100)
+region = Rect2(54, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_su1ej"]
 atlas = ExtResource("1_v25da")
-region = Rect2(100, 0, 100, 100)
+region = Rect2(108, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yn0yy"]
 atlas = ExtResource("1_v25da")
-region = Rect2(200, 0, 100, 100)
+region = Rect2(162, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffy60"]
 atlas = ExtResource("1_v25da")
-region = Rect2(300, 0, 100, 100)
+region = Rect2(216, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cmahv"]
 atlas = ExtResource("1_v25da")
-region = Rect2(400, 0, 100, 100)
+region = Rect2(270, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghi18"]
 atlas = ExtResource("1_v25da")
-region = Rect2(500, 0, 100, 100)
+region = Rect2(324, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rtbsi"]
 atlas = ExtResource("1_v25da")
-region = Rect2(600, 0, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mlmaj"]
-atlas = ExtResource("1_v25da")
-region = Rect2(700, 0, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ti2s"]
-atlas = ExtResource("1_v25da")
-region = Rect2(800, 0, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e0hj7"]
-atlas = ExtResource("1_v25da")
-region = Rect2(900, 0, 100, 100)
+region = Rect2(378, 0, 54, 46)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iq7ac"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1d3oa")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_crhig")
 }, {
@@ -70,20 +65,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rtbsi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mlmaj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ti2s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e0hj7")
 }],
 "loop": 1,
 "name": &"default",
 "speed": 10.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mlmaj"]
+size = Vector2(44, 36)
 
 [node name="chunk" type="RigidBody2D" unique_id=1967808897]
 collision_layer = 0
@@ -92,19 +81,23 @@ lock_rotation = true
 script = ExtResource("1_1d3oa")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="." unique_id=1638443691]
-position = Vector2(0, -18)
+position = Vector2(1, -17.5)
 shape = SubResource("RectangleShape2D_iq7ac")
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1814333778]
 z_index = 5
-position = Vector2(0, -50)
+position = Vector2(1, -23)
 sprite_frames = SubResource("SpriteFrames_iq7ac")
 autoplay = "default"
 frame_progress = 0.15771209
 
 [node name="kill_zone" parent="." unique_id=1213737563 instance=ExtResource("2_1d3oa")]
 position = Vector2(0, -25.999998)
-scale = Vector2(4.2, 3.3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill_zone" unique_id=1752344525]
+position = Vector2(1, 7.999998)
+shape = SubResource("RectangleShape2D_mlmaj")
+debug_color = Color(1, 0, 0, 0.603922)
 
 [node name="ray_left" type="RayCast2D" parent="." unique_id=571369820]
 position = Vector2(0, -21)

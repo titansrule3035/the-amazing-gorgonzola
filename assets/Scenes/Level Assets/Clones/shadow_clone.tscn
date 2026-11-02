@@ -1335,6 +1335,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bi6qw"]
+size = Vector2(61, 73)
+
 [node name="shadow_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
 collision_layer = 0
@@ -1354,7 +1357,7 @@ debug_color = Color(0.7019608, 0.37254903, 1, 0.6117647)
 texture_filter = 1
 material = SubResource("ShaderMaterial_k1s2y")
 sprite_frames = SubResource("SpriteFrames_bxb0f")
-animation = &"enter_door"
+animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -50)
 
@@ -1381,4 +1384,8 @@ animation = &"up"
 
 [node name="kill_zone" parent="." unique_id=1964934632 instance=ExtResource("10_mfl0b")]
 position = Vector2(0, -26)
-scale = Vector2(3, 3.25)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="kill_zone" unique_id=1258965375]
+position = Vector2(-0.49999905, -10.5)
+shape = SubResource("RectangleShape2D_bi6qw")
+debug_color = Color(1, 0, 0, 0.5)

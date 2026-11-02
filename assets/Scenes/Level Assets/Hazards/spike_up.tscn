@@ -8,6 +8,9 @@
 atlas = ExtResource("1_jsw0n")
 region = Rect2(384, 192, 32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
+size = Vector2(32, 32)
+
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_iq7ac"]
 points = PackedVector2Array(0, -31, -16, 0, 16, 0)
 
@@ -21,7 +24,10 @@ position = Vector2(0, -16)
 texture = SubResource("AtlasTexture_m4buv")
 
 [node name="kill_zone" parent="sprite" unique_id=1765500619 instance=ExtResource("2_gcl76")]
-scale = Vector2(2, 2)
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="sprite/kill_zone" unique_id=536897428]
+shape = SubResource("RectangleShape2D_iq7ac")
+debug_color = Color(1, 0, 0, 0.5)
 
 [node name="static_body_2d" type="StaticBody2D" parent="." unique_id=1697692490]
 

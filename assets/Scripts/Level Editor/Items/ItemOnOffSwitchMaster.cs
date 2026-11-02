@@ -34,7 +34,7 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
 
     void OnStateChanged(bool state)
     {
-        animationPlayer.Play(state ? "green" : "red");
+        GetNode<AnimationPlayer>("TextureAnimationPlayer").Play(state ? "green" : "red");
     }
 
     public void RegisterMasterSwitch(OnOffSwitchMaster masterSwitch)
