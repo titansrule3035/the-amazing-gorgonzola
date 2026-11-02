@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://08ap7neydcbj"
-path="res://.godot/imported/missilelauncher.png-26c939bad7cd54906be4b6d4533bdb16.ctex"
+path="res://.godot/imported/missile_launcher.png-f20b52b3eb62cf2a7d9fe907ffc8be32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Enemies/missilelauncher.png"
-dest_files=["res://.godot/imported/missilelauncher.png-26c939bad7cd54906be4b6d4533bdb16.ctex"]
+source_file="res://assets/Sprites/Enemies/Missile Morty/missile_launcher.png"
+dest_files=["res://.godot/imported/missile_launcher.png-f20b52b3eb62cf2a7d9fe907ffc8be32.ctex"]
 
 [params]
 

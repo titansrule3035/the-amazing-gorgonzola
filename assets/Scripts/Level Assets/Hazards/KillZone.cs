@@ -5,6 +5,8 @@ using System.Collections.Generic;
 [Tool]
 public partial class KillZone : Area2D
 {
+    [Export] public bool Enabled = true;
+
     private HashSet<Node> processedBodies = new();
 
     public override void _Ready()
@@ -16,6 +18,8 @@ public partial class KillZone : Area2D
     public override void _Process(double delta)
     {
         CollisionShape2D collisionShape = GetNode<CollisionShape2D>("collision_shape_2d");
+
+        collisionShape.Disabled = !Enabled;
 
         if (Engine.IsEditorHint())
         {

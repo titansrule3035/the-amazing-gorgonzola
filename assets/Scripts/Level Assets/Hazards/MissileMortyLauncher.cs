@@ -46,7 +46,7 @@ public partial class MissileMortyLauncher : Node2D
             spriteSize = GetNode<Sprite2D>("sprite").Texture.GetSize();
         }
 
-        instance.GlobalPosition = new(GlobalPosition.X + sprite.Texture.GetSize().X / 2, GlobalPosition.Y - sprite.Texture.GetSize().Y / 2);
+        instance.GlobalPosition = new(GlobalPosition.X + sprite.Texture.GetSize().X + 10, GlobalPosition.Y - sprite.Texture.GetSize().Y / 2);
 
         GetTree().CurrentScene.GetNode<Node2D>(path).AddChild(instance);
 
