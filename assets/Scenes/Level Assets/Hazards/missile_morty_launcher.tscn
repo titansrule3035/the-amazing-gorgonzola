@@ -13,6 +13,7 @@ missileMorty = ExtResource("2_r0y5y")
 shotSpeed = 2.0
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=1835462529]
+z_index = 2
 position = Vector2(0, -24)
 texture = ExtResource("3_qcndd")
 

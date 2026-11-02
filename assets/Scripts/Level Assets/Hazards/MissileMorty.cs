@@ -100,15 +100,23 @@ public partial class MissileMorty : Enemy
 
     private void OnBodyEnteredStompArea(Node2D body)
     {
-        if (!flyState.Active) return;
-        if (body is not BasePlayerController player) return;
+        if (!flyState.Active)
+        {
+            GD.Print("flystate inactive!");
+            return;
+        }
+
+        if (body is not BasePlayerController player)
+        {
+            GD.Print("not baseplayercontroller!");
+            return;
+        }
 
         bool fallingDown = player.Velocity.Y > 0f;
-        bool isAbove = player.GlobalPosition.Y < GlobalPosition.Y - stompMargin;
 
-        if (fallingDown && isAbove)
+        if (fallingDown)
         {
-            player.ForceJump(null, false);
+            player.ForceJump(null, true);
             Kill();
         }
     }
@@ -212,6 +220,8 @@ public partial class MissileMorty : Enemy
         {
             ApplyDirection();
 
+            CollisionShape2D stompShape = stompArea.GetNode<CollisionShape2D>("collision_shape_2d");
+
             if (ray.IsColliding())
             {
                 var collider = ray.GetCollider();
@@ -222,9 +232,10 @@ public partial class MissileMorty : Enemy
                     return;
                 }
 
-                if (collider is Node)
+                if (collider is Node && collider is not Area2D)
                 {
                     morty.EnterOnce(morty.crashState);
+                    GD.Print(collider);
                     return;
                 }
             }

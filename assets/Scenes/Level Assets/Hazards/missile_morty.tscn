@@ -298,12 +298,12 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8740j"]
-size = Vector2(57, 3)
+size = Vector2(76, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1c7d"]
 size = Vector2(108, 14)
 
-[node name="rigid_body_2d" type="RigidBody2D" unique_id=600629317]
+[node name="MissileMorty" type="RigidBody2D" unique_id=600629317]
 collision_layer = 0
 collision_mask = 61441
 script = ExtResource("1_qrckl")
@@ -316,7 +316,7 @@ disabled = true
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1365456309]
 position = Vector2(-40, 0)
 sprite_frames = SubResource("SpriteFrames_iq7ac")
-animation = &"launch"
+animation = &"fly"
 autoplay = "launch"
 
 [node name="sprite_2" type="AnimatedSprite2D" parent="." unique_id=535564741]
@@ -328,8 +328,8 @@ autoplay = "default"
 position = Vector2(-61, -1)
 collision_mask = 61440
 
-[node name="collision_shape" type="CollisionShape2D" parent="stomp_area" unique_id=1631361417]
-position = Vector2(10.5, -12.5)
+[node name="collision_shape_2d" type="CollisionShape2D" parent="stomp_area" unique_id=1631361417]
+position = Vector2(15, -12.5)
 shape = SubResource("RectangleShape2D_8740j")
 
 [node name="kill_zone" parent="." unique_id=1711911447 instance=ExtResource("8_844sf")]

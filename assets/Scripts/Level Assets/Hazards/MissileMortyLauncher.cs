@@ -33,22 +33,25 @@ public partial class MissileMortyLauncher : Node2D
     {
         await ToSignal(GetTree().CreateTimer(shotSpeed), SceneTreeTimer.SignalName.Timeout);
 
-        Node2D instance = missileMorty.Instantiate<Node2D>();
-
-        Vector2 spriteSize;
-
-        if (sprite != null)
+        if (!GetTree().Paused)
         {
-            spriteSize = sprite.Texture.GetSize();
-        }
-        else
-        {
-            spriteSize = GetNode<Sprite2D>("sprite").Texture.GetSize();
-        }
+            Node2D instance = missileMorty.Instantiate<Node2D>();
 
-        instance.GlobalPosition = new(GlobalPosition.X + sprite.Texture.GetSize().X + 10, GlobalPosition.Y - sprite.Texture.GetSize().Y / 2);
+            Vector2 spriteSize;
 
-        GetTree().CurrentScene.GetNode<Node2D>(path).AddChild(instance);
+            if (sprite != null)
+            {
+                spriteSize = sprite.Texture.GetSize();
+            }
+            else
+            {
+                spriteSize = GetNode<Sprite2D>("sprite").Texture.GetSize();
+            }
+
+            instance.GlobalPosition = new(GlobalPosition.X + sprite.Texture.GetSize().X + 10, GlobalPosition.Y - sprite.Texture.GetSize().Y / 2);
+
+            GetTree().CurrentScene.GetNode<Node2D>(path).AddChild(instance);
+        }
 
         Shoot();
     }
