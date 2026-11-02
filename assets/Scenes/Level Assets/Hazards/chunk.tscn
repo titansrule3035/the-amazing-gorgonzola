@@ -3,9 +3,14 @@
 [ext_resource type="Script" uid="uid://d2fwuvkjvgqyj" path="res://assets/Scripts/Level Assets/Hazards/Chunk.cs" id="1_1d3oa"]
 [ext_resource type="Texture2D" uid="uid://dqk10rru8qtyn" path="res://assets/Sprites/Enemies/Chunk/chunk_walk.png" id="1_v25da"]
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="2_1d3oa"]
+[ext_resource type="Texture2D" uid="uid://ot4w083cln1q" path="res://assets/Sprites/Enemies/Chunk/chunk_death.png" id="2_crhig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
 size = Vector2(42, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlmaj"]
+atlas = ExtResource("2_crhig")
+region = Rect2(0, 0, 54, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1d3oa"]
 atlas = ExtResource("1_v25da")
@@ -41,6 +46,14 @@ region = Rect2(378, 0, 54, 46)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iq7ac"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlmaj")
+}],
+"loop": 1,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1d3oa")
@@ -88,8 +101,8 @@ shape = SubResource("RectangleShape2D_iq7ac")
 z_index = 5
 position = Vector2(1, -23)
 sprite_frames = SubResource("SpriteFrames_iq7ac")
+animation = &"death"
 autoplay = "default"
-frame_progress = 0.15771209
 
 [node name="kill_zone" parent="." unique_id=1213737563 instance=ExtResource("2_1d3oa")]
 position = Vector2(0, -25.999998)
