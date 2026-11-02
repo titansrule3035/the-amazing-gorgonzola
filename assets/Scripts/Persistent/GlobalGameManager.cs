@@ -28,6 +28,7 @@ public partial class GlobalGameManager : Node2D
     public event Action OnFlush;
     public event Action? OnGorgFound;
     public event Action? OnGorgUnregistered;
+    public event Action? OnNextLevelLoaded;
 
     public Gorgonzola gorgonzola;
     public bool levelCompleted = false;
@@ -307,6 +308,8 @@ public partial class GlobalGameManager : Node2D
         {
             levelTransitioning = false;
         }
+
+        OnNextLevelLoaded?.Invoke();
     }
 
     /// <summary>

@@ -104,7 +104,7 @@ public abstract partial class LocalGameManager : Node2D
         }
     }
 
-    private void OnFadeIn()
+    public void OnFadeIn()
     {
         GlobalGameManager.GetInstance().canMove = true;
     }
