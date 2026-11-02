@@ -102,13 +102,11 @@ public partial class MissileMorty : Enemy
     {
         if (!flyState.Active)
         {
-            GD.Print("flystate inactive!");
             return;
         }
 
         if (body is not BasePlayerController player)
         {
-            GD.Print("not baseplayercontroller!");
             return;
         }
 
@@ -235,7 +233,6 @@ public partial class MissileMorty : Enemy
                 if (collider is Node && collider is not Area2D)
                 {
                     morty.EnterOnce(morty.crashState);
-                    GD.Print(collider);
                     return;
                 }
             }
