@@ -27,11 +27,6 @@ public partial class DialogueTrigger : Node2D
         hasTransition = ((transitions != null) && (transitions.Length > 0) && (transitions[0] != null));
     }
 
-    public override void _Process(double delta)
-    {
-        DialogueManager dialogueManager = DialogueManager.GetInstance();
-    }
-
     public void TriggerDialogue()
     {
         DialogueManager.GetInstance().EnterDialogueMode(inkJsonPath);
