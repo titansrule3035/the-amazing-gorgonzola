@@ -13,11 +13,18 @@ public partial class MissileMortyLauncher : Node2D
 
     bool beganShooting = false;
 
+    bool stopShooting = false;
+
     public override void _Ready()
     {
         path = (((Runtime)GetTree().CurrentScene).editorMode ? "editor" : "game") + "/main/level/level_assets/hazards";
 
         sprite = GetNode<Sprite2D>("sprite");
+
+        Enemy.KillAll += () =>
+                {
+                    stopShooting = true;
+                };
     }
 
     public override void _Process(double delta)
@@ -31,9 +38,9 @@ public partial class MissileMortyLauncher : Node2D
 
     async void Shoot()
     {
-        await ToSignal(GetTree().CreateTimer(shotSpeed), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(shotSpeed, false), SceneTreeTimer.SignalName.Timeout);
 
-        if (!GetTree().Paused)
+        if (!stopShooting)
         {
             Node2D instance = missileMorty.Instantiate<Node2D>();
 
@@ -51,6 +58,7 @@ public partial class MissileMortyLauncher : Node2D
             instance.GlobalPosition = new(GlobalPosition.X + sprite.Texture.GetSize().X + 10, GlobalPosition.Y - sprite.Texture.GetSize().Y / 2);
 
             GetTree().CurrentScene.GetNode<Node2D>(path).AddChild(instance);
+
         }
 
         Shoot();

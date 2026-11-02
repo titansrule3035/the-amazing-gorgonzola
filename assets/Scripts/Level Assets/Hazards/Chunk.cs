@@ -124,7 +124,7 @@ public partial class Chunk : Enemy
             sprite.Play("death");
             chunk.GetNode<CollisionShape2D>("collision_shape_2d").Disabled = true;
 
-            await chunk.ToSignal(chunk.GetTree().CreateTimer(3.0f), SceneTreeTimer.SignalName.Timeout);
+            await chunk.ToSignal(chunk.GetTree().CreateTimer(3.0f, false), SceneTreeTimer.SignalName.Timeout);
 
             chunk.QueueFree();
         }

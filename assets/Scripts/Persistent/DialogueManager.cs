@@ -184,19 +184,17 @@ public partial class DialogueManager : Node
 
             if (displayText[i] == '!' || displayText[i] == '?' || displayText[i] == '.')
             {
-                await ToSignal(GetTree().CreateTimer(textSpeedDelay * 10), SceneTreeTimer.SignalName.Timeout);
+                await ToSignal(GetTree().CreateTimer(textSpeedDelay * 10, false), SceneTreeTimer.SignalName.Timeout);
             }
             else if (displayText[i] == ',')
             {
-                await ToSignal(GetTree().CreateTimer(textSpeedDelay * 5), SceneTreeTimer.SignalName.Timeout);
+                await ToSignal(GetTree().CreateTimer(textSpeedDelay * 5, false), SceneTreeTimer.SignalName.Timeout);
             }
 
             grabLine = false;
             skipMode = true;
 
-            await ToSignal(
-                GetTree().CreateTimer(textSpeedDelay),
-                SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(textSpeedDelay, false), SceneTreeTimer.SignalName.Timeout);
 
             if (myGeneration != typingGeneration || typingCancelled)
                 return;
