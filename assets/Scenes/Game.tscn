@@ -10,11 +10,11 @@
 [ext_resource type="Resource" uid="uid://by2lfyv3jg41e" path="res://assets/Levels/Level Groups/final.tres" id="5_t2nbi"]
 [ext_resource type="Resource" uid="uid://dc08jvh4002ch" path="res://assets/Levels/Level Groups/World2.tres" id="5_vv30f"]
 [ext_resource type="Resource" uid="uid://cpyivpvlxecw" path="res://assets/Levels/Level Groups/World3.tres" id="5_xq6a1"]
-[ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="10_0ub6i"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
 [ext_resource type="Script" uid="uid://bjs036688coai" path="res://assets/Scripts/Level Assets/DialogueTrigger.cs" id="10_cbung"]
 [ext_resource type="Texture2D" uid="uid://mg6px6ioaj6t" path="res://assets/Sprites/UI/Dialogue/dialoguearrow2.png" id="12_p35w6"]
 [ext_resource type="Texture2D" uid="uid://b4rndu1wk7lbp" path="res://assets/Sprites/UI/Dialogue/dialoguearrow1.png" id="12_u0il3"]
+[ext_resource type="FontFile" uid="uid://6aadonh2gg6l" path="res://assets/Fonts/font_sheet_dark.png" id="12_xq6a1"]
 [ext_resource type="Texture2D" uid="uid://buno87hlsn0rl" path="res://assets/Sprites/UI/Dialogue/dialoguearrow3.png" id="14_jvcvf"]
 [ext_resource type="Texture2D" uid="uid://bj4rcfnhbgndn" path="res://assets/Sprites/UI/Dialogue/dialoguearrow4.png" id="15_enx2f"]
 [ext_resource type="Texture2D" uid="uid://jrnebwa1cjc3" path="res://assets/Sprites/UI/Dialogue/dialoguearrow5.png" id="16_qaip1"]
@@ -118,7 +118,7 @@ offset_left = 16.0
 offset_top = 12.0
 offset_right = 1008.0
 offset_bottom = 186.0
-theme_override_fonts/font = ExtResource("10_0ub6i")
+theme_override_fonts/font = ExtResource("12_xq6a1")
 theme_override_font_sizes/font_size = 32
 autowrap_mode = 3
 
