@@ -81,7 +81,6 @@ points = PackedVector2Array(148, 48, -75, 48, -76, 112, 149, 112)
 [node name="The Boat" unique_id=82098700 instance=ExtResource("1_py7b8")]
 
 [node name="sprite" parent="." index="0" unique_id=1599358516]
-visible = false
 z_index = 10
 position = Vector2(0, -104)
 sprite_frames = SubResource("SpriteFrames_081ap")
