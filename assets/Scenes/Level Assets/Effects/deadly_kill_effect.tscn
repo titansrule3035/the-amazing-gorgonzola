@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_xka2g"]
 [ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_3ka84"]
-[ext_resource type="Texture2D" uid="uid://sb6h7uqqs38x" path="res://assets/Sprites/Clones/Pallettes/deadly_clone_pallette.png" id="3_7t3ut"]
+[ext_resource type="Texture2D" uid="uid://sb6h7uqqs38x" path="res://assets/Sprites/Clones/Palettes/deadly_clone_palette.png" id="3_7t3ut"]
 [ext_resource type="Texture2D" uid="uid://bb1uv8r8xi150" path="res://assets/Sprites/Effects/default_clone_kill.png" id="4_bndmx"]
 
 [sub_resource type="Shader" id="Shader_tki4n"]

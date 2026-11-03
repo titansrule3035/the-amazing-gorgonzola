@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bykyni0d72okt"]
 
-[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="1_8facq"]
+[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Palettes/default_clone_palette.png" id="1_8facq"]
 [ext_resource type="Script" uid="uid://dqwcd4j4ko42d" path="res://assets/Scripts/Clones/DefaultClone.cs" id="1_c4r6a"]
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="2_3rfah"]
 [ext_resource type="PackedScene" uid="uid://c0be85jmbtdoh" path="res://assets/Scenes/Level Assets/Effects/default_kill_effect.tscn" id="2_yv23k"]

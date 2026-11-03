@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chq7kar3xu38b"
-path="res://.godot/imported/default_clone_pallette.png-61929aea7aae19400409b64aa51ceafb.ctex"
+uid="uid://b0s1hege7xr"
+path="res://.godot/imported/shadow_clone_palette.png-3d1db80577fccc0c52a4e93ff53c24d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png"
-dest_files=["res://.godot/imported/default_clone_pallette.png-61929aea7aae19400409b64aa51ceafb.ctex"]
+source_file="res://assets/Sprites/Clones/Palettes/shadow_clone_palette.png"
+dest_files=["res://.godot/imported/shadow_clone_palette.png-3d1db80577fccc0c52a4e93ff53c24d9.ctex"]
 
 [params]
 

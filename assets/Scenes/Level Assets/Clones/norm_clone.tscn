@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Level Assets/Effects/land_effect.tscn" id="4_4qigl"]
 [ext_resource type="Texture2D" uid="uid://bcb4xwnp7jfmg" path="res://assets/Sprites/Clones/jump.png" id="4_qlkyf"]
 [ext_resource type="Texture2D" uid="uid://2bva0llm5q12" path="res://assets/Sprites/Clones/walk.png" id="5_dh7bw"]
-[ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/Pallettes/norm_clone_pallette.png" id="6_dk3xr"]
+[ext_resource type="Texture2D" uid="uid://y43fdcp3wn3c" path="res://assets/Sprites/Clones/Palettes/norm_clone_palette.png" id="6_dk3xr"]
 [ext_resource type="Texture2D" uid="uid://bofoc25jmfx4y" path="res://assets/Sprites/Clones/win.png" id="6_u8y20"]
 [ext_resource type="Texture2D" uid="uid://c0u2ddec30mg2" path="res://assets/Sprites/UI/buttonicon_down.png" id="7_v8fqy"]
 [ext_resource type="Texture2D" uid="uid://l4rop07en2j" path="res://assets/Sprites/UI/buttonicon_x.png" id="8_5hy7r"]
@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://p3vcl84iqyy2" path="res://assets/Sprites/UI/buttonicon_enter.png" id="11_rvck8"]
 [ext_resource type="Texture2D" uid="uid://cs8yi2q1wvr5m" path="res://assets/Sprites/UI/buttonicon_right.png" id="12_fy3b2"]
 [ext_resource type="Texture2D" uid="uid://cxlfv7311kikn" path="res://assets/Sprites/UI/buttonicon_space.png" id="13_4ua12"]
-[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Pallettes/default_clone_pallette.png" id="13_dk3xr"]
+[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Palettes/default_clone_palette.png" id="13_dk3xr"]
 [ext_resource type="Texture2D" uid="uid://nv3043jnayih" path="res://assets/Sprites/UI/buttonicon_up.png" id="14_nkpmi"]
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="15_dk3xr"]
 
