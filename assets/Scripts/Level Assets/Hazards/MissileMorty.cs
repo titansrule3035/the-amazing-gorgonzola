@@ -9,11 +9,6 @@ public partial class MissileMorty : Enemy
     [Export] public float missileSpeed = 200f;
 
     [ExportGroup("Death Fall")]
-    [Export] public float fallGravity = 400f;
-    [Export] public float fallSpeed = 340f;
-    [Export] public float deathDuration = 3f;
-    [Export] public float horizontalDrag = 150f;
-    [Export] public float spinSpeed = 2.5f;
     [Export] public float crashSpinSpeed = 1.2f;
 
     [Export(PropertyHint.Range, "0,2000,10,or_greater")]
@@ -35,8 +30,6 @@ public partial class MissileMorty : Enemy
     private CrashState crashState;
     private CrashFallState crashFallState;
     private DeathState deathState;
-
-    private bool dying = false;
 
     public override void _Ready()
     {
@@ -65,14 +58,6 @@ public partial class MissileMorty : Enemy
     public override void Kill()
     {
         EnterOnce(deathState);
-    }
-
-    // Guards against double transitions out of the flying phase
-    private void EnterOnce(EnemyState next)
-    {
-        if (dying) return;
-        dying = true;
-        SwitchState(next);
     }
 
     private void OnSpriteAnimationFinished()
@@ -120,50 +105,6 @@ public partial class MissileMorty : Enemy
     }
 
     private float DirectionSign => missileDirection == Directions.Right ? 1f : -1f;
-
-    // Plain helper (not a state): the shared falling/spinning motion
-    private sealed class FallMotion
-    {
-        private readonly MissileMorty morty;
-        private float fallVelocity;
-        private float velocityX;
-        private float timer;
-        private float spinDirection;
-        private float spinSpeed;
-
-        public FallMotion(MissileMorty morty)
-        {
-            this.morty = morty;
-        }
-
-        public void Start(float momentumRetention, bool crashed)
-        {
-            bool facingRight = morty.missileDirection == Directions.Right;
-
-            velocityX = morty.DirectionSign * morty.missileSpeed * momentumRetention;
-            fallVelocity = 0f;
-            timer = morty.deathDuration;
-            spinDirection = (facingRight ^ crashed) ? 1f : -1f;
-            spinSpeed = crashed ? morty.crashSpinSpeed : morty.spinSpeed;
-        }
-
-        public void Tick(double delta)
-        {
-            float dt = (float)delta;
-
-            fallVelocity = Math.Min(fallVelocity + morty.fallGravity * dt, morty.fallSpeed);
-            velocityX = Mathf.MoveToward(velocityX, 0f, morty.horizontalDrag * dt);
-
-            morty.Position += new Vector2(velocityX, fallVelocity) * dt;
-            morty.Rotation += spinDirection * spinSpeed * dt;
-
-            timer -= dt;
-            if (timer <= 0f)
-            {
-                morty.QueueFree();
-            }
-        }
-    }
 
     private abstract class MissileMortyState : EnemyState
     {
@@ -217,8 +158,6 @@ public partial class MissileMorty : Enemy
         public override void PhysicsUpdate(double delta)
         {
             ApplyDirection();
-
-            CollisionShape2D stompShape = stompArea.GetNode<CollisionShape2D>("collision_shape_2d");
 
             if (ray.IsColliding())
             {
@@ -304,38 +243,32 @@ public partial class MissileMorty : Enemy
     // Wall crash -> straight drop, no animation change
     private sealed class CrashFallState : MissileMortyState
     {
-        private readonly FallMotion motion;
-
-        public CrashFallState(MissileMorty morty) : base(morty)
-        {
-            motion = new FallMotion(morty);
-        }
+        public CrashFallState(MissileMorty morty) : base(morty) { }
 
         public override void Enter()
         {
-            motion.Start(momentumRetention: 0f, crashed: true);
+            bool facingRight = morty.missileDirection == Directions.Right;
+
+            morty.fallMotion.Start(velocityX: 0f, spinDirection: facingRight ? -1f : 1f, spinSpeedOverride: morty.crashSpinSpeed);
             DisableCollision();
         }
 
         public override void PhysicsUpdate(double delta)
         {
-            motion.Tick(delta);
+            morty.fallMotion.Tick(delta);
         }
     }
 
     // Stomped or killed: plays "death", keeps some momentum
     private sealed class DeathState : MissileMortyState
     {
-        private readonly FallMotion motion;
-
-        public DeathState(MissileMorty morty) : base(morty)
-        {
-            motion = new FallMotion(morty);
-        }
+        public DeathState(MissileMorty morty) : base(morty) { }
 
         public override void Enter()
         {
-            motion.Start(morty.stompMomentumRetention, crashed: false);
+            bool facingRight = morty.missileDirection == Directions.Right;
+
+            morty.fallMotion.Start(velocityX: morty.DirectionSign * morty.missileSpeed * morty.stompMomentumRetention, spinDirection: facingRight ? 1f : -1f);
             sprite.Play("death");
             flameSprite.Play("flame_off");
             DisableCollision();
@@ -343,7 +276,7 @@ public partial class MissileMorty : Enemy
 
         public override void PhysicsUpdate(double delta)
         {
-            motion.Tick(delta);
+            morty.fallMotion.Tick(delta);
         }
     }
 }

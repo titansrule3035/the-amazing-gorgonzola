@@ -171,7 +171,7 @@ public partial class EditorItemObject : TextureRect
     public void SetActiveItem(EditorItemObject? item)
     {
         selected = !disabled && item == this;
-        player.Play(disabled ? animDisabled : selected ? animSelected : animDefault);
+        GetParent().GetNode<AnimationPlayer>("AnimationPlayer").Play(disabled ? animDisabled : selected ? animSelected : animDefault);
         if (item == null)
         {
             Editor.ClearEditorItem();

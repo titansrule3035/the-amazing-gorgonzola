@@ -1,9 +1,11 @@
 using Godot;
 using System;
-using System.Security.Cryptography.X509Certificates;
 
 public partial class Chunk : Enemy
 {
+    [Export(PropertyHint.Range, "0,1,0.05")]
+    public float deathMomentumRetention = 0.4f;
+
     public RayCast2D rayLeft;
     public RayCast2D rayRight;
 
@@ -13,11 +15,9 @@ public partial class Chunk : Enemy
 
     public AnimatedSprite2D sprite;
 
-    //states
-    MoveState moveState;
-    DeathState deathState;
-
-    bool killed = false;
+    // states
+    private MoveState moveState;
+    private DeathState deathState;
 
     public override void _Ready()
     {
@@ -25,77 +25,54 @@ public partial class Chunk : Enemy
 
         rayLeft = GetNode<RayCast2D>("ray_left");
         rayRight = GetNode<RayCast2D>("ray_right");
+        sprite = GetNode<AnimatedSprite2D>("sprite"); // adjust to your node name
 
-        //initialize states
         moveState = new MoveState(this);
         deathState = new DeathState(this);
 
         SwitchState(moveState);
     }
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-
-        if (killed)
-        {
-            SwitchState(deathState);
-        }
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
-    }
-
     public override void Kill()
     {
-        SwitchState(deathState);
+        EnterOnce(deathState);
     }
 
-    class ChunkState : EnemyState
+    private abstract class ChunkState : EnemyState
     {
-        protected Chunk chunk;
-        public ChunkState(Chunk chunk) : base(chunk)
+        protected readonly Chunk chunk;
+
+        protected ChunkState(Chunk chunk) : base(chunk)
         {
             this.chunk = chunk;
         }
 
         protected RayCast2D rayLeft => chunk.rayLeft;
         protected RayCast2D rayRight => chunk.rayRight;
+        protected AnimatedSprite2D sprite => chunk.sprite;
+        protected Vector2 moveSpeed => chunk.moveSpeed;
 
         protected int directionModifier
         {
             get => chunk.directionModifier;
             set => chunk.directionModifier = value;
         }
-
-        protected Vector2 moveSpeed => chunk.moveSpeed;
-
-        protected AnimatedSprite2D sprite => chunk.sprite;
-
-        protected bool killed
-        {
-            get => chunk.killed;
-            set => chunk.killed = value;
-        }
     }
 
-    class MoveState : ChunkState
+    private sealed class MoveState : ChunkState
     {
-        public MoveState(Chunk chunk) : base(chunk)
-        {
-            
-        }
+        public MoveState(Chunk chunk) : base(chunk) { }
 
         public override void Enter()
         {
             rayLeft.Enabled = rayRight.Enabled = true;
         }
+
         public override void Exit()
         {
             rayLeft.Enabled = rayRight.Enabled = false;
         }
+
         public override void PhysicsUpdate(double delta)
         {
             if (rayLeft.IsColliding())
@@ -112,21 +89,22 @@ public partial class Chunk : Enemy
         }
     }
 
-    class DeathState : ChunkState
+    private sealed class DeathState : ChunkState
     {
-        public DeathState(Chunk chunk) : base(chunk)
-        {
+        public DeathState(Chunk chunk) : base(chunk) { }
 
-        }
-
-        public override async void Enter()
+        public override void Enter()
         {
             sprite.Play("death");
-            chunk.GetNode<CollisionShape2D>("collision_shape_2d").Disabled = true;
 
-            await chunk.ToSignal(chunk.GetTree().CreateTimer(3.0f, false), SceneTreeTimer.SignalName.Timeout);
+            chunk.GetNode<CollisionShape2D>("collision_shape_2d").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
-            chunk.QueueFree();
+            chunk.fallMotion.Start(velocityX: directionModifier * moveSpeed.X * chunk.deathMomentumRetention, spinDirection: directionModifier);
+        }
+
+        public override void PhysicsUpdate(double delta)
+        {
+            chunk.fallMotion.Tick(delta);
         }
     }
 }
