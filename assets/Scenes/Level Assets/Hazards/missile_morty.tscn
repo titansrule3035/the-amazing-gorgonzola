@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://qsxibxg0wxtv" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_fly.png" id="1_j1cbs"]
 [ext_resource type="Script" uid="uid://cjbe8ew4t3mda" path="res://assets/Scripts/Level Assets/Hazards/MissileMorty.cs" id="1_qrckl"]
 [ext_resource type="Texture2D" uid="uid://cy5iij7vu7d7u" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_crash.png" id="2_lir01"]
+[ext_resource type="PackedScene" uid="uid://drnopepl2nxbb" path="res://assets/Scenes/Level Assets/Effects/mimo_flame_off_effect.tscn" id="2_xpb3q"]
 [ext_resource type="Texture2D" uid="uid://cmxwde72pnai4" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_death.png" id="3_wv3va"]
 [ext_resource type="Texture2D" uid="uid://cjv0bh3juwq4k" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_flame_idle.png" id="5_4a3to"]
 [ext_resource type="Texture2D" uid="uid://hvaws25c7pdd" path="res://assets/Sprites/Enemies/Missile Morty/missilemorty_launch.png" id="5_8740j"]
@@ -231,7 +232,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -307,6 +308,8 @@ size = Vector2(108, 14)
 collision_layer = 0
 collision_mask = 61441
 script = ExtResource("1_qrckl")
+flameOffEffect = ExtResource("2_xpb3q")
+moveSpeed = Vector2(200, 0)
 
 [node name="collision_shape" type="CollisionShape2D" parent="." unique_id=2006619023]
 position = Vector2(-46.5, -1)
@@ -343,7 +346,7 @@ debug_color = Color(1, 0, 0, 0.5)
 
 [node name="ray_cast" type="RayCast2D" parent="." unique_id=169655083]
 position = Vector2(-61, 0)
-target_position = Vector2(70, 0)
+target_position = Vector2(62, 0)
 collision_mask = 65535
 collide_with_areas = true
 
