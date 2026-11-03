@@ -20,8 +20,7 @@ public partial class MissileMorty : Enemy
     [Export] public float horizontalDrag = 150f;
     [Export] public float spinSpeed = 2.5f;
     [Export] public float crushSpinSpeed = 1.2f;
-
-    [Export(PropertyHint.Range, "0,2000,10,or_greater")]
+    
     public float crushFallDelayMs = 180f;
 
     [Export(PropertyHint.Range, "0,1,0.05")]
