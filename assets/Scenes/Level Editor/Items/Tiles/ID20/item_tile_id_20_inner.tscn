@@ -11,4 +11,4 @@ region = Rect2(160, 224, 32, 32)
 
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
 texture = SubResource("AtlasTexture_kqyph")
-tileID = 20
+tileID = 4
