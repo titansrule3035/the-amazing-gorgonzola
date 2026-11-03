@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ot4w083cln1q" path="res://assets/Sprites/Enemies/Chunk/chunk_death.png" id="2_crhig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
-size = Vector2(42, 35)
+size = Vector2(30, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mlmaj"]
 atlas = ExtResource("2_crhig")
@@ -85,7 +85,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mlmaj"]
-size = Vector2(44, 36)
+size = Vector2(32, 32)
 
 [node name="chunk" type="RigidBody2D" unique_id=1967808897]
 collision_layer = 0
@@ -94,7 +94,7 @@ lock_rotation = true
 script = ExtResource("1_1d3oa")
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="." unique_id=1638443691]
-position = Vector2(1, -17.5)
+position = Vector2(1, -15.5)
 shape = SubResource("RectangleShape2D_iq7ac")
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1814333778]
@@ -107,16 +107,16 @@ autoplay = "default"
 position = Vector2(0, -25.999998)
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="kill_zone" unique_id=1752344525]
-position = Vector2(1, 7.999998)
+position = Vector2(1, 9.999998)
 shape = SubResource("RectangleShape2D_mlmaj")
 debug_color = Color(1, 0, 0, 0.5)
 
 [node name="ray_left" type="RayCast2D" parent="." unique_id=571369820]
 position = Vector2(0, -21)
-target_position = Vector2(-33, 0)
+target_position = Vector2(-18, 0)
 collision_mask = 65535
 
 [node name="ray_right" type="RayCast2D" parent="." unique_id=329209406]
 position = Vector2(0, -21)
-target_position = Vector2(33, 0)
+target_position = Vector2(20, 0)
 collision_mask = 65535
