@@ -165,7 +165,7 @@ public partial class MissileMorty : Enemy
 
                 if (collider is BasePlayerController player)
                 {
-                    player.Kill();
+                    player.CallDeferred("Kill");
                     return;
                 }
 
