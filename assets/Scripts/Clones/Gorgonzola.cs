@@ -69,7 +69,7 @@ public partial class Gorgonzola : BasePlayerController
     /// </summary>
     public async void MoveToDoor()
     {
-        await ToSignal(GetTree().CreateTimer(3.0f), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(3.0f, false), SceneTreeTimer.SignalName.Timeout);
 
         Vector2 endPos = new(Door.GetInstance().GlobalPosition.X, GlobalPosition.Y);
 
@@ -79,7 +79,7 @@ public partial class Gorgonzola : BasePlayerController
 
         tween.TweenProperty(this, "global_position", endPos, moveTime);
 
-        await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(2.0f, false), SceneTreeTimer.SignalName.Timeout);
 
         GlobalGameManager.GetInstance()?.ShowVictoryMenu(true);
     }

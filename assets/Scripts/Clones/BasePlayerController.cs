@@ -243,7 +243,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
             velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
 
-            SpawnEffect(jumpEffectScene, GlobalPosition);
+            Effect.SpawnEffect(this, jumpEffectScene, GlobalPosition, false);
         }
     }
 
@@ -262,7 +262,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         if (spawnEffect)
         {
-            SpawnEffect(jumpEffectScene, GlobalPosition);
+            Effect.SpawnEffect(this, jumpEffectScene, GlobalPosition, shouldFlip);
         }
     }
 
@@ -280,7 +280,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             if (!isLanded)
             {
-                SpawnEffect(landEffectScene, GlobalPosition);
+                Effect.SpawnEffect(this, landEffectScene, GlobalPosition, false);
                 isLanded = true;
             }
             return;
@@ -391,29 +391,6 @@ public abstract partial class BasePlayerController : CharacterBody2D
         foreach (string param in animationParams)
         {
             animationTree.Set($"parameters/conditions/{param}", param == activeParam);
-        }
-    }
-
-    /// <summary>
-    /// Instantiates a particle/visual effect scene at the given world position and adds it to the tree.
-    /// </summary>
-    /// <param name="scene">PackedScene for the effect.</param>
-    /// <param name="position">Global position to place the effect.</param>
-    protected void SpawnEffect(PackedScene scene, Vector2 position)
-    {
-        if (scene == null) return;
-
-        var effect = scene.Instantiate<Effect>();
-        if (effect == null) return;
-
-        GetParent<Node2D>().AddChild(effect);
-
-        effect.GlobalPosition = position;
-
-        var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
-        if (anim != null)
-        {
-            anim.FlipH = shouldFlip;
         }
     }
 

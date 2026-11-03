@@ -85,7 +85,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hr31v")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 10.0
 }]
@@ -139,7 +139,7 @@ _data = {
 &"default": SubResource("Animation_x3sha")
 }
 
-[node name="norm_kill_effect2" type="Node2D" unique_id=959619661]
+[node name="norm_kill_effect" type="Node2D" unique_id=959619661]
 script = ExtResource("1_ehsxq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1221015124]

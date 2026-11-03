@@ -20,4 +20,9 @@ public partial class ItemGreenOnOffBlock : EditorItemObject
     {
         animationPlayer.Play(state ? "close" : "open");
     }
+
+    public override void _ExitTree()
+    {
+        OnOffManager.OnStateChanged -= OnStateChanged;
+    }
 }

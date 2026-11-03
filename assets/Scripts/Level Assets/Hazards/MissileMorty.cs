@@ -3,25 +3,16 @@ using System;
 
 public partial class MissileMorty : Enemy
 {
-    public enum Directions
-    {
-        Left,
-        Right
-    }
+    public enum Directions { Left, Right }
 
     [Export] public Directions missileDirection = Directions.Right;
     [Export] public float missileSpeed = 200f;
-    [Export] public Vector2 missileVelocity = new Vector2(200f, 0);
 
     [ExportGroup("Death Fall")]
-    [Export] public float fallGravity = 400f;
-    [Export] public float fallSpeed = 340f;
-    [Export] public float deathDuration = 3f;
-    [Export] public float horizontalDrag = 150f;
-    [Export] public float spinSpeed = 2.5f;
-    [Export] public float crushSpinSpeed = 1.2f;
-    
-    public float crushFallDelayMs = 180f;
+    [Export] public float crashSpinSpeed = 1.2f;
+
+    [Export(PropertyHint.Range, "0,2000,10,or_greater")]
+    public float crashFallDelayMs = 180f;
 
     [Export(PropertyHint.Range, "0,1,0.05")]
     public float stompMomentumRetention = 0.4f;
@@ -29,127 +20,72 @@ public partial class MissileMorty : Enemy
     [ExportGroup("Stomp Detection")]
     [Export] public float stompMargin = 0f;
 
-    private RayCast2D ray;
-    private Area2D area;
-    private AnimatedSprite2D sprite;
+    public RayCast2D ray;
+    public Area2D stompArea;
+    public AnimatedSprite2D sprite;
+    public AnimatedSprite2D flameSprite;
+    public CollisionShape2D collisionShape;
 
-    bool crushed = false;
-    bool killed = false;
-
-    private float fallVelocity = 0f;
-    private float deathVelocityX = 0f;
-    private float deathTimer = 0f;
-    private float spinDirection = 1f;
-    private float currentSpinSpeed = 0f;
-    private bool crushAnimationDone = false;
-    private float crushDelayTimer = 0f;
+    private FlyState flyState;
+    private CrashState crashState;
+    private CrashFallState crashFallState;
+    private DeathState deathState;
 
     public override void _Ready()
     {
+        base._Ready();
+
         ray = GetNode<RayCast2D>("ray_cast");
-        area = GetNode<Area2D>("area_2d");
+        stompArea = GetNode<Area2D>("stomp_area");
         sprite = GetNode<AnimatedSprite2D>("sprite");
+        flameSprite = GetNode<AnimatedSprite2D>("sprite_2");
+        collisionShape = GetNode<CollisionShape2D>("collision_shape");
 
         GravityScale = 0f;
 
-        area.BodyEntered += OnBodyEntered;
+        stompArea.BodyEntered += OnBodyEnteredStompArea;
         sprite.AnimationFinished += OnSpriteAnimationFinished;
+        flameSprite.AnimationFinished += OnFlameAnimationFinished;
 
-        CheckDirection();
+        flyState = new FlyState(this);
+        crashState = new CrashState(this);
+        crashFallState = new CrashFallState(this);
+        deathState = new DeathState(this);
 
-        base._Ready();
+        SwitchState(flyState);
     }
 
-    public override void _Process(double delta)
+    public override void Kill()
     {
-        CheckDirection();
+        EnterOnce(deathState);
     }
 
-    public override void _PhysicsProcess(double delta)
+    private void OnSpriteAnimationFinished()
     {
-        float dt = (float)delta;
-
-        if (killed)
+        switch (sprite.Animation)
         {
-            fallVelocity = Math.Min(fallVelocity + fallGravity * dt, fallSpeed);
-
-            deathVelocityX = Mathf.MoveToward(deathVelocityX, 0f, horizontalDrag * dt);
-
-            Position += new Vector2(deathVelocityX, fallVelocity) * dt;
-
-            Rotation += spinDirection * currentSpinSpeed * dt;
-
-            deathTimer -= dt;
-            if (deathTimer <= 0f)
-            {
-                QueueFree();
-            }
-            return;
-        }
-
-        if (crushed)
-        {
-            if (crushAnimationDone)
-            {
-                crushDelayTimer -= dt;
-                if (crushDelayTimer <= 0f)
-                {
-                    StartFalling(null, 0f);
-                }
-            }
-            return;
-        }
-
-        if (ray.IsColliding())
-        {
-            if (ray.GetCollider() is BasePlayerController player)
-            {
-                player.Kill();
-            }
-            else if (ray.GetCollider() is Node)
-            {
-                crushed = true;
-                sprite.Play("crush");
-                return;
-            }
-        }
-
-        Position += missileVelocity * dt;
-    }
-
-    void CheckDirection()
-    {
-        if (!crushed && !killed)
-        {
-            if (missileDirection == Directions.Left)
-            {
-                Scale = new Vector2(-1, 1);
-                missileVelocity = new Vector2(-missileSpeed, 0);
-            }
-            else
-            {
-                Scale = Vector2.One;
-                missileVelocity = new Vector2(missileSpeed, 0);
-            }
-        }
-        else
-        {
-            missileVelocity = Vector2.Zero;
+            case "launch":
+                flyState.OnLaunchFinished();
+                break;
+            case "crash":
+                crashState.OnAnimationFinished();
+                break;
         }
     }
 
-    void OnSpriteAnimationFinished()
+    private void OnFlameAnimationFinished()
     {
-        if (crushed && !killed && !crushAnimationDone && sprite.Animation == "crush")
+        switch (flameSprite.Animation)
         {
-            crushAnimationDone = true;
-            crushDelayTimer = crushFallDelayMs / 1000f;
+            case "flame_on":
+                flyState.OnFlameOn();
+                break;
         }
     }
 
-    void OnBodyEntered(Node2D body)
+    private void OnBodyEnteredStompArea(Node2D body)
     {
-        if (killed || crushed)
+        if (!flyState.Active)
         {
             return;
         }
@@ -160,40 +96,187 @@ public partial class MissileMorty : Enemy
         }
 
         bool fallingDown = player.Velocity.Y > 0f;
-        bool isAbove = player.GlobalPosition.Y < GlobalPosition.Y - stompMargin;
 
-        if (fallingDown && isAbove)
+        if (fallingDown)
         {
-            player.ForceJump(null, false);
-            StartFalling("death", stompMomentumRetention);
+            player.ForceJump(null, true);
+            Kill();
         }
     }
-    void StartFalling(string? animation, float momentumRetention)
+
+    private float DirectionSign => missileDirection == Directions.Right ? 1f : -1f;
+
+    private abstract class MissileMortyState : EnemyState
     {
-        deathVelocityX = missileVelocity.X * momentumRetention;
+        protected readonly MissileMorty morty;
 
-        bool facingRight = missileDirection == Directions.Right;
-        spinDirection = (facingRight ^ crushed) ? 1f : -1f;
-        currentSpinSpeed = crushed ? crushSpinSpeed : spinSpeed;
-
-        killed = true;
-        deathTimer = deathDuration;
-        fallVelocity = 0f;
-
-        if (animation != null)
+        protected MissileMortyState(MissileMorty morty) : base(morty)
         {
-            sprite.Play(animation);
+            this.morty = morty;
         }
-        ray.Enabled = false;
-        area.SetDeferred(Area2D.PropertyName.Monitoring, false);
-        area.SetDeferred(Area2D.PropertyName.Monitorable, false);
 
-        foreach (Node child in GetChildren())
+        protected RayCast2D ray => morty.ray;
+        protected Area2D stompArea => morty.stompArea;
+        protected AnimatedSprite2D sprite => morty.sprite;
+        protected AnimatedSprite2D flameSprite => morty.flameSprite;
+
+        protected void DisableCollision()
         {
-            if (child is CollisionShape2D shape)
+            ray.Enabled = false;
+            stompArea.SetDeferred(Area2D.PropertyName.Monitoring, false);
+            stompArea.SetDeferred(Area2D.PropertyName.Monitorable, false);
+
+            morty.GetNode<KillZone>("kill_zone").Enabled = false;
+
+            foreach (Node child in morty.GetChildren())
             {
-                shape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+                if (child is CollisionShape2D shape)
+                {
+                    shape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+                }
             }
+        }
+    }
+
+    private sealed class FlyState : MissileMortyState
+    {
+        public bool Active { get; private set; }
+
+        public FlyState(MissileMorty morty) : base(morty) { }
+
+        public override void Enter()
+        {
+            Active = true;
+            ApplyDirection();
+        }
+
+        public override void Exit()
+        {
+            Active = false;
+        }
+
+        public override void PhysicsUpdate(double delta)
+        {
+            ApplyDirection();
+
+            if (ray.IsColliding())
+            {
+                var collider = ray.GetCollider();
+
+                if (collider is BasePlayerController player)
+                {
+                    player.CallDeferred("Kill");
+                    return;
+                }
+
+                if (collider is Node && collider is not Area2D)
+                {
+                    morty.EnterOnce(morty.crashState);
+                    return;
+                }
+            }
+
+            morty.Position += new Vector2(morty.DirectionSign * morty.missileSpeed, 0) * (float)delta;
+        }
+
+        private void ApplyDirection()
+        {
+            morty.Scale = new Vector2(morty.DirectionSign, 1f);
+        }
+
+        public void OnLaunchFinished()
+        {
+            flameSprite.Play("flame_on");
+        }
+
+        public void OnFlameOn()
+        {
+            sprite.Play("fly");
+            flameSprite.Play("flame_idle");
+            morty.GetNode<KillZone>("kill_zone").Enabled = true;
+        }
+    }
+
+    private sealed class CrashState : MissileMortyState
+    {
+        private bool active;
+        private bool animationDone;
+        private float delayTimer;
+
+        public CrashState(MissileMorty morty) : base(morty) { }
+
+        public override void Enter()
+        {
+            active = true;
+            animationDone = false;
+
+            sprite.Play("crash"); // must match your SpriteFrames, looping off
+            flameSprite.Play("flame_off");
+            DisableCollision();
+        }
+
+        public override void Exit()
+        {
+            active = false;
+        }
+
+        public void OnAnimationFinished()
+        {
+            if (!active || animationDone || sprite.Animation != "crash") return;
+
+            animationDone = true;
+            delayTimer = morty.crashFallDelayMs / 1000f;
+        }
+
+        public override void PhysicsUpdate(double delta)
+        {
+            if (!animationDone) return;
+
+            delayTimer -= (float)delta;
+            if (delayTimer <= 0f)
+            {
+                morty.SwitchState(morty.crashFallState);
+            }
+        }
+    }
+
+    // Wall crash -> straight drop, no animation change
+    private sealed class CrashFallState : MissileMortyState
+    {
+        public CrashFallState(MissileMorty morty) : base(morty) { }
+
+        public override void Enter()
+        {
+            bool facingRight = morty.missileDirection == Directions.Right;
+
+            morty.fallMotion.Start(velocityX: 0f, spinDirection: facingRight ? -1f : 1f, spinSpeedOverride: morty.crashSpinSpeed);
+            DisableCollision();
+        }
+
+        public override void PhysicsUpdate(double delta)
+        {
+            morty.fallMotion.Tick(delta);
+        }
+    }
+
+    // Stomped or killed: plays "death", keeps some momentum
+    private sealed class DeathState : MissileMortyState
+    {
+        public DeathState(MissileMorty morty) : base(morty) { }
+
+        public override void Enter()
+        {
+            bool facingRight = morty.missileDirection == Directions.Right;
+
+            morty.fallMotion.Start(velocityX: morty.DirectionSign * morty.missileSpeed * morty.stompMomentumRetention, spinDirection: facingRight ? 1f : -1f);
+            sprite.Play("death");
+            flameSprite.Play("flame_off");
+            DisableCollision();
+        }
+
+        public override void PhysicsUpdate(double delta)
+        {
+            morty.fallMotion.Tick(delta);
         }
     }
 }

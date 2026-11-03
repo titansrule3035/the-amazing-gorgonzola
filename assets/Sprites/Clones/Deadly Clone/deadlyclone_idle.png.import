@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://08ap7neydcbj"
-path="res://.godot/imported/missilelauncher.png-26c939bad7cd54906be4b6d4533bdb16.ctex"
+uid="uid://i54xbmtupn2y"
+path="res://.godot/imported/deadlyclone_idle.png-d1d32d4754c9d4e8a090afc5b4978eae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Enemies/missilelauncher.png"
-dest_files=["res://.godot/imported/missilelauncher.png-26c939bad7cd54906be4b6d4533bdb16.ctex"]
+source_file="res://assets/Sprites/Clones/Deadly Clone/deadlyclone_idle.png"
+dest_files=["res://.godot/imported/deadlyclone_idle.png-d1d32d4754c9d4e8a090afc5b4978eae.ctex"]
 
 [params]
 

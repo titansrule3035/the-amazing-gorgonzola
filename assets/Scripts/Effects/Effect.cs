@@ -74,4 +74,27 @@ public partial class Effect : Node2D
 
         base._ExitTree();
     }
+
+    /// <summary>
+    /// Instantiates a particle/visual effect scene at the given world position and adds it to the tree.
+    /// </summary>
+    /// <param name="scene">PackedScene for the effect.</param>
+    /// <param name="position">Global position to place the effect.</param>
+    public static void SpawnEffect(Node2D owner, PackedScene scene, Vector2 position, bool shouldFlip)
+    {
+        if (scene == null) return;
+
+        var effect = scene.Instantiate<Effect>();
+        if (effect == null) return;
+
+        owner.GetParent<Node2D>().AddChild(effect);
+
+        effect.GlobalPosition = position;
+
+        var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+        if (anim != null)
+        {
+            anim.FlipH = shouldFlip;
+        }
+    }
 }

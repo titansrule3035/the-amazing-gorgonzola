@@ -21,7 +21,6 @@ tile_set = SubResource("TileSet_8se8v")
 format = 2
 
 [node name="TestBg2" type="Sprite2D" parent="." unique_id=1221020426]
-position = Vector2(-9.918213e-05, 16)
 texture = ExtResource("3_5h4jc")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1221955001]
