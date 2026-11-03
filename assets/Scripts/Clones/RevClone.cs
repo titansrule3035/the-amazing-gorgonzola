@@ -34,7 +34,7 @@ public partial class RevClone : BasePlayerController
         if (!killed)
         {
             killed = true;
-            SpawnEffect(killEffectScene, GlobalPosition);
+            Effect.SpawnEffect(this, killEffectScene, GlobalPosition, shouldFlip);
             QueueFree();
 
             base.Kill();
