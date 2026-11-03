@@ -1336,6 +1336,7 @@ animations = [{
 
 [node name="rev_upside_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
+scale = Vector2(-1, -1)
 collision_layer = 16384
 script = ExtResource("1_j45r1")
 killEffectScene = ExtResource("2_6kqj1")
