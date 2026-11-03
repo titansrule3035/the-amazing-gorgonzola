@@ -69,6 +69,8 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
             instance = null;
         }
 
+        OnOffManager.OnStateChanged -= OnStateChanged;
+
         base._ExitTree();
     }
 }
