@@ -84,6 +84,24 @@ public partial class Effect : Node2D
     {
         if (scene == null) return;
 
+        var effect = scene.Instantiate<Node2D>();
+        if (effect == null) return;
+
+        owner.GetParent<Node2D>().AddChild(effect);
+
+        effect.GlobalPosition = position;
+
+        var anim = effect.GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+        if (anim != null)
+        {
+            anim.FlipH = shouldFlip;
+        }
+    }
+
+    public static void SpawnEffect(Node2D owner, PackedScene scene, Vector2 position, bool shouldFlip, Material shader)
+    {
+        if (scene == null) return;
+
         var effect = scene.Instantiate<Effect>();
         if (effect == null) return;
 

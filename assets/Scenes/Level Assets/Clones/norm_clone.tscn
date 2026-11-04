@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://djtqny62cuq2g"]
 
-[ext_resource type="Script" uid="uid://si4nrymeopfu" path="res://assets/Scripts/Clones/NormClone.cs" id="1_u8y20"]
+[ext_resource type="Script" uid="uid://dnqn5piho8k2p" path="res://assets/Scripts/Clones/BasePlayerController.cs" id="1_u4gu0"]
 [ext_resource type="PackedScene" uid="uid://ddvu3cojc55cx" path="res://assets/Scenes/Level Assets/Effects/norm_kill_effect.tscn" id="2_jkpm8"]
 [ext_resource type="Texture2D" uid="uid://cl4t2kps0i0sm" path="res://assets/Sprites/Clones/fall.png" id="2_jve7h"]
 [ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Level Assets/Effects/jump_effect.tscn" id="3_dk3xr"]
@@ -1337,10 +1337,11 @@ animations = [{
 [node name="norm_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
 collision_layer = 16384
-script = ExtResource("1_u8y20")
-killEffectScene = ExtResource("2_jkpm8")
+script = ExtResource("1_u4gu0")
+cloneType = 1
 jumpEffectScene = ExtResource("3_dk3xr")
 landEffectScene = ExtResource("4_4qigl")
+killEffectScene = ExtResource("2_jkpm8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -26.5)

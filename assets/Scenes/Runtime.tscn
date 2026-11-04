@@ -10,9 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Level Assets/Clones/default_clone.tscn" id="7_7eh16"]
 [ext_resource type="PackedScene" uid="uid://dt16u0sqmom6y" path="res://assets/Scenes/Level Assets/Clones/gorgonzola.tscn" id="8_tpjvn"]
 [ext_resource type="PackedScene" uid="uid://djtqny62cuq2g" path="res://assets/Scenes/Level Assets/Clones/norm_clone.tscn" id="9_g31lk"]
+[ext_resource type="PackedScene" uid="uid://bjtcfxjhufae6" path="res://assets/Scenes/Level Assets/Clones/upside_clone.tscn" id="10_1hol1"]
 [ext_resource type="PackedScene" uid="uid://bpnpe2o4rqypr" path="res://assets/Scenes/Level Assets/Clones/rev_clone.tscn" id="10_ehoku"]
 [ext_resource type="PackedScene" uid="uid://ca4kqof5r3uth" path="res://assets/Scenes/Level Assets/Hazards/spike_down.tscn" id="11_7ei28"]
+[ext_resource type="PackedScene" uid="uid://dgex74g8t06ym" path="res://assets/Scenes/Level Assets/Clones/rev_upside_clone.tscn" id="11_dv2ik"]
 [ext_resource type="PackedScene" uid="uid://cdjhcvnksu6fx" path="res://assets/Scenes/Level Assets/Hazards/spike_left.tscn" id="12_llobl"]
+[ext_resource type="PackedScene" uid="uid://d12vqcxnmxj4b" path="res://assets/Scenes/Level Assets/Clones/deadly_clone.tscn" id="13_3gjfl"]
 [ext_resource type="PackedScene" uid="uid://bv2ddx00m3f3w" path="res://assets/Scenes/Level Assets/Hazards/spike_right.tscn" id="13_q3x6y"]
 [ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/Hazards/spike_up.tscn" id="14_pjdf6"]
 [ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="15_6fdsp"]
@@ -58,11 +61,18 @@ LevelMechanicScenes = Dictionary[String, PackedScene]({
 "StaticBody2D": ExtResource("6_8xlkq")
 })
 CloneScenes = Dictionary[String, PackedScene]({
+"Deadly": ExtResource("13_3gjfl"),
+"Default": ExtResource("7_7eh16"),
 "DefaultClone": ExtResource("7_7eh16"),
 "Gorgonzola": ExtResource("8_tpjvn"),
 "NormClone": ExtResource("9_g31lk"),
+"Normal": ExtResource("9_g31lk"),
+"Player": ExtResource("8_tpjvn"),
 "RevClone": ExtResource("10_ehoku"),
-"SpawnGorg": ExtResource("8_tpjvn")
+"Reverse": ExtResource("10_ehoku"),
+"ReverseUpsideDown": ExtResource("11_dv2ik"),
+"Shadow": ExtResource("16_bgwub"),
+"UpsideDown": ExtResource("10_1hol1")
 })
 HazardScenes = Dictionary[String, PackedScene]({
 "Chunk": ExtResource("15_u1uq0"),

@@ -2,8 +2,21 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public abstract partial class BasePlayerController : CharacterBody2D
+public partial class BasePlayerController : CharacterBody2D
 {
+    // clone type enum for exporting/importing in the editor
+    public enum CloneType
+    {
+        Player,
+        Normal,
+        Reverse,
+        UpsideDown,
+        ReverseUpsideDown,
+        Shadow,
+        Deadly,
+        Default
+    }
+
     // Exported tunables
     [Export] public bool autoAnimate = true;
     [Export] public float AscendMultiplier = 1.5f;
@@ -12,10 +25,10 @@ public abstract partial class BasePlayerController : CharacterBody2D
     [Export] public float FallMultiplier = 2.25f;
     [Export] public float MaxFallSpeed = 800f;
     [Export] public float offset;
-    [Export] public bool shouldFlip;
     [Export] public bool isFalling;
     [Export] public bool hasKey = false;
     [Export] public float JumpBufferTime = 0.15f;
+    [Export] public CloneType cloneType = CloneType.Default;
 
     /// <summary>
     /// When false, this controller ignores player input entirely (no horizontal movement, no jumping).
@@ -26,6 +39,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     // Scenes / resources
     [Export] private PackedScene jumpEffectScene;
     [Export] private PackedScene landEffectScene;
+    [Export] private PackedScene killEffectScene;
 
     // Node references
     public AnimatedSprite2D sprite;
@@ -40,6 +54,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
     private bool isLanded = false;
     private float jumpBufferTimer = 0f;
     public bool killed = false;
+    private bool shouldFlip;
 
     // Events
     public static event Action MainPlayerKilled;
@@ -127,7 +142,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         if (!IsLevelCompleted() && !IsGamePaused())
         {
             // No input is read when the flag is off; direction stays 0 so the character stops horizontally.
-            float direction = AllowPlayerInput ? GetMovementInput() : 0f;
+            float direction = AllowPlayerInput ? GetMovementInput() * Scale.X : 0f;
             HandleHorizontalMovement(ref velocity, direction);
             HandleJump(ref velocity, dt);
         }
@@ -262,7 +277,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
 
         if (spawnEffect)
         {
-            Effect.SpawnEffect(this, jumpEffectScene, GlobalPosition, shouldFlip);
+            Effect.SpawnEffect(this, jumpEffectScene, GlobalPosition, ShouldFlipSprite(AllowPlayerInput ? GetMovementInput() * Scale.X : 0f));
         }
     }
 
@@ -280,7 +295,7 @@ public abstract partial class BasePlayerController : CharacterBody2D
         {
             if (!isLanded)
             {
-                Effect.SpawnEffect(this, landEffectScene, GlobalPosition, false);
+                Effect.SpawnEffect(this, landEffectScene, GlobalPosition, ShouldFlipSprite(GetMovementInput()));
                 isLanded = true;
             }
             return;
@@ -366,9 +381,9 @@ public abstract partial class BasePlayerController : CharacterBody2D
                 PlayAnimation("enter_door");
                 gorgonzola.doorMoveTriggered = true;
             }
-            else if (this is ShadowClone shadowClone)
+            else if (cloneType == CloneType.Shadow)
             {
-                shadowClone.Kill();
+                Kill();
             }
             else
             {
@@ -424,14 +439,26 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// Only called while AllowPlayerInput is true.
     /// </summary>
     /// <returns>Horizontal input direction.</returns>
-    protected abstract float GetMovementInput();
+    protected virtual float GetMovementInput()
+    {
+        if (cloneType == CloneType.Reverse || cloneType == CloneType.ReverseUpsideDown)
+        {
+            return Input.GetAxis("move_right", "move_left");
+        }
+
+        return Input.GetAxis("move_left", "move_right");
+    }
 
     /// <summary>
     /// Determines whether the sprite should be flipped based on movement direction.
     /// </summary>
     /// <param name="direction">Horizontal direction value.</param>
     /// <returns>True if sprite should be flipped horizontally.</returns>
-    public virtual bool ShouldFlipSprite(float direction) => direction < 0f;
+    public bool ShouldFlipSprite(float direction)
+    {
+        shouldFlip = (cloneType == CloneType.Reverse || cloneType == CloneType.ReverseUpsideDown) ? !(direction * Scale.X < 0) : direction * Scale.X < 0;
+        return shouldFlip;
+    }
 
     /// <summary>
     /// Whether a jump was requested this physics frame. Override to change where jump input comes from.
@@ -443,6 +470,28 @@ public abstract partial class BasePlayerController : CharacterBody2D
     /// </summary>
     public virtual void Kill()
     {
+        if (killed)
+        {
+            return;
+        }
+        else
+        {
+            killed = true;
+
+            Node2D killEffect = killEffectScene.Instantiate<Node2D>();
+            if (killEffect.GetType() == typeof(GorgCarcass))
+            {
+                GorgCarcass effect = killEffect as GorgCarcass;
+                effect.flip = shouldFlip;
+                GetTree().CurrentScene.AddChild(effect);
+                effect.GlobalPosition = GlobalPosition;
+            }
+            else
+            {
+                Effect.SpawnEffect(this, killEffectScene, GlobalPosition, (cloneType == CloneType.Reverse || cloneType == CloneType.ReverseUpsideDown) ? !shouldFlip : shouldFlip);
+            }
+            QueueFree();
+        }
         if (hasKey)
         {
             hasKey = false;

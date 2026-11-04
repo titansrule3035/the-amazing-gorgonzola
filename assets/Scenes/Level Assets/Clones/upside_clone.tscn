@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjtcfxjhufae6"]
 
-[ext_resource type="Script" uid="uid://si4nrymeopfu" path="res://assets/Scripts/Clones/NormClone.cs" id="1_vy3xu"]
+[ext_resource type="Script" uid="uid://dnqn5piho8k2p" path="res://assets/Scripts/Clones/BasePlayerController.cs" id="1_vy3xu"]
 [ext_resource type="PackedScene" uid="uid://ddvu3cojc55cx" path="res://assets/Scenes/Level Assets/Effects/norm_kill_effect.tscn" id="2_fpvdr"]
 [ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Level Assets/Effects/jump_effect.tscn" id="3_aj7d8"]
 [ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Level Assets/Effects/land_effect.tscn" id="4_coxyh"]
@@ -1339,9 +1339,10 @@ z_index = 10
 scale = Vector2(1, -1)
 collision_layer = 16384
 script = ExtResource("1_vy3xu")
-killEffectScene = ExtResource("2_fpvdr")
+cloneType = 3
 jumpEffectScene = ExtResource("3_aj7d8")
 landEffectScene = ExtResource("4_coxyh")
+killEffectScene = ExtResource("2_fpvdr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -26.5)

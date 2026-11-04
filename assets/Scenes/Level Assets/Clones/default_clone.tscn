@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bykyni0d72okt"]
 
+[ext_resource type="Script" uid="uid://dnqn5piho8k2p" path="res://assets/Scripts/Clones/BasePlayerController.cs" id="1_6alfr"]
 [ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Palettes/default_clone_palette.png" id="1_8facq"]
-[ext_resource type="Script" uid="uid://dqwcd4j4ko42d" path="res://assets/Scripts/Clones/DefaultClone.cs" id="1_c4r6a"]
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="2_3rfah"]
 [ext_resource type="PackedScene" uid="uid://c0be85jmbtdoh" path="res://assets/Scenes/Level Assets/Effects/default_kill_effect.tscn" id="2_yv23k"]
 [ext_resource type="Texture2D" uid="uid://cl4t2kps0i0sm" path="res://assets/Sprites/Clones/fall.png" id="3_c4r6a"]
@@ -1336,22 +1336,24 @@ animations = [{
 [node name="default_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
 collision_layer = 16384
-script = ExtResource("1_c4r6a")
-killEffectScene = ExtResource("2_yv23k")
+script = ExtResource("1_6alfr")
 jumpEffectScene = ExtResource("3_iohye")
 landEffectScene = ExtResource("4_wmpbg")
+killEffectScene = ExtResource("2_yv23k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -26.5)
 shape = SubResource("RectangleShape2D_ly2rs")
-debug_color = Color(0.992157, 1, 0.666667, 0.611765)
+debug_color = Color(0.49803922, 1, 0.7137255, 0.53333336)
 
 [node name="sprite" type="AnimatedSprite2D" parent="." unique_id=1588915662]
 texture_filter = 1
 material = SubResource("ShaderMaterial_k1s2y")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
-animation = &"fall"
+animation = &"win"
 autoplay = "idle"
+frame = 10
+frame_progress = 0.93523633
 offset = Vector2(0, -50)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=801370026]

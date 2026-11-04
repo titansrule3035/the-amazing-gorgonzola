@@ -365,9 +365,9 @@ public partial class Runtime : Node2D
 
             if (clones != null)
             {
-                foreach (Node2D clone in clones.GetChildren())
+                foreach (BasePlayerController clone in clones.GetChildren())
                 {
-                    data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.GlobalPosition));
+                    data.Clones.Add(new ObjectData(clone.cloneType.ToString(), clone.GlobalPosition));
                 }
             }
 

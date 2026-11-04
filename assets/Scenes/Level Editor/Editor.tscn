@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="5_w41ii"]
 [ext_resource type="Script" uid="uid://bv7bfobi7ndpy" path="res://assets/Scripts/Level Editor/UI/CameraDrag.cs" id="17_yuieu"]
 [ext_resource type="Script" uid="uid://decn0trfeo5dx" path="res://assets/Scripts/Level Editor/Editor/EditorGameManager.cs" id="18_xuh87"]
-[ext_resource type="PackedScene" uid="uid://bc8rxj4w6dd3f" path="res://assets/Scenes/Level Editor/Items/Clones/item_rev_upside_clone.tscn" id="20_fm07t"]
-[ext_resource type="PackedScene" uid="uid://op3dfgwcmd6l" path="res://assets/Scenes/Level Editor/Items/Clones/item_upside_clone.tscn" id="21_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://b8l0nsxljfu3v" path="res://assets/Scenes/Level Assets/Hazards/kill_zone.tscn" id="21_x1w6y"]
 [ext_resource type="Script" uid="uid://cigia10ol51ab" path="res://assets/Scripts/Level Editor/Editor/EditorObject.cs" id="22_07x1x"]
 [ext_resource type="Script" uid="uid://bquphp5j7gww7" path="res://assets/Scripts/Level Editor/UI/Grid.cs" id="23_5qh5s"]
@@ -528,17 +526,6 @@ process_mode = 0
 layout_mode = 2
 
 [node name="ItemDefaultClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=420855153 instance=ExtResource("35_o432r")]
-layout_mode = 2
-
-[node name="ClonesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1873558615]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=94323593 instance=ExtResource("20_fm07t")]
-layout_mode = 2
-
-[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=1912401612 instance=ExtResource("21_5j6bi")]
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]

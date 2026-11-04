@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://d12vqcxnmxj4b"]
 
-[ext_resource type="Script" uid="uid://d3q8wwrtthvmg" path="res://assets/Scripts/Clones/DeadlyClone.cs" id="1_13a0d"]
-[ext_resource type="PackedScene" uid="uid://bai1o8nm4k4qj" path="res://assets/Scenes/Level Assets/Effects/deadly_kill_effect.tscn" id="2_tahjf"]
-[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Level Assets/Effects/jump_effect.tscn" id="3_r23ma"]
-[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Level Assets/Effects/land_effect.tscn" id="4_uew7d"]
+[ext_resource type="Script" uid="uid://d3q8wwrtthvmg" path="res://assets/Scripts/Clones/DeadlyClone.cs" id="1_wkyf1"]
+[ext_resource type="PackedScene" uid="uid://bahvvnowulrr2" path="res://assets/Scenes/Level Assets/Effects/jump_effect.tscn" id="2_s0kso"]
+[ext_resource type="PackedScene" uid="uid://umxpule2kkbb" path="res://assets/Scenes/Level Assets/Effects/land_effect.tscn" id="3_uho7s"]
+[ext_resource type="PackedScene" uid="uid://bai1o8nm4k4qj" path="res://assets/Scenes/Level Assets/Effects/deadly_kill_effect.tscn" id="4_r23ma"]
 [ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Palettes/default_clone_palette.png" id="5_tlb6h"]
 [ext_resource type="Texture2D" uid="uid://sb6h7uqqs38x" path="res://assets/Sprites/Clones/Palettes/deadly_clone_palette.png" id="6_y3v3k"]
 [ext_resource type="Texture2D" uid="uid://cx1i4xy1caoy6" path="res://assets/Sprites/Clones/Gorgonzola/enter_door.png" id="7_r3iok"]
@@ -1340,10 +1340,10 @@ size = Vector2(48, 62)
 [node name="deadly_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
 collision_layer = 16384
-script = ExtResource("1_13a0d")
-killEffectScene = ExtResource("2_tahjf")
-jumpEffectScene = ExtResource("3_r23ma")
-landEffectScene = ExtResource("4_uew7d")
+script = ExtResource("1_wkyf1")
+jumpEffectScene = ExtResource("2_s0kso")
+landEffectScene = ExtResource("3_uho7s")
+killEffectScene = ExtResource("4_r23ma")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399466810]
 position = Vector2(0, -26.5)

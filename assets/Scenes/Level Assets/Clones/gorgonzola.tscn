@@ -1358,10 +1358,11 @@ z_index = 5
 material = SubResource("ShaderMaterial_h4t2g")
 collision_layer = 8192
 script = ExtResource("1_05s33")
-carcassEffectScene = ExtResource("2_31fdh")
 offset = 96.0
+cloneType = 0
 jumpEffectScene = ExtResource("3_pikh2")
 landEffectScene = ExtResource("4_ctyvx")
+killEffectScene = ExtResource("2_31fdh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=648897750]
 position = Vector2(0, -26.5)

@@ -207,26 +207,7 @@ public partial class ShadowClone : BasePlayerController
     // Base class hooks
     // ------------------------------------------------------------------
     protected override float GetMovementInput() => delayedDirection;
-
     protected override bool IsJumpJustPressed() => delayedJump;
-
-    public override bool ShouldFlipSprite(float direction)
-    {
-        shouldFlip = (direction < 0);
-        return shouldFlip;
-    }
-
-    public override void Kill()
-    {
-        if (!killed)
-        {
-            killed = true;
-            Effect.SpawnEffect(this, killEffectScene, GlobalPosition, shouldFlip);
-            QueueFree();
-
-            base.Kill();
-        }
-    }
 
     protected override void Flush()
     {
