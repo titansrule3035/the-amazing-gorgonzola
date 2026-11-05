@@ -53,6 +53,7 @@ public partial class BasePlayerController : CharacterBody2D
 
     // Internal state
     private bool isLanded = false;
+    private bool groundStateInitialized = false;
     private float jumpBufferTimer = 0f;
     public bool killed = false;
 
@@ -221,6 +222,12 @@ public partial class BasePlayerController : CharacterBody2D
 
         Velocity = velocity;
         MoveAndSlide();
+
+        if (!groundStateInitialized)
+        {
+            isLanded = IsOnFloor();
+            groundStateInitialized = true;
+        }
 
         // Ceiling fix: when the head hits a ceiling, MoveAndSlide can leave residual velocity
         // pushing into it (especially when also pressed into a wall / corner). Kill it so gravity
@@ -597,6 +604,7 @@ public partial class BasePlayerController : CharacterBody2D
     protected virtual void Flush()
     {
         isLanded = false;
+        groundStateInitialized = false;
         jumpBufferTimer = 0f;
         if (this is not Gorgonzola)
         {
