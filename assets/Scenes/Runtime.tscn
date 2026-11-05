@@ -65,15 +65,10 @@ LevelMechanicScenes = Dictionary[String, PackedScene]({
 CloneScenes = Dictionary[String, PackedScene]({
 "Deadly": ExtResource("13_3gjfl"),
 "Default": ExtResource("7_7eh16"),
-"DefaultClone": ExtResource("7_7eh16"),
-"Gorgonzola": ExtResource("8_tpjvn"),
-"NormClone": ExtResource("9_g31lk"),
 "Normal": ExtResource("9_g31lk"),
 "Player": ExtResource("8_tpjvn"),
-"RevClone": ExtResource("10_ehoku"),
 "Reverse": ExtResource("10_ehoku"),
 "ReverseUpsideDown": ExtResource("11_dv2ik"),
-"Shadow": ExtResource("16_bgwub"),
 "ShadowCloneSpawn": ExtResource("15_dv2ik"),
 "UpsideDown": ExtResource("10_1hol1")
 })
