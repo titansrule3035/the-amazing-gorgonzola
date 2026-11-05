@@ -7,7 +7,7 @@ public partial class DialogueManager : Node
 {
     // UI Elements
     [Export] public Control dialoguePanel;
-    [Export] public Label textLabel;
+    [Export] public RichTextLabel textLabel;
     [Export] public Control dialogueArrow;
     [Export] public AudioStreamPlayer speechBlip;
     [Export] public float textSpeedDelay = 0.025f;
