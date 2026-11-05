@@ -1350,10 +1350,8 @@ debug_color = Color(0.49803922, 1, 0.7137255, 0.53333336)
 texture_filter = 1
 material = SubResource("ShaderMaterial_k1s2y")
 sprite_frames = SubResource("SpriteFrames_k2sbu")
-animation = &"win"
+animation = &"idle"
 autoplay = "idle"
-frame = 10
-frame_progress = 0.93523633
 offset = Vector2(0, -50)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=801370026]

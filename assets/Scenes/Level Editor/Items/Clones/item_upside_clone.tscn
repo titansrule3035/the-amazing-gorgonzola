@@ -7,12 +7,10 @@
 [node name="ItemUpsideClone" unique_id=1663939762 instance=ExtResource("1_nha4w")]
 
 [node name="ItemTexture" parent="." index="0" unique_id=1896539650]
-offset_top = 84.048
-offset_bottom = 84.048
-scale = Vector2(1, -1)
 texture = ExtResource("2_nha4w")
 itemType = 0
 thisScene = ExtResource("3_i3fm5")
+cursorOffset = Vector2(0, 11)
 
 [node name="Button" parent="." index="2" unique_id=1710020461]
 grow_horizontal = 2

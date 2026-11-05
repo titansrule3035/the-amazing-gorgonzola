@@ -44,6 +44,7 @@ public partial class BasePlayerController : CharacterBody2D
     // Node references
     public AnimatedSprite2D sprite;
     private AnimatedSprite2D indicator;
+    private CollisionShape2D bodyShape;
     protected AnimationPlayer animationPlayer;
     protected AnimationTree animationTree;
 
@@ -54,10 +55,53 @@ public partial class BasePlayerController : CharacterBody2D
     private bool isLanded = false;
     private float jumpBufferTimer = 0f;
     public bool killed = false;
-    private bool shouldFlip;
 
     // Events
     public static event Action MainPlayerKilled;
+
+    // ------------------------------------------------------------------
+    // Scale-driven orientation
+    // ------------------------------------------------------------------
+
+    // NOTE: these read the node's axes in global space instead of the Scale property. Godot stores a
+    // horizontal mirror either as scale (-1, 1) or as scale (1, -1) with rotation 180 degrees (it
+    // re-decomposes the transform that way whenever the transform is set as a whole). Both look
+    // identical on screen, and both give the same result here:
+    //   local X axis points left on screen  -> mirrored horizontally -> reversed input
+    //   local Y axis points up on screen    -> mirrored vertically   -> reversed gravity
+
+    /// <summary>+1 = normal gravity (down), -1 = inverted gravity (node is flipped vertically).</summary>
+    public float GravitySign => GlobalTransform.Y.Y < 0f ? -1f : 1f;
+
+    /// <summary>+1 = normal input, -1 = reversed input (node is mirrored horizontally).</summary>
+    private float HorizontalSign => GlobalTransform.X.X < 0f ? -1f : 1f;
+
+    /// <summary>
+    /// What the player actually sees: the sprite's own flip combined with the node being mirrored.
+    /// Effects use this so they always face the same way as the character on screen.
+    /// </summary>
+    public bool VisuallyFlipped => (sprite?.FlipH ?? false) ^ (HorizontalSign < 0f);
+
+    /// <summary>
+    /// World position of this character's feet: bottom-center of its collision shape, on the side
+    /// gravity pulls toward. Because the point is converted through the shape's own transform, it
+    /// automatically ends up at the top of the body for upside-down clones.
+    /// Falls back to the node origin if there is no collision shape.
+    /// </summary>
+    public Vector2 FeetPosition
+    {
+        get
+        {
+            if (bodyShape?.Shape == null)
+            {
+                return GlobalPosition;
+            }
+
+            Rect2 rect = bodyShape.Shape.GetRect();
+            Vector2 localFeet = new Vector2(rect.GetCenter().X, rect.End.Y);
+            return bodyShape.ToGlobal(localFeet);
+        }
+    }
 
     // ------------------------------------------------------------------
     // Game state helpers (GlobalGameManager in-game, EditorGameManager in editor)
@@ -114,11 +158,24 @@ public partial class BasePlayerController : CharacterBody2D
         animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
         animationTree = GetNodeOrNull<AnimationTree>("AnimationTree");
 
-        if (animationPlayer != null)
+        // First CollisionShape2D child is treated as the body shape (used to find the feet).
+        foreach (Node child in GetChildren())
+        {
+            if (child is CollisionShape2D shapeNode)
+            {
+                bodyShape = shapeNode;
+                break;
+            }
+        }
+
+        if (animationTree != null)
         {
             animationTree.AnimationFinished += OnAnimationFinished;
         }
         indicator = GetNode<AnimatedSprite2D>("indicator");
+
+        // Make floor/ceiling detection match the gravity direction from the start.
+        UpDirection = new Vector2(0, -GravitySign);
 
         _ = WireSignalsAsync();
 
@@ -127,7 +184,10 @@ public partial class BasePlayerController : CharacterBody2D
             MainPlayerKilled += OnMainPlayerKilled;
         }
 
-        animationTree.Active = true;
+        if (animationTree != null)
+        {
+            animationTree.Active = true;
+        }
     }
 
     /// <summary>
@@ -137,12 +197,18 @@ public partial class BasePlayerController : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         float dt = (float)delta;
+        float g = GravitySign;
+
+        // Gravity direction comes from the vertical flip, so "up" for floor/ceiling checks must follow it.
+        UpDirection = new Vector2(0, -g);
+
         Vector2 velocity = Velocity;
 
         if (!IsLevelCompleted() && !IsGamePaused())
         {
             // No input is read when the flag is off; direction stays 0 so the character stops horizontally.
-            float direction = AllowPlayerInput ? GetMovementInput() * Scale.X : 0f;
+            // Multiplying by the horizontal sign makes mirrored nodes move as they look.
+            float direction = AllowPlayerInput ? GetMovementInput() * HorizontalSign : 0f;
             HandleHorizontalMovement(ref velocity, direction);
             HandleJump(ref velocity, dt);
         }
@@ -156,10 +222,11 @@ public partial class BasePlayerController : CharacterBody2D
         Velocity = velocity;
         MoveAndSlide();
 
-        // Ceiling fix: when the head hits a ceiling, MoveAndSlide can leave residual upward
-        // velocity (especially when also pressed into a wall / corner). Kill it so gravity
-        // starts pulling the character down on the very next frame.
-        if (IsOnCeiling() && Velocity.Y < 0f)
+        // Ceiling fix: when the head hits a ceiling, MoveAndSlide can leave residual velocity
+        // pushing into it (especially when also pressed into a wall / corner). Kill it so gravity
+        // starts pulling the character away on the very next frame.
+        // "Up" is relative to gravity, so multiply by g.
+        if (IsOnCeiling() && Velocity.Y * g < 0f)
         {
             Velocity = new Vector2(Velocity.X, 0f);
         }
@@ -167,7 +234,8 @@ public partial class BasePlayerController : CharacterBody2D
         // Use the post-collision velocity so animations reflect what actually happened.
         UpdateAnimation(Velocity);
 
-        indicator.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - offset);
+        // The indicator sits "above" the head, which is below on inverted characters.
+        indicator.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y - offset * g);
     }
 
     /// <summary>
@@ -186,7 +254,7 @@ public partial class BasePlayerController : CharacterBody2D
             MainPlayerKilled -= OnMainPlayerKilled;
         }
 
-        if (animationPlayer != null)
+        if (animationTree != null)
         {
             animationTree.AnimationFinished -= OnAnimationFinished;
         }
@@ -207,7 +275,7 @@ public partial class BasePlayerController : CharacterBody2D
 
         var gm = LocalGameManager.GetInstance();
 
-        if (gm != null)
+        if (gm != null && IsInsideTree())
         {
             gm.OnFlush += Flush;
         }
@@ -228,10 +296,10 @@ public partial class BasePlayerController : CharacterBody2D
         }
     }
 
-
     /// <summary>
     /// Processes jump input including buffering and spawns the jump effect when a jump occurs.
     /// Does nothing (and clears the buffer) while player input is disabled.
+    /// The jump always goes against gravity, so it is flipped for inverted characters.
     /// </summary>
     /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
     /// <param name="dt">Delta time in seconds.</param>
@@ -256,15 +324,19 @@ public partial class BasePlayerController : CharacterBody2D
         {
             jumpBufferTimer = 0f;
 
-            velocity.Y = Math.Min(velocity.Y, -JumpVelocity);
+            float g = GravitySign;
 
-            Effect.SpawnEffect(this, jumpEffectScene, GlobalPosition, false);
+            // Work in "gravity space" (positive = falling) so inverted characters behave identically.
+            float gravitySpaceVelocity = Math.Min(velocity.Y * g, -JumpVelocity);
+            velocity.Y = gravitySpaceVelocity * g;
+
+            Effect.SpawnEffectOriented(this, jumpEffectScene);
         }
     }
 
     /// <summary>
     /// Makes this controller jump immediately, ignoring input, the AllowPlayerInput flag,
-    /// the jump buffer and whether it is on the ground.
+    /// the jump buffer and whether it is on the ground. Jumps against gravity.
     /// </summary>
     /// <param name="strength">Optional jump velocity override. Defaults to JumpVelocity.</param>
     /// <param name="spawnEffect">Whether to spawn the jump effect.</param>
@@ -272,30 +344,36 @@ public partial class BasePlayerController : CharacterBody2D
     {
         float jumpSpeed = strength ?? JumpVelocity;
 
-        Velocity = new Vector2(Velocity.X, -jumpSpeed);
+        Velocity = new Vector2(Velocity.X, -jumpSpeed * GravitySign);
         jumpBufferTimer = 0f;
 
         if (spawnEffect)
         {
-            Effect.SpawnEffect(this, jumpEffectScene, GlobalPosition, ShouldFlipSprite(AllowPlayerInput ? GetMovementInput() * Scale.X : 0f));
+            Effect.SpawnEffectOriented(this, jumpEffectScene);
         }
     }
 
     /// <summary>
     /// Applies gravity to the character taking into account ascent and fall multipliers
     /// and clamps the fall speed to MaxFallSpeed. Plays landing effect when touching the floor.
+    /// Gravity direction follows the vertical flip of the node.
     /// </summary>
     /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
     /// <param name="dt">Delta time in seconds.</param>
     private void ApplyGravity(ref Vector2 velocity, float dt)
     {
-        isFalling = velocity.Y >= 0f;
+        float g = GravitySign;
+
+        // Gravity space: positive = moving with gravity (falling), negative = rising.
+        float fall = velocity.Y * g;
+
+        isFalling = fall >= 0f;
 
         if (IsOnFloor())
         {
             if (!isLanded)
             {
-                Effect.SpawnEffect(this, landEffectScene, GlobalPosition, ShouldFlipSprite(GetMovementInput()));
+                Effect.SpawnEffectOriented(this, landEffectScene);
                 isLanded = true;
             }
             return;
@@ -304,28 +382,31 @@ public partial class BasePlayerController : CharacterBody2D
         isLanded = false;
 
         // Bonked the ceiling: cancel any remaining upward speed immediately.
-        if (IsOnCeiling() && velocity.Y < 0f)
+        if (IsOnCeiling() && fall < 0f)
         {
-            velocity.Y = 0f;
+            fall = 0f;
         }
 
+        // Add Mathf.Abs(Scale.Y) here if you also want the scale's magnitude to change gravity strength.
         float gravity = Math.Abs(GetGravity().Y);
 
-        // Ascend multiplier only while genuinely rising; otherwise (including Y == 0) use fall gravity.
-        float multiplier = velocity.Y < 0f ? AscendMultiplier : FallMultiplier;
-        velocity.Y += gravity * multiplier * dt;
+        // Ascend multiplier only while genuinely rising; otherwise (including 0) use fall gravity.
+        float multiplier = fall < 0f ? AscendMultiplier : FallMultiplier;
+        fall += gravity * multiplier * dt;
 
-        if (velocity.Y > MaxFallSpeed)
+        if (fall > MaxFallSpeed)
         {
-            velocity.Y = MaxFallSpeed;
+            fall = MaxFallSpeed;
         }
+
+        velocity.Y = fall * g;
     }
 
     /// <summary>
     /// Handles horizontal movement input and flipping the sprite if necessary.
     /// </summary>
     /// <param name="velocity">Character velocity, passed by reference to be modified.</param>
-    /// <param name="direction">Normalized horizontal input direction (-1..1).</param>
+    /// <param name="direction">Horizontal input direction (-1..1), already adjusted for the horizontal mirror.</param>
     private void HandleHorizontalMovement(ref Vector2 velocity, float direction)
     {
         if (IsLevelCompleted() || !CanMoveNow())
@@ -371,7 +452,8 @@ public partial class BasePlayerController : CharacterBody2D
             }
             else
             {
-                PlayAnimation(velocity.Y > 0f ? "isFalling" : "jump");
+                // Falling is relative to gravity, not screen-down.
+                PlayAnimation(velocity.Y * GravitySign > 0f ? "isFalling" : "jump");
             }
         }
         else if (canMove)
@@ -410,7 +492,7 @@ public partial class BasePlayerController : CharacterBody2D
     }
 
     /// <summary>
-    /// Called when an animation on the AnimationPlayer finishes. Handles transitions for
+    /// Called when an animation on the AnimationTree finishes. Handles transitions for
     /// enter door and level completed animations.
     /// </summary>
     /// <param name="animName">Name of the finished animation.</param>
@@ -435,29 +517,29 @@ public partial class BasePlayerController : CharacterBody2D
     }
 
     /// <summary>
-    /// Implement in derived classes to provide a horizontal movement input value (-1..1).
+    /// Provides a horizontal movement input value (-1..1). Override in derived classes to change the source.
     /// Only called while AllowPlayerInput is true.
     /// </summary>
     /// <returns>Horizontal input direction.</returns>
     protected virtual float GetMovementInput()
     {
-        if (cloneType == CloneType.Reverse || cloneType == CloneType.ReverseUpsideDown)
-        {
-            return Input.GetAxis("move_right", "move_left");
-        }
-
+        // Always the raw player input. Reversal for a mirrored node is applied in _PhysicsProcess.
         return Input.GetAxis("move_left", "move_right");
     }
 
     /// <summary>
-    /// Determines whether the sprite should be flipped based on movement direction.
+    /// Determines whether the sprite's FlipH should be set for the given movement direction.
+    /// Pure function: it does not modify any state. Pass the direction already adjusted for the
+    /// horizontal mirror (as HandleHorizontalMovement receives it).
     /// </summary>
-    /// <param name="direction">Horizontal direction value.</param>
-    /// <returns>True if sprite should be flipped horizontally.</returns>
+    /// <param name="direction">Horizontal direction value (already multiplied by the horizontal sign).</param>
+    /// <returns>True if the sprite should be flipped horizontally.</returns>
     public bool ShouldFlipSprite(float direction)
     {
-        shouldFlip = (cloneType == CloneType.Reverse || cloneType == CloneType.ReverseUpsideDown) ? !(direction * Scale.X < 0) : direction * Scale.X < 0;
-        return shouldFlip;
+        // A mirrored node already mirrors the sprite on screen, so FlipH only needs to follow the
+        // raw input direction. The result is that the character always visually faces where it moves.
+        float rawDirection = direction * HorizontalSign;
+        return rawDirection < 0f;
     }
 
     /// <summary>
@@ -474,29 +556,38 @@ public partial class BasePlayerController : CharacterBody2D
         {
             return;
         }
-        else
-        {
-            killed = true;
 
+        killed = true;
+
+        if (killEffectScene != null)
+        {
+            // Instantiate exactly once.
             Node2D killEffect = killEffectScene.Instantiate<Node2D>();
-            if (killEffect.GetType() == typeof(GorgCarcass))
+            GetTree().CurrentScene.AddChild(killEffect);
+            killEffect.GlobalPosition = FeetPosition;
+
+            if (killEffect is GorgCarcass carcass)
             {
-                GorgCarcass effect = killEffect as GorgCarcass;
-                effect.flip = shouldFlip;
-                GetTree().CurrentScene.AddChild(effect);
-                effect.GlobalPosition = GlobalPosition;
+                carcass.flip = VisuallyFlipped;
+                // Mirror vertically for inverted gravity.
+                carcass.Scale = new Vector2(carcass.Scale.X, Mathf.Abs(carcass.Scale.Y) * GravitySign);
             }
             else
             {
-                Effect.SpawnEffect(this, killEffectScene, GlobalPosition, (cloneType == CloneType.Reverse || cloneType == CloneType.ReverseUpsideDown) ? !shouldFlip : shouldFlip);
+                Effect.OrientEffect(this, killEffect);
             }
-            QueueFree();
+
+            // The shader is only ever applied to the death effect.
+            Effect.ApplyMaterial(killEffect, Material);
         }
+
+        QueueFree();
+
         if (hasKey)
         {
             hasKey = false;
             Door.GetInstance()?.Close();
-            Key.GetInstance().BlackenUIElement();
+            Key.GetInstance()?.BlackenUIElement();
         }
     }
 
@@ -527,7 +618,6 @@ public partial class BasePlayerController : CharacterBody2D
     /// Convenience helper to broadcast that all clones should be killed.
     /// </summary>
     public static void KillAllClones() => BroadcastMainPlayerKilled();
-
 
     /// <summary>
     /// Shows or hides the indicator AnimatedSprite2D.
