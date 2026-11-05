@@ -855,7 +855,8 @@ material = SubResource("ShaderMaterial_4udki")
 sprite_frames = SubResource("SpriteFrames_us4lm")
 
 [node name="area_2d" type="Area2D" parent="." index="5" unique_id=1227397790]
-collision_mask = 61441
+collision_layer = 4
+collision_mask = 61442
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d" index="0" unique_id=1187645965]
 position = Vector2(0, -31)

@@ -1335,7 +1335,7 @@ animations = [{
 
 [node name="default_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
-collision_layer = 16384
+collision_layer = 2
 script = ExtResource("1_6alfr")
 jumpEffectScene = ExtResource("3_iohye")
 landEffectScene = ExtResource("4_wmpbg")

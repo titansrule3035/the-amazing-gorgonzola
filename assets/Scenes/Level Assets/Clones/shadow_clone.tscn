@@ -832,7 +832,8 @@ debug_color = Color(0.4627451, 0.2627451, 0.5019608, 0.53333336)
 sprite_frames = SubResource("SpriteFrames_mrbv6")
 
 [node name="area_2d" type="Area2D" parent="." index="5" unique_id=184385016]
-collision_mask = 61441
+collision_layer = 4
+collision_mask = 61442
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="area_2d" index="0" unique_id=1324508623]
 position = Vector2(0, -31)

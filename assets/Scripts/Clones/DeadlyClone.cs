@@ -21,7 +21,7 @@ public partial class DeadlyClone : BasePlayerController
 
         if (body is BasePlayerController player)
         {
-            if (player is DeadlyClone || player is ShadowClone)
+            if (player is ShadowClone || player is DeadlyClone)
             {
                 return;
             }

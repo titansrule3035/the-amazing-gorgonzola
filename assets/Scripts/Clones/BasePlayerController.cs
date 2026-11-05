@@ -54,6 +54,10 @@ public partial class BasePlayerController : CharacterBody2D
     // Internal state
     private bool isLanded = false;
     private bool groundStateInitialized = false;
+
+    // Which way the character last faced, as a local FlipH flag. Tracked here instead of being read
+    // back from sprite.FlipH, which can be null or overwritten by animations.
+    private bool facingFlipH = false;
     private float jumpBufferTimer = 0f;
     public bool killed = false;
 
@@ -81,7 +85,7 @@ public partial class BasePlayerController : CharacterBody2D
     /// What the player actually sees: the sprite's own flip combined with the node being mirrored.
     /// Effects use this so they always face the same way as the character on screen.
     /// </summary>
-    public bool VisuallyFlipped => (sprite?.FlipH ?? false) ^ (HorizontalSign < 0f);
+    public bool VisuallyFlipped => facingFlipH ^ (HorizontalSign < 0f);
 
     /// <summary>
     /// World position of this character's feet: bottom-center of its collision shape, on the side
@@ -156,6 +160,7 @@ public partial class BasePlayerController : CharacterBody2D
         ZIndex = 10;
 
         sprite = GetNodeOrNull<AnimatedSprite2D>("sprite");
+        facingFlipH = sprite?.FlipH ?? false;
         animationPlayer = GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
         animationTree = GetNodeOrNull<AnimationTree>("AnimationTree");
 
@@ -427,9 +432,10 @@ public partial class BasePlayerController : CharacterBody2D
         if (direction != 0f)
         {
             velocity.X = direction * accel;
+            facingFlipH = ShouldFlipSprite(direction);
             if (sprite != null)
             {
-                sprite.FlipH = ShouldFlipSprite(direction);
+                sprite.FlipH = facingFlipH;
             }
         }
         else
@@ -570,24 +576,21 @@ public partial class BasePlayerController : CharacterBody2D
         {
             // Instantiate exactly once.
             Node2D killEffect = killEffectScene.Instantiate<Node2D>();
+            bool isGorg = this is Gorgonzola;
+            GorgCarcass gorgCarcass = isGorg ? killEffect as GorgCarcass : null;
+            bool facingLeft = VisuallyFlipped;
+
+            // GorgCarcass reads flip in its _Ready, which runs as soon as it enters the tree,
+            // so flip must be set BEFORE AddChild. It is true when facing left on screen.
+            if (gorgCarcass != null)
+            {
+                gorgCarcass.flip = facingLeft;
+            }
+
             GetTree().CurrentScene.AddChild(killEffect);
             killEffect.GlobalPosition = FeetPosition;
 
-            bool isGorg = this is Gorgonzola;
-
-            if (killEffect is GorgCarcass carcass)
-            {
-                // GorgCarcass handles facing itself: flip is true when the character faces left on screen.
-                carcass.flip = VisuallyFlipped;
-
-                // Gorgonzola's carcass is never scale-flipped. Other clones still mirror
-                // vertically for inverted gravity.
-                if (!isGorg)
-                {
-                    carcass.Scale = new Vector2(carcass.Scale.X, Mathf.Abs(carcass.Scale.Y) * GravitySign);
-                }
-            }
-            else if (!isGorg)
+            if (!isGorg)
             {
                 Effect.OrientEffect(this, killEffect);
             }
