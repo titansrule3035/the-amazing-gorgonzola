@@ -119,7 +119,7 @@ public partial class Runtime : Node2D
             }
         }
 
-        if (Input.IsActionJustPressed("F5"))
+        if (Input.IsActionJustPressed("F5") && OS.HasFeature("debug"))
         {
             if (editorMode)
             {
