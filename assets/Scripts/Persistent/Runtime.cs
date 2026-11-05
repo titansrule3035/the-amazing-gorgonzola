@@ -119,11 +119,18 @@ public partial class Runtime : Node2D
             }
         }
 
-        if (!editorMode && Input.IsActionJustPressed("F5"))
+        if (Input.IsActionJustPressed("F5"))
         {
-            GlobalGameManager ggm = GlobalGameManager.GetInstance();
-            ggm.LoadNextLevel();
-            ggm.OnNextLevelLoaded += OnLevelSkipped;
+            if (editorMode)
+            {
+                ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
+            }
+            else
+            {
+                GlobalGameManager ggm = GlobalGameManager.GetInstance();
+                ggm.LoadNextLevel();
+                ggm.OnNextLevelLoaded += OnLevelSkipped;
+            }
         }
     }
 
@@ -652,12 +659,57 @@ public partial class Runtime : Node2D
         }
     }
 
+    private void ExportLevelAsScene(string folderPath)
+    {
+        Node duplicatedRoot = GetNode<Node>(levelRootPath).Duplicate((int)(Node.DuplicateFlags.Signals | Node.DuplicateFlags.Groups | Node.DuplicateFlags.Scripts));
+
+        // Make every descendant owned by the new root so Pack() includes it
+        SetOwnerRecursive(duplicatedRoot, duplicatedRoot);
+
+        PackedScene packedScene = new PackedScene();
+        Error packError = packedScene.Pack(duplicatedRoot);
+
+        duplicatedRoot.Free(); // not added to the tree, so Free() is correct (see below)
+
+        if (packError != Error.Ok)
+        {
+            GD.PrintErr($"Failed to pack cloned scene: {packError}");
+            return;
+        }
+
+        string path = $"{folderPath}/{DateTime.Now:yyyyMMdd_HHmmss}.tscn";
+        Error saveError = ResourceSaver.Save(packedScene, path);
+        if (saveError == Error.Ok)
+        {
+            GD.Print($"Saved {path}");
+        }
+        else
+        {
+            GD.PrintErr($"Failed to save: {saveError}");
+        }
+    }
+
+    private void SetOwnerRecursive(Node node, Node owner)
+    {
+        if (node != owner)
+        {
+            node.Owner = owner;
+        }
+
+        foreach (Node child in node.GetChildren())
+        {
+            SetOwnerRecursive(child, owner);
+        }
+    }
+
     public void ApplyCursor(string mode)
     {
         if (mode == "Null")
         {
             foreach (var shape in AllShapes)
+            {
                 Input.SetCustomMouseCursor(null, shape);
+            }
             return;
         }
 
