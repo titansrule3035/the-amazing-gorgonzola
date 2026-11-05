@@ -532,26 +532,26 @@ layout_mode = 2
 [node name="ItemDefaultClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=420855153 instance=ExtResource("35_o432r")]
 layout_mode = 2
 
-[node name="ClonesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1808902787]
+[node name="ClonesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=52311940]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=39698176 instance=ExtResource("20_pw0c8")]
+[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=504478294 instance=ExtResource("20_fm07t")]
 layout_mode = 2
 
-[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=375646916 instance=ExtResource("21_w41ii")]
+[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=908811045 instance=ExtResource("21_5j6bi")]
 layout_mode = 2
 
-[node name="ClonesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=52311940]
+[node name="ClonesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1808902787]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=504478294 instance=ExtResource("20_fm07t")]
+[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=39698176 instance=ExtResource("20_pw0c8")]
 layout_mode = 2
 
-[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=908811045 instance=ExtResource("21_5j6bi")]
+[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=375646916 instance=ExtResource("21_w41ii")]
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
