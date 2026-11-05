@@ -9,6 +9,8 @@ public partial class Chunk : Enemy
     public RayCast2D rayLeft;
     public RayCast2D rayRight;
 
+    public KillZone killZone;
+
     public Vector2 moveSpeed = new(100f, 0);
 
     public int directionModifier = 1;
@@ -25,7 +27,9 @@ public partial class Chunk : Enemy
 
         rayLeft = GetNode<RayCast2D>("ray_left");
         rayRight = GetNode<RayCast2D>("ray_right");
-        sprite = GetNode<AnimatedSprite2D>("sprite"); // adjust to your node name
+        sprite = GetNode<AnimatedSprite2D>("sprite");
+
+        killZone = GetNode<KillZone>("kill_zone");
 
         moveState = new MoveState(this);
         deathState = new DeathState(this);
@@ -50,12 +54,28 @@ public partial class Chunk : Enemy
         protected RayCast2D rayLeft => chunk.rayLeft;
         protected RayCast2D rayRight => chunk.rayRight;
         protected AnimatedSprite2D sprite => chunk.sprite;
+        protected KillZone killZone => chunk.killZone;
         protected Vector2 moveSpeed => chunk.moveSpeed;
 
         protected int directionModifier
         {
             get => chunk.directionModifier;
             set => chunk.directionModifier = value;
+        }
+
+        protected void DisableCollision()
+        {
+            rayLeft.Enabled = rayRight.Enabled = false;
+
+            killZone.Enabled = false;
+
+            foreach (Node child in chunk.GetChildren())
+            {
+                if (child is CollisionShape2D shape)
+                {
+                    shape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+                }
+            }
         }
     }
 
@@ -100,6 +120,8 @@ public partial class Chunk : Enemy
             chunk.GetNode<CollisionShape2D>("collision_shape_2d").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 
             chunk.fallMotion.Start(velocityX: directionModifier * moveSpeed.X * chunk.deathMomentumRetention, spinDirection: directionModifier);
+
+            DisableCollision();
         }
 
         public override void PhysicsUpdate(double delta)
