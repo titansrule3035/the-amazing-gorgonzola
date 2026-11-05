@@ -573,13 +573,21 @@ public partial class BasePlayerController : CharacterBody2D
             GetTree().CurrentScene.AddChild(killEffect);
             killEffect.GlobalPosition = FeetPosition;
 
+            bool isGorg = this is Gorgonzola;
+
             if (killEffect is GorgCarcass carcass)
             {
+                // GorgCarcass handles facing itself: flip is true when the character faces left on screen.
                 carcass.flip = VisuallyFlipped;
-                // Mirror vertically for inverted gravity.
-                carcass.Scale = new Vector2(carcass.Scale.X, Mathf.Abs(carcass.Scale.Y) * GravitySign);
+
+                // Gorgonzola's carcass is never scale-flipped. Other clones still mirror
+                // vertically for inverted gravity.
+                if (!isGorg)
+                {
+                    carcass.Scale = new Vector2(carcass.Scale.X, Mathf.Abs(carcass.Scale.Y) * GravitySign);
+                }
             }
-            else
+            else if (!isGorg)
             {
                 Effect.OrientEffect(this, killEffect);
             }
