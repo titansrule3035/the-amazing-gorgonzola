@@ -118,7 +118,7 @@ public partial class Runtime : Node2D
                 ApplyCursor("Mouse");
             }
         }
-
+        /*
         if (Input.IsActionJustPressed("F5"))
         {
             if (editorMode)
@@ -132,6 +132,7 @@ public partial class Runtime : Node2D
                 ggm.OnNextLevelLoaded += OnLevelSkipped;
             }
         }
+        */
     }
 
     void OnLevelSkipped()
