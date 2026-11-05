@@ -845,6 +845,7 @@ size = Vector2(48, 62)
 
 [node name="deadly_clone" unique_id=1782299995 instance=ExtResource("1_bng6d")]
 script = ExtResource("1_wkyf1")
+cloneType = 6
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1399466810]
 debug_color = Color(0.7176471, 0.13725491, 0.24705882, 0.53333336)

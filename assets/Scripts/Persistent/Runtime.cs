@@ -365,9 +365,16 @@ public partial class Runtime : Node2D
 
             if (clones != null)
             {
-                foreach (BasePlayerController clone in clones.GetChildren())
+                foreach (Node2D node in clones.GetChildren())
                 {
-                    data.Clones.Add(new ObjectData(clone.cloneType.ToString(), clone.GlobalPosition));
+                    if (node is BasePlayerController clone)
+                    {
+                        data.Clones.Add(new ObjectData(clone.cloneType.ToString(), clone.GlobalPosition));
+                    }
+                    else if (node is ShadowCloneSpawn shadowCloneSpawn)
+                    {
+                        data.Clones.Add(new ObjectData(shadowCloneSpawn.GetType().Name, shadowCloneSpawn.GlobalPosition));
+                    }
                 }
             }
 

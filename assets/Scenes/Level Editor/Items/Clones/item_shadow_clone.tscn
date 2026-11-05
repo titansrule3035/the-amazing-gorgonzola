@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bhiiqr6vi05tt"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_5gl25"]
+[ext_resource type="Texture2D" uid="uid://doqn1fcosyfsi" path="res://assets/Sprites/Clones/shadow_clone.png" id="2_y0kam"]
+[ext_resource type="PackedScene" uid="uid://c5tsymung3jey" path="res://assets/Scenes/Level Assets/Clones/Spawners/shadow_clone_spawn.tscn" id="3_2kb22"]
+
+[node name="ItemShadowClone" unique_id=1663939762 instance=ExtResource("1_5gl25")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_y0kam")
+itemType = 0
+thisScene = ExtResource("3_2kb22")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

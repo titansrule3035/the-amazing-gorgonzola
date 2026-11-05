@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bv2ddx00m3f3w" path="res://assets/Scenes/Level Assets/Hazards/spike_right.tscn" id="13_q3x6y"]
 [ext_resource type="PackedScene" uid="uid://dv65cgaa385tt" path="res://assets/Scenes/Level Assets/Hazards/spike_up.tscn" id="14_pjdf6"]
 [ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="15_6fdsp"]
+[ext_resource type="PackedScene" uid="uid://c5tsymung3jey" path="res://assets/Scenes/Level Assets/Clones/Spawners/shadow_clone_spawn.tscn" id="15_dv2ik"]
 [ext_resource type="PackedScene" uid="uid://1y7bnvgayekf" path="res://assets/Scenes/Level Assets/Hazards/chunk.tscn" id="15_u1uq0"]
 [ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Level Assets/Clones/shadow_clone.tscn" id="16_bgwub"]
 [ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="16_lnd6h"]
@@ -73,6 +74,7 @@ CloneScenes = Dictionary[String, PackedScene]({
 "Reverse": ExtResource("10_ehoku"),
 "ReverseUpsideDown": ExtResource("11_dv2ik"),
 "Shadow": ExtResource("16_bgwub"),
+"ShadowCloneSpawn": ExtResource("15_dv2ik"),
 "UpsideDown": ExtResource("10_1hol1")
 })
 HazardScenes = Dictionary[String, PackedScene]({

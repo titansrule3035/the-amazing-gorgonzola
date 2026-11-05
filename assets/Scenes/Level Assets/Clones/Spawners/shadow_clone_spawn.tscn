@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cj3vlfcswlext" path="res://assets/Scenes/Level Assets/Clones/shadow_clone.tscn" id="2_gk1mn"]
 [ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_oj5u7"]
 [ext_resource type="Texture2D" uid="uid://butpqo8rmdb7y" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgforming.png" id="3_2o2g1"]
+[ext_resource type="Texture2D" uid="uid://doqn1fcosyfsi" path="res://assets/Sprites/Clones/shadow_clone.png" id="5_glpx3"]
 
 [sub_resource type="Shader" id="Shader_tki4n"]
 code = "shader_type canvas_item;
@@ -77,6 +78,10 @@ region = Rect2(900, 0, 100, 100)
 atlas = ExtResource("3_2o2g1")
 region = Rect2(1000, 0, 100, 100)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbod4"]
+atlas = ExtResource("5_glpx3")
+region = Rect2(0, 0, 66, 73)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_k2dbq"]
 animations = [{
 "frames": [{
@@ -114,8 +119,16 @@ animations = [{
 "texture": SubResource("AtlasTexture_r35hs")
 }],
 "loop": 0,
-"name": &"default",
+"name": &"spawn",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbod4")
+}],
+"loop": 1,
+"name": &"wait",
+"speed": 5.0
 }]
 
 [sub_resource type="Animation" id="Animation_lk3r2"]
@@ -132,10 +145,22 @@ tracks/0/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"spawn"]
+}
 
 [sub_resource type="Animation" id="Animation_x3sha"]
-resource_name = "default"
-length = 0.7
+resource_name = "spawn"
+length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -146,7 +171,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"default"]
+"values": [&"spawn"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -155,16 +180,70 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8000001, 0.90000004, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -50)]
+}
+
+[sub_resource type="Animation" id="Animation_52lft"]
+resource_name = "wait"
+length = 0.033333335
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"wait"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -36.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4wq4l"]
 _data = {
 &"RESET": SubResource("Animation_lk3r2"),
-&"default": SubResource("Animation_x3sha")
+&"spawn": SubResource("Animation_x3sha"),
+&"wait": SubResource("Animation_52lft")
 }
 
 [node name="shadow_clone_spawn" type="Node2D" unique_id=424745670]
@@ -174,11 +253,11 @@ shadowClone = ExtResource("2_gk1mn")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056703331]
 z_index = 10
 material = SubResource("ShaderMaterial_mwfgy")
-position = Vector2(0, -50)
+position = Vector2(0, -36.5)
 sprite_frames = SubResource("SpriteFrames_k2dbq")
-autoplay = "default"
-frame = 1
+animation = &"spawn"
+autoplay = "wait"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=454587192]
 libraries/ = SubResource("AnimationLibrary_4wq4l")
-autoplay = &"default"
+autoplay = &"wait"
