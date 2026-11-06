@@ -74,7 +74,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ttrpr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"off",
 "speed": 5.0
 }, {
@@ -82,7 +82,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3x31o")
 }],
-"loop": true,
+"loop": 1,
 "name": &"on",
 "speed": 5.0
 }, {
@@ -108,7 +108,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hi4wn")
 }],
-"loop": false,
+"loop": 0,
 "name": &"turn_off",
 "speed": 15.0
 }, {
@@ -134,7 +134,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bhe8e")
 }],
-"loop": false,
+"loop": 0,
 "name": &"turn_on",
 "speed": 15.0
 }]
@@ -150,12 +150,13 @@ script = ExtResource("1_3x31o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=919745402]
 z_index = 1
-position = Vector2(0, -8)
+position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_6j0hu")
 animation = &"turn_off"
 autoplay = "off"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1970173867]
+position = Vector2(0, -16)
 collision_mask = 65534
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=242529388]
@@ -163,6 +164,7 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_00mep")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2115898140]
+position = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=462458795]
 shape = SubResource("RectangleShape2D_3x31o")

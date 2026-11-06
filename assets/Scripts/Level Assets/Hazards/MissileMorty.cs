@@ -19,6 +19,7 @@ public partial class MissileMorty : Enemy
 
     [ExportGroup("Stomp Detection")]
     [Export] public float stompMargin = 0f;
+    [Export] PackedScene flameOffEffect;
 
     public RayCast2D ray;
     public Area2D stompArea;
@@ -270,7 +271,8 @@ public partial class MissileMorty : Enemy
 
             morty.fallMotion.Start(velocityX: morty.DirectionSign * morty.missileSpeed * morty.stompMomentumRetention, spinDirection: facingRight ? 1f : -1f);
             sprite.Play("death");
-            flameSprite.Play("flame_off");
+            flameSprite.Play("default");
+            Effect.SpawnEffect(morty, morty.flameOffEffect, morty.flameSprite.GlobalPosition, !facingRight);
             DisableCollision();
         }
 

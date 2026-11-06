@@ -816,7 +816,7 @@ size = Vector2(48, 62)
 
 [node name="shadow_clone" unique_id=1782299995 instance=ExtResource("1_i2mjs")]
 script = ExtResource("2_q02hg")
-UseChaseMode = false
+UseChaseMode = true
 delayMs = 1500
 ChaseDelayMs = 750
 StopDistanceX = 6.0

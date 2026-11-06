@@ -37,7 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://ck86k773p7lc7" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_right.tscn" id="48_gwxgc"]
 [ext_resource type="PackedScene" uid="uid://bwjeam3o5kvn5" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_down.tscn" id="49_n2ci5"]
 [ext_resource type="PackedScene" uid="uid://1gscoiqbtax4" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_key_card.tscn" id="50_t3qxf"]
-[ext_resource type="PackedScene" uid="uid://d3o4cpx0kwkpe" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_semi_solid.tscn" id="51_5j6bi"]
+[ext_resource type="PackedScene" uid="uid://d3o4cpx0kwkpe" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_id_2_semi_solid_1.tscn" id="51_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://c1jt7bh4kmxc1" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_lab_door.tscn" id="51_voii0"]
 [ext_resource type="Script" uid="uid://bb48444pii2fi" path="res://assets/Scripts/Level Editor/UI/GameControlsMenu.cs" id="52_8ul77"]
 [ext_resource type="Script" uid="uid://baktb4st420aq" path="res://assets/Scripts/Level Editor/UI/ToolBarMenu.cs" id="53_h4shr"]

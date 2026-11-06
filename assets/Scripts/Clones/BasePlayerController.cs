@@ -596,7 +596,7 @@ public partial class BasePlayerController : CharacterBody2D
             }
 
             // The shader is only ever applied to the death effect.
-            Effect.ApplyMaterial(killEffect, Material);
+            Effect.ApplyMaterial(killEffect, sprite.Material);
         }
 
         QueueFree();
