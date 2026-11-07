@@ -68,9 +68,8 @@ public partial class FileButton : ToolBarButton
 
         foreach (var dialog in new[] { importDialog, exportDialog, exportAsDialog })
         {
-            dialog.UseNativeDialog = false;                 // native dialogs ignore RootSubfolder
-            dialog.Access = FileDialog.AccessEnum.Userdata; // user:// is outside your project dir
-            dialog.RootSubfolder = "TAGLEVELS";             // relative, not absolute
+            dialog.UseNativeDialog = false;
+            dialog.Access = FileDialog.AccessEnum.Filesystem;
             dialog.CurrentDir = Runtime.GetLevelsDirectory();
         }
 

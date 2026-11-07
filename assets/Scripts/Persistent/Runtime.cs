@@ -310,7 +310,8 @@ public partial class Runtime : Node2D
     public static string GetLevelsDirectory()
     {
         // OS.GetUserDataDir() is already an absolute OS path, in editor and release
-        string levelsDirectory = Path.Combine(OS.GetUserDataDir(), "TAGLEVELS");
+        string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        string levelsDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", "TAGLEVELS");
 
         try
         {
