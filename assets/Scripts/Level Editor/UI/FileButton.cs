@@ -73,8 +73,6 @@ public partial class FileButton : ToolBarButton
             dialog.CurrentDir = Runtime.GetLevelsDirectory();
         }
 
-        DirAccess.MakeDirRecursiveAbsolute("user://TAGLEVELS");
-
         blockMouse = GetTree().CurrentScene.GetNode<ColorRect>("editor/main/CanvasLayer/UI/BlockMouse");
         blockMouse.MouseFilter = MouseFilterEnum.Ignore;
 

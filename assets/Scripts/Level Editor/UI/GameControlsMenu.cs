@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.IO;
+using FileAccess = Godot.FileAccess;
 
 public partial class GameControlsMenu : Control
 {
@@ -38,6 +39,11 @@ public partial class GameControlsMenu : Control
         // save file before game begins if paused
         if (GetTree().Paused)
         {
+            if (!DirAccess.DirExistsAbsolute("user://tmp"))
+            {
+                DirAccess.MakeDirAbsolute("user://tmp");
+            }
+
             runtime.FileSaved(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"));
         }
 
@@ -56,7 +62,14 @@ public partial class GameControlsMenu : Control
         }
         else
         {
-            await ((Runtime)GetTree().CurrentScene).ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel"))));
+            string filePath = Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel");
+
+            if(!File.Exists(filePath))
+            {
+                using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
+            }
+
+            await ((Runtime)GetTree().CurrentScene).ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(filePath)));
 
             EditorGameManager.GetInstance().canMove = false;
 
