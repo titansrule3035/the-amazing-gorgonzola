@@ -285,7 +285,7 @@ parameters/conditions/close = false
 parameters/conditions/open = false
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2017743023]
-collision_mask = 8192
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1014116706]
 position = Vector2(4, -42)
