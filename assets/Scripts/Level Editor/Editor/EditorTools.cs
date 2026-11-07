@@ -154,7 +154,7 @@ public class PlaceTool : EditorTool
         // its height so non-tile objects stand on the bottom edge.
         float offset = editor.cursorSprite.Texture != null ? editor.cursorSprite.GetRect().Size.Y / 2f : 0f;
         editor.GlobalPosition = editor.snappedWorld + editor.halfTileDown;
-        editor.cursorSprite.Position = new Vector2(0, -offset + (editor.itemObject != null ? editor.itemObject.cursorOffset.Y : 0));
+        editor.cursorSprite.Position = new Vector2((editor.itemObject != null ? editor.itemObject.cursorOffset.X : 0), -offset + (editor.itemObject != null ? editor.itemObject.cursorOffset.Y : 0));
     }
 
     public override void Update(double deltaTime)
