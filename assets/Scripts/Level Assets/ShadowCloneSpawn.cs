@@ -5,16 +5,42 @@ public partial class ShadowCloneSpawn : Node2D
 {
     [Export] PackedScene shadowClone;
     [Export] bool huntMode = false;
-    AnimatedSprite2D sprite;
+    AnimationPlayer animationPlayer;
+    bool startedSpawning = false;
 
     public override void _Ready()
     {
-        sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        sprite.AnimationFinished += SpawnShadowClone;
+        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        animationPlayer.AnimationFinished += SpawnShadowClone;
+        
+        if (GetTree().Paused)
+        {
+            animationPlayer.Play("wait");
+        }
     }
 
-    void SpawnShadowClone()
+    public override void _Process(double delta)
     {
+        if (GetTree().Paused)
+        {
+            return;
+        }
+
+        if (!startedSpawning)
+        {
+            startedSpawning = true;
+            
+            animationPlayer.Play("spawn");
+        }
+    }
+
+    void SpawnShadowClone(StringName animName)
+    {
+        if (animName != "spawn")
+        {
+            return;
+        }
+
         ShadowClone instance = shadowClone.Instantiate<ShadowClone>();
         instance.GlobalPosition = GlobalPosition;
         instance.target = Gorgonzola.GetInstance();

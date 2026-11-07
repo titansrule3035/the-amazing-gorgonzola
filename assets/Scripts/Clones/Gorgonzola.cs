@@ -7,9 +7,6 @@ public partial class Gorgonzola : BasePlayerController
     // Singleton / instance
     private static Gorgonzola instance;
 
-    // Scenes / resources
-    [Export] private PackedScene carcassEffectScene;
-
     // State
     public bool doorMoveTriggered = false;
 
@@ -84,22 +81,6 @@ public partial class Gorgonzola : BasePlayerController
         GlobalGameManager.GetInstance()?.ShowVictoryMenu(true);
     }
 
-    protected override float GetMovementInput()
-    {
-        /// <summary>
-        /// Provides horizontal movement input for the main player.
-        /// </summary>
-        return Input.GetAxis("move_left", "move_right");
-    }
-
-    public override bool ShouldFlipSprite(float direction)
-    {
-        /// <summary>
-        /// Updates the flip state based on direction and returns the state.
-        /// </summary>
-        shouldFlip = (direction < 0);
-        return shouldFlip;
-    }
     public override void Kill()
     {
         /// <summary>
@@ -107,7 +88,6 @@ public partial class Gorgonzola : BasePlayerController
         /// </summary>
         if (!killed)
         {
-            killed = true;
             BasePlayerController.KillAllClones();
 
             KillPanel.GetInstance().FadeOut();
@@ -122,11 +102,6 @@ public partial class Gorgonzola : BasePlayerController
             {
                 EditorGameManager.GetInstance().canMove = false;
             }
-            GorgCarcass effect = carcassEffectScene.Instantiate<GorgCarcass>();
-            effect.flip = shouldFlip;
-            GetTree().CurrentScene.AddChild(effect);
-            effect.GlobalPosition = GlobalPosition;
-            QueueFree();
 
             base.Kill();
         }

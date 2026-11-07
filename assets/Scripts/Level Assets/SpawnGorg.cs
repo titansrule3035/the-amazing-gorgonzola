@@ -79,7 +79,7 @@ public partial class SpawnGorg : Area2D
     private void SetupSpawn(Gorgonzola gorg)
     {
         gorg.GlobalPosition = GlobalPosition;
-        gorg.sprite.FlipH = gorg.shouldFlip = flip;
+        //gorg.sprite.FlipH = gorg.shouldFlip = flip;
     }
 
     /// <summary>

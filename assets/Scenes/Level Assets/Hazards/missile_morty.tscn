@@ -306,10 +306,8 @@ size = Vector2(108, 14)
 
 [node name="MissileMorty" type="RigidBody2D" unique_id=600629317]
 collision_layer = 0
-collision_mask = 61441
 script = ExtResource("1_qrckl")
 flameOffEffect = ExtResource("2_xpb3q")
-moveSpeed = Vector2(200, 0)
 
 [node name="collision_shape" type="CollisionShape2D" parent="." unique_id=2006619023]
 position = Vector2(-46.5, -1)
@@ -329,7 +327,7 @@ autoplay = "default"
 
 [node name="stomp_area" type="Area2D" parent="." unique_id=1898170980]
 position = Vector2(-61, -1)
-collision_mask = 61440
+collision_mask = 61442
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="stomp_area" unique_id=1631361417]
 position = Vector2(15, -12.5)

@@ -875,7 +875,7 @@ public partial class EditorObject : Node2D
         node.SetMeta(metaType, (int)itemType);
         // The command sets GlobalPosition AFTER adding the node, so a container that is offset
         // or scaled doesn't shift the item.
-        Vector2 globalPos = snappedWorld + halfTileDown + new Vector2(0, itemObject.cursorOffset.Y);
+        Vector2 globalPos = snappedWorld + halfTileDown;
         history.Execute(ObjectAttachCommand.Add(parent, node, globalPos));
         return true;
     }

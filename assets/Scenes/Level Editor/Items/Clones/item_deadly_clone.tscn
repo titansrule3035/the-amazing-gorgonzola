@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bjiqqwwtih733"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_jl20h"]
+[ext_resource type="Texture2D" uid="uid://b8q1wsoskiif4" path="res://assets/Sprites/Clones/deadly_clone.png" id="2_q13ti"]
+[ext_resource type="PackedScene" uid="uid://d12vqcxnmxj4b" path="res://assets/Scenes/Level Assets/Clones/deadly_clone.tscn" id="3_ykh7n"]
+
+[node name="ItemDeadlyClone" unique_id=1663939762 instance=ExtResource("1_jl20h")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_q13ti")
+itemType = 0
+thisScene = ExtResource("3_ykh7n")
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2

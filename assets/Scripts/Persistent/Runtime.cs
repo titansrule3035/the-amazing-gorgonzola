@@ -119,12 +119,20 @@ public partial class Runtime : Node2D
             }
         }
 
-        if (!editorMode && Input.IsActionJustPressed("F5"))
+        if (Input.IsActionJustPressed("F5"))
         {
-            GlobalGameManager ggm = GlobalGameManager.GetInstance();
-            ggm.LoadNextLevel();
-            ggm.OnNextLevelLoaded += OnLevelSkipped;
+            if (editorMode)
+            {
+                ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
+            }
+            else
+            {
+                GlobalGameManager ggm = GlobalGameManager.GetInstance();
+                ggm.LoadNextLevel();
+                ggm.OnNextLevelLoaded += OnLevelSkipped;
+            }
         }
+
     }
 
     void OnLevelSkipped()
@@ -299,6 +307,26 @@ public partial class Runtime : Node2D
         target.AddChild(mode);
     }
 
+    public static string GetLevelsDirectory()
+    {
+        // OS.GetUserDataDir() is already an absolute OS path, in editor and release
+        string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        string levelsDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", "TAGLEVELS");
+
+        try
+        {
+
+            Directory.CreateDirectory(levelsDirectory);
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Failed to create levels directory '{levelsDirectory}': {e.Message}");
+            throw;
+        }
+
+        return levelsDirectory;
+    }
+
     public void FileSaved(string filePath)
     {
         LevelData data = new();
@@ -365,9 +393,16 @@ public partial class Runtime : Node2D
 
             if (clones != null)
             {
-                foreach (Node2D clone in clones.GetChildren())
+                foreach (Node2D node in clones.GetChildren())
                 {
-                    data.Clones.Add(new ObjectData(clone.GetType().Name.ToString(), clone.GlobalPosition));
+                    if (node is BasePlayerController clone)
+                    {
+                        data.Clones.Add(new ObjectData(clone.cloneType.ToString(), clone.GlobalPosition));
+                    }
+                    else if (node is ShadowCloneSpawn shadowCloneSpawn)
+                    {
+                        data.Clones.Add(new ObjectData(shadowCloneSpawn.GetType().Name, shadowCloneSpawn.GlobalPosition));
+                    }
                 }
             }
 
@@ -645,12 +680,57 @@ public partial class Runtime : Node2D
         }
     }
 
+    private void ExportLevelAsScene(string folderPath)
+    {
+        Node duplicatedRoot = GetNode<Node>(levelRootPath).Duplicate((int)(Node.DuplicateFlags.Signals | Node.DuplicateFlags.Groups | Node.DuplicateFlags.Scripts));
+
+        // Make every descendant owned by the new root so Pack() includes it
+        SetOwnerRecursive(duplicatedRoot, duplicatedRoot);
+
+        PackedScene packedScene = new PackedScene();
+        Error packError = packedScene.Pack(duplicatedRoot);
+
+        duplicatedRoot.Free(); // not added to the tree, so Free() is correct (see below)
+
+        if (packError != Error.Ok)
+        {
+            GD.PrintErr($"Failed to pack cloned scene: {packError}");
+            return;
+        }
+
+        string path = $"{folderPath}/{DateTime.Now:yyyyMMdd_HHmmss}.tscn";
+        Error saveError = ResourceSaver.Save(packedScene, path);
+        if (saveError == Error.Ok)
+        {
+            GD.Print($"Saved {path}");
+        }
+        else
+        {
+            GD.PrintErr($"Failed to save: {saveError}");
+        }
+    }
+
+    private void SetOwnerRecursive(Node node, Node owner)
+    {
+        if (node != owner)
+        {
+            node.Owner = owner;
+        }
+
+        foreach (Node child in node.GetChildren())
+        {
+            SetOwnerRecursive(child, owner);
+        }
+    }
+
     public void ApplyCursor(string mode)
     {
         if (mode == "Null")
         {
             foreach (var shape in AllShapes)
+            {
                 Input.SetCustomMouseCursor(null, shape);
+            }
             return;
         }
 

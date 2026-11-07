@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 public partial class ShadowClone : BasePlayerController
 {
-    // Scenes / resources
-    [Export] private PackedScene killEffectScene;
-
     // Mode switch:
     //   false = replay the player's own input, delayed by delayMs (original behavior)
     //   true  = chase where Gorgonzola was ChaseDelayMs ago
@@ -19,6 +16,17 @@ public partial class ShadowClone : BasePlayerController
     [Export] public float StopDistanceX = 6f;        // horizontal deadzone to avoid jitter
     [Export] public float JumpIfTargetAbove = 40f;   // jump when the delayed point is this much higher
     [Export] public float JumpCooldown = 0.3f;       // minimum time between chase jumps
+
+    private Area2D localKillZone;
+
+    // life cycle
+    public override void _Ready()
+    {
+        base._Ready();
+
+        localKillZone = GetNode<Area2D>("area_2d");
+        localKillZone.BodyEntered += OnBodyEntered;
+    }
 
     // ------------------------------------------------------------------
     // Input replay state (original)
@@ -72,6 +80,24 @@ public partial class ShadowClone : BasePlayerController
 
         // Run normal movement/gravity/animation using the delayed/chase input
         base._PhysicsProcess(delta);
+    }
+
+    void OnBodyEntered(Node body)
+    {
+        if (body == this)
+        {
+            return;
+        }
+
+        if (body is BasePlayerController player)
+        {
+            if (player is DeadlyClone || player is ShadowClone)
+            {
+                return;
+            }
+
+            player.CallDeferred("Kill");
+        }
     }
 
     // ------------------------------------------------------------------
@@ -207,26 +233,7 @@ public partial class ShadowClone : BasePlayerController
     // Base class hooks
     // ------------------------------------------------------------------
     protected override float GetMovementInput() => delayedDirection;
-
     protected override bool IsJumpJustPressed() => delayedJump;
-
-    public override bool ShouldFlipSprite(float direction)
-    {
-        shouldFlip = (direction < 0);
-        return shouldFlip;
-    }
-
-    public override void Kill()
-    {
-        if (!killed)
-        {
-            killed = true;
-            Effect.SpawnEffect(this, killEffectScene, GlobalPosition, shouldFlip);
-            QueueFree();
-
-            base.Kill();
-        }
-    }
 
     protected override void Flush()
     {

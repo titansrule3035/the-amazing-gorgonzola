@@ -75,8 +75,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
-size = Vector2(223.25, 64)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_b756o"]
+points = PackedVector2Array(-111.375, -32, -112.375, 32, 112.625, 32, 111.625, -32)
 
 [node name="The Boat" unique_id=82098700 instance=ExtResource("1_py7b8")]
 
@@ -93,7 +93,8 @@ texture = ExtResource("3_82nx0")
 [node name="static_body_2d" type="StaticBody2D" parent="." index="2" unique_id=1093314990]
 position = Vector2(0, -112)
 
-[node name="collision_shape_2d" type="CollisionShape2D" parent="static_body_2d" index="0" unique_id=259553571]
+[node name="collision_shape_2d" type="CollisionShape2D" parent="static_body_2d" index="0" unique_id=913633181]
 position = Vector2(36.375, 80)
-shape = SubResource("RectangleShape2D_iq7ac")
+shape = SubResource("ConvexPolygonShape2D_b756o")
 one_way_collision = true
+one_way_collision_margin = 128.0

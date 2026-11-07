@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bjtcfxjhufae6"]
+
+[ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Level Assets/Clones/default_clone.tscn" id="1_k6da7"]
+[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Palettes/default_clone_palette.png" id="5_hnm00"]
+[ext_resource type="Texture2D" uid="uid://d2b26uq7ugyx5" path="res://assets/Sprites/Clones/Palettes/upside_clone_palette.png" id="6_l4b5p"]
+
+[sub_resource type="Shader" id="Shader_dk3xr"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette_texture; // 1D texture: original colors
+uniform sampler2D swap_texture;    // 1D texture: replacement colors
+uniform int palette_size = 8;
+uniform float threshold = 0.01;
+
+void fragment() {
+  vec4 pixel = texture(TEXTURE, UV);
+  COLOR = pixel;
+  for (int i = 0; i < palette_size; i++) {
+    vec2 uv = vec2((float(i) + 0.5) / float(palette_size), 0.5);
+    vec4 orig = texture(palette_texture, uv);
+    if (length(pixel.rgb - orig.rgb) < threshold) {
+      COLOR = vec4(texture(swap_texture, uv).rgb, pixel.a);
+      break;
+    }
+  }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdx6i"]
+shader = SubResource("Shader_dk3xr")
+shader_parameter/palette_texture = ExtResource("5_hnm00")
+shader_parameter/swap_texture = ExtResource("6_l4b5p")
+shader_parameter/palette_size = 10
+shader_parameter/threshold = 0.01
+
+[node name="upside_clone" unique_id=1782299995 instance=ExtResource("1_k6da7")]
+scale = Vector2(1, -1)
+cloneType = 3
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1399466810]
+position = Vector2(0, 37.5)
+debug_color = Color(0.34901962, 0.4627451, 0.7176471, 0.53333336)
+
+[node name="sprite" parent="." index="1" unique_id=1588915662]
+material = SubResource("ShaderMaterial_mdx6i")
+position = Vector2(0, 64)

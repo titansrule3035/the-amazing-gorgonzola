@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/Layout/tiles.tscn" id="3_tyrx5"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="4_7f42d"]
 [ext_resource type="PackedScene" uid="uid://drpvr8uxi62tu" path="res://assets/Scenes/Level Assets/Hazards/missile_morty_launcher.tscn" id="5_7f42d"]
+[ext_resource type="PackedScene" uid="uid://d12vqcxnmxj4b" path="res://assets/Scenes/Level Assets/Clones/deadly_clone.tscn" id="6_48usd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f52d5"]
 atlas = ExtResource("2_7f42d")
@@ -95,3 +96,6 @@ autoplay = "default"
 
 [node name="missile_morty_launcher" parent="." unique_id=1333325532 instance=ExtResource("5_7f42d")]
 position = Vector2(-528, -160)
+
+[node name="deadly_clone" parent="." unique_id=1782299995 instance=ExtResource("6_48usd")]
+position = Vector2(-304, -288)

@@ -56,7 +56,6 @@ script = ExtResource("3_a4v14")
 normalSwitch = ExtResource("4_j8fkq")
 itemType = 7
 thisScene = ExtResource("4_0lg7b")
-cursorOffset = Vector2(0, -16)
 
 [node name="TextureAnimationPlayer" type="AnimationPlayer" parent="ItemTexture" index="0" unique_id=187219151]
 libraries/ = SubResource("AnimationLibrary_a4v14")

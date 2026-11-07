@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://op3dfgwcmd6l"]
+
+[ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_nha4w"]
+[ext_resource type="Texture2D" uid="uid://cmk2xywf0ewjc" path="res://assets/Sprites/Clones/upside_clone.png" id="2_nha4w"]
+[ext_resource type="PackedScene" uid="uid://bjtcfxjhufae6" path="res://assets/Scenes/Level Assets/Clones/upside_clone.tscn" id="3_i3fm5"]
+
+[node name="ItemUpsideClone" unique_id=1663939762 instance=ExtResource("1_nha4w")]
+
+[node name="ItemTexture" parent="." index="0" unique_id=1896539650]
+texture = ExtResource("2_nha4w")
+itemType = 0
+thisScene = ExtResource("3_i3fm5")
+cursorOffset = Vector2(0, 11)
+
+[node name="Button" parent="." index="2" unique_id=1710020461]
+grow_horizontal = 2
+grow_vertical = 2
