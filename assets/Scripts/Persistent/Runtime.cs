@@ -472,6 +472,13 @@ public partial class Runtime : Node2D
     public async void FilePicked(string filePath)
     {
         this.filePath = filePath;
+
+        if (!File.Exists(filePath))
+        {
+            GD.PrintErr($"File not found: {filePath}");
+            return;
+        }
+
         string fileExtension = Path.GetExtension(filePath);
 
         if (fileExtension != ".taglevel")
