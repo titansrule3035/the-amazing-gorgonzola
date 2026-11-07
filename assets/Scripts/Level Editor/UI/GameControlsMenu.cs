@@ -13,6 +13,10 @@ public partial class GameControlsMenu : Control
     Button SelectButton;
     Button EraseButton;
 
+    Runtime runtime;
+    LevelEditorMain main;
+    EditorObject editor;
+
     public override void _Ready()
     {
         PlayButton = GetNode<Button>("PlayButtonControl/CenterContainer/PlayButton");
@@ -33,8 +37,9 @@ public partial class GameControlsMenu : Control
 
     public override void _Process(double delta)
     {
-        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-        Runtime runtime = GetTree().CurrentScene as Runtime;
+        runtime = GetTree().CurrentScene as Runtime;
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        editor = main.GetNode<EditorObject>("EditorObject");
 
         if (Input.IsActionJustPressed("editor_play"))
         {
@@ -42,8 +47,6 @@ public partial class GameControlsMenu : Control
         }
 
         PlayButton.Text = GetTree().Paused ? "Play" : "Stop";
-
-        EditorObject editor = main.GetNode<EditorObject>("EditorObject");
 
         UndoButton.Disabled = !editor.history.canUndo;
         RedoButton.Disabled = !editor.history.canRedo;
@@ -101,12 +104,12 @@ public partial class GameControlsMenu : Control
 
     private void UndoButtonPressed()
     {
-        throw new NotImplementedException();
+        editor.Undo();
     }
 
     private void RedoButtonPressed()
     {
-        throw new NotImplementedException();
+        editor.Redo();
     }
 
     private void ResetButtonPressed()
@@ -116,11 +119,11 @@ public partial class GameControlsMenu : Control
 
     private void SelectButtonPressed()
     {
-        throw new NotImplementedException();
+        editor.SetCursorMode(EditorObject.CursorMode.Select);
     }
 
     private void EraseButtonPressed()
     {
-        throw new NotImplementedException();
+        editor.SetCursorMode(EditorObject.CursorMode.Eraser);
     }
 }
