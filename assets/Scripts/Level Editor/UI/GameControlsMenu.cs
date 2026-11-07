@@ -31,6 +31,23 @@ public partial class GameControlsMenu : Control
         EraseButton.Pressed += EraseButtonPressed;
     }
 
+    public override void _Process(double delta)
+    {
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        Runtime runtime = GetTree().CurrentScene as Runtime;
+
+        if (Input.IsActionJustPressed("editor_play"))
+        {
+            PlayButtonPressed();
+        }
+
+        PlayButton.Text = GetTree().Paused ? "Play" : "Stop";
+
+        EditorObject editor = main.GetNode<EditorObject>("EditorObject");
+
+        UndoButton.Disabled = !editor.history.canUndo;
+        RedoButton.Disabled = !editor.history.canRedo;
+    }
     private async void PlayButtonPressed()
     {
         LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
@@ -64,7 +81,7 @@ public partial class GameControlsMenu : Control
         {
             string filePath = Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel");
 
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
             }
