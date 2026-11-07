@@ -1077,7 +1077,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PlayButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/PlayButtonControl/CenterContainer" unique_id=169568110]
-custom_minimum_size = Vector2(68, 68)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_2a1od")
@@ -1095,6 +1095,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 41.0
+offset_top = 2.0
 offset_right = 48.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1104,24 +1105,25 @@ layout_mode = 2
 theme_override_constants/separation = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer" unique_id=1234239616]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 
 [node name="HelpButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer" unique_id=499907931]
-custom_minimum_size = Vector2(30, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 6
 text = "Help"
 
 [node name="UndoButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer" unique_id=505536742]
-custom_minimum_size = Vector2(30, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 6
 text = "Undo"
 
 [node name="RedoButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer" unique_id=607377926]
-custom_minimum_size = Vector2(30, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 6
@@ -1131,21 +1133,21 @@ text = "Redo"
 layout_mode = 2
 
 [node name="ResetButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=1098769369]
-custom_minimum_size = Vector2(30, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 6
 text = "Reset"
 
 [node name="SelectButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=408595651]
-custom_minimum_size = Vector2(30, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 6
 text = "Mouse"
 
 [node name="EraseButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=222075454]
-custom_minimum_size = Vector2(30, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 6
