@@ -2,6 +2,7 @@ using Godot;
 using Ink.Runtime;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -12,8 +13,8 @@ using ObjectData = LevelData.ObjectData;
 using OnOffAssetData = LevelData.OnOffAssetData;
 using OnOffBlockData = LevelData.OnOffBlockData;
 using OnOffSwitchMasterData = LevelData.OnOffSwitchMasterData;
-using TileData = LevelData.TileData;
 using Path = System.IO.Path;
+using TileData = LevelData.TileData;
 
 public partial class Runtime : Node2D
 {
@@ -585,6 +586,7 @@ public partial class Runtime : Node2D
 
             Node2D instance = scene.Instantiate<Node2D>();
             instance.GlobalPosition = new Vector2(obj.Position.X, obj.Position.Y);
+            instance.Name = obj.Type;
 
             groupNode.AddChild(instance);
 
@@ -614,6 +616,8 @@ public partial class Runtime : Node2D
 
             master.GlobalPosition = asset.OnOffSwitchMaster.Position;
 
+            master.Name = asset.OnOffSwitchMaster.Type;
+
             groupNode.AddChild(master);
 
             master.AddToGroup("editor_placeable");
@@ -634,6 +638,8 @@ public partial class Runtime : Node2D
 
             onOffSwitch.GlobalPosition = switchData.Position;
 
+            onOffSwitch.Name = switchData.Type;
+
             groupNode.AddChild(onOffSwitch);
 
             onOffSwitch.AddToGroup("editor_placeable");
@@ -653,6 +659,8 @@ public partial class Runtime : Node2D
                 Node2D block = blockScene.Instantiate<Node2D>();
 
                 block.GlobalPosition = blockData.Position;
+
+                block.Name = blockData.blockType.ToString();
 
                 groupNode.AddChild(block);
 
