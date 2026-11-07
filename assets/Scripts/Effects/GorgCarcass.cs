@@ -102,8 +102,8 @@ public partial class GorgCarcass : Node2D
     {
         for (int i = 0; i < bodies.Length; i++)
         {
-            sprites[i].FlipH = !flip;
-            bodies[i].Position = flip ? flippedPositions[i] : defaultPositions[i];
+            sprites[i].FlipH = flip;
+            bodies[i].Position = flip ? defaultPositions[i] : flippedPositions[i];
         }
     }
 
