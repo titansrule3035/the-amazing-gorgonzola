@@ -16,6 +16,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="The Amazing Gorgonzola"
 run/main_scene="uid://cwfwt51iy7wvn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="The Amazing Gorgonzola"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="uid://d3h6goqxjmujb"
 config/custom_image="uid://drpd6x2gcjpea"

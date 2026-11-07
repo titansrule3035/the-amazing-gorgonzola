@@ -118,7 +118,7 @@ public partial class Runtime : Node2D
                 ApplyCursor("Mouse");
             }
         }
-        
+
         if (Input.IsActionJustPressed("F5"))
         {
             if (editorMode)
@@ -132,7 +132,7 @@ public partial class Runtime : Node2D
                 ggm.OnNextLevelLoaded += OnLevelSkipped;
             }
         }
-        
+
     }
 
     void OnLevelSkipped()
@@ -305,6 +305,25 @@ public partial class Runtime : Node2D
         }
 
         target.AddChild(mode);
+    }
+
+    public static string GetLevelsDirectory()
+    {
+        // OS.GetUserDataDir() is already an absolute OS path, in editor and release
+        string levelsDirectory = Path.Combine(OS.GetUserDataDir(), "TAGLEVELS");
+
+        try
+        {
+
+            Directory.CreateDirectory(levelsDirectory);
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Failed to create levels directory '{levelsDirectory}': {e.Message}");
+            throw;
+        }
+
+        return levelsDirectory;
     }
 
     public void FileSaved(string filePath)

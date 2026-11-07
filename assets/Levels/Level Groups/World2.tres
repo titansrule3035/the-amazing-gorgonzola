@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_a8wxe")
 Scene = ExtResource("1_rov20")
-TagLevels = Array[String](["res://assets/TAGLEVELs/World2/1.taglevel"])
+TagLevels = Array[String](["res://assets/Levels/TAGLEVELs/World2/1.taglevel"])
 metadata/_custom_type_script = "uid://dbwjqhfikbsyv"

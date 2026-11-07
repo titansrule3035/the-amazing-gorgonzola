@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class FileButton : ToolBarButton
 {
@@ -64,6 +65,16 @@ public partial class FileButton : ToolBarButton
                 UpdateMenuAndButton(false);
             }
         };
+
+        foreach (var dialog in new[] { importDialog, exportDialog, exportAsDialog })
+        {
+            dialog.UseNativeDialog = false;                 // native dialogs ignore RootSubfolder
+            dialog.Access = FileDialog.AccessEnum.Userdata; // user:// is outside your project dir
+            dialog.RootSubfolder = "TAGLEVELS";             // relative, not absolute
+            dialog.CurrentDir = Runtime.GetLevelsDirectory();
+        }
+
+        DirAccess.MakeDirRecursiveAbsolute("user://TAGLEVELS");
 
         blockMouse = GetTree().CurrentScene.GetNode<ColorRect>("editor/main/CanvasLayer/UI/BlockMouse");
         blockMouse.MouseFilter = MouseFilterEnum.Ignore;
