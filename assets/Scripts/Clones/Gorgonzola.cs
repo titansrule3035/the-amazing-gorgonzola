@@ -18,6 +18,11 @@ public partial class Gorgonzola : BasePlayerController
         /// <summary>
         /// Initialize the singleton instance, wire spawn signals and game manager flush handlers, and call base Ready.
         /// </summary>
+        if (instance != null)
+        {
+            GD.PrintErr("Only one Gorgonzola allowed per scene, deleting this one...");
+            QueueFree();
+        }
         instance = this;
         base._Ready();
 
