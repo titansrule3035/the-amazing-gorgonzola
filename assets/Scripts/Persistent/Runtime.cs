@@ -1,4 +1,5 @@
 using Godot;
+using Ink.Parsed;
 using Ink.Runtime;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using OnOffBlockData = LevelData.OnOffBlockData;
 using OnOffSwitchMasterData = LevelData.OnOffSwitchMasterData;
 using Path = System.IO.Path;
 using TileData = LevelData.TileData;
+using FileAccess = Godot.FileAccess;
 
 public partial class Runtime : Node2D
 {
@@ -69,9 +71,15 @@ public partial class Runtime : Node2D
 
     BaseButton hoveredButton;
 
+    public string logFilePath;
+
     public override void _Ready()
     {
-        GetTree().NodeAdded += OnNodeAdded;
+        DebugManager.BuildCommands();
+
+        logFilePath = GetLogPath();
+
+        GetTree().NodeAdded += CheckForHookableButtons;
 
         // Handle buttons that already exist in the scene.
         SetButtonCursorRecursive(GetTree().Root);
@@ -81,10 +89,6 @@ public partial class Runtime : Node2D
         if (!cursorCache.TryGetValue("Point", out Texture2D texture) || texture == null)
         {
             GD.PrintErr("No texture mapped for type 'Point' in cursor cache.");
-        }
-        else
-        {
-
         }
 
         levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
@@ -134,6 +138,44 @@ public partial class Runtime : Node2D
             }
         }
 
+        if (DebugManager.debug)
+        {
+            if (Input.IsActionJustPressed("open_console"))
+            {
+                DebugManager.ToggleDebugConsole();
+            }
+        }
+        else
+        {
+            DebugManager.debugConsoleActive = false;
+        }
+
+        if (DebugManager.debugConsoleActive)
+        {
+            DebugConsole.GetInstance().SetActive(true);
+            if (Input.IsActionJustPressed("return"))
+            {
+                if (DebugConsole.GetInstance().GetInputText() != "")
+                {
+                    DebugManager.ProcessCommand(DebugConsole.GetInstance().GetInputText());
+                }
+
+                DebugConsole.GetInstance().ClearInputText();
+            }
+        }
+        else
+        {
+            DebugConsole.GetInstance().SetActive(false);
+        }
+
+        if (DebugConsole.GetInstance().GetInputText() == "")
+        {
+            DebugManager.typing = false;
+        }
+        else
+        {
+            DebugManager.typing = true;
+        }
     }
 
     void OnLevelSkipped()
@@ -143,7 +185,7 @@ public partial class Runtime : Node2D
         ggm.canMove = true;
     }
 
-    private void OnNodeAdded(Node node)
+    private void CheckForHookableButtons(Node node)
     {
         // NodeAdded fires for every node individually, so no recursion needed here
         if (node is BaseButton button)
@@ -308,6 +350,90 @@ public partial class Runtime : Node2D
         target.AddChild(mode);
     }
 
+    /// <summary>
+    /// Creates a file in the log dump directory with a timestamped name and returns the path to the file for writing.
+    /// </summary>
+    /// <returns></returns>
+    string CreateLogDump()
+    {
+        string logDirectory = InitializeLogDumpsPath();
+        try
+        {
+            Directory.CreateDirectory(logDirectory);
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Failed to create log directory '{logDirectory}': {e.Message}");
+            throw;
+        }
+        string logFileName = $"log_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+
+        using FileAccess file = FileAccess.Open(Path.Combine(logDirectory, logFileName), FileAccess.ModeFlags.Write);
+
+        return Path.Combine(logDirectory, logFileName);
+    }
+
+    /// <summary>
+    /// Gets the path to the console's log file, creates one if it doesn't exist.
+    /// </summary>
+    /// <returns></returns>
+    public static string GetLogPath()
+    {
+        string logFileName = $"console_log.txt";
+        string logPath = Path.Combine(InitializeLogPath(), logFileName);
+        if (!File.Exists(logPath))
+        {
+            using FileAccess file = FileAccess.Open(logPath, FileAccess.ModeFlags.Write);
+        }
+        return logPath;
+    }
+
+    /// <summary>
+    /// Initializes Console Log Directory in User Data and returns the path.
+    /// </summary>
+    /// <returns></returns>
+    public static string InitializeLogPath()
+    {
+        string logDirectory = Path.Combine(OS.GetUserDataDir(), "TAGLOGS");
+
+        if (!DirAccess.DirExistsAbsolute(logDirectory))
+        {
+            Error error = DirAccess.MakeDirRecursiveAbsolute(logDirectory);
+
+            if (error == Error.Ok)
+            {
+                GD.Print("Directory created successfully!");
+            }
+            else
+            {
+                GD.PrintErr($"Failed to create directory. Error: {error}");
+            }
+        }
+
+        return logDirectory;
+    }
+
+    /// <summary>
+    /// Initializes Console Dump Directory in Documents and returns the path.
+    /// </summary>
+    /// <returns></returns>
+    public static string InitializeLogDumpsPath()
+    {
+        string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        string logDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", "TAGLOGS");
+        try
+        {
+            Directory.CreateDirectory(logDirectory);
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Failed to create log directory '{logDirectory}': {e.Message}");
+            return string.Empty;
+        }
+
+        return logDirectory;
+    }
+
     public static string GetLevelsDirectory()
     {
         // OS.GetUserDataDir() is already an absolute OS path, in editor and release
@@ -316,7 +442,6 @@ public partial class Runtime : Node2D
 
         try
         {
-
             Directory.CreateDirectory(levelsDirectory);
         }
         catch (Exception e)
@@ -462,7 +587,7 @@ public partial class Runtime : Node2D
                 DirAccess.MakeDirAbsolute("user://TAGLEVELs");
             }
 
-            using Godot.FileAccess file = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Write);
+            using FileAccess file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
 
             file.StoreString(SaveManager.Encode(json));
         }

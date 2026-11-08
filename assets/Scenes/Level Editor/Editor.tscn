@@ -31,8 +31,11 @@
 [ext_resource type="PackedScene" uid="uid://dlr7d3uibltro" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_on_off_switch_master.tscn" id="40_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://dmss5kybk5cbn" path="res://assets/Scenes/Level Editor/Items/Hazards/item_chunk.tscn" id="41_pw0c8"]
 [ext_resource type="PackedScene" uid="uid://dpjqqtkm7dx5i" path="res://assets/Scenes/UI/kill_panel.tscn" id="42_7pho1"]
+[ext_resource type="Texture2D" uid="uid://cj6vqsmewgpil" path="res://assets/Sprites/UI/Debug Console/box.png" id="44_eecbv"]
+[ext_resource type="Script" uid="uid://bs6h58nd2cj1y" path="res://assets/Scripts/Debug Console/DebugConsole.cs" id="44_ffvxq"]
 [ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="45_krgg0"]
 [ext_resource type="PackedScene" uid="uid://daw8b8yyqitqu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_left.tscn" id="46_16gwb"]
+[ext_resource type="Texture2D" uid="uid://0tq3gjxwc2yj" path="res://assets/Sprites/UI/Debug Console/box_small.png" id="46_tiove"]
 [ext_resource type="PackedScene" uid="uid://h7juj7n2816b" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_07_18.tscn" id="47_upxro"]
 [ext_resource type="PackedScene" uid="uid://ck86k773p7lc7" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_right.tscn" id="48_gwxgc"]
 [ext_resource type="PackedScene" uid="uid://bwjeam3o5kvn5" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_down.tscn" id="49_n2ci5"]
@@ -1318,3 +1321,114 @@ offset_left = 480.0
 offset_top = 32.0
 offset_right = 480.31995
 offset_bottom = 32.319946
+
+[node name="canvas_layer_2" type="CanvasLayer" parent="." unique_id=2039822278]
+layer = 2
+
+[node name="DebugConsole" type="Control" parent="canvas_layer_2" unique_id=127667579]
+visibility_layer = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("44_ffvxq")
+
+[node name="backdrop" type="NinePatchRect" parent="canvas_layer_2/DebugConsole" unique_id=1056419166]
+texture_filter = 1
+layout_mode = 0
+offset_right = 1728.0
+offset_bottom = 335.0
+texture = ExtResource("44_eecbv")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="scroll_container" type="ScrollContainer" parent="canvas_layer_2/DebugConsole" unique_id=1164117761]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 1728.0
+offset_bottom = 283.0
+scroll_vertical = 100
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="log" type="RichTextLabel" parent="canvas_layer_2/DebugConsole/scroll_container" unique_id=717972815]
+custom_minimum_size = Vector2(1712, 272)
+layout_mode = 2
+theme_override_constants/line_separation = 8
+theme_override_fonts/normal_font = ExtResource("27_v344w")
+theme_override_font_sizes/normal_font_size = 27
+text = "Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... 
+Debug Console: Debugging...
+Debug Console: Debugged!
+Debug Console: Debugging debug...
+Debug Console: Debugger found a bug while debugging debug! Debugging will begin shortly... "
+fit_content = true
+vertical_alignment = 2
+
+[node name="input_backdrop" type="NinePatchRect" parent="canvas_layer_2/DebugConsole" unique_id=927287785]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 7.1000004
+anchor_right = 43.175003
+anchor_bottom = 8.35
+offset_right = -0.00012207031
+texture = ExtResource("46_tiove")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="line_edit" type="LineEdit" parent="canvas_layer_2/DebugConsole/input_backdrop" unique_id=1029604293]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_top = 0.080000006
+anchor_right = 0.998
+anchor_bottom = 0.92
+offset_left = 0.54799986
+offset_top = -1.5735626e-05
+offset_right = -0.5480957
+offset_bottom = -1.5258789e-05
+theme_override_fonts/font = ExtResource("27_v344w")
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Debug Command here..."
