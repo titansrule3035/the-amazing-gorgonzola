@@ -50,6 +50,8 @@ public partial class DebugConsole : Control
             log.AddText(message + "\n");
         }
 
+        ScrollToBottom();
+
         SetActive(false);
     }
 
