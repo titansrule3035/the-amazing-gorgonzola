@@ -68,16 +68,20 @@ public partial class Runtime : Node2D
     Input.CursorShape.Vsplit,
     Input.CursorShape.Hsplit,
     Input.CursorShape.Help};
-
     BaseButton hoveredButton;
 
-    public string logFilePath;
+    // game directories and log file
+    private static string progFlagsPath = "PROGFLAGS";
+    private static string debugFile = "supersecretdebugvariablenobodyknowsaboutexceptmeakathedeveloperwhoissuperawesomeandcool.youllneverguesswhatvalueissupposedtobeinheremwahahahahaha";
+    private static string logFilePath = "LOG";
+    private static string logFile = "console_log.txt";
+    private static string logDumpPath = "LOGDUMPS";
+    private static string tagLevelsPath = "TAGLEVELS";
+
 
     public override void _Ready()
     {
         DebugManager.BuildCommands();
-
-        logFilePath = GetLogPath();
 
         GetTree().NodeAdded += CheckForHookableButtons;
 
@@ -354,23 +358,36 @@ public partial class Runtime : Node2D
     /// Creates a file in the log dump directory with a timestamped name and returns the path to the file for writing.
     /// </summary>
     /// <returns></returns>
-    string CreateLogDump()
+    public static string CreateLogDump()
     {
         string logDirectory = InitializeLogDumpsPath();
+
         try
         {
             Directory.CreateDirectory(logDirectory);
         }
         catch (Exception e)
         {
-            GD.PushError($"Failed to create log directory '{logDirectory}': {e.Message}");
+            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}");
             throw;
         }
-        string logFileName = $"log_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
 
-        using FileAccess file = FileAccess.Open(Path.Combine(logDirectory, logFileName), FileAccess.ModeFlags.Write);
+        string logFileName = $"log_dump_{DebugManager.GetCurrentDateTimeFormatted()}.txt";
+        string logPath = Path.Combine(logDirectory, logFileName);
 
-        return Path.Combine(logDirectory, logFileName);
+        using Godot.FileAccess file = Godot.FileAccess.Open(logPath, Godot.FileAccess.ModeFlags.Write);
+
+        if (file == null)
+        {
+            Error error = Godot.FileAccess.GetOpenError();
+
+            DebugManager.Log($"Failed to create log file '{logPath}': {error}");
+            DebugManager.Log($"Could not create log file: {logPath}");
+        }
+
+        GD.Print($"File created at {logPath}");
+
+        return logPath;
     }
 
     /// <summary>
@@ -379,8 +396,7 @@ public partial class Runtime : Node2D
     /// <returns></returns>
     public static string GetLogPath()
     {
-        string logFileName = $"console_log.txt";
-        string logPath = Path.Combine(InitializeLogPath(), logFileName);
+        string logPath = Path.Combine(InitializeLogPath(), logFile);
         if (!File.Exists(logPath))
         {
             using FileAccess file = FileAccess.Open(logPath, FileAccess.ModeFlags.Write);
@@ -389,22 +405,56 @@ public partial class Runtime : Node2D
     }
 
     /// <summary>
-    /// Initializes Console Log Directory in User Data and returns the path.
+    /// Checks for the existence of a debug permission file and then checks that file's contents
     /// </summary>
-    /// <returns></returns>
+    /// <returns>False if the file does not exist or if the contents are unexpected, true if file exist and gives a valid response.</returns>
+    public static bool CheckIfDebugKeyExists()
+    {
+        string debugFilePath = Path.Combine(InitializeProgFlagsPath(), debugFile);
+        bool debugKeyExists = true;
+        if (!File.Exists(debugFilePath))
+        {
+            debugKeyExists = false;
+        }
+        if (File.ReadAllText(debugFilePath).Trim() != "1")
+        {
+            debugKeyExists = false;
+        }
+        return debugKeyExists;
+    }
+
+    /// <summary>   
+    /// Initializes the PROGFLAGS directory in the user data folder and returns the path to it.
+    /// </summary>
+    /// <returns>The path to the program flags directory</returns>
+    public static string InitializeProgFlagsPath()
+    {
+        string progFlagsDirectory = Path.Combine(OS.GetUserDataDir(), progFlagsPath);
+        if (!DirAccess.DirExistsAbsolute(progFlagsDirectory))
+        {
+            Error error = DirAccess.MakeDirRecursiveAbsolute(progFlagsDirectory);
+
+            if (error != Error.Ok)
+            {
+                GD.PrintErr($"Failed to create directory. Error: {error}");
+            }
+        }
+        return progFlagsDirectory;
+    }
+
+    /// <summary>
+    /// Initializes Console Log Directory in User Data.
+    /// </summary>
+    /// <returns>The path to the log directory.</returns>
     public static string InitializeLogPath()
     {
-        string logDirectory = Path.Combine(OS.GetUserDataDir(), "TAGLOGS");
+        string logDirectory = Path.Combine(OS.GetUserDataDir(), logFilePath);
 
         if (!DirAccess.DirExistsAbsolute(logDirectory))
         {
             Error error = DirAccess.MakeDirRecursiveAbsolute(logDirectory);
 
-            if (error == Error.Ok)
-            {
-                GD.Print("Directory created successfully!");
-            }
-            else
+            if (error != Error.Ok)
             {
                 GD.PrintErr($"Failed to create directory. Error: {error}");
             }
@@ -416,18 +466,18 @@ public partial class Runtime : Node2D
     /// <summary>
     /// Initializes Console Dump Directory in Documents and returns the path.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The path of the log directory.</returns>
     public static string InitializeLogDumpsPath()
     {
         string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-        string logDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", "TAGLOGS");
+        string logDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", logDumpPath);
         try
         {
             Directory.CreateDirectory(logDirectory);
         }
         catch (Exception e)
         {
-            GD.PushError($"Failed to create log directory '{logDirectory}': {e.Message}");
+            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}");
             return string.Empty;
         }
 
@@ -438,7 +488,7 @@ public partial class Runtime : Node2D
     {
         // OS.GetUserDataDir() is already an absolute OS path, in editor and release
         string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-        string levelsDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", "TAGLEVELS");
+        string levelsDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", tagLevelsPath);
 
         try
         {
@@ -446,7 +496,7 @@ public partial class Runtime : Node2D
         }
         catch (Exception e)
         {
-            GD.PushError($"Failed to create levels directory '{levelsDirectory}': {e.Message}");
+            DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}");
             throw;
         }
 
@@ -622,8 +672,8 @@ public partial class Runtime : Node2D
         }
         catch (Exception exception)
         {
-            GD.PrintErr("Invalid TAGLEVEL!");
-            GD.PrintErr(exception);
+            DebugManager.Log("Invalid TAGLEVEL!");
+            DebugManager.Log(exception);
         }
     }
 
@@ -838,7 +888,7 @@ public partial class Runtime : Node2D
             return;
         }
 
-        string path = $"{folderPath}/{DateTime.Now:yyyyMMdd_HHmmss}.tscn";
+        string path = $"{folderPath}/{DebugManager.GetCurrentDateTimeFormatted()}.tscn";
         Error saveError = ResourceSaver.Save(packedScene, path);
         if (saveError == Error.Ok)
         {
@@ -878,14 +928,18 @@ public partial class Runtime : Node2D
         {
             GD.PrintErr($"No texture mapped for type '{mode}' in cursor cache.");
             foreach (var shape in AllShapes)
+            {
                 Input.SetCustomMouseCursor(null, shape);
+            }
             return;
         }
 
         Vector2 hotspot = mode == "Select" ? new Vector2(16, 16) : Vector2.Zero;
 
         foreach (var shape in AllShapes)
+        {
             Input.SetCustomMouseCursor(texture, shape, hotspot);
+        }
     }
 
     // Game control

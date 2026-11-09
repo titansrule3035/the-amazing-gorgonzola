@@ -99,7 +99,7 @@ public partial class GameControlsMenu : Control
 
     private void HelpButtonPressed()
     {
-        throw new NotImplementedException();
+        DebugManager.Log(new NotImplementedException());
     }
 
     private void UndoButtonPressed()
@@ -114,7 +114,7 @@ public partial class GameControlsMenu : Control
 
     private void ResetButtonPressed()
     {
-        throw new NotImplementedException();
+        DebugManager.Log(new NotImplementedException());
     }
 
     private void SelectButtonPressed()

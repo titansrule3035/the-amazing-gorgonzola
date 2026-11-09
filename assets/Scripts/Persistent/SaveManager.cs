@@ -102,8 +102,9 @@ internal static class SaveManager
 
             aes.Decrypt(nonce, ciphertext, tag, plaintext);
         }
-        catch (CryptographicException)
+        catch (CryptographicException ce)
         {
+            DebugManager.Log(ce);
             return null;
         }
 

@@ -22,7 +22,7 @@ public partial class LevelGroup : Resource
     {
         if (index < 0 || index >= TagLevels.Count)
         {
-            throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range.");
+            DebugManager.Log(new ArgumentOutOfRangeException(nameof(index), "Index is out of range."));
         }
         return TagLevels[index].GetFile().GetBaseName();
     }

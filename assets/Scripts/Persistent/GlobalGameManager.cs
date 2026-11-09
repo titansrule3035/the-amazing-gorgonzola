@@ -302,7 +302,7 @@ public partial class GlobalGameManager : Node2D
         }
         catch (Exception e)
         {
-            GD.PrintErr($"[LEVEL] LoadNextLevel failed: {e}");
+            DebugManager.Log($"[LEVEL] LoadNextLevel failed: {e}");
         }
         finally
         {
@@ -345,7 +345,7 @@ public partial class GlobalGameManager : Node2D
         }
         catch (Exception e)
         {
-            GD.PrintErr($"[LEVEL] Reload failed: {e}");
+            DebugManager.Log($"[LEVEL] Reload failed: {e}");
         }
         finally
         {

@@ -12,6 +12,8 @@ public partial class DebugConsole : Control
 
     static DebugConsole instance;
 
+    private static Action<List<string>> LogRead;
+
     public override void _Ready()
     {
         if (instance == null)
@@ -29,35 +31,24 @@ public partial class DebugConsole : Control
 
         input = GetNode<LineEdit>("input_backdrop/line_edit");
 
-        log.Text = input.Text = "";
+        ClearAllText();
 
-        //send the contents of this file into the console log, separated by line
+        LogRead += OnLogRead;
 
-        List<string> readMessages = new();
+        ReadLog();
 
-        using (StreamReader reader = File.OpenText(Runtime.GetLogPath()))
-        {
-            string message;
-            while ((message = reader.ReadLine()) != null)
-            {
-                GD.Print(message);
-                readMessages.Add(message);
-            }
-        }
-
-        foreach (string message in readMessages)
-        {
-            log.AddText(message + "\n");
-        }
+        DebugManager.debug = Runtime.CheckIfDebugKeyExists();
 
         ScrollToBottom();
 
         SetActive(false);
     }
 
-    void ScrollToBottom()
+    async void ScrollToBottom()
     {
-        content.SetDeferred("scroll_vertical", log.Size.Y);
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        content.SetDeferred("scroll_vertical", content.GetVScrollBar().MaxValue);
     }
 
     void WriteToConsole(string text, bool useAuthor = false)
@@ -83,14 +74,27 @@ public partial class DebugConsole : Control
         return instance;
     }
 
+    public void ClearVisibleLog()
+    {
+        log.Text = "";
+    }
+
     public void ClearInputText()
     {
         input.Text = "";
     }
 
+    public void ClearAllText()
+    {
+        ClearVisibleLog();
+        ClearInputText();
+    }
+
     public override void _ExitTree()
     {
         instance = null;
+
+        LogRead -= OnLogRead;
 
         base._ExitTree();
     }
@@ -109,5 +113,34 @@ public partial class DebugConsole : Control
         {
             input.ReleaseFocus();
         }
+    }
+
+    public static void ReadLog()
+    {
+        //send the contents of this file into the console log, separated by line
+
+        List<string> readMessages = new();
+
+        using (StreamReader reader = File.OpenText(Runtime.GetLogPath()))
+        {
+            string message;
+            while ((message = reader.ReadLine()) != null)
+            {
+                readMessages.Add(message);
+            }
+        }
+
+        LogRead.Invoke(readMessages);
+    }
+
+    private void OnLogRead(List<string> readMessages)
+    {
+        ClearVisibleLog();
+        foreach (string message in readMessages)
+        {
+            log.AddText(message + "\n");
+        }
+
+        ScrollToBottom();
     }
 }
