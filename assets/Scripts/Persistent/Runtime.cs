@@ -103,11 +103,11 @@ public partial class Runtime : Node2D
             DebugManager.Log("No texture mapped for type 'Point' in cursor cache.", "Runtime");
         }
 
-        levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
+        levelRootPath = _editorMode ? "editor/main/level" : "game/main/level";
         gameContainer = GetNode<Node2D>("game");
         editorContainer = GetNode<Node2D>("editor");
 
-        if (editorMode)
+        if (_editorMode)
         {
             SwitchToEditor(false);
         }
@@ -119,7 +119,7 @@ public partial class Runtime : Node2D
 
     public override void _Process(double delta)
     {
-        levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
+        levelRootPath = _editorMode ? "editor/main/level" : "game/main/level";
 
         if (hoveredButton != null &&
         (!IsInstanceValid(hoveredButton) || hoveredButton.Disabled || !hoveredButton.IsVisibleInTree()))
@@ -138,7 +138,7 @@ public partial class Runtime : Node2D
 
         if (Input.IsActionJustPressed("F5"))
         {
-            if (editorMode)
+            if (_editorMode)
             {
                 ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
             }
@@ -279,7 +279,7 @@ public partial class Runtime : Node2D
 
     public void SwitchToEditor(bool fade)
     {
-        editorMode = true;
+        _editorMode = true;
 
         if (fade)
         {
@@ -299,7 +299,7 @@ public partial class Runtime : Node2D
 
     public void SwitchToGame(bool fade)
     {
-        editorMode = false;
+        _editorMode = false;
 
         if (fade)
         {
@@ -331,10 +331,10 @@ public partial class Runtime : Node2D
         GetTree().AutoAcceptQuit = true;
 
         Node2D mode;
-        Node2D oldMode = editorMode ? gameContainer : editorContainer;
-        Node2D target = editorMode ? editorContainer : gameContainer;
+        Node2D oldMode = _editorMode ? gameContainer : editorContainer;
+        Node2D target = _editorMode ? editorContainer : gameContainer;
         Window window = GetWindow();
-        Vector2I targetRes = editorMode ? editorRes : gameRes;
+        Vector2I targetRes = _editorMode ? editorRes : gameRes;
 
         foreach (Node child in oldMode.GetChildren())
         {
@@ -343,11 +343,11 @@ public partial class Runtime : Node2D
 
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-        mode = editorMode ? editorScene.Instantiate<Node2D>() : gameScene.Instantiate<Node2D>();
+        mode = _editorMode ? editorScene.Instantiate<Node2D>() : gameScene.Instantiate<Node2D>();
 
         DisplayServer.WindowSetSize(targetRes);
 
-        if (editorMode)
+        if (_editorMode)
         {
             window.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems;
             ApplyCursor(CursorMode.Place.ToString());
@@ -759,7 +759,7 @@ public partial class Runtime : Node2D
             return;
         }
 
-        Node levelRoot = editorMode ? GetNode($"{levelRootPath}/level_assets") : GetNode($"{levelRootPath}/level_assets");
+        Node levelRoot = _editorMode ? GetNode($"{levelRootPath}/level_assets") : GetNode($"{levelRootPath}/level_assets");
         foreach (Node node in levelRoot.GetChildren())
         {
             if (node.Name == "clones" || node.Name == "hazards" || node.Name == "on_off_assets" || node.Name == "level_mechanics" || node.Name == "npcs" || node.Name == "semi_solid_tiles")
