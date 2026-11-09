@@ -64,36 +64,21 @@ public partial class OnOffBlock : Node2D
                 sprite.Play("close");
             }
         }
-
-        UpdateBody(state);
     }
 
     // Enable or disable the collision shape according to color and global state
     private void UpdateBody(bool on)
     {
-        CollisionShape2D body = GetNode<StaticBody2D>("StaticBody2D").GetNode<CollisionShape2D>("CollisionShape2D");
+        StaticBody2D body = GetNode<StaticBody2D>("StaticBody2D");
 
         if (on)
         {
-            if (green)
-            {
-                body.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
-            }
-            else
-            {
-                body.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-            }
+            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? true : false);
         }
         else
         {
-            if (!green)
-            {
-                body.SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
-            }
-            else
-            {
-                body.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-            }
+            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? false : true);
+
         }
     }
 
