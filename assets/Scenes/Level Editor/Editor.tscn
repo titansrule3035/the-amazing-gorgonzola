@@ -1326,6 +1326,7 @@ offset_bottom = 32.319946
 layer = 2
 
 [node name="DebugConsole" type="Control" parent="canvas_layer_2" unique_id=127667579]
+process_mode = 3
 visible = false
 visibility_layer = 2
 layout_mode = 3
@@ -1353,7 +1354,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 1728.0
 offset_bottom = 283.0
-scroll_vertical = 1300
+scroll_vertical = 100
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
