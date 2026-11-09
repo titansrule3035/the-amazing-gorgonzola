@@ -93,7 +93,7 @@ public partial class Runtime : Node2D
 
         if (!cursorCache.TryGetValue("Point", out Texture2D texture) || texture == null)
         {
-            GD.PrintErr("No texture mapped for type 'Point' in cursor cache.");
+            DebugManager.Log("No texture mapped for type 'Point' in cursor cache.", "Runtime");
         }
 
         levelRootPath = editorMode ? "editor/main/level" : "game/main/level";
@@ -363,7 +363,18 @@ public partial class Runtime : Node2D
     {
         string saveFilePath = Path.Combine(OS.GetUserDataDir(), saveFile);
 
-        using Godot.FileAccess file = Godot.FileAccess.Open(saveFilePath, Godot.FileAccess.ModeFlags.Write);
+        if (!File.Exists(saveFilePath))
+        {
+            using Godot.FileAccess file = Godot.FileAccess.Open(saveFilePath, Godot.FileAccess.ModeFlags.Write);
+
+            if (file == null)
+            {
+                Error error = Godot.FileAccess.GetOpenError();
+
+                DebugManager.Log($"Failed to create log file '{saveFilePath}': {error}", "Runtime", true);
+                DebugManager.Log($"Could not create log file: {saveFilePath}", "Runtime", true);
+            }
+        }
 
         return saveFilePath;
     }
@@ -410,7 +421,18 @@ public partial class Runtime : Node2D
     {
         string logPath = Path.Combine(InitializeLogPath(), logFile);
 
-        using Godot.FileAccess file = Godot.FileAccess.Open(logPath, Godot.FileAccess.ModeFlags.Write);
+        if (!File.Exists(logPath))
+        {
+            using Godot.FileAccess file = Godot.FileAccess.Open(logPath, Godot.FileAccess.ModeFlags.Write);
+
+            if (file == null)
+            {
+                Error error = Godot.FileAccess.GetOpenError();
+
+                DebugManager.Log($"Failed to create log file '{logPath}': {error}", "Runtime", true);
+                DebugManager.Log($"Could not create log file: {logPath}", "Runtime", true);
+            }
+        }
 
         return logPath;
     }
@@ -447,7 +469,7 @@ public partial class Runtime : Node2D
 
             if (error != Error.Ok)
             {
-                GD.PrintErr($"Failed to create directory. Error: {error}");
+                DebugManager.Log($"Failed to create directory. Error: {error}", "Runtime", true);
             }
         }
         return progFlagsDirectory;
@@ -461,13 +483,16 @@ public partial class Runtime : Node2D
     {
         string logDirectory = Path.Combine(OS.GetUserDataDir(), logFilePath);
 
-        if (!DirAccess.DirExistsAbsolute(logDirectory))
+        if (!Directory.Exists(logDirectory))
         {
-            Error error = DirAccess.MakeDirRecursiveAbsolute(logDirectory);
-
-            if (error != Error.Ok)
+            try
             {
-                GD.PrintErr($"Failed to create directory. Error: {error}");
+                Directory.CreateDirectory(logDirectory);
+            }
+            catch (Exception e)
+            {
+                DebugManager.Log($"Failed to create user data log directory '{logDirectory}': {e.Message}", "Runtime", true);
+                return string.Empty;
             }
         }
 
@@ -482,14 +507,17 @@ public partial class Runtime : Node2D
     {
         string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
         string logDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", logDumpPath);
-        try
+        if (!Directory.Exists(logDirectory))
         {
-            Directory.CreateDirectory(logDirectory);
-        }
-        catch (Exception e)
-        {
-            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}", "Runtime", true);
-            return string.Empty;
+            try
+            {
+                Directory.CreateDirectory(logDirectory);
+            }
+            catch (Exception e)
+            {
+                DebugManager.Log($"Failed to create documents log directory '{logDirectory}': {e.Message}", "Runtime", true);
+                return string.Empty;
+            }
         }
 
         return logDirectory;
@@ -501,14 +529,17 @@ public partial class Runtime : Node2D
         string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
         string levelsDirectory = Path.Combine(documentsPath, "The Amazing Gorgonzola", tagLevelsPath);
 
-        try
+        if (!Directory.Exists(levelsDirectory))
         {
-            Directory.CreateDirectory(levelsDirectory);
-        }
-        catch (Exception e)
-        {
-            DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}", "Runtime", true);
-            throw;
+            try
+            {
+                Directory.CreateDirectory(levelsDirectory);
+            }
+            catch (Exception e)
+            {
+                DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}", "Runtime", true);
+                return string.Empty;
+            }
         }
 
         return levelsDirectory;
@@ -662,7 +693,7 @@ public partial class Runtime : Node2D
 
         if (!File.Exists(filePath))
         {
-            GD.PrintErr($"File not found: {filePath}");
+            DebugManager.Log($"File not found: {filePath}", "RuntimeLevelService");
             return;
         }
 
@@ -670,7 +701,7 @@ public partial class Runtime : Node2D
 
         if (fileExtension != ".taglevel")
         {
-            GD.PrintErr($"Invalid format: {fileExtension}");
+            DebugManager.Log($"Invalid format: {fileExtension}", "RuntimeLevelService");
             return;
         }
 
@@ -694,7 +725,7 @@ public partial class Runtime : Node2D
 
         if (data == null)
         {
-            GD.PrintErr("Failed to parse TAGLEVEL.");
+            DebugManager.Log("Failed to parse TAGLEVEL.", "RuntimeLevelService");
             return;
         }
 
@@ -717,7 +748,7 @@ public partial class Runtime : Node2D
     {
         if (GetNodeOrNull<Node2D>($"{levelRootPath}/level_assets") == null)
         {
-            GD.Print("[RUNTIME]: No groups to clear!");
+            DebugManager.Log("No groups to clear!", "RuntimeLevelService");
             return;
         }
 
@@ -758,7 +789,7 @@ public partial class Runtime : Node2D
 
         if (groupNode == null)
         {
-            GD.PrintErr($"No node named '{groupNodeName}' found under 'level_assets'. Skipping.");
+            DebugManager.Log($"No node named '{groupNodeName}' found under 'level_assets'. Skipping.", "RuntimeLevelService");
             return;
         }
 
@@ -766,7 +797,7 @@ public partial class Runtime : Node2D
         {
             if (!sceneMap.TryGetValue(obj.Type, out PackedScene scene) || scene == null)
             {
-                GD.PrintErr($"No scene mapped for type '{obj.Type}' in group '{groupNodeName}'. Skipping.");
+                DebugManager.Log($"No scene mapped for type '{obj.Type}' in group '{groupNodeName}'. Skipping.", "RuntimeLevelService");
                 continue;
             }
 
@@ -786,7 +817,7 @@ public partial class Runtime : Node2D
 
         if (groupNode == null)
         {
-            GD.PrintErr($"No node named '{groupNodeName}' found under 'level_assets'.");
+            DebugManager.Log($"No node named '{groupNodeName}' found under 'level_assets'.", "RuntimeLevelService");
             return;
         }
 
@@ -816,7 +847,7 @@ public partial class Runtime : Node2D
         {
             if (!sceneMap.TryGetValue(switchData.Type, out PackedScene switchScene))
             {
-                GD.PrintErr($"No scene mapped for type '{switchData.Type}'.");
+                DebugManager.Log($"No scene mapped for type '{switchData.Type}'.", "RuntimeLevelService");
                 continue;
             }
 
@@ -838,7 +869,7 @@ public partial class Runtime : Node2D
             {
                 if (!sceneMap.TryGetValue(blockData.blockType.ToString(), out PackedScene blockScene))
                 {
-                    GD.PrintErr($"No scene mapped for type '{blockData.blockType.ToString()}'.");
+                    DebugManager.Log($"No scene mapped for type '{blockData.blockType.ToString()}'.", "RuntimeLevelService");
                     continue;
                 }
 
@@ -867,7 +898,7 @@ public partial class Runtime : Node2D
 
             if (layer == null)
             {
-                GD.PrintErr($"No TileMapLayer named '{layerData.Name}' found under 'tiles'. Skipping.");
+                DebugManager.Log($"No TileMapLayer named '{layerData.Name}' found under 'tiles'. Skipping.", "Runtime");
                 continue;
             }
 
@@ -895,19 +926,15 @@ public partial class Runtime : Node2D
 
         if (packError != Error.Ok)
         {
-            GD.PrintErr($"Failed to pack cloned scene: {packError}");
+            DebugManager.Log($"Failed to pack cloned scene: {packError}", "Runtime");
             return;
         }
 
         string path = $"{folderPath}/{DebugManager.GetCurrentDateTimeFormatted()}.tscn";
         Error saveError = ResourceSaver.Save(packedScene, path);
-        if (saveError == Error.Ok)
+        if (saveError != Error.Ok)
         {
-            GD.Print($"Saved {path}");
-        }
-        else
-        {
-            GD.PrintErr($"Failed to save: {saveError}");
+            DebugManager.Log($"Failed to save: {saveError}, ", "Runtime", true);
         }
     }
 
@@ -937,7 +964,7 @@ public partial class Runtime : Node2D
 
         if (!cursorCache.TryGetValue(mode, out Texture2D texture) || texture == null)
         {
-            GD.PrintErr($"No texture mapped for type '{mode}' in cursor cache.");
+            DebugManager.Log($"No texture mapped for type '{mode}' in cursor cache.", "Runtime");
             foreach (var shape in AllShapes)
             {
                 Input.SetCustomMouseCursor(null, shape);

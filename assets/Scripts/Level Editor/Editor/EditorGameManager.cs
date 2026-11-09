@@ -38,7 +38,7 @@ public partial class EditorGameManager : Node2D
     {
         if (instance != null)
         {
-            GD.PrintErr("Only one EditorGameManager allowed per scene, deleting this one...");
+            DebugManager.Log($"Only one EditorGameManager allowed per scene, deleting this one...", "EditorGameManager");
             QueueFree();
             return;
         }

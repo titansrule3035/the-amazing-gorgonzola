@@ -16,7 +16,7 @@ public partial class OnOffSwitchMaster : OnOffSwitch
     {
         if (instance != null)
         {
-            GD.PrintErr("Only one OnOff Master Switch allowed per scene, deleting this one...");
+            DebugManager.Log($"Only one OnOff Master Switch allowed per scene, deleting this one...", "OnOffSwitchMasterScript");
             QueueFree();
             return;
         }

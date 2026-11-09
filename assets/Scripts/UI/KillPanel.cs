@@ -26,7 +26,7 @@ public partial class KillPanel : Control
 
         if (instance != null)
         {
-            GD.Print("More than one instance of KillPanel was found in the scene! Deleting this one...");
+            DebugManager.Log($"More than one instance of KillPanel was found in the scene! Deleting this one...", "KillPanel");
             QueueFree();
             return;
         }

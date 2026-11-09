@@ -20,7 +20,7 @@ public partial class Gorgonzola : BasePlayerController
         /// </summary>
         if (instance != null)
         {
-            GD.PrintErr("Only one Gorgonzola allowed per scene, deleting this one...");
+            DebugManager.Log("Only one Gorgonzola allowed per scene, deleting this one...", "GorgonzolaScript");
             QueueFree();
         }
         instance = this;

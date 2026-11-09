@@ -17,7 +17,7 @@ public abstract partial class LocalGameManager : Node2D
     {
         if (instance != null)
         {
-            GD.PrintErr("Only one LocalGameManager allowed per scene, deleting this one...");
+            DebugManager.Log($"Only one LocalGameManager allowed per scene, deleting this one...", "LocalGameManager");
             QueueFree();
             return;
         }

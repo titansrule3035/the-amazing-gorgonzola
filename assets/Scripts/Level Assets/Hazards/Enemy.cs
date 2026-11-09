@@ -37,7 +37,7 @@ public partial class Enemy : RigidBody2D
     {
         if (currentState == null)
         {
-            GD.Print($"No current state set on {GetType()}.");
+            DebugManager.Log($"No current state set on {GetType()}.", "EnemyScript");
             return;
         }
 
@@ -48,7 +48,7 @@ public partial class Enemy : RigidBody2D
     {
         if (currentState == null)
         {
-            GD.Print($"No current state set on {GetType()}.");
+            DebugManager.Log($"No current state set on {GetType()}.", "EnemyScript");
             return;
         }
 

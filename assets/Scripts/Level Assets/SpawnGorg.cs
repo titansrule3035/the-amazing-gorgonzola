@@ -30,7 +30,7 @@ public partial class SpawnGorg : Area2D
     {
         if (instance != null)
         {
-            GD.PrintErr("Only one SpawnGorg allowed per scene, deleting this one...");
+            DebugManager.Log($"Only one SpawnGorg allowed per scene, deleting this one...", "SpawnGorg");
             QueueFree();
             return;
         }

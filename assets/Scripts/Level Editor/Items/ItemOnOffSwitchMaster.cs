@@ -16,7 +16,7 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
     {
         if (instance != null)
         {
-            GD.Print("Only one OnOffSwitch item grid allowed, deleting this one...");
+            DebugManager.Log($"Only one OnOffSwitch item grid allowed, deleting this one...", "OnOffSwitchMasterScript");
             QueueFree();
             return;
         }

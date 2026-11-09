@@ -26,7 +26,7 @@ public partial class FadePanel : Control
 
         if (instance != null)
         {
-            GD.Print("More than one instance of FadePanel was found in the scene! Deleting this one...");
+            DebugManager.Log($"More than one instance of FadePanel was found in the scene! Deleting this one...", "FadePanel");
             QueueFree();
             return;
         }

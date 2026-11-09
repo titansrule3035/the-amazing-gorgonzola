@@ -24,11 +24,11 @@ public static partial class DebugManager
     {
         LOG = new DebugCommand<string>("log", "Logs a string into the console.", "log <string>", (s) =>
         {
-            Log(s);
+            Log(s, "User");
         });
         DUMP_LOG = new DebugCommand<string>("dump_log", "Logs a string into the console and dumps it into your documents folder.", "dump_log <string>", (s) =>
             {
-                Log(s, true);
+                Log(s, "User", true);
             });
         HELP = new DebugCommand("help", "Displays all commands in the console.", "help", () =>
         {
@@ -133,7 +133,7 @@ public static partial class DebugManager
         }
 
         // No matching command found
-        Log($"Unknown command: {commandID}");
+        Log($"Unknown command: {commandID}", "DebugManager");
     }
 
     public static void CollectDebugMessage(string input)
@@ -177,10 +177,18 @@ public static partial class DebugManager
         }
     }
 
-    public static void Log(object input, object owner, bool dumpLog = false)
+    public static void Log(object input, string owner, bool dumpLog = false)
     {
         StackFrame callStack = new(1, true);
-        string message = (owner == null) ? $"{callStack} {GetCurrentDateTimeFormatted()}: {input}" : $"<{owner}>: {input}";
+        string message;
+        if (String.IsNullOrWhiteSpace(owner))
+        {
+            message = $"{callStack} {GetCurrentDateTimeFormatted()}: {input}";
+        }
+        else
+        {
+        message = $"<{owner}>: {input}";
+        }
         CollectDebugMessage(message);
 
         if (dumpLog)
@@ -193,7 +201,7 @@ public static partial class DebugManager
 
     public static void PlainLog(object input, bool dumpLog = false)
     {
-        CollectDebugMessage($" {input}");
+        CollectDebugMessage(input.ToString());
 
         if (dumpLog)
         {

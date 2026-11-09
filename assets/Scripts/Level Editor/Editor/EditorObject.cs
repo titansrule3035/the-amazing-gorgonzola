@@ -268,7 +268,7 @@ public partial class EditorObject : Node2D
     {
         if (instance != null && instance != this && IsInstanceValid(instance))
         {
-            GD.PrintErr("Error: only one EditorObject allowed, deleting this one...");
+            DebugManager.Log($"Error: only one EditorObject allowed, deleting this one...", "EditorScript");
             // QueueFree is deferred, so stop this node from running in the meantime.
             isDuplicate = true;
             SetProcess(false);

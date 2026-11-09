@@ -66,7 +66,7 @@ public partial class EditorObject
     {
         if (autotileDebug)
         {
-            GD.Print("[Autotile] " + message);
+            DebugManager.Log($"{message}", "EditorAutoTileService");
         }
     }
 

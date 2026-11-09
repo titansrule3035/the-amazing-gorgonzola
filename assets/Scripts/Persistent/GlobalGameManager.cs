@@ -45,7 +45,7 @@ public partial class GlobalGameManager : Node2D
     {
         if (instance != null)
         {
-            GD.Print("More than one GlobalGameManager exists! Deleting this one...");
+            GD.Print("More than one GlobalGameManager exists! Deleting this one...", "loba");
             QueueFree();
             return;
         }
@@ -63,7 +63,7 @@ public partial class GlobalGameManager : Node2D
 
         if (levels.Count == 0)
         {
-            GD.PrintErr("No level groups assigned! Drag them into the LevelGroups array in the Inspector.");
+            DebugManager.Log("No level groups assigned! Drag them into the LevelGroups array in the Inspector.", "GameLevelService");
             return;
         }
 
@@ -141,7 +141,7 @@ public partial class GlobalGameManager : Node2D
     {
         if (groupIndex < 0 || groupIndex >= levelGroups.Count)
         {
-            GD.PrintErr($"[LEVEL] Invalid group index: {groupIndex}");
+            DebugManager.Log($"Invalid group index: {groupIndex}", "GameLevelService");
             return;
         }
 
@@ -149,7 +149,7 @@ public partial class GlobalGameManager : Node2D
 
         if (group == null || group.Scene == null)
         {
-            GD.PrintErr($"[LEVEL] Group {groupIndex} has no scene.");
+            DebugManager.Log($"Group {groupIndex} has no scene.", "GameLevelService");
             return;
         }
 
@@ -159,7 +159,7 @@ public partial class GlobalGameManager : Node2D
 
         if (!GodotObject.IsInstanceValid(currentScene))
         {
-            GD.PrintErr("[LEVEL] Current scene is no longer valid.");
+            DebugManager.Log("Current scene is no longer valid.", "GameLevelService");
             return;
         }
 
@@ -167,7 +167,7 @@ public partial class GlobalGameManager : Node2D
 
         if (levelParent == null)
         {
-            GD.PrintErr("[LEVEL] Could not find game/main.");
+            DebugManager.Log("Could not find game/main.", "GameLevelService");
             return;
         }
 
@@ -185,7 +185,7 @@ public partial class GlobalGameManager : Node2D
     {
         if (groupIndex < 0 || groupIndex >= levelGroups.Count || levelGroups[groupIndex] == null)
         {
-            GD.PrintErr($"[LEVEL] Invalid group index for TAG level: {groupIndex}");
+            DebugManager.Log($"Invalid group index for TAG level: {groupIndex}", "GameLevelService");
             return;
         }
 
@@ -193,7 +193,7 @@ public partial class GlobalGameManager : Node2D
 
         if (tagLevelIndex < 0 || tagLevelIndex >= group.TagLevels.Count)
         {
-            GD.PrintErr($"[LEVEL] Invalid TAG level index {tagLevelIndex} for group {groupIndex}.");
+            DebugManager.Log($"Invalid TAG level index {tagLevelIndex} for group {groupIndex}.", "GameLevelService");
             return;
         }
 
@@ -201,7 +201,7 @@ public partial class GlobalGameManager : Node2D
 
         if (string.IsNullOrEmpty(tagLevelPath))
         {
-            GD.PrintErr($"[LEVEL] TAG level {tagLevelIndex} in group {groupIndex} is empty.");
+            DebugManager.Log($"TAG level {tagLevelIndex} in group {groupIndex} is empty.", "GameLevelService");
             return;
         }
 
@@ -209,7 +209,7 @@ public partial class GlobalGameManager : Node2D
 
         if (file == null)
         {
-            GD.PrintErr($"[LEVEL] Could not open TAG level file '{tagLevelPath}': {Godot.FileAccess.GetOpenError()}");
+            DebugManager.Log($"Could not open TAG level file '{tagLevelPath}': {Godot.FileAccess.GetOpenError()}", "GameLevelService");
             return;
         }
 
@@ -227,7 +227,7 @@ public partial class GlobalGameManager : Node2D
         if (activeLevelGroupIndex < 0 ||
             activeLevelGroupIndex >= levelGroups.Count)
         {
-            GD.PrintErr($"[LEVEL] Invalid group index: {activeLevelGroupIndex}");
+            DebugManager.Log($"Invalid group index: {activeLevelGroupIndex}", "GameLevelService");
             return;
         }
 
@@ -235,7 +235,7 @@ public partial class GlobalGameManager : Node2D
 
         if (group == null)
         {
-            GD.PrintErr($"[LEVEL] Level group {activeLevelGroupIndex} is null.");
+            DebugManager.Log($"Level group {activeLevelGroupIndex} is null.", "GameLevelService");
             return;
         }
 
@@ -273,7 +273,7 @@ public partial class GlobalGameManager : Node2D
 
         if (activeLevelGroupIndex < 0 || activeLevelGroupIndex >= levelGroups.Count)
         {
-            GD.PrintErr($"[LEVEL] Invalid group index: {activeLevelGroupIndex}");
+            DebugManager.Log($"Invalid group index: {activeLevelGroupIndex}", "GameLevelService");
             return;
         }
 
@@ -302,7 +302,7 @@ public partial class GlobalGameManager : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"LoadNextLevel failed: {e}", "GlobalGameManager", true);
+            DebugManager.Log($"LoadNextLevel failed: {e}", "GameLevelService", true);
         }
         finally
         {
@@ -345,7 +345,7 @@ public partial class GlobalGameManager : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"Level reload failed: {e}", "GlobalGameManager", true);
+            DebugManager.Log($"Level reload failed: {e}", "GameLevelService", true);
         }
         finally
         {

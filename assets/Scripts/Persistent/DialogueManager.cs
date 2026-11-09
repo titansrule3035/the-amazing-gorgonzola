@@ -42,7 +42,7 @@ public partial class DialogueManager : Node
         }
         else
         {
-            GD.PrintErr("More than one instance of DialogueManager found! Deleting this one...");
+            DebugManager.Log($"More than one instance of DialogueManager found! Deleting this one...", "DialogueManager");
             QueueFree();
         }
 

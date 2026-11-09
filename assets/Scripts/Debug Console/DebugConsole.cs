@@ -22,7 +22,7 @@ public partial class DebugConsole : Control
         }
         else
         {
-            GD.PrintErr("DebugConsole instance already exists. Deleting this one...");
+            DebugManager.Log($"DebugConsole instance already exists. Deleting this one...", "DebugConsole");
             QueueFree();
         }
         content = GetNode<ScrollContainer>("scroll_container");
@@ -117,8 +117,7 @@ public partial class DebugConsole : Control
 
     public static void ReadLog()
     {
-        //send the contents of this file into the console log, separated by line
-
+        //send the contents of this file into this console's log, separated by line
         List<string> readMessages = new();
 
         using (StreamReader reader = File.OpenText(Runtime.GetLogPath()))
@@ -136,6 +135,7 @@ public partial class DebugConsole : Control
     private void OnLogRead(List<string> readMessages)
     {
         ClearVisibleLog();
+
         foreach (string message in readMessages)
         {
             log.AddText(message + "\n");
