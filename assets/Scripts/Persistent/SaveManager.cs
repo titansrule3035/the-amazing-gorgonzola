@@ -9,7 +9,6 @@ using System.Text.Json;
 
 internal static class SaveManager
 {
-    private static readonly string SAVE_PATH = Directory.GetCurrentDirectory() + "//save.dat";
     private const string MASTER_SECRET =
         "TheAmazingGorgonzola_SuperSecret_2026";
 
@@ -43,7 +42,7 @@ internal static class SaveManager
             aes.Encrypt(nonce, plaintext, ciphertext, tag);
         }
 
-        using BinaryWriter writer = new BinaryWriter(File.Create(SAVE_PATH));
+        using BinaryWriter writer = new BinaryWriter(File.Create(Runtime.GetSavePath()));
 
         writer.Write(new char[] { 'G', 'O', 'R', 'G' });
         writer.Write(1);
@@ -63,11 +62,7 @@ internal static class SaveManager
 
     public static SaveData? LoadGame()
     {
-        if (!File.Exists(SAVE_PATH))
-        {
-            return null;
-        }
-        using BinaryReader reader = new BinaryReader(File.OpenRead(SAVE_PATH));
+        using BinaryReader reader = new BinaryReader(File.OpenRead(Runtime.GetSavePath()));
 
         string magic = new string(reader.ReadChars(4));
 
@@ -104,7 +99,7 @@ internal static class SaveManager
         }
         catch (CryptographicException ce)
         {
-            DebugManager.Log(ce);
+            DebugManager.Log(ce, "SaveManager", true);
             return null;
         }
 
@@ -136,9 +131,9 @@ internal static class SaveManager
 
     public static void DeleteSave()
     {
-        if (File.Exists(SAVE_PATH))
+        if (File.Exists(Runtime.GetSavePath()))
         {
-            File.Delete(SAVE_PATH);
+            File.Delete(Runtime.GetSavePath());
         }
     }
 

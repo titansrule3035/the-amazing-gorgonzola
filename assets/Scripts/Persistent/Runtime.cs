@@ -72,6 +72,7 @@ public partial class Runtime : Node2D
 
     // game directories and log file
     private static string progFlagsPath = "PROGFLAGS";
+    private static string saveFile = "save.dat";
     private static string debugFile = "supersecretdebugvariablenobodyknowsaboutexceptmeakathedeveloperwhoissuperawesomeandcool.youllneverguesswhatvalueissupposedtobeinheremwahahahahaha";
     private static string logFilePath = "LOG";
     private static string logFile = "console_log.txt";
@@ -355,6 +356,19 @@ public partial class Runtime : Node2D
     }
 
     /// <summary>
+    /// Returns the path of the save file, creates one if nonexistent
+    /// </summary>
+    /// <returns></returns>
+    public static string GetSavePath()
+    {
+        string saveFilePath = Path.Combine(OS.GetUserDataDir(), saveFile);
+
+        using Godot.FileAccess file = Godot.FileAccess.Open(saveFilePath, Godot.FileAccess.ModeFlags.Write);
+
+        return saveFilePath;
+    }
+
+    /// <summary>
     /// Creates a file in the log dump directory with a timestamped name and returns the path to the file for writing.
     /// </summary>
     /// <returns></returns>
@@ -368,7 +382,7 @@ public partial class Runtime : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}");
+            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}", "Runtime", true);
             throw;
         }
 
@@ -381,11 +395,9 @@ public partial class Runtime : Node2D
         {
             Error error = Godot.FileAccess.GetOpenError();
 
-            DebugManager.Log($"Failed to create log file '{logPath}': {error}");
-            DebugManager.Log($"Could not create log file: {logPath}");
+            DebugManager.Log($"Failed to create log file '{logPath}': {error}", "Runtime", true);
+            DebugManager.Log($"Could not create log file: {logPath}", "Runtime", true);
         }
-
-        GD.Print($"File created at {logPath}");
 
         return logPath;
     }
@@ -397,10 +409,9 @@ public partial class Runtime : Node2D
     public static string GetLogPath()
     {
         string logPath = Path.Combine(InitializeLogPath(), logFile);
-        if (!File.Exists(logPath))
-        {
-            using FileAccess file = FileAccess.Open(logPath, FileAccess.ModeFlags.Write);
-        }
+
+        using Godot.FileAccess file = Godot.FileAccess.Open(logPath, Godot.FileAccess.ModeFlags.Write);
+
         return logPath;
     }
 
@@ -477,7 +488,7 @@ public partial class Runtime : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}");
+            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}", "Runtime", true);
             return string.Empty;
         }
 
@@ -496,7 +507,7 @@ public partial class Runtime : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}");
+            DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}", "Runtime", true);
             throw;
         }
 
@@ -672,8 +683,8 @@ public partial class Runtime : Node2D
         }
         catch (Exception exception)
         {
-            DebugManager.Log("Invalid TAGLEVEL!");
-            DebugManager.Log(exception);
+            DebugManager.Log("Invalid TAGLEVEL!", "Runtime", true);
+            DebugManager.Log(exception, "Runtime", true);
         }
     }
 

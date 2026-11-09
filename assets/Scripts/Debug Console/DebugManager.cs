@@ -160,7 +160,7 @@ public static partial class DebugManager
     public static string GetCurrentDateTimeFormatted()
     {
         DateTime now = DateTime.Now;
-        string formattedDateTime = now.ToString("dd-MM-yyyy_HH-mm-ss");
+        string formattedDateTime = now.ToString("dd-MM-yyyy_HH-mmss");
         return formattedDateTime;
     }
     public static void Log(object input, bool dumpLog = false)
@@ -176,6 +176,21 @@ public static partial class DebugManager
             file.StoreString(message);
         }
     }
+
+    public static void Log(object input, object owner, bool dumpLog = false)
+    {
+        StackFrame callStack = new(1, true);
+        string message = (owner == null) ? $"{callStack} {GetCurrentDateTimeFormatted()}: {input}" : $"<{owner}>: {input}";
+        CollectDebugMessage(message);
+
+        if (dumpLog)
+        {
+            using Godot.FileAccess file = Godot.FileAccess.Open(Runtime.CreateLogDump(), Godot.FileAccess.ModeFlags.Write);
+
+            file.StoreString(message);
+        }
+    }
+
     public static void PlainLog(object input, bool dumpLog = false)
     {
         CollectDebugMessage($" {input}");
