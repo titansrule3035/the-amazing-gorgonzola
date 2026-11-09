@@ -73,12 +73,11 @@ public partial class OnOffBlock : Node2D
 
         if (on)
         {
-            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? true : false);
+            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? false : true);
         }
         else
         {
-            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? false : true);
-
+            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? true : false);
         }
     }
 
