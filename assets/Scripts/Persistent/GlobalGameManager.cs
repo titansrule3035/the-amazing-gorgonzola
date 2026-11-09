@@ -133,6 +133,15 @@ public partial class GlobalGameManager : Node2D
         return new Vector2I(savedLevelGroupIndex, savedTagLevelIndex);
     }
 
+    public async void LoadLevel(int groupIndex, int TAGLevelIndex)
+    {
+        activeTagLevelIndex = TAGLevelIndex;
+
+        await LoadSceneLevel(groupIndex);
+
+        await LoadCurrentLevel();
+    }
+
     /// <summary>
     /// Deloads the current level, resets per-level state, and instantiates the group's scene.
     /// Every level load (new group, next tag level, reload) goes through here.

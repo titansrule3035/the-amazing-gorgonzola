@@ -61,6 +61,7 @@ public partial class DebugConsole : Control
         {
             log.AddText(text + "\n");
         }
+
         ScrollToBottom();
     }
 

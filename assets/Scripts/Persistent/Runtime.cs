@@ -1,5 +1,4 @@
 using Godot;
-using Ink.Parsed;
 using Ink.Runtime;
 using System;
 using System.Collections.Generic;
@@ -20,9 +19,14 @@ using FileAccess = Godot.FileAccess;
 
 public partial class Runtime : Node2D
 {
+    // singleton
+    private static Runtime instance;
+
     // game state
     public static bool editorMode = false;
-    [Export] public bool _editorMode {
+    [Export]
+    public bool _editorMode
+    {
         get => editorMode;
         set
         {
@@ -89,6 +93,15 @@ public partial class Runtime : Node2D
 
     public override void _Ready()
     {
+        if (instance != null)
+        {
+            DebugManager.Log("More than one instance of Runtime was found, deleting this one...", "RuntimeScript");
+            QueueFree();
+            return;
+        }
+
+        instance = this;
+
         DebugManager.BuildCommands();
 
         GetTree().NodeAdded += CheckForHookableButtons;
@@ -152,9 +165,19 @@ public partial class Runtime : Node2D
 
         if (DebugManager.debug)
         {
-            if (Input.IsActionJustPressed("open_console"))
+            if (Input.IsActionPressed("ctrl"))
             {
-                DebugManager.ToggleDebugConsole();
+                if (Input.IsActionJustPressed("open_console"))
+                {
+                    if (DebugConsole.GetInstance().Visible)
+                    {
+                        DebugManager.debugConsoleActive = false;
+                    }
+                    else
+                    {
+                        DebugManager.debugConsoleActive = true;
+                    }
+                }
             }
         }
         else
@@ -190,7 +213,7 @@ public partial class Runtime : Node2D
         }
     }
 
-    void OnLevelSkipped()
+    public void OnLevelSkipped()
     {
         GlobalGameManager ggm = GlobalGameManager.GetInstance();
         ggm.OnNextLevelLoaded -= OnLevelSkipped;
@@ -996,5 +1019,10 @@ public partial class Runtime : Node2D
         float dbVolume = Mathf.LinearToDb(linearVolume);
 
         AudioServer.SetBusVolumeDb(busIndex, dbVolume);
+    }
+
+    public static Runtime GetInstance()
+    {
+        return instance;
     }
 }

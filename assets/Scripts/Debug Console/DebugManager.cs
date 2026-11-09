@@ -16,6 +16,7 @@ public static partial class DebugManager
     public static List<string> debugMessages = new();
     public static DebugCommand<string> LOG;
     public static DebugCommand<string> DUMP_LOG;
+    public static DebugCommand<int, int> GOTO_LEVEL;
     public static DebugCommand LOAD_CACHED_LEVEL;
     public static DebugCommand HELP;
     public static DebugCommand CLEAR_CONSOLE;
@@ -31,17 +32,39 @@ public static partial class DebugManager
         {
             Log(s, "User", true);
         });
+        GOTO_LEVEL = new DebugCommand<int, int>("goto_level", "Allows you to game levels from a given group and TAGLevel index.", "goto_level <group_group> <TAGLevelIndex>", (groupIndex, TAGLevelIndex) =>
+        {
+            if (!Runtime.editorMode)
+            {
+                GlobalGameManager.GetInstance().LoadLevel(groupIndex, TAGLevelIndex);
+
+                Runtime.GetInstance().OnLevelSkipped();
+            }
+            else
+            {
+                DebugManager.Log($"Command {GOTO_LEVEL.CommandID} can only be executed in game mode, switch to main menu and try again.", "DebugManagerService");
+            }
+        });
         LOAD_CACHED_LEVEL = new DebugCommand("load_cached_level", "Loads the cached temporary level in the level editor, can only execute this command in editor mode.", "load_cached_level", () =>
         {
-            
+            if (Runtime.editorMode)
+            {
+                // find a way to statically load levels
+                Runtime.GetInstance().FilePicked(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"));
+            }
+            else
+            {
+                Log($"Command {LOAD_CACHED_LEVEL.CommandID} can only be executed in editor mode, switch to editor and try again.", "DebugManagerService");
+            }
         });
         HELP = new DebugCommand("help", "Displays all commands in the console.", "help", () =>
         {
-            Log("List of available commands:");
+            PlainLog("List of available commands:");
             for (int i = 0; i < commandList.Count; i++)
             {
-                Log($"{commandList[i].CommandID} - {commandList[i].CommandDescription}");
-                Log($"Example: {commandList[i].CommandFormat}");
+                PlainLog("\n");
+                PlainLog($" * {commandList[i].CommandID} - {commandList[i].CommandDescription}");
+                PlainLog($"   * Example: {commandList[i].CommandFormat}");
             }
         });
         CLEAR_CONSOLE = new DebugCommand("clear_console", "Clears the debug console and wipes the logging file.", "clear_console", () =>
@@ -57,6 +80,8 @@ public static partial class DebugManager
         commandList = new List<DebugCommandBase> {
       LOG,
       DUMP_LOG,
+      GOTO_LEVEL,
+      LOAD_CACHED_LEVEL,
       HELP,
       CLEAR_CONSOLE
     };
