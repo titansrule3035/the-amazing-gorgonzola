@@ -32,7 +32,7 @@ public partial class OnOffSwitchMaster : OnOffSwitch
 
         base._Ready();
 
-        editorMode = ((Runtime)GetTree().CurrentScene).editorMode;
+        editorMode = Runtime.editorMode;
 
         if (editorMode)
         {

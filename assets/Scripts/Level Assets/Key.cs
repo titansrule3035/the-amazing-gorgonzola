@@ -40,7 +40,7 @@ public partial class Key : Node2D
 
         instance = this;
 
-        if (((Runtime)GetTree().CurrentScene).editorMode == true)
+        if (Runtime.editorMode == true)
         {
             GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").RegisterKey(this);
         }
@@ -73,7 +73,7 @@ public partial class Key : Node2D
             uiElement.Modulate = Colors.White;
         }
 
-        if (((Runtime)GetTree().CurrentScene).editorMode == true)
+        if (Runtime.editorMode == true)
         {
             GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").UnregisterKey();
         }

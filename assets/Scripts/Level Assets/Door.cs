@@ -41,7 +41,7 @@ public partial class Door : Node2D
         area.BodyEntered += OnAreaEntered;
         area.BodyExited += OnAreaExited;
 
-        if (((Runtime)GetTree().CurrentScene).editorMode == true)
+        if (Runtime.editorMode == true)
         {
             GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").RegisterDoor(this);
         }
@@ -134,7 +134,7 @@ public partial class Door : Node2D
     {
         instance = null;
 
-        if (((Runtime)GetTree().CurrentScene).editorMode == true)
+        if (Runtime.editorMode == true)
         {
             GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").UnregisterDoor();
         }

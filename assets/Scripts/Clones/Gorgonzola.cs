@@ -49,7 +49,7 @@ public partial class Gorgonzola : BasePlayerController
         }
 
         bool? canMove;
-        if (((Runtime)GetTree().CurrentScene).editorMode)
+        if (Runtime.editorMode)
         {
             canMove = EditorGameManager.GetInstance()?.canMove;
         }

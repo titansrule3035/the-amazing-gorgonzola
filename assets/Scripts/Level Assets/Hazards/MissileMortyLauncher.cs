@@ -17,7 +17,7 @@ public partial class MissileMortyLauncher : Node2D
 
     public override void _Ready()
     {
-        path = (((Runtime)GetTree().CurrentScene).editorMode ? "editor" : "game") + "/main/level/level_assets/hazards";
+        path = (Runtime.editorMode ? "editor" : "game") + "/main/level/level_assets/hazards";
 
         sprite = GetNode<Sprite2D>("sprite");
 

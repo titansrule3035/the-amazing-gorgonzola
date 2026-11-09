@@ -16,6 +16,7 @@ public static partial class DebugManager
     public static List<string> debugMessages = new();
     public static DebugCommand<string> LOG;
     public static DebugCommand<string> DUMP_LOG;
+    public static DebugCommand LOAD_CACHED_LEVEL;
     public static DebugCommand HELP;
     public static DebugCommand CLEAR_CONSOLE;
     public static bool typing = false;
@@ -27,9 +28,13 @@ public static partial class DebugManager
             Log(s, "User");
         });
         DUMP_LOG = new DebugCommand<string>("dump_log", "Logs a string into the console and dumps it into your documents folder.", "dump_log <string>", (s) =>
-            {
-                Log(s, "User", true);
-            });
+        {
+            Log(s, "User", true);
+        });
+        LOAD_CACHED_LEVEL = new DebugCommand("load_cached_level", "Loads the cached temporary level in the level editor, can only execute this command in editor mode.", "load_cached_level", () =>
+        {
+            
+        });
         HELP = new DebugCommand("help", "Displays all commands in the console.", "help", () =>
         {
             Log("List of available commands:");
@@ -187,7 +192,7 @@ public static partial class DebugManager
         }
         else
         {
-        message = $"<{owner}>: {input}";
+            message = $"<{owner}>: {input}";
         }
         CollectDebugMessage(message);
 

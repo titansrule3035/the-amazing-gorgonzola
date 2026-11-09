@@ -21,7 +21,14 @@ using FileAccess = Godot.FileAccess;
 public partial class Runtime : Node2D
 {
     // game state
-    [Export] public bool editorMode = false;
+    public static bool editorMode = false;
+    [Export] public bool _editorMode {
+        get => editorMode;
+        set
+        {
+            editorMode = value;
+        }
+    }
 
     // game mode references
     Node2D gameContainer;
