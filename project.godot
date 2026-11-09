@@ -50,6 +50,22 @@ enabled=PackedStringArray("res://addons/GodotInk/plugin.cfg")
 
 editor_placeable=""
 
+[importer_defaults]
+
+font_data_image={
+"ascent": 0,
+"character_margin": Rect2i(0, 0, 0, 0),
+"character_ranges": PackedStringArray("\" \"-\"~\"", "0x20AC", "0xA3", "0xB0", "0x2022", "0x2122"),
+"columns": 10,
+"compress": true,
+"descent": 0,
+"fallbacks": [],
+"image_margin": Rect2i(0, 0, 0, 0),
+"kerning_pairs": PackedStringArray(),
+"rows": 10,
+"scaling_mode": 2
+}
+
 [input]
 
 move_left={

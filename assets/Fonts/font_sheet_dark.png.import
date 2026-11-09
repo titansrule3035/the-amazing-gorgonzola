@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/font_sheet_dark.png-111ba82f56b64b0b8a73bea29
 
 [params]
 
-character_ranges=PackedStringArray("\' \'-\'~\'")
+character_ranges=PackedStringArray("\" \"-\"~\"", "0x20AC", "0xA3", "0xB0", "0x2022", "0x2122")
 kerning_pairs=PackedStringArray()
 columns=10
 rows=10
