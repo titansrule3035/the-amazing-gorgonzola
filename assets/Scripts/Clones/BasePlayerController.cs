@@ -266,11 +266,6 @@ public partial class BasePlayerController : CharacterBody2D
             MainPlayerKilled -= OnMainPlayerKilled;
         }
 
-        if (animationTree != null)
-        {
-            animationTree.AnimationFinished -= OnAnimationFinished;
-        }
-
         base._ExitTree();
     }
 
