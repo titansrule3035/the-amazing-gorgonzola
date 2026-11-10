@@ -23,16 +23,6 @@ public partial class ItemGorgonzola : EditorItemObject
 
     }
 
-    public override void _Process(double delta)
-    {
-        if (!GetTree().Paused)
-        {
-            DisableItem();
-        }
-
-        base._Process(delta);
-    }
-
     public override void _ExitTree()
     {
         if (gm != null)

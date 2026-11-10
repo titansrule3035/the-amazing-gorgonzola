@@ -32,16 +32,6 @@ public partial class ItemOnOffSwitchMaster : EditorItemObject
         base._Ready();
     }
 
-    public override void _Process(double delta)
-    {
-        if (!GetTree().Paused)
-        {
-            DisableItem();
-        }
-
-        base._Process(delta);
-    }
-
     void OnStateChanged(bool state)
     {
         GetNode<AnimationPlayer>("TextureAnimationPlayer").Play(state ? "green" : "red");

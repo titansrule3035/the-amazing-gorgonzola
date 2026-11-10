@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// One selectable entry in the editor's item palette (a tile, clone, hazard, etc).
 /// Clicking it while the editor is active hands it to EditorObject; clicking it again clears the selection.
+/// The palette is inert whenever the game is not paused.
 /// </summary>
 public partial class EditorItemObject : TextureRect
 {
@@ -47,7 +48,11 @@ public partial class EditorItemObject : TextureRect
     // ------------------------------------------------------------------
 
     public AnimationPlayer player;
+
+    /// <summary>True while this item is the one the editor is holding. Always false while the game is running.</summary>
     public bool selected = false;
+
+    /// <summary>Locked by level rules. Separate from the idle state, which applies to every item while the game runs.</summary>
     public bool disabled = false;
 
     /// <summary>Raised with the newly selected item, or null to clear the selection.</summary>
@@ -56,6 +61,9 @@ public partial class EditorItemObject : TextureRect
     LevelEditorMain main;
     EditorObject? editor;
     bool idleStateApplied;
+
+    /// <summary>True while the game is running. The palette is inert in this state.</summary>
+    bool IsIdle => !GetTree().Paused;
 
     /// <summary>The editor cursor node. Cached on first use.</summary>
     protected EditorObject Editor
@@ -66,6 +74,7 @@ public partial class EditorItemObject : TextureRect
             {
                 editor = GetTree().CurrentScene.GetNode<EditorObject>(editorPath);
             }
+
             return editor!;
         }
     }
@@ -80,9 +89,11 @@ public partial class EditorItemObject : TextureRect
         player = GetParent().GetNode<AnimationPlayer>("AnimationPlayer");
         button = GetParent().GetNode<Button>("Button");
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>(mainPath);
+
         ChangeTexture += SetActiveItem;
         main.OnGamePaused += OnGamePaused;
         button.Pressed += OnPressed;
+
         MouseDefaultCursorShape = disabled ? Control.CursorShape.Arrow : Control.CursorShape.PointingHand;
     }
 
@@ -90,11 +101,13 @@ public partial class EditorItemObject : TextureRect
     {
         // ChangeTexture is static, so without this, freed items stay subscribed after a scene reload.
         ChangeTexture -= SetActiveItem;
+
         // The sibling nodes can already be freed (or never found) by the time this runs.
         if (IsInstanceValid(button))
         {
             button.Pressed -= OnPressed;
         }
+
         if (IsInstanceValid(main))
         {
             main.OnGamePaused -= OnGamePaused;
@@ -104,26 +117,22 @@ public partial class EditorItemObject : TextureRect
     public override void _Process(double delta)
     {
         // While the game is running the palette is inert. Apply that once, not every frame.
-
-        if (GetTree().Paused || idleStateApplied)
+        if (IsIdle && !idleStateApplied)
         {
-            return;
+            ApplyIdleState();
         }
-        idleStateApplied = true;
-        player.Play(animDisabled);
-        MouseFilter = MouseFilterEnum.Ignore;
-        selected = false;
-
     }
 
     void OnGamePaused()
     {
         idleStateApplied = false;
+
         if (disabled)
         {
             return;
         }
 
+        // _Process cleared `selected` when the game started running, so the editor is the source of truth.
         if (IsInstanceValid(Editor) && Editor.itemObject == this)
         {
             SelectItem();
@@ -134,24 +143,17 @@ public partial class EditorItemObject : TextureRect
         }
     }
 
-    void SelectItem()
-    {
-        player.Play(animSelected);
-        MouseFilter = MouseFilterEnum.Pass;
-        MouseDefaultCursorShape = Control.CursorShape.PointingHand;
-        button.Disabled = disabled = false;
-        selected = true;
-    }
     // ------------------------------------------------------------------
     // Input
     // ------------------------------------------------------------------
 
     void OnPressed()
     {
-        if (!GetTree().Paused || disabled)
+        if (IsIdle || disabled)
         {
             return;
         }
+
         UpdateTextures(Texture, FlipH, !selected);
     }
 
@@ -186,11 +188,20 @@ public partial class EditorItemObject : TextureRect
     /// <summary>
     /// Reacts to <see cref="ChangeTexture"/>: this item becomes selected only if it is the one announced.
     /// Every palette item receives the call, so the clear for a null item is repeated. It is idempotent.
+    /// While the game is running the item stays inert regardless of what was announced.
     /// </summary>
     public void SetActiveItem(EditorItemObject? item)
     {
-        selected = !disabled && item == this;
-        GetParent().GetNode<AnimationPlayer>("AnimationPlayer").Play(disabled ? animDisabled : selected ? animSelected : animDefault);
+        if (IsIdle)
+        {
+            ApplyIdleState();
+        }
+        else
+        {
+            selected = !disabled && item == this;
+            player.Play(disabled ? animDisabled : selected ? animSelected : animDefault);
+        }
+
         if (item == null)
         {
             Editor.ClearEditorItem();
@@ -201,22 +212,66 @@ public partial class EditorItemObject : TextureRect
     // Enable / disable
     // ------------------------------------------------------------------
 
-    /// <summary>Greys the item out and makes it unclickable. A disabled item can't stay selected.</summary>
-    public void DisableItem()
+    /// <summary>
+    /// The inert look and behaviour used whenever the game isn't paused.
+    /// Does not touch `disabled`, which means "locked by level rules".
+    /// </summary>
+    void ApplyIdleState()
     {
+        idleStateApplied = true;
+
         player.Play(animDisabled);
         MouseFilter = MouseFilterEnum.Ignore;
         MouseDefaultCursorShape = Control.CursorShape.Arrow;
-        button.Disabled = disabled = true;
+        button.Disabled = true;
         selected = false;
     }
 
+    /// <summary>Greys the item out and makes it unclickable. A disabled item can't stay selected.</summary>
+    public void DisableItem()
+    {
+        disabled = true;
+        selected = false;
+
+        player.Play(animDisabled);
+        MouseFilter = MouseFilterEnum.Ignore;
+        MouseDefaultCursorShape = Control.CursorShape.Arrow;
+        button.Disabled = true;
+    }
+
+    /// <summary>Unlocks the item. While the game is running it stays inert until the next pause.</summary>
     public void EnableItem()
     {
+        disabled = false;
+
+        if (IsIdle)
+        {
+            ApplyIdleState();
+            return;
+        }
+
         player.Play(animDefault);
         MouseFilter = MouseFilterEnum.Pass;
         MouseDefaultCursorShape = Control.CursorShape.PointingHand;
-        button.Disabled = disabled = false;
+        button.Disabled = false;
+    }
+
+    /// <summary>Same as EnableItem, but lands in the selected state. Used to restore the editor's held item after a pause.</summary>
+    void SelectItem()
+    {
+        disabled = false;
+
+        if (IsIdle)
+        {
+            ApplyIdleState();
+            return;
+        }
+
+        player.Play(animSelected);
+        MouseFilter = MouseFilterEnum.Pass;
+        MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+        button.Disabled = false;
+        selected = true;
     }
 
     // ------------------------------------------------------------------
