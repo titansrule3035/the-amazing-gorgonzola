@@ -13,17 +13,7 @@ public partial class LevelEditorMain : Node2D
 
     public FileButton fileButton;
 
-    public Gorgonzola gorgonzola;
-
     public ScrollButtonMenusController scrollButton;
-
-    public Door door = null;
-    public Action? OnDoorRegistered;
-    public Action? OnDoorUnregistered;
-
-    public Key key = null;
-    public Action? OnKeyRegistered;
-    public Action? OnKeyUnregistered;
 
     public Action? OnGameStarted;
     public Action? OnGamePaused;
@@ -136,30 +126,6 @@ public partial class LevelEditorMain : Node2D
     public void ToggleGameState()
     {
         SetGameState(!GetTree().Paused);
-    }
-
-    public void RegisterDoor(Door door)
-    {
-        this.door = door;
-        OnDoorRegistered?.Invoke();
-    }
-
-    public void UnregisterDoor()
-    {
-        door = null;
-        OnDoorUnregistered?.Invoke();
-    }
-
-    public void RegisterKey(Key key)
-    {
-        this.key = key;
-        OnKeyRegistered?.Invoke();
-    }
-
-    public void UnregisterKey()
-    {
-        key = null;
-        OnKeyUnregistered?.Invoke();
     }
 
     public override void _ExitTree()

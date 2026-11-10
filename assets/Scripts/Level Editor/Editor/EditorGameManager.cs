@@ -18,10 +18,15 @@ public partial class EditorGameManager : Node2D
 
     public event Action OnFirstFrame;
     public event Action OnLevelLoaded;
+    public Gorgonzola gorgonzola;
     public event Action? OnGorgFound;
     public event Action? OnGorgUnregistered;
-
-    public Gorgonzola gorgonzola;
+    public Door door = null;
+    public Action? OnDoorRegistered;
+    public Action? OnDoorUnregistered;
+    public Key key = null;
+    public Action? OnKeyRegistered;
+    public Action? OnKeyUnregistered;
     public bool levelCompleted = false;
     public bool gamePaused = false;
     public bool canPause = true;
@@ -109,5 +114,29 @@ public partial class EditorGameManager : Node2D
     {
         gorgonzola = null;
         OnGorgUnregistered?.Invoke();
+    }
+
+    public void RegisterDoor(Door door)
+    {
+        this.door = door;
+        OnDoorRegistered?.Invoke();
+    }
+
+    public void UnregisterDoor()
+    {
+        door = null;
+        OnDoorUnregistered?.Invoke();
+    }
+
+    public void RegisterKey(Key key)
+    {
+        this.key = key;
+        OnKeyRegistered?.Invoke();
+    }
+
+    public void UnregisterKey()
+    {
+        key = null;
+        OnKeyUnregistered?.Invoke();
     }
 }

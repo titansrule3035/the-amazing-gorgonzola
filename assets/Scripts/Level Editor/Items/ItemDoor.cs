@@ -3,29 +3,33 @@ using System;
 
 public partial class ItemDoor : EditorItemObject
 {
-    private LevelEditorMain main;
+    private EditorGameManager gm;
 
     public override void _Ready()
     {
         base._Ready();
-        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-        main.OnDoorRegistered += OnDoorRegistered;
-        main.OnDoorUnregistered += OnDoorUnregistered;
+        gm = EditorGameManager.GetInstance();
+        if (gm != null)
+        {
+            // Subscribe to gorg events and set initial state based on whether a gorg already exists
+            gm.OnDoorRegistered += OnDoorRegistered;
+            gm.OnDoorUnregistered += OnDoorUnregistered;
 
-        if (main.door != null)
-        {
-            DisableItem();
-        }
-        else
-        {
-            EnableItem();
+            if (gm.door != null)
+            {
+                DisableItem();
+            }
+            else
+            {
+                EnableItem();
+            }
         }
     }
 
     public override void _ExitTree()
     {
-        main.OnDoorRegistered -= OnDoorRegistered;
-        main.OnDoorUnregistered -= OnDoorUnregistered;
+        gm.OnDoorRegistered -= OnDoorRegistered;
+        gm.OnDoorUnregistered -= OnDoorUnregistered;
 
         base._ExitTree();
     }
@@ -38,5 +42,10 @@ public partial class ItemDoor : EditorItemObject
     private void OnDoorRegistered()
     {
         DisableItem();
+
+        if (IsInstanceValid(Editor) && Editor.itemObject == this)
+        {
+            Editor.ClearEditorItem();
+        }
     }
 }

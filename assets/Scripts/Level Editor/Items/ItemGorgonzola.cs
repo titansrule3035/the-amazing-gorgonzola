@@ -12,7 +12,7 @@ public partial class ItemGorgonzola : EditorItemObject
         if (gm != null)
         {
             // Subscribe to gorg events and set initial state based on whether a gorg already exists
-            gm.OnGorgFound += OnGorgFound;
+            gm.OnGorgFound += OnGorgRegistered;
             gm.OnGorgUnregistered += OnGorgUnregistered;
 
             if (gm.gorgonzola != null)
@@ -31,7 +31,7 @@ public partial class ItemGorgonzola : EditorItemObject
     {
         if (gm != null)
         {
-            gm.OnGorgFound -= OnGorgFound;
+            gm.OnGorgFound -= OnGorgRegistered;
             gm.OnGorgUnregistered -= OnGorgUnregistered;
         }
 
@@ -43,14 +43,13 @@ public partial class ItemGorgonzola : EditorItemObject
         EnableItem();
     }
 
-    private void OnGorgFound()
+    private void OnGorgRegistered()
     {
         DisableItem();
 
         if (IsInstanceValid(Editor) && Editor.itemObject == this)
         {
             Editor.ClearEditorItem();
-            DebugManager.Log("Cleared editor item after Gorgonzola was registered", "EditorService");
         }
     }
 }

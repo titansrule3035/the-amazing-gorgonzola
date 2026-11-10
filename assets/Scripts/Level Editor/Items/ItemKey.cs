@@ -3,16 +3,16 @@ using System;
 
 public partial class ItemKey : EditorItemObject
 {
-    private LevelEditorMain main;
+    private EditorGameManager gm;
 
     public override void _Ready()
     {
         base._Ready();
-        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
-        main.OnKeyRegistered += OnKeyRegistered;
-        main.OnKeyUnregistered += OnKeyUnregistered;
+        gm = GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager");
+        gm.OnKeyRegistered += OnKeyRegistered;
+        gm.OnKeyUnregistered += OnKeyUnregistered;
 
-        if (main.key != null)
+        if (gm.key != null)
         {
             DisableItem();
         }
@@ -24,8 +24,8 @@ public partial class ItemKey : EditorItemObject
 
     public override void _ExitTree()
     {
-        main.OnKeyRegistered -= OnKeyRegistered;
-        main.OnKeyUnregistered -= OnKeyUnregistered;
+        gm.OnKeyRegistered -= OnKeyRegistered;
+        gm.OnKeyUnregistered -= OnKeyUnregistered;
 
         base._ExitTree();
     }
@@ -38,5 +38,10 @@ public partial class ItemKey : EditorItemObject
     private void OnKeyRegistered()
     {
         DisableItem();
+
+        if (IsInstanceValid(Editor) && Editor.itemObject == this)
+        {
+            Editor.ClearEditorItem();
+        }
     }
 }
