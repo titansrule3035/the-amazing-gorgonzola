@@ -104,6 +104,11 @@ public partial class EditorItemObject : TextureRect
     public override void _Process(double delta)
     {
         // While the game is running the palette is inert. Apply that once, not every frame.
+        if (!GetTree().Paused)
+        {
+            DisableItem();
+        }
+
         if (GetTree().Paused || idleStateApplied)
         {
             return;
@@ -188,7 +193,7 @@ public partial class EditorItemObject : TextureRect
         player.Play(animDisabled);
         MouseFilter = MouseFilterEnum.Ignore;
         MouseDefaultCursorShape = Control.CursorShape.Arrow;
-        disabled = true;
+        button.Disabled = disabled = true;
         selected = false;
     }
 
@@ -197,7 +202,7 @@ public partial class EditorItemObject : TextureRect
         player.Play(animDefault);
         MouseFilter = MouseFilterEnum.Pass;
         MouseDefaultCursorShape = Control.CursorShape.PointingHand;
-        disabled = false;
+        button.Disabled = disabled = false;
     }
 
     // ------------------------------------------------------------------
