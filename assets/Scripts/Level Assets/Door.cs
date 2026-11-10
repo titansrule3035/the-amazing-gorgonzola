@@ -16,10 +16,10 @@ public partial class Door : Node2D
 
     private string[] animationParams = { "open", "close" };
 
-    private Gorgonzola gorg;
     private bool lastGroundedState;
+    bool cacheLevelCompleted = false;
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         if (instance != null)
         {
@@ -29,11 +29,6 @@ public partial class Door : Node2D
 
         instance = this;
 
-        while (GlobalGameManager.GetInstance() == null && IsInsideTree())
-        {
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        }
-
         animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
@@ -41,10 +36,13 @@ public partial class Door : Node2D
         area.BodyEntered += OnAreaEntered;
         area.BodyExited += OnAreaExited;
 
-        if (Runtime.editorMode == true)
+        if (Runtime.editorMode)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor").RegisterDoor(this);
+            GD.Print("door placed!");
+            GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").RegisterDoor(this);
         }
+
+        cacheLevelCompleted = Runtime.editorMode ? EditorGameManager.GetInstance().levelCompleted : GlobalGameManager.GetInstance().levelCompleted;
     }
 
     private void OnAreaEntered(Node2D body)
@@ -67,19 +65,12 @@ public partial class Door : Node2D
 
     public override void _Process(double delta)
     {
-        gorg = Gorgonzola.GetInstance();
-
-        if (gorg == null || GlobalGameManager.GetInstance() == null)
+        if (cacheLevelCompleted)
         {
             return;
         }
 
-        if (GlobalGameManager.GetInstance().levelCompleted)
-        {
-            return;
-        }
-
-        bool grounded = gorg.IsOnFloor();
+        bool grounded = Gorgonzola.GetInstance().IsOnFloor();
 
         if (grounded != lastGroundedState)
         {
@@ -90,11 +81,19 @@ public partial class Door : Node2D
         if (opened && inRange && Input.IsActionJustPressed("interact") && grounded)
         {
             Enemy.KillAll?.Invoke();
-            if (GlobalGameManager.GetInstance().levelCompleted)
+            if (cacheLevelCompleted)
             {
                 return;
             }
-            GlobalGameManager.GetInstance().levelCompleted = true;
+            if (Runtime.editorMode)
+            {
+                EditorGameManager.GetInstance().levelCompleted = true;
+            }
+            else
+            {
+                GlobalGameManager.GetInstance().levelCompleted = true;
+            }
+
             UpdateIndicator();
         }
     }
@@ -136,27 +135,42 @@ public partial class Door : Node2D
 
         if (Runtime.editorMode == true)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").UnregisterDoor();
+            GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").UnregisterDoor();
         }
     }
 
     private void UpdateIndicator()
     {
-        var gm = GlobalGameManager.GetInstance();
+        GlobalGameManager ggm = null;
+        EditorGameManager egm = null;
+        Gorgonzola gorg = Gorgonzola.GetInstance();
 
-        if (gm == null || gorg == null)
+        if (Runtime.editorMode)
+        {
+            egm = EditorGameManager.GetInstance();
+        }
+        else
+        {
+            ggm = GlobalGameManager.GetInstance();
+        }
+
+        if (egm == null && ggm == null)
+        {
             return;
+        }
 
-        if (gm.levelCompleted)
+        if (Gorgonzola.GetInstance() == null)
+        {
+            return;
+        }
+
+        if (cacheLevelCompleted)
         {
             gorg.SetIndicatorVisibility(false);
             return;
         }
 
-        bool shouldShow =
-            opened &&
-            inRange &&
-            gorg.IsOnFloor();
+        bool shouldShow = opened && inRange && gorg.IsOnFloor();
 
         if (shouldShow)
         {
@@ -176,8 +190,10 @@ public partial class Door : Node2D
 
     private void RefreshIfNeeded()
     {
-        if (gorg == null || GlobalGameManager.GetInstance() == null)
+        if (Gorgonzola.GetInstance() == null || GlobalGameManager.GetInstance() == null)
+        {
             return;
+        }
 
         UpdateIndicator();
     }

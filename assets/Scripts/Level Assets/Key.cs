@@ -20,6 +20,14 @@ public partial class Key : Node2D
 
     public override void _Ready()
     {
+        if (instance != null)
+        {
+            QueueFree();
+            return;
+        }
+
+        instance = this;
+
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         area = GetNode<Area2D>("Area2D");
 
@@ -38,14 +46,11 @@ public partial class Key : Node2D
             uiElement.Position = uiElementPos;
         }
 
-        instance = this;
-
-        if (Runtime.editorMode == true)
+        if (Runtime.editorMode)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").RegisterKey(this);
+            GD.Print("key placed!");
+            GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").RegisterKey(this);
         }
-
-        base._Ready();
     }
     private void OpenDoor()
     {
@@ -75,8 +80,10 @@ public partial class Key : Node2D
 
         if (Runtime.editorMode == true)
         {
-            GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").UnregisterKey();
+            GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").UnregisterKey();
         }
+
+        instance = null;
 
         base._ExitTree();
     }
