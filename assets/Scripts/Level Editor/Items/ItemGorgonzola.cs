@@ -16,9 +16,13 @@ public partial class ItemGorgonzola : EditorItemObject
             gm.OnGorgUnregistered += OnGorgUnregistered;
 
             if (gm.gorgonzola != null)
+            {
                 DisableItem();
+            }
             else
+            {
                 EnableItem();
+            }
         }
 
     }
@@ -42,5 +46,11 @@ public partial class ItemGorgonzola : EditorItemObject
     private void OnGorgFound()
     {
         DisableItem();
+
+        if (IsInstanceValid(Editor) && Editor.itemObject == this)
+        {
+            Editor.ClearEditorItem();
+            DebugManager.Log("Cleared editor item after Gorgonzola was registered", "EditorService");
+        }
     }
 }

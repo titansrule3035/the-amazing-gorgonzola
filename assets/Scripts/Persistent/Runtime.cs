@@ -35,12 +35,12 @@ public partial class Runtime : Node2D
     }
 
     // game mode references
-    Node2D gameContainer;
+    public Node2D gameContainer;
     [Export] PackedScene gameScene;
     Vector2I gameRes = new(1248, 832);
 
     // editor mode references
-    Node2D editorContainer;
+    public Node2D editorContainer;
     [Export] PackedScene editorScene;
     Vector2I editorRes = new(1728, 864);
 
@@ -818,6 +818,7 @@ public partial class Runtime : Node2D
             {
                 foreach (Node node2 in node.GetChildren())
                 {
+                    node.RemoveChild(node2);
                     node2.QueueFree();
                 }
             }
