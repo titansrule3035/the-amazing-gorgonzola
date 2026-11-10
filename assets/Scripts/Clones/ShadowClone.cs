@@ -6,7 +6,7 @@ public partial class ShadowClone : BasePlayerController
     // Mode switch:
     //   false = replay the player's own input, delayed by delayMs (original behavior)
     //   true  = chase where Gorgonzola was ChaseDelayMs ago
-    [Export] public bool UseChaseMode = false;
+    [Export] public bool UseChaseMode = true;
 
     // --- Input replay settings (original) ---
     [Export] private new int delayMs = 1500;
