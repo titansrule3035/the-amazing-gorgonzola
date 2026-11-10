@@ -16,6 +16,16 @@ public partial class ItemRedOnOffBlock : EditorItemObject
         base._Ready();
     }
 
+    public override void _Process(double delta)
+    {
+        if (!GetTree().Paused)
+        {
+            DisableItem();
+        }
+
+        base._Process(delta);
+    }
+
     void OnStateChanged(bool state)
     {
         animationPlayer.Play(state ? "open" : "close");

@@ -22,6 +22,16 @@ public partial class ItemKey : EditorItemObject
         }
     }
 
+    public override void _Process(double delta)
+    {
+        if (!GetTree().Paused)
+        {
+            DisableItem();
+        }
+
+        base._Process(delta);
+    }
+
     public override void _ExitTree()
     {
         main.OnKeyRegistered -= OnKeyRegistered;
