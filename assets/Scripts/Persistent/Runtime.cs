@@ -90,6 +90,9 @@ public partial class Runtime : Node2D
     private static string logDumpPath = "LOGDUMPS";
     private static string tagLevelsPath = "TAGLEVELS";
 
+    // cache
+    bool wasOpen;
+
 
     public override void _Ready()
     {
@@ -656,21 +659,47 @@ public partial class Runtime : Node2D
 
             if (on_off_assets != null)
             {
-                foreach (Node2D on_off_asset in on_off_assets.GetChildren())
+                bool foundMasterSwitch = false;
+                Godot.Collections.Array<Node> assets = on_off_assets.GetChildren();
+                Godot.Collections.Array<OnOffSwitch> switches = new();
+                for (int i = 0; i < assets.Count; i++)
                 {
-                    if (on_off_asset is OnOffSwitchMaster switchMaster)
+                    Node asset = assets[i];
+                    if (asset is OnOffBlock onOffBlock)
                     {
-                        data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(switchMaster.GetType().ToString(), on_off_asset.GlobalPosition, switchMaster.opened);
+                        data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? OnOffBlockData.blockTypes.green : OnOffBlockData.blockTypes.red, onOffBlock.GlobalPosition));
                     }
-                    else if (on_off_asset is OnOffSwitch switchNormal)
+                    else if (asset is OnOffSwitchMaster masterSwitch)
                     {
-                        data.OnOffs.OnOffSwitches.Add(new ObjectData(switchNormal.GetType().ToString(), on_off_asset.GlobalPosition));
+                        data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(masterSwitch.GetType().ToString(), masterSwitch.GlobalPosition, masterSwitch.opened);
+                        foundMasterSwitch = true;
                     }
-                    else if (on_off_asset is OnOffBlock onOffBlock)
+                    else if (asset is OnOffSwitch onOffSwitch && asset is not OnOffSwitchMaster)
                     {
-                        data.OnOffs.OnOffBlocks.Add(new OnOffBlockData(onOffBlock.green ? OnOffBlockData.blockTypes.green : OnOffBlockData.blockTypes.red, on_off_asset.GlobalPosition));
+                        switches.Add(onOffSwitch);
                     }
                 }
+
+                for (int j = 0; j < switches.Count; j++)
+                {
+                    if (j == switches.Count - 1)
+                    {
+                        if (foundMasterSwitch)
+                        {
+                            data.OnOffs.OnOffSwitches.Add(new ObjectData(switches[j].GetType().ToString(), switches[j].GlobalPosition));
+                        }
+                        else
+                        {
+                            data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(switches[j].GetType().ToString(), switches[j].GlobalPosition, switches[j].opened);
+                        }
+                    }
+                    else
+                    {
+                        data.OnOffs.OnOffSwitches.Add(new ObjectData(switches[j].GetType().ToString(), switches[j].GlobalPosition));
+                    }
+                }
+
+                data.OnOffs.State = OnOffManager.GetState();
             }
 
             if (npcs != null)
@@ -844,7 +873,7 @@ public partial class Runtime : Node2D
     private void ImportOnOffGroup(Node2D assetsRoot, string groupNodeName, OnOffAssetData asset, Godot.Collections.Dictionary<string, PackedScene> sceneMap)
     {
         Node2D groupNode = assetsRoot.GetNodeOrNull<Node2D>(groupNodeName);
-
+        bool foundMasterSwitch = false;
         if (groupNode == null)
         {
             DebugManager.Log($"No node named '{groupNodeName}' found under 'level_assets'.", "RuntimeLevelService");
@@ -856,9 +885,18 @@ public partial class Runtime : Node2D
             return;
         }
 
+        // Pull state, set to false if nonexistent
+        bool? state = asset.State;
+        if (state == null)
+        {
+            state = false;
+        }
+
         // Master
         if (asset.OnOffSwitchMaster != null && sceneMap.TryGetValue(asset.OnOffSwitchMaster.Type, out PackedScene masterScene))
         {
+            foundMasterSwitch = true;
+
             OnOffSwitchMaster master = masterScene.Instantiate<OnOffSwitchMaster>();
 
             master.GlobalPosition = asset.OnOffSwitchMaster.Position;
@@ -869,27 +907,73 @@ public partial class Runtime : Node2D
 
             master.AddToGroup("editor_placeable");
 
-            master.SetState(asset.OnOffSwitchMaster.Opened);
+            master.SetState(state.Value);
         }
 
         // Switch
-        foreach (ObjectData switchData in asset.OnOffSwitches)
+        List<ObjectData> switches = asset.OnOffSwitches;
+        for (int i = 0; i < switches.Count; i++)
         {
-            if (!sceneMap.TryGetValue(switchData.Type, out PackedScene switchScene))
+            ObjectData switchData = switches[i];
+            if (i == switches.Count - 1)
             {
-                DebugManager.Log($"No scene mapped for type '{switchData.Type}'.", "RuntimeLevelService");
-                continue;
+                if (!foundMasterSwitch)
+                {
+                    if (!sceneMap.TryGetValue(nameof(OnOffSwitchMaster), out PackedScene backupScene))
+                    {
+                        DebugManager.Log($"No scene mapped for type '{nameof(OnOffSwitchMaster)}'.", "RuntimeLevelService");
+                        continue;
+                    }
+
+                    OnOffSwitchMaster master = backupScene.Instantiate<OnOffSwitchMaster>();
+
+                    master.GlobalPosition = switchData.Position;
+
+                    master.Name = nameof(OnOffSwitchMaster);
+
+                    groupNode.AddChild(master);
+
+                    master.AddToGroup("editor_placeable");
+
+                    master.SetState(state.Value);
+                }
+                else
+                {
+                    if (!sceneMap.TryGetValue(switchData.Type, out PackedScene switchScene))
+                    {
+                        DebugManager.Log($"No scene mapped for type '{switchData.Type}'.", "RuntimeLevelService");
+                        continue;
+                    }
+
+                    Node2D onOffSwitch = switchScene.Instantiate<Node2D>();
+
+                    onOffSwitch.GlobalPosition = switchData.Position;
+
+                    onOffSwitch.Name = switchData.Type;
+
+                    groupNode.AddChild(onOffSwitch);
+
+                    onOffSwitch.AddToGroup("editor_placeable");
+                }
             }
+            else
+            {
+                if (!sceneMap.TryGetValue(switchData.Type, out PackedScene switchScene))
+                {
+                    DebugManager.Log($"No scene mapped for type '{switchData.Type}'.", "RuntimeLevelService");
+                    continue;
+                }
 
-            Node2D onOffSwitch = switchScene.Instantiate<Node2D>();
+                Node2D onOffSwitch = switchScene.Instantiate<Node2D>();
 
-            onOffSwitch.GlobalPosition = switchData.Position;
+                onOffSwitch.GlobalPosition = switchData.Position;
 
-            onOffSwitch.Name = switchData.Type;
+                onOffSwitch.Name = switchData.Type;
 
-            groupNode.AddChild(onOffSwitch);
+                groupNode.AddChild(onOffSwitch);
 
-            onOffSwitch.AddToGroup("editor_placeable");
+                onOffSwitch.AddToGroup("editor_placeable");
+            }
         }
 
         // Blocks

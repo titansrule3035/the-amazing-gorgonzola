@@ -15,10 +15,7 @@ public partial class OnOffManager : Node2D
         OnStateChanged?.Invoke(on);
     }
 
-    public static bool GetState()
-    {
-        return on;
-    }
+    public static bool GetState() => on;
 
     public static void SetState(bool state)
     {

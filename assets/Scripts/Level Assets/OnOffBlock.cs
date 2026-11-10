@@ -30,7 +30,6 @@ public partial class OnOffBlock : Node2D
     {
         // Unsubscribe to avoid dangling event handlers
         OnOffManager.OnStateChanged -= OnStateChanged;
-
         base._ExitTree();
     }
 
@@ -40,45 +39,15 @@ public partial class OnOffBlock : Node2D
     {
         bool state = OnOffManager.GetState();
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        if (state)
-        {
-            if (green)
-            {
-                sprite.Play("close");
-
-            }
-            else
-            {
-                sprite.Play("open");
-            }
-        }
-        else
-        {
-            if (green)
-            {
-                sprite.Play("open");
-
-            }
-            else
-            {
-                sprite.Play("close");
-            }
-        }
+        sprite.Play($"{(state == green ? "close" : "open")}");
+        UpdateBody(state);
     }
 
     // Enable or disable the collision shape according to color and global state
     private void UpdateBody(bool on)
     {
-        StaticBody2D body = GetNode<StaticBody2D>("StaticBody2D");
-
-        if (on)
-        {
-            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? false : true);
-        }
-        else
-        {
-            body.CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green ? true : false);
-        }
+        GetNode<StaticBody2D>("StaticBody2D").CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green == on, StaticBody2D.MethodName.SetCollisionMaskValue, 1, green == on);
+        GetNode<StaticBody2D>("StaticBody2D").CallDeferred(StaticBody2D.MethodName.SetCollisionMaskValue, 2, green == on);
     }
 
     // Set initial animation and collision to match current global state
@@ -86,30 +55,7 @@ public partial class OnOffBlock : Node2D
     {
         bool state = OnOffManager.GetState();
         sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        if (state)
-        {
-            if (green)
-            {
-                sprite.Play("start_close");
-
-            }
-            else
-            {
-                sprite.Play("start_open");
-            }
-        }
-        else
-        {
-            if (green)
-            {
-                sprite.Play("start_open");
-
-            }
-            else
-            {
-                sprite.Play("start_close");
-            }
-        }
+        sprite.Play($"start_{(state == green ? "close" : "open")}");
         UpdateBody(state);
     }
 

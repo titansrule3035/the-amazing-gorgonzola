@@ -146,6 +146,8 @@ public class LevelData
 
     public class OnOffAssetData
     {
+        public bool State { get; set; }
+
         public OnOffSwitchMasterData OnOffSwitchMaster { get; set; }
 
         public List<ObjectData> OnOffSwitches { get; set; } = new();

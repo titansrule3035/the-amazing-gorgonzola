@@ -23,11 +23,6 @@ public partial class OnOffSwitchMaster : OnOffSwitch
 
         instance = this;
 
-        if (opened != OnOffManager.GetState())
-        {
-            OnOffManager.SetState(opened);
-        }
-
         OnOffManager.UpdateAllBlocks();
 
         base._Ready();
