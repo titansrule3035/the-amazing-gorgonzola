@@ -33,8 +33,15 @@ public partial class Gorgonzola : BasePlayerController
         }
 
         Gorgonzola gorgonzola = this;
-        GlobalGameManager.GetInstance()?.RegisterGorg(gorgonzola);
-        EditorGameManager.GetInstance()?.RegisterGorg(gorgonzola);
+
+        if (Runtime.editorMode)
+        {
+            EditorGameManager.GetInstance().RegisterGorg(gorgonzola);
+        }
+        else
+        {
+            GlobalGameManager.GetInstance().RegisterGorg(gorgonzola);
+        }
     }
 
     public override void _Process(double delta)
@@ -71,19 +78,24 @@ public partial class Gorgonzola : BasePlayerController
     /// </summary>
     public async void MoveToDoor()
     {
-        await ToSignal(GetTree().CreateTimer(3.0f, false), SceneTreeTimer.SignalName.Timeout);
+        bool levelCompleted = Runtime.editorMode ? EditorGameManager.GetInstance().levelCompleted : GlobalGameManager.GetInstance().levelCompleted;
 
-        Vector2 endPos = new(Door.GetInstance().GlobalPosition.X, GlobalPosition.Y);
+        if (levelCompleted)
+        {
+            Vector2 endPos = new(Door.GetInstance().GlobalPosition.X, GlobalPosition.Y);
 
-        float moveTime = .4f;
+            await ToSignal(GetTree().CreateTimer(3.0f, false), SceneTreeTimer.SignalName.Timeout);
 
-        Tween tween = CreateTween();
+            float moveTime = .4f;
 
-        tween.TweenProperty(this, "global_position", endPos, moveTime);
+            Tween tween = CreateTween();
 
-        await ToSignal(GetTree().CreateTimer(2.0f, false), SceneTreeTimer.SignalName.Timeout);
+            tween.TweenProperty(this, "global_position", endPos, moveTime);
 
-        GlobalGameManager.GetInstance()?.ShowVictoryMenu(true);
+            await ToSignal(GetTree().CreateTimer(2.0f, false), SceneTreeTimer.SignalName.Timeout);
+
+            GlobalGameManager.GetInstance()?.ShowVictoryMenu(true);
+        }
     }
 
     public override void Kill()

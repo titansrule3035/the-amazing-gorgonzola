@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.IO;
 using System.Threading.Tasks;
+using FileAccess = Godot.FileAccess;
 
 public partial class BasePlayerController : CharacterBody2D
 {
@@ -504,13 +506,27 @@ public partial class BasePlayerController : CharacterBody2D
     /// enter door and level completed animations.
     /// </summary>
     /// <param name="animName">Name of the finished animation.</param>
-    private void OnAnimationFinished(StringName animName)
+    private async void OnAnimationFinished(StringName animName)
     {
         if (animName == "enter_door")
         {
-            GlobalGameManager? ggm = GlobalGameManager.GetInstance();
-            if (ggm != null)
+            if (Runtime.editorMode)
             {
+                EditorGameManager egm = EditorGameManager.GetInstance();
+
+                string filePath = Path.Combine(OS.GetUserDataDir(), "tmp", ".taglevel");
+
+                if (!File.Exists(filePath))
+                {
+                    using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
+                }
+
+                await ((Runtime)GetTree().CurrentScene).ImportLevel(GetTree().CurrentScene.GetNode("editor/main/level"), LevelData.Decode(File.ReadAllText(filePath)));
+
+            }
+            else
+            {
+                GlobalGameManager ggm = GlobalGameManager.GetInstance();
                 if (ggm.levelCompleted)
                 {
                     Visible = false;

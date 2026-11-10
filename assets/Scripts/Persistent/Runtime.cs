@@ -790,6 +790,16 @@ public partial class Runtime : Node2D
 
         await ClearGroups();
 
+        // reset state
+        if (_editorMode)
+        {
+            EditorGameManager.GetInstance().levelCompleted = false;
+        }
+        else
+        {
+            GlobalGameManager.GetInstance().levelCompleted = false;
+        }
+
         // so apparently queuefree waits until the end of the frame to dispose of an object,
         // which is pretty bad for our use case.
         // fix? make the method async and wait a frame before importing anything

@@ -16,7 +16,12 @@ public partial class Door : Node2D
 
     private string[] animationParams = { "open", "close" };
 
-    private bool lastGroundedState;
+    private bool lastGroundedState 
+    {
+        get => Runtime.editorMode ? EditorGameManager.GetInstance().levelCompleted : GlobalGameManager.GetInstance().levelCompleted;
+        set;
+    }
+
     bool cacheLevelCompleted = false;
 
     public override void _Ready()
@@ -41,10 +46,7 @@ public partial class Door : Node2D
             GD.Print("door placed!");
             GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").RegisterDoor(this);
         }
-
-        cacheLevelCompleted = Runtime.editorMode ? EditorGameManager.GetInstance().levelCompleted : GlobalGameManager.GetInstance().levelCompleted;
     }
-
     private void OnAreaEntered(Node2D body)
     {
         if (body is Gorgonzola)
@@ -69,8 +71,8 @@ public partial class Door : Node2D
         {
             return;
         }
-
-        bool grounded = Gorgonzola.GetInstance().IsOnFloor();
+        Gorgonzola? gorg = Gorgonzola.GetInstance();
+        bool grounded = gorg != null ? gorg.IsOnFloor() : false;
 
         if (grounded != lastGroundedState)
         {
@@ -85,14 +87,18 @@ public partial class Door : Node2D
             {
                 return;
             }
+
+            cacheLevelCompleted = true;
+
             if (Runtime.editorMode)
             {
-                EditorGameManager.GetInstance().levelCompleted = true;
+                EditorGameManager.GetInstance().levelCompleted = cacheLevelCompleted;
             }
             else
             {
-                GlobalGameManager.GetInstance().levelCompleted = true;
+                GlobalGameManager.GetInstance().levelCompleted = cacheLevelCompleted;
             }
+
 
             UpdateIndicator();
         }
@@ -167,6 +173,7 @@ public partial class Door : Node2D
         if (cacheLevelCompleted)
         {
             gorg.SetIndicatorVisibility(false);
+            GD.Print("levelcompleted, disabling indicator");
             return;
         }
 

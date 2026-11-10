@@ -1343,6 +1343,7 @@ z_index = 10
 collision_layer = 2
 script = ExtResource("1_6alfr")
 FallMultiplier = 2.5
+offset = 108.0
 jumpEffectScene = ExtResource("3_iohye")
 landEffectScene = ExtResource("4_wmpbg")
 killEffectScene = ExtResource("2_yv23k")

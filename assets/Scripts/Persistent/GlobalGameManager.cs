@@ -181,7 +181,6 @@ public partial class GlobalGameManager : Node2D
         }
 
         activeLevelGroupIndex = groupIndex;
-        levelCompleted = false;
         Node2D newLevel = group.Scene.Instantiate<Node2D>();
         activeLevel = newLevel;
         levelParent.CallDeferred("add_child", newLevel);
