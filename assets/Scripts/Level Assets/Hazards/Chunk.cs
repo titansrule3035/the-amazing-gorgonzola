@@ -45,7 +45,6 @@ public partial class Chunk : Enemy
     private abstract class ChunkState : EnemyState
     {
         protected readonly Chunk chunk;
-
         protected ChunkState(Chunk chunk) : base(chunk)
         {
             this.chunk = chunk;
@@ -95,14 +94,17 @@ public partial class Chunk : Enemy
 
         public override void PhysicsUpdate(double delta)
         {
-            if (rayLeft.IsColliding())
+            if (rayRight.IsColliding() && rayLeft.IsColliding())
             {
-                directionModifier = 1;
+                directionModifier = 0;
             }
-
-            if (rayRight.IsColliding())
+            else if (rayRight.IsColliding())
             {
                 directionModifier = -1;
+            }
+            else if (rayLeft.IsColliding())
+            {
+                directionModifier = 1;
             }
 
             chunk.GlobalPosition += moveSpeed * directionModifier * (float)delta;
