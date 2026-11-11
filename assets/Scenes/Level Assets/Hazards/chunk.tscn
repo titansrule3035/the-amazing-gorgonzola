@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ot4w083cln1q" path="res://assets/Sprites/Enemies/Chunk/chunk_death.png" id="2_crhig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
-size = Vector2(30, 18)
+size = Vector2(22, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mlmaj"]
 atlas = ExtResource("2_crhig")
@@ -112,9 +112,9 @@ shape = SubResource("RectangleShape2D_mlmaj")
 debug_color = Color(1, 0, 0, 0.5)
 
 [node name="ray_left" type="RayCast2D" parent="." unique_id=571369820]
-position = Vector2(0, -21)
+position = Vector2(0, -1)
 target_position = Vector2(-19, 0)
 
 [node name="ray_right" type="RayCast2D" parent="." unique_id=329209406]
-position = Vector2(0, -21)
+position = Vector2(0, -1)
 target_position = Vector2(19, 0)
