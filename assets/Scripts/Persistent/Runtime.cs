@@ -353,19 +353,23 @@ public partial class Runtime : Node2D
 
         mode = _editorMode ? editorScene.Instantiate<Node2D>() : gameScene.Instantiate<Node2D>();
 
-        DisplayServer.WindowSetSize(targetRes);
+        window.ContentScaleMode = Window.ContentScaleModeEnum.Viewport;
+        window.ContentScaleAspect = Window.ContentScaleAspectEnum.Keep;
+        window.ContentScaleSize = targetRes;
+        window.Mode = Window.ModeEnum.ExclusiveFullscreen;
+
 
         if (_editorMode)
         {
-            window.ContentScaleMode = Window.ContentScaleModeEnum.CanvasItems;
             ApplyCursor(CursorMode.Place.ToString());
         }
         else
         {
-            window.ContentScaleMode = Window.ContentScaleModeEnum.Disabled;
             window.Title = "The Amazing Gorgonzola";
             ApplyCursor(CursorMode.Mouse.ToString());
         }
+
+        DebugManager.Log(Window.GetFocusedWindow().Size.Y, "Screen Size");
 
         target.AddChild(mode);
     }
