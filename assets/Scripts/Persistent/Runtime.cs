@@ -182,37 +182,19 @@ public partial class Runtime : Node2D
                     DebugManager.debugConsoleActive = !DebugConsole.GetInstance().Visible;
                 }
             }
-        }
-        else
-        {
-            DebugManager.debugConsoleActive = false;
-        }
 
-        if (DebugManager.debugConsoleActive)
-        {
-            DebugConsole.GetInstance().SetActive(true);
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("return"))
+            DebugConsole.GetInstance().SetActive(DebugManager.debugConsoleActive);
+
+            if (DebugConsole.focusedOnConsole && Input.IsActionJustPressed("return"))
             {
-                if (DebugConsole.GetInstance().GetInputText() != "")
-                {
-                    DebugManager.ProcessCommand(DebugConsole.GetInstance().GetInputText());
-                }
+                DebugManager.ProcessCommand(DebugConsole.GetInstance().GetInputText());
 
                 DebugConsole.GetInstance().ClearInputText();
             }
         }
         else
         {
-            DebugConsole.GetInstance().SetActive(false);
-        }
-
-        if (DebugConsole.GetInstance().GetInputText() == "")
-        {
-            DebugManager.typing = false;
-        }
-        else
-        {
-            DebugManager.typing = true;
+            DebugManager.debugConsoleActive = false;
         }
     }
 

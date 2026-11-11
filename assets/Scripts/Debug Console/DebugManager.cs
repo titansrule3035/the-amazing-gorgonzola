@@ -20,7 +20,6 @@ public static partial class DebugManager
     public static DebugCommand LOAD_CACHED_LEVEL;
     public static DebugCommand HELP;
     public static DebugCommand CLEAR_CONSOLE;
-    public static bool typing = false;
     public static List<DebugCommandBase> commandList;
     public static void BuildCommands()
     {
