@@ -697,7 +697,7 @@ public partial class Runtime : Node2D
                         }
                         else
                         {
-                            data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(switches[j].GetType().ToString(), switches[j].GlobalPosition, switches[j].opened);
+                            data.OnOffs.OnOffSwitchMaster = new OnOffSwitchMasterData(nameof(OnOffSwitchMaster), switches[j].GlobalPosition, switches[j].opened);
                         }
                     }
                     else
