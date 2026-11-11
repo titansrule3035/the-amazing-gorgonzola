@@ -12,10 +12,10 @@ dest_files=["res://.godot/imported/font_sheet.png-e55fd1d1b3bc98d7a9f1f1e510ca42
 
 [params]
 
-character_ranges=PackedStringArray("\" \"-\"~\"", "0x20AC", "0xA3", "0xB0", "0x2022", "0x2122")
+character_ranges=PackedStringArray("\" \"-\"~\"", "0x20AC", "0xA3", "0xB0", "0x2022", "0x2122", "0x25CE", "0x25C0", "0x25B6", "0x25C1", "0x25B7")
 kerning_pairs=PackedStringArray()
 columns=10
-rows=10
+rows=11
 image_margin=Rect2i(0, 0, 0, 0)
 character_margin=Rect2i(0, 0, 0, 0)
 ascent=0

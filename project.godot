@@ -55,14 +55,14 @@ editor_placeable=""
 font_data_image={
 "ascent": 0,
 "character_margin": Rect2i(0, 0, 0, 0),
-"character_ranges": PackedStringArray("\" \"-\"~\"", "0x20AC", "0xA3", "0xB0", "0x2022", "0x2122"),
+"character_ranges": PackedStringArray("\" \"-\"~\"", "0x20AC", "0xA3", "0xB0", "0x2022", "0x2122", "0x25CE", "0x25C0", "0x25B6", "0x25C1", "0x25B7"),
 "columns": 10,
 "compress": true,
 "descent": 0,
 "fallbacks": [],
 "image_margin": Rect2i(0, 0, 0, 0),
 "kerning_pairs": PackedStringArray(),
-"rows": 10,
+"rows": 11,
 "scaling_mode": 2
 }
 
@@ -262,6 +262,15 @@ return={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Ground"
+2d_physics/layer_2="Background"
+2d_physics/layer_3="Semi Solids"
+2d_physics/layer_4="Level Assets"
+2d_physics/layer_5="Enemies"
+2d_physics/layer_6="Clones"
 
 [physics]
 
