@@ -288,37 +288,52 @@ public partial class Runtime : Node2D
     {
         _editorMode = true;
 
-        if (fade)
+        if (HasNode("editor/main"))
         {
-            FadePanel fadePanel = FadePanel.GetInstance();
-
-            fadePanel.OnFadeOut += OnFadeOut;
-
-            fadePanel.FadeOut();
+            DebugManager.Log("Attempting to switch to game mode, but game mode currently exists.", "RuntimeService");
         }
         else
         {
-            SwitchModes();
-        }
 
-        level = new LevelData();
+            if (fade)
+            {
+                FadePanel fadePanel = FadePanel.GetInstance();
+
+                fadePanel.OnFadeOut += OnFadeOut;
+
+                fadePanel.FadeOut();
+            }
+            else
+            {
+                SwitchModes();
+            }
+
+            level = new LevelData();
+        }
     }
 
     public void SwitchToGame(bool fade)
     {
         _editorMode = false;
 
-        if (fade)
+        if (HasNode("game/main"))
         {
-            FadePanel fadePanel = FadePanel.GetInstance();
-
-            fadePanel.OnFadeOut += OnFadeOut;
-
-            fadePanel.FadeOut();
+            DebugManager.Log("Attempting to switch to game mode, but game mode currently exists.", "RuntimeService");
         }
         else
         {
-            SwitchModes();
+            if (fade)
+            {
+                FadePanel fadePanel = FadePanel.GetInstance();
+
+                fadePanel.OnFadeOut += OnFadeOut;
+
+                fadePanel.FadeOut();
+            }
+            else
+            {
+                SwitchModes();
+            }
         }
     }
 
