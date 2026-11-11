@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dg0r8bx2hfpub"]
+
+[sub_resource type="Gradient" id="Gradient_bt5cq"]
+offsets = PackedFloat32Array(0.97740114, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bi6qw"]
+gradient = SubResource("Gradient_bt5cq")
+
+[node name="splash" type="Node2D" unique_id=414904739]
+
+[node name="background" type="Sprite2D" parent="." unique_id=1575839050]
+position = Vector2(864.0001, 432)
+scale = Vector2(27.000002, 13.499999)
+texture = SubResource("GradientTexture2D_bi6qw")
