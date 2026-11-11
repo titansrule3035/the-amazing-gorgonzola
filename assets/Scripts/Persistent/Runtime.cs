@@ -82,7 +82,8 @@ public partial class Runtime : Node2D
     Input.CursorShape.Move,
     Input.CursorShape.Vsplit,
     Input.CursorShape.Hsplit,
-    Input.CursorShape.Help};
+    Input.CursorShape.Help
+    };
     BaseButton hoveredButton;
 
     // game directories and log file
