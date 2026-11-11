@@ -85,11 +85,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mlmaj"]
-size = Vector2(40, 32)
+size = Vector2(32, 32)
 
 [node name="chunk" type="RigidBody2D" unique_id=1967808897]
 collision_layer = 24
-collision_mask = 9
 lock_rotation = true
 script = ExtResource("1_1d3oa")
 
@@ -112,9 +111,9 @@ shape = SubResource("RectangleShape2D_mlmaj")
 debug_color = Color(1, 0, 0, 0.5)
 
 [node name="ray_left" type="RayCast2D" parent="." unique_id=571369820]
-position = Vector2(0, -1)
+position = Vector2(0, -15)
 target_position = Vector2(-19, 0)
 
 [node name="ray_right" type="RayCast2D" parent="." unique_id=329209406]
-position = Vector2(0, -1)
+position = Vector2(0, -15)
 target_position = Vector2(19, 0)
