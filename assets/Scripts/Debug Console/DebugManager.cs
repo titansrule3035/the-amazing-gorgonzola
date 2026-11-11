@@ -207,7 +207,7 @@ public static partial class DebugManager
         }
     }
 
-    public static void Log(object input, string owner, bool dumpLog = false)
+    public static void Log(object input, string owner, bool dumpLog = false, bool error = false)
     {
         StackFrame callStack = new(1, true);
         string message;
@@ -217,7 +217,7 @@ public static partial class DebugManager
         }
         else
         {
-            message = $"<{owner}>: {input}";
+            message = (error ? "◀" : "◁") + $"{owner}" + (error ? "▶" : "▷") + $": {input}";
         }
         CollectDebugMessage(message);
 
@@ -225,7 +225,7 @@ public static partial class DebugManager
         {
             using Godot.FileAccess file = Godot.FileAccess.Open(Runtime.CreateLogDump(), Godot.FileAccess.ModeFlags.Write);
 
-            file.StoreString(message);
+            file.StoreString($"{message}\n\n{callStack}");
         }
     }
 
