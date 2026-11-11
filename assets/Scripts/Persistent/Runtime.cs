@@ -1,4 +1,5 @@
 using Godot;
+using Ink.Parsed;
 using Ink.Runtime;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static EditorObject;
+using FileAccess = Godot.FileAccess;
 using LayerData = LevelData.LayerData;
 using ObjectData = LevelData.ObjectData;
 using OnOffAssetData = LevelData.OnOffAssetData;
@@ -15,7 +17,6 @@ using OnOffBlockData = LevelData.OnOffBlockData;
 using OnOffSwitchMasterData = LevelData.OnOffSwitchMasterData;
 using Path = System.IO.Path;
 using TileData = LevelData.TileData;
-using FileAccess = Godot.FileAccess;
 
 public partial class Runtime : Node2D
 {
@@ -33,6 +34,9 @@ public partial class Runtime : Node2D
             editorMode = value;
         }
     }
+
+    // debug
+    [Export] public string launchCommand = string.Empty;
 
     // game mode references
     public Node2D gameContainer;
@@ -426,7 +430,7 @@ public partial class Runtime : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}", "Runtime", true);
+            DebugManager.Log($"Failed to create log directory '{logDirectory}': {e.Message}", "Runtime", true, true);
             throw;
         }
 
@@ -524,7 +528,7 @@ public partial class Runtime : Node2D
             }
             catch (Exception e)
             {
-                DebugManager.Log($"Failed to create user data log directory '{logDirectory}': {e.Message}", "Runtime", true);
+                DebugManager.Log($"Failed to create user data log directory '{logDirectory}': {e.Message}", "Runtime", true, true);
                 return string.Empty;
             }
         }
@@ -548,7 +552,7 @@ public partial class Runtime : Node2D
             }
             catch (Exception e)
             {
-                DebugManager.Log($"Failed to create documents log directory '{logDirectory}': {e.Message}", "Runtime", true);
+                DebugManager.Log($"Failed to create documents log directory '{logDirectory}': {e.Message}", "Runtime", true, true);
                 return string.Empty;
             }
         }
@@ -570,7 +574,7 @@ public partial class Runtime : Node2D
             }
             catch (Exception e)
             {
-                DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}", "Runtime", true);
+                DebugManager.Log($"Failed to create levels directory '{levelsDirectory}': {e.Message}", "Runtime", true, true);
                 return string.Empty;
             }
         }
@@ -773,8 +777,8 @@ public partial class Runtime : Node2D
         }
         catch (Exception exception)
         {
-            DebugManager.Log("Invalid TAGLEVEL!", "Runtime", true);
-            DebugManager.Log(exception, "Runtime", true);
+            DebugManager.Log("Invalid TAGLEVEL!", "Runtime", true, true);
+            DebugManager.Log(exception, "Runtime", true, true);
         }
     }
 
