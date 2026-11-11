@@ -188,7 +188,6 @@ public partial class EditorObject : Node2D
     CanvasLayer? filterLayer;
     OptionButton? filterOption;
     LevelEditorMain? editorMain;
-    string lastWindowTitle = "";
     bool ctrlOverride;
     bool wasActive;
     bool overOwnUi;
@@ -374,7 +373,6 @@ public partial class EditorObject : Node2D
         UpdateMouseCell();
         HandleModeHotkeys();
         HandleEditHotkeys();
-        UpdateWindowState();
         EditorTool? tool = activeTool;
         if (tool == null)
         {
@@ -387,24 +385,6 @@ public partial class EditorObject : Node2D
             tool.Update(delta);
         }
         hideCursor = !(active && tool.cursorVisible);
-    }
-
-    /// <summary>Window title (with an unsaved marker) and whether closing the window asks first.</summary>
-    void UpdateWindowState()
-    {
-        bool dirty = history.IsDirty;
-        GetTree().AutoAcceptQuit = !dirty;
-        LevelEditorMain? main = GetEditorMain();
-        if (main == null)
-        {
-            return;
-        }
-        string title = main.levelName + (dirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
-        if (title != lastWindowTitle)
-        {
-            lastWindowTitle = title;
-            GetWindow().Title = title;
-        }
     }
 
     LevelEditorMain? GetEditorMain()
