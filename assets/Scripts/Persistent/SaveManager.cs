@@ -21,8 +21,7 @@ internal static class SaveManager
             completedWorlds = ggm.completedWorlds,
             deaths = ggm.deaths,
             clonesKilled = ggm.clonesKilled,
-            collectibles = new List<string>
-                { "Pickup1", "Pickup2", "Pickup3"}
+            collectibles = new List<string> { "Pickup1", "Pickup2", "Pickup3" }
         };
 
         byte[] plaintext = JsonSerializer.SerializeToUtf8Bytes(saveData);
