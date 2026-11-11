@@ -112,7 +112,8 @@ autoplay = "default"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=399659637]
 position = Vector2(0, -16)
-collision_mask = 65282
+collision_layer = 10
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1483794965]
 shape = SubResource("RectangleShape2D_pmava")

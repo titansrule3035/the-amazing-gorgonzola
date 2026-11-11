@@ -80,7 +80,8 @@ autoplay = "default"
 frame_progress = 0.897747
 
 [node name="Area2D" type="Area2D" parent="." unique_id=399659637]
-collision_mask = 65282
+collision_layer = 10
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1637205969]
 shape = SubResource("RectangleShape2D_iahil")

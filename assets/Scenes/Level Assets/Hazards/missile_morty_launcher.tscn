@@ -19,7 +19,8 @@ position = Vector2(-16, -32)
 texture = ExtResource("3_qcndd")
 
 [node name="static_body_2d" type="StaticBody2D" parent="." unique_id=789336390]
-collision_layer = 2147483649
+collision_layer = 2147483657
+collision_mask = 0
 
 [node name="collision_shape_2d" type="CollisionShape2D" parent="static_body_2d" unique_id=1042833802]
 position = Vector2(-16, -32)

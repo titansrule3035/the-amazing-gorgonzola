@@ -3,5 +3,6 @@
 [ext_resource type="Script" uid="uid://dumpgsg6x5k33" path="res://assets/Scripts/Level Assets/Hazards/KillZone.cs" id="1_7lhwg"]
 
 [node name="kill_zone" type="Area2D" unique_id=1711911447]
-collision_mask = 65534
+collision_layer = 24
+collision_mask = 32
 script = ExtResource("1_7lhwg")

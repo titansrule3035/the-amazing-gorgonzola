@@ -150,21 +150,24 @@ script = ExtResource("1_41uos")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=919745402]
 z_index = 1
-position = Vector2(0, -24)
+position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_6j0hu")
 animation = &"on"
 autoplay = "off"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1970173867]
-position = Vector2(0, -16)
-collision_mask = 65534
+position = Vector2(0, -8)
+collision_layer = 9
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=242529388]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_00mep")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2115898140]
-position = Vector2(0, -16)
+position = Vector2(0, -8)
+collision_layer = 9
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=462458795]
 shape = SubResource("RectangleShape2D_3x31o")
