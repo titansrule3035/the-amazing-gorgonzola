@@ -42,6 +42,13 @@ public partial class DebugConsole : Control
         ScrollToBottom();
 
         SetActive(false);
+
+        string command = Runtime.GetInstance().launchCommand;
+
+        if (DebugManager.debug && !string.IsNullOrWhiteSpace(command))
+        {
+            DebugManager.ProcessCommand(command);
+        }
     }
 
     async void ScrollToBottom()
@@ -130,7 +137,7 @@ public partial class DebugConsole : Control
             }
         }
 
-        LogRead.Invoke(readMessages);
+        LogRead?.Invoke(readMessages);
     }
 
     private void OnLogRead(List<string> readMessages)
