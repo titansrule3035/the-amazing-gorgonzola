@@ -52,7 +52,24 @@ public partial class Ui : Control
     {
         // Center quitMenu within this UI control
         quitMenu.Position = (Size - quitMenu.Size) / 2;
+        
+        string trail;
+        bool dirty = main.editorObject.history.IsDirty;
 
-        toolBarLabel.Text = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main").levelName + (EditorObject.GetInstance().history.IsDirty ? " (Unsaved)" : "");
+        if (main == null)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(main.levelName))
+        {
+            trail = (main.editorObject.history.IsDirty ? "(Unsaved)" : "");
+        }
+        else
+        {
+            trail = (main.editorObject.history.IsDirty ? "* (Unsaved)" : "");
+        }
+
+        toolBarLabel.Text = main.levelName + trail;
     }
 }

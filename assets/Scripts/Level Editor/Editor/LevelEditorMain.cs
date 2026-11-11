@@ -18,7 +18,10 @@ public partial class LevelEditorMain : Node2D
     public Action? OnGameStarted;
     public Action? OnGamePaused;
 
+    string lastWindowTitle = "";
     public string levelName = "Untitled";
+
+    public EditorObject editorObject;
 
     public CursorMode storedMode;
 
@@ -53,25 +56,54 @@ public partial class LevelEditorMain : Node2D
         OnGameStarted += OnGameStart;
 
         OnGamePaused += OnGameStop;
+
+        editorObject = EditorObject.GetInstance();
     }
 
+    public override void _Process(double delta)
+    {
+        ProcessWindowTitle();
+    }
+
+    private void ProcessWindowTitle()
+    {
+        bool dirty = editorObject.history.IsDirty;
+        string title = levelName;
+        string trail;
+        GetTree().AutoAcceptQuit = !dirty;
+
+        if (string.IsNullOrWhiteSpace(levelName))
+        {
+            trail = (dirty ? "(Unsaved) - " : "") + "TAG Level Editor";
+        }
+        else
+        {
+            trail = (dirty ? "* (Unsaved)" : "") + " - TAG Level Editor";
+        }
+
+        title += trail;
+
+        if (title != lastWindowTitle)
+        {
+            lastWindowTitle = title;
+            GetWindow().Title = lastWindowTitle;
+        }
+    }
     void OnGameStart()
     {
-        EditorObject editor = GetNode<EditorObject>("EditorObject");
-        storedMode = editor.currentCursorMode;
-        editor.SwitchMode(CursorMode.Mouse);
+        storedMode = editorObject.currentCursorMode;
+        editorObject.SwitchMode(CursorMode.Mouse);
     }
 
     void OnGameStop()
     {
-        EditorObject editor = GetNode<EditorObject>("EditorObject");
-        editor.SwitchMode(storedMode);
+        editorObject.SwitchMode(storedMode);
     }
 
     void FilePicked(string filePath)
     {
         levelName = Path.GetFileNameWithoutExtension(filePath);
-        EditorObject.GetInstance().history.Clear();
+        editorObject.history.Clear();
     }
 
     public void FileSaved(string filePath)
@@ -79,7 +111,7 @@ public partial class LevelEditorMain : Node2D
         if (Path.GetFileName(filePath) != ".taglevel")
         {
             levelName = Path.GetFileNameWithoutExtension(filePath);
-            EditorObject.GetInstance().history.MarkSaved();
+            editorObject.history.MarkSaved();
         }
     }
 
