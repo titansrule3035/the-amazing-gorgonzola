@@ -63,7 +63,7 @@ public partial class EditorItemObject : TextureRect
     bool idleStateApplied;
 
     /// <summary>True while the game is running. The palette is inert in this state.</summary>
-    bool IsIdle => !GetTree().Paused;
+    bool IsIdle => IsInstanceValid(this) && !GetTree().Paused;
 
     /// <summary>The editor cursor node. Cached on first use.</summary>
     protected EditorObject Editor
