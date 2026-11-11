@@ -99,7 +99,7 @@ internal static class SaveManager
         }
         catch (CryptographicException ce)
         {
-            DebugManager.Log(ce, "SaveManager", true);
+            DebugManager.Log(ce, "SaveManager", true, true);
             return null;
         }
 

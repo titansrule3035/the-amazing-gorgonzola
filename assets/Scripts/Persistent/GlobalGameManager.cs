@@ -310,7 +310,7 @@ public partial class GlobalGameManager : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"LoadNextLevel failed: {e}", "GameLevelService", true);
+            DebugManager.Log($"LoadNextLevel failed: {e}", "GameLevelService", true, true);
         }
         finally
         {
@@ -353,7 +353,7 @@ public partial class GlobalGameManager : Node2D
         }
         catch (Exception e)
         {
-            DebugManager.Log($"Level reload failed: {e}", "GameLevelService", true);
+            DebugManager.Log($"Level reload failed: {e}", "GameLevelService", true, true);
         }
         finally
         {
