@@ -47,7 +47,7 @@ public partial class OnOffBlock : Node2D
     private void UpdateBody(bool on)
     {
         GetNode<StaticBody2D>("StaticBody2D").CallDeferred(StaticBody2D.MethodName.SetCollisionLayerValue, 1, green == on);
-        GetNode<StaticBody2D>("StaticBody2D").CallDeferred(StaticBody2D.MethodName.SetCollisionMaskValue, 2, green == on);
+        GetNode<StaticBody2D>("StaticBody2D").CallDeferred(StaticBody2D.MethodName.SetCollisionMaskValue, 1, green == on);
     }
 
     // Set initial animation and collision to match current global state

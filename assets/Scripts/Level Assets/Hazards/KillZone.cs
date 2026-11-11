@@ -8,26 +8,27 @@ public partial class KillZone : Area2D
     [Export] public bool Enabled = true;
 
     private HashSet<Node> processedBodies = new();
+    CollisionShape2D collisionShape;
 
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
         BodyExited += OnBodyExited;
+
+        collisionShape = GetNode<CollisionShape2D>("collision_shape_2d");
     }
 
     public override void _Process(double delta)
     {
-        CollisionShape2D collisionShape = GetNode<CollisionShape2D>("collision_shape_2d");
-
-        collisionShape.Disabled = !Enabled;
-
-        if (Engine.IsEditorHint())
+        if (Engine.IsEditorHint() && collisionShape != null)
         {
-            if (collisionShape != null)
-            {
-                collisionShape.DebugColor = new Color(1, 0, 0, 0.5f);
-            }
+            collisionShape.DebugColor = new Color(1, 0, 0, 0.5f);
         }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        collisionShape.Disabled = !Enabled;
     }
 
     private void OnBodyEntered(Node body)

@@ -43,7 +43,6 @@ public partial class Door : Node2D
 
         if (Runtime.editorMode)
         {
-            GD.Print("door placed!");
             GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").RegisterDoor(this);
         }
     }

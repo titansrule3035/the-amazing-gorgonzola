@@ -48,7 +48,6 @@ public partial class Key : Node2D
 
         if (Runtime.editorMode)
         {
-            GD.Print("key placed!");
             GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").RegisterKey(this);
         }
     }
