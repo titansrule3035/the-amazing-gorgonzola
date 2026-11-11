@@ -87,11 +87,13 @@ public partial class Runtime : Node2D
     BaseButton hoveredButton;
 
     // game directories and log file
+    // user data
     private static string progFlagsPath = "PROGFLAGS";
     private static string saveFile = "save.dat";
     private static string debugFile = "supersecretdebugvariablenobodyknowsaboutexceptmeakathedeveloperwhoissuperawesomeandcool.youllneverguesswhatvalueissupposedtobeinheremwahahahahaha";
     private static string logFilePath = "LOG";
     private static string logFile = "console_log.txt";
+    // documents
     private static string logDumpPath = "LOGDUMPS";
     private static string tagLevelsPath = "TAGLEVELS";
 
