@@ -71,7 +71,7 @@ bg_color = Color(1, 0, 0, 0.52156866)
 bg_color = Color(0, 0.49019608, 0, 0.52156866)
 
 [node name="main" type="Node2D" unique_id=409207488]
-process_mode = 1
+process_mode = 3
 script = ExtResource("1_xuh87")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=142540109]
@@ -87,6 +87,7 @@ script = ExtResource("17_yuieu")
 script = ExtResource("18_xuh87")
 
 [node name="level" type="Node2D" parent="." unique_id=498026799]
+process_mode = 1
 
 [node name="tiles" parent="level" unique_id=1718396930 instance=ExtResource("4_pw0c8")]
 
@@ -1327,7 +1328,6 @@ layer = 2
 
 [node name="DebugConsole" type="Control" parent="canvas_layer_2" unique_id=127667579]
 process_mode = 3
-visible = false
 visibility_layer = 2
 layout_mode = 3
 anchors_preset = 0
@@ -1362,7 +1362,7 @@ custom_minimum_size = Vector2(1712, 272)
 layout_mode = 2
 theme_override_constants/line_separation = 8
 theme_override_fonts/normal_font = ExtResource("27_v344w")
-theme_override_font_sizes/normal_font_size = 27
+theme_override_font_sizes/normal_font_size = 20
 fit_content = true
 vertical_alignment = 2
 
