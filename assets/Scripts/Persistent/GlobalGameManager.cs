@@ -88,7 +88,7 @@ public partial class GlobalGameManager : Node2D
 
         if (!pauseLocked)
         {
-            if (Input.IsActionJustPressed("pause") && canPause && canMove)
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("pause") && canPause && canMove)
             {
                 gamePaused = GetTree().Paused = !gamePaused;
             }
@@ -96,7 +96,7 @@ public partial class GlobalGameManager : Node2D
 
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
 
-        if (Input.IsActionJustPressed("F5"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("F5"))
         {
             LoadNextLevel();
             canMove = true;

@@ -61,7 +61,7 @@ public partial class DialogueManager : Node
 
         if (!grabLine)
         {
-            if (Input.IsActionJustPressed("mouse_click_left"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("mouse_click_left"))
             {
                 CheckSkipMode();
             }

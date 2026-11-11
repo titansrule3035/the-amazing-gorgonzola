@@ -548,7 +548,7 @@ public partial class BasePlayerController : CharacterBody2D
     protected virtual float GetMovementInput()
     {
         // Always the raw player input. Reversal for a mirrored node is applied in _PhysicsProcess.
-        return Input.GetAxis("move_left", "move_right");
+        return !DebugConsole.focusedOnConsole ? Input.GetAxis("move_left", "move_right") : 0;
     }
 
     /// <summary>
@@ -569,7 +569,10 @@ public partial class BasePlayerController : CharacterBody2D
     /// <summary>
     /// Whether a jump was requested this physics frame. Override to change where jump input comes from.
     /// </summary>
-    protected virtual bool IsJumpJustPressed() => Input.IsActionJustPressed("jump");
+    protected virtual bool IsJumpJustPressed()
+    {
+        return !DebugConsole.focusedOnConsole && Input.IsActionJustPressed("jump");
+    }
 
     /// <summary>
     /// Handles logic when this player/controller is killed. Releases keys and updates UI.

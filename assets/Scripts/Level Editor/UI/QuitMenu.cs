@@ -39,19 +39,19 @@ public partial class QuitMenu : Control
         {
             if (quit)
             {
-                if (Input.IsActionPressed("ctrl"))
+                if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("ctrl"))
                 {
-                    if (Input.IsActionJustPressed("q"))
+                    if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("q"))
                     {
                         QuitEditor();
                     }
                 }
             }
-            if (Input.IsActionJustReleased("q") && Visible)
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustReleased("q") && Visible)
             {
                 quit = true;
             }
-            if (Input.IsActionJustPressed("escape"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("escape"))
             {
                 CancelButtonPressed();
             }

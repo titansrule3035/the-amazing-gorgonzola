@@ -26,23 +26,23 @@ public partial class ToolBar : Control
     {
         if (fileButton.showMenu || windowButton.showMenu || editorButton.showMenu)
         {
-            if (Input.IsActionJustPressed("escape"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("escape"))
             {
                 CloseMenus();
             }
         }
 
-        if (Input.IsActionPressed("alt"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("alt"))
         {
-            if (Input.IsActionJustPressed("f"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("f"))
             {
                 fileButton.ToolBarButtonPressed();
             }
-            if (Input.IsActionJustPressed("w"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("w"))
             {
                 windowButton.ToolBarButtonPressed();
             }
-            if (Input.IsActionJustPressed("e"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("e"))
             {
                 editorButton.ToolBarButtonPressed();
             }

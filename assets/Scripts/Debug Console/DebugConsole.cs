@@ -12,6 +12,8 @@ public partial class DebugConsole : Control
 
     static DebugConsole instance;
 
+    public static bool focusedOnConsole = false;
+
     private static Action<List<string>> LogRead;
 
     public override void _Ready()
@@ -111,9 +113,9 @@ public partial class DebugConsole : Control
     {
         Visible = active;
 
-        DebugManager.debugConsoleActive = active;
+        DebugManager.debugConsoleActive = focusedOnConsole = active;
 
-        if (active)
+        if (focusedOnConsole)
         {
             input.GrabFocus();
         }

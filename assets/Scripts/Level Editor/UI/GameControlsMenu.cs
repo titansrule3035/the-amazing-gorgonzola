@@ -41,7 +41,7 @@ public partial class GameControlsMenu : Control
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         editor = main.GetNode<EditorObject>("EditorObject");
 
-        if (Input.IsActionJustPressed("editor_play"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("editor_play"))
         {
             PlayButtonPressed();
         }

@@ -109,8 +109,8 @@ public partial class ShadowClone : BasePlayerController
         inputQueue.Enqueue(new InputSample
         {
             Time = elapsed,
-            Direction = Input.GetAxis("move_left", "move_right"),
-            Jump = Input.IsActionJustPressed("jump")
+            Direction = !DebugConsole.focusedOnConsole ? Input.GetAxis("move_left", "move_right") : 0,
+            Jump = !DebugConsole.focusedOnConsole && Input.IsActionJustPressed("jump")
         });
 
         // 2. Release every sample that is now at least `delayMs` old

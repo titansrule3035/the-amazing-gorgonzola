@@ -32,22 +32,22 @@ public partial class CameraDrag : Camera2D
 
         Vector2 move = Vector2.Zero;
 
-        if (Input.IsKeyPressed(Godot.Key.I))
+        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.I))
         {
             move.Y -= 1;
         }
 
-        if (Input.IsKeyPressed(Godot.Key.K))
+        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.K))
         {
             move.Y += 1;
         }
 
-        if (Input.IsKeyPressed(Godot.Key.J))
+        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.J))
         {
             move.X -= 1;
         }
 
-        if (Input.IsKeyPressed(Godot.Key.L))
+        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.L))
         {
             move.X += 1;
         }
@@ -59,12 +59,12 @@ public partial class CameraDrag : Camera2D
             ClampToBounds();
         }
 
-        if (Input.IsKeyPressed(Godot.Key.F))
+        if (!DebugConsole.focusedOnConsole && (Input.IsKeyPressed(Godot.Key.F)))
         {
             GlobalPosition = startingPos;
         }
 
-        if (Input.IsActionJustPressed("spacebar") || Input.IsActionJustPressed("mb_middle"))
+        if (!DebugConsole.focusedOnConsole && (Input.IsActionJustPressed("spacebar") || Input.IsActionJustPressed("mb_middle")))
         {
             canDrag = true;
 
@@ -94,7 +94,7 @@ public partial class CameraDrag : Camera2D
     {
         if (@event is InputEventMouseButton mouseButton)
         {
-            if (((mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed && Input.IsActionPressed("spacebar")) || (mouseButton.ButtonIndex == MouseButton.Middle && mouseButton.Pressed)))
+            if (!DebugConsole.focusedOnConsole && (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed && Input.IsActionPressed("spacebar") || (mouseButton.ButtonIndex == MouseButton.Middle && mouseButton.Pressed)))
             {
                 _dragging = true;
             }

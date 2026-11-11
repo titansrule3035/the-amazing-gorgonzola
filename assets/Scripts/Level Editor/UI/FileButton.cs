@@ -81,28 +81,28 @@ public partial class FileButton : ToolBarButton
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionPressed("ctrl"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("ctrl"))
         {
-            if (Input.IsActionJustPressed("o"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("o"))
             {
                 OpenButtonPressed();
             }
-            if (Input.IsActionJustPressed("s") && !Input.IsActionPressed("shift"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("s") && !Input.IsActionPressed("shift"))
             {
                 SaveButtonPressed();
             }
-            if (Input.IsActionPressed("shift"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("shift"))
             {
-                if (Input.IsActionJustPressed("s"))
+                if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("s"))
                 {
                     SaveAsButtonPressed();
                 }
             }
-            if (Input.IsActionJustPressed("c"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("c"))
             {
                 CloseButtonPressed();
             }
-            if (Input.IsActionJustPressed("q"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("q"))
             {
                 GetTree().CurrentScene.GetNode<QuitMenu>("editor/main/CanvasLayer/UI/QuitMenu").SetMenuVisibility(true);
             }

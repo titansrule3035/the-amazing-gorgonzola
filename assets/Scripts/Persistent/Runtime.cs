@@ -159,7 +159,7 @@ public partial class Runtime : Node2D
             }
         }
 
-        if (Input.IsActionJustPressed("F5"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("F5"))
         {
             if (_editorMode)
             {
@@ -179,14 +179,7 @@ public partial class Runtime : Node2D
             {
                 if (Input.IsActionJustPressed("open_console"))
                 {
-                    if (DebugConsole.GetInstance().Visible)
-                    {
-                        DebugManager.debugConsoleActive = false;
-                    }
-                    else
-                    {
-                        DebugManager.debugConsoleActive = true;
-                    }
+                    DebugManager.debugConsoleActive = !DebugConsole.GetInstance().Visible;
                 }
             }
         }
@@ -198,7 +191,7 @@ public partial class Runtime : Node2D
         if (DebugManager.debugConsoleActive)
         {
             DebugConsole.GetInstance().SetActive(true);
-            if (Input.IsActionJustPressed("return"))
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("return"))
             {
                 if (DebugConsole.GetInstance().GetInputText() != "")
                 {

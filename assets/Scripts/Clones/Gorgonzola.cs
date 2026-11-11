@@ -65,7 +65,7 @@ public partial class Gorgonzola : BasePlayerController
             canMove = GlobalGameManager.GetInstance()?.canMove;
         }
 
-        if (Input.IsActionJustPressed("reset") && canMove == true)
+        if (Input.IsActionJustPressed("reset") && canMove == true && !DebugConsole.focusedOnConsole)
         {
             Kill();
         }

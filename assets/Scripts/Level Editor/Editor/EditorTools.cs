@@ -321,7 +321,7 @@ public class SelectTool : EditorTool
     {
         if (!dragging)
         {
-            if (Input.IsActionJustPressed("mb_left") && editor.canInteract)
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("mb_left") && editor.canInteract)
             {
                 start = editor.cell;
                 end = editor.cell;
@@ -330,7 +330,7 @@ public class SelectTool : EditorTool
             }
             return;
         }
-        if (Input.IsActionJustPressed("ui_cancel"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("ui_cancel"))
         {
             Exit();
             return;
@@ -340,10 +340,10 @@ public class SelectTool : EditorTool
             end = editor.cell;
             editor.RedrawOverlay();
         }
-        if (!Input.IsActionPressed("mb_left"))
+        if (!DebugConsole.focusedOnConsole && !Input.IsActionPressed("mb_left"))
         {
             dragging = false;
-            editor.selection.SelectRect(start, end, additive: Input.IsActionPressed("ctrl"));
+            editor.selection.SelectRect(start, end, additive: !DebugConsole.focusedOnConsole && Input.IsActionPressed("ctrl"));
             editor.RedrawOverlay();
         }
     }
@@ -405,13 +405,13 @@ public class MoveTool : EditorTool
     {
         if (!dragging)
         {
-            if (Input.IsActionJustPressed("mb_left") && editor.canInteract)
+            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("mb_left") && editor.canInteract)
             {
                 Begin();
             }
             return;
         }
-        if (Input.IsActionJustPressed("ui_cancel"))
+        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("ui_cancel"))
         {
             Cancel();
             return;
@@ -424,7 +424,7 @@ public class MoveTool : EditorTool
             valid = nowValid;
             editor.RedrawOverlay();
         }
-        if (!Input.IsActionPressed("mb_left"))
+        if (!DebugConsole.focusedOnConsole && !Input.IsActionPressed("mb_left"))
         {
             if (moveDelta != Vector2I.Zero && valid)
             {
