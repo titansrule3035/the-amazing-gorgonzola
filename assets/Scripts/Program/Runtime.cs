@@ -390,8 +390,6 @@ public partial class Runtime : Node2D
             ApplyCursor(CursorMode.Mouse.ToString());
         }
 
-        DebugManager.Log(Window.GetFocusedWindow().Size.Y, "Screen Size");
-
         target.AddChild(mode);
     }
 
