@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://qiaoiwvifwhi" path="res://assets/Scenes/UI/level_cleared_menu.tscn" id="2_w34p4"]
 [ext_resource type="PackedScene" uid="uid://cvo3lsr41h8bq" path="res://assets/Scenes/UI/pause_menu.tscn" id="3_rbwhl"]
 [ext_resource type="Resource" uid="uid://mbs1xqynpavu" path="res://assets/Levels/Level Groups/MainMenu.tres" id="3_vv30f"]
+[ext_resource type="Resource" uid="uid://dc08jvh4002ch" path="res://assets/Levels/Level Groups/World2.tres" id="4_15te7"]
 [ext_resource type="Resource" uid="uid://cdxw13anouxst" path="res://assets/Levels/Level Groups/World1.tres" id="4_xq6a1"]
 [ext_resource type="Resource" uid="uid://by2lfyv3jg41e" path="res://assets/Levels/Level Groups/final.tres" id="5_t2nbi"]
 [ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="10_43idt"]
@@ -70,7 +71,7 @@ _data = {
 [node name="game_manager" type="Node2D" parent="." unique_id=1245132576]
 process_mode = 3
 script = ExtResource("1_dwccm")
-levelGroups = Array[ExtResource("2_qfuo1")]([ExtResource("3_vv30f"), ExtResource("4_xq6a1"), ExtResource("5_t2nbi")])
+levelGroups = Array[ExtResource("2_qfuo1")]([ExtResource("3_vv30f"), ExtResource("4_15te7"), ExtResource("4_xq6a1"), ExtResource("5_t2nbi")])
 
 [node name="dialogue_manager" type="Node2D" parent="." unique_id=78233836 node_paths=PackedStringArray("dialoguePanel", "textLabel", "dialogueArrow")]
 z_index = 5

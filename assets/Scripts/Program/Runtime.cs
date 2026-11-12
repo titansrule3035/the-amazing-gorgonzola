@@ -23,6 +23,8 @@ public partial class Runtime : Node2D
     private static Runtime instance;
 
     // game state
+    //  - debug
+    public bool ranWithSplash = false;
     public static bool editorMode = false;
     [Export]
     public bool _editorMode
@@ -136,6 +138,11 @@ public partial class Runtime : Node2D
         else
         {
             SwitchToGame(false);
+        }
+
+        if (!ranWithSplash)
+        {
+            FadePanel.GetInstance().SetClear();
         }
     }
 

@@ -120,3 +120,8 @@ process_mode = 1
 layer = 100
 
 [node name="canvas_effects" parent="canvas_layer" unique_id=1212739994 instance=ExtResource("4_6cu8n")]
+
+[node name="ColorRect" parent="canvas_layer/canvas_effects" index="0" unique_id=1294107581]
+color = Color(0, 0, 0, 1)
+
+[editable path="canvas_layer/canvas_effects"]

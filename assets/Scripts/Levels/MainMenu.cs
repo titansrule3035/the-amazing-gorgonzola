@@ -12,7 +12,7 @@ public partial class MainMenu : Control
     [Export] public CreditsMenu creditsMenu;
 
     // Lifecycle 
-    public override void _Ready()
+    public async override void _Ready()
     {
         // Cache button nodes and hook up their events
         buttons = new TextureButton[5];
@@ -53,6 +53,13 @@ public partial class MainMenu : Control
         DisableButtonsState(false);
 
         base._Ready();
+
+        await ToSignal(GetTree().CreateTimer(.5), SceneTreeTimer.SignalName.Timeout);
+
+        if (Runtime.GetInstance().ranWithSplash && !FadePanel.GetInstance().IsFading)
+        {
+            FadePanel.GetInstance().FadeIn();
+        }
     }
 
     public override void _Process(double delta)
