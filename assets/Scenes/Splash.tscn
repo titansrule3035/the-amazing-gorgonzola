@@ -298,159 +298,173 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_i5o6j"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [15]
-}
-
-[sub_resource type="Animation" id="Animation_nlbvt"]
-resource_name = "end_boil"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"sigh"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.10000001, 0.20000002),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [14, 15, 16]
-}
-
-[sub_resource type="Animation" id="Animation_c66h6"]
-resource_name = "sigh"
-length = 1.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"sigh"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.400962, 1.5, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 4, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-}
-
-[sub_resource type="Animation" id="Animation_ihhb8"]
-resource_name = "walk"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"walk"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 0.3, 0.40000004, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hq0i"]
-_data = {
-&"RESET": SubResource("Animation_i5o6j"),
-&"end_boil": SubResource("Animation_nlbvt"),
-&"sigh": SubResource("Animation_c66h6"),
-&"walk": SubResource("Animation_ihhb8")
-}
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m1lyo"]
-animation = &"end_boil"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y8d4y"]
-animation = &"sigh"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2vdby"]
-animation = &"walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iotjc"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t64e6"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i5o6j"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"sigh"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iq7ac"]
-allow_transition_to_self = true
-states/Start/position = Vector2(254, 127)
-states/end_boil/node = SubResource("AnimationNodeAnimation_m1lyo")
-states/end_boil/position = Vector2(206, 24)
-states/sigh/node = SubResource("AnimationNodeAnimation_y8d4y")
-states/sigh/position = Vector2(379, 38)
-states/walk/node = SubResource("AnimationNodeAnimation_2vdby")
-states/walk/position = Vector2(485, 100)
-transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_iotjc"), "sigh", "end_boil", SubResource("AnimationNodeStateMachineTransition_t64e6"), "walk", "sigh", SubResource("AnimationNodeStateMachineTransition_i5o6j")]
-graph_offset = Vector2(-266, -58)
-
 [sub_resource type="Gradient" id="Gradient_i5o6j"]
-offsets = PackedFloat32Array(0.83573484)
-colors = PackedColorArray(0, 0, 0, 0)
+offsets = PackedFloat32Array()
+colors = PackedColorArray()
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nlbvt"]
 gradient = SubResource("Gradient_i5o6j")
 
+[sub_resource type="Gradient" id="Gradient_nlbvt"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1.1920929e-07)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m1lyo"]
+gradient = SubResource("Gradient_nlbvt")
+
+[sub_resource type="Animation" id="Animation_nlbvt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("foreground:texture:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedColorArray()]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bordie_sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("logo_sprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"on"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("logo_sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_t64e6"]
+resource_name = "splash"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("logo_sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"on", &"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logo_sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6, 1.7, 1.8000001, 1.9, 2, 2.1, 2.2, 2.3000002, 2.4, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bordie_sprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.6, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"walk", &"sigh"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bordie_sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.6000001, 2.7, 2.8000002, 2.9, 3.0000002, 3.1000001, 3.2000003, 3.3000002, 3.4, 3.5, 3.6000001, 3.7, 3.8000002, 3.9, 4, 4.1000004, 4.2000003, 4.3, 4.4000006, 4.5, 4.6000004, 4.7000003, 4.8, 4.9000006, 5.0000005, 5.1000004, 5.2000003, 5.3, 5.4, 5.5000005, 5.6000004, 5.7000003, 5.8, 5.9, 6.0000005, 6.1000004, 6.2000003, 6.3, 6.4000006, 6.5000005, 6.6000004, 6.7000003, 6.8, 6.9, 7.0000005, 7.1000004, 7.2000003, 7.3, 7.4, 7.5, 7.6000004, 7.7000003, 7.8, 7.9000006),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 14, 15, 16, 14, 15, 16, 14, 15, 16, 14, 15, 16, 14]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bordie_sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.6, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1893, 580), Vector2(1183, 580)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("foreground:texture:gradient:colors")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(-1.6333333, 6.8, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [PackedColorArray(0, 0, 0, 0), PackedColorArray(0, 0, 0, 0), PackedColorArray(0, 0, 0, 1)]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(6.8, 8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"UpdateCanFade"
+}, {
+"args": [],
+"method": &"EndSplash"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1qu5d"]
+_data = {
+&"RESET": SubResource("Animation_nlbvt"),
+&"splash": SubResource("Animation_t64e6")
+}
+
 [node name="splash" type="Node2D" unique_id=414904739]
 script = ExtResource("1_ggrn3")
 RuntimeScene = ExtResource("2_frlsg")
-bordieMoveSpeed = 300.0
 
 [node name="background" type="Sprite2D" parent="." unique_id=1575839050]
 position = Vector2(864.0001, 432)
@@ -460,29 +474,24 @@ texture = SubResource("GradientTexture2D_bi6qw")
 [node name="logo_sprite" type="AnimatedSprite2D" parent="." unique_id=1925646965]
 position = Vector2(1139, 444)
 sprite_frames = SubResource("SpriteFrames_iq7ac")
+animation = &"on"
 autoplay = "on"
-frame = 10
-frame_progress = 1.0
 
 [node name="bordie_sprite" type="AnimatedSprite2D" parent="." unique_id=1776653492]
-position = Vector2(1893, 580)
+position = Vector2(1183, 580)
 sprite_frames = SubResource("SpriteFrames_bi6qw")
 animation = &"sigh"
-frame = 15
-
-[node name="anim_player" type="AnimationPlayer" parent="bordie_sprite" unique_id=1749683630]
-libraries/ = SubResource("AnimationLibrary_2hq0i")
-autoplay = &"walk"
-
-[node name="anim_tree" type="AnimationTree" parent="bordie_sprite" unique_id=936221849]
-tree_root = SubResource("AnimationNodeStateMachine_iq7ac")
-anim_player = NodePath("../anim_player")
-parameters/conditions/sigh = true
 
 [node name="foreground" type="Sprite2D" parent="." unique_id=1453361554]
 position = Vector2(864.0001, 432)
 scale = Vector2(27.000002, 13.499999)
 texture = SubResource("GradientTexture2D_nlbvt")
 
-[node name="target" type="Node2D" parent="." unique_id=60354007]
-position = Vector2(1180, 570)
+[node name="fade_panel" type="Sprite2D" parent="." unique_id=1197759483]
+position = Vector2(864, 432)
+scale = Vector2(27, 13.5)
+texture = SubResource("GradientTexture2D_m1lyo")
+
+[node name="animation_player" type="AnimationPlayer" parent="." unique_id=682559844]
+libraries/ = SubResource("AnimationLibrary_1qu5d")
+autoplay = &"splash"
