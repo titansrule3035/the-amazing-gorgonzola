@@ -337,6 +337,7 @@ offset_left = 368.0
 offset_top = 208.0
 offset_right = 880.0
 offset_bottom = 368.0
+value = 100.0
 tick_count = 100
 
 [node name="buttons" type="Label" parent="options_menu" unique_id=472245914]
@@ -347,7 +348,7 @@ offset_right = 1136.0
 offset_bottom = 400.0
 theme_override_fonts/font = ExtResource("20_73o8l")
 theme_override_font_sizes/font_size = 37
-text = "*Colors*"
+text = "° Colors °"
 horizontal_alignment = 1
 vertical_alignment = 1
 
