@@ -1341,6 +1341,7 @@ animations = [{
 [node name="default_clone" type="CharacterBody2D" unique_id=1782299995]
 z_index = 10
 collision_layer = 40
+collision_mask = 5
 script = ExtResource("1_6alfr")
 FallMultiplier = 2.5
 offset = 108.0
