@@ -55,11 +55,6 @@ public partial class MainMenu : Control
         base._Ready();
 
         await ToSignal(GetTree().CreateTimer(.5), SceneTreeTimer.SignalName.Timeout);
-
-        if (Runtime.GetInstance().ranWithSplash && !FadePanel.GetInstance().IsFading)
-        {
-            FadePanel.GetInstance().FadeIn();
-        }
     }
 
     public override void _Process(double delta)

@@ -23,7 +23,7 @@ public partial class Runtime : Node2D
     private static Runtime instance;
 
     // game state
-    //  - debug
+    public bool justBooted = true;
     public bool ranWithSplash = false;
     public static bool editorMode = false;
     [Export]
@@ -140,11 +140,6 @@ public partial class Runtime : Node2D
         else
         {
             SwitchToGame(false);
-        }
-
-        if (!ranWithSplash)
-        {
-            FadePanel.GetInstance().SetClear();
         }
     }
 
@@ -390,6 +385,15 @@ public partial class Runtime : Node2D
         {
             window.Title = "The Amazing Gorgonzola";
             ApplyCursor(CursorMode.Mouse.ToString());
+        }
+
+        if (ranWithSplash && !FadePanel.GetInstance().IsFading)
+        {
+            FadePanel.GetInstance().FadeIn();
+        }
+        else if (!ranWithSplash)
+        {
+            FadePanel.GetInstance().SetClear();
         }
 
         target.AddChild(mode);
