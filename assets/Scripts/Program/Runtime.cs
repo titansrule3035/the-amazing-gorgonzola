@@ -391,7 +391,7 @@ public partial class Runtime : Node2D
         {
             FadePanel.GetInstance().FadeIn();
         }
-        else if (!ranWithSplash)
+        else if (!ranWithSplash && justBooted)
         {
             FadePanel.GetInstance().SetClear();
         }
