@@ -85,8 +85,10 @@ public partial class Splash : Node2D
         }
     }
 
-    public void EndSplash()
+    public async void EndSplash()
     {
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
         Runtime instance = RuntimeScene.Instantiate<Runtime>();
         instance.ranWithSplash = true;
 
@@ -103,7 +105,7 @@ public partial class Splash : Node2D
         {
             if (canFade && !fading)
             {
-                animationPlayer.Pause();
+                GetTree().Paused = true;
 
                 StartForegroundFade(EndSplash);
             }

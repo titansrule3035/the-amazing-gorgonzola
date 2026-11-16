@@ -463,35 +463,44 @@ _data = {
 }
 
 [node name="splash" type="Node2D" unique_id=414904739]
+process_mode = 3
 script = ExtResource("1_ggrn3")
 RuntimeScene = ExtResource("2_frlsg")
 
 [node name="background" type="Sprite2D" parent="." unique_id=1575839050]
+process_mode = 1
 position = Vector2(864.0001, 432)
 scale = Vector2(27.000002, 13.499999)
 texture = SubResource("GradientTexture2D_bi6qw")
 
 [node name="logo_sprite" type="AnimatedSprite2D" parent="." unique_id=1925646965]
+process_mode = 1
 position = Vector2(1139, 444)
 sprite_frames = SubResource("SpriteFrames_iq7ac")
 animation = &"on"
 autoplay = "on"
 
 [node name="bordie_sprite" type="AnimatedSprite2D" parent="." unique_id=1776653492]
+process_mode = 1
 position = Vector2(1183, 580)
 sprite_frames = SubResource("SpriteFrames_bi6qw")
 animation = &"sigh"
 
 [node name="foreground" type="Sprite2D" parent="." unique_id=1453361554]
+process_mode = 1
 position = Vector2(864.0001, 432)
 scale = Vector2(27.000002, 13.499999)
 texture = SubResource("GradientTexture2D_nlbvt")
 
+[node name="animated_sprite_2d" type="AnimatedSprite2D" parent="." unique_id=1607501983]
+
 [node name="fade_panel" type="Sprite2D" parent="." unique_id=1197759483]
+process_mode = 1
 position = Vector2(864, 432)
 scale = Vector2(27, 13.5)
 texture = SubResource("GradientTexture2D_m1lyo")
 
 [node name="animation_player" type="AnimationPlayer" parent="." unique_id=682559844]
+process_mode = 1
 libraries/ = SubResource("AnimationLibrary_1qu5d")
 autoplay = &"splash"

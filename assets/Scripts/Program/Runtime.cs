@@ -115,6 +115,8 @@ public partial class Runtime : Node2D
 
         DebugManager.BuildCommands();
 
+        GetTree().Paused = false;
+
         GetTree().NodeAdded += CheckForHookableButtons;
 
         // Handle buttons that already exist in the scene.
