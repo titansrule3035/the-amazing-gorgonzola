@@ -492,8 +492,6 @@ position = Vector2(864.0001, 432)
 scale = Vector2(27.000002, 13.499999)
 texture = SubResource("GradientTexture2D_nlbvt")
 
-[node name="animated_sprite_2d" type="AnimatedSprite2D" parent="." unique_id=1607501983]
-
 [node name="fade_panel" type="Sprite2D" parent="." unique_id=1197759483]
 process_mode = 1
 position = Vector2(864, 432)
