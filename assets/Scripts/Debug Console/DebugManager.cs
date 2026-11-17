@@ -35,9 +35,11 @@ public static partial class DebugManager
         {
             if (!Runtime.editorMode)
             {
-                GlobalGameManager.GetInstance().OnLevelLoaded += Runtime.GetInstance().OnLevelSkipped;
+                GlobalGameManager ggm = GlobalGameManager.GetInstance();
 
-                GlobalGameManager.GetInstance().LoadLevel(groupIndex, TAGLevelIndex);
+                ggm.LoadLevel(groupIndex, TAGLevelIndex);
+
+                ggm.canMove = true;
             }
             else
             {

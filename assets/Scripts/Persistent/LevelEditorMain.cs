@@ -63,6 +63,14 @@ public partial class LevelEditorMain : Node2D
     public override void _Process(double delta)
     {
         ProcessWindowTitle();
+
+        if (DebugManager.debug && Input.IsActionJustPressed("F5"))
+        {
+            if (Runtime.editorMode)
+            {
+                Runtime.GetInstance().ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
+            }
+        }
     }
 
     private void ProcessWindowTitle()
