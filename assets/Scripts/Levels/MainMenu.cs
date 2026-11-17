@@ -55,6 +55,8 @@ public partial class MainMenu : Control
         base._Ready();
 
         await ToSignal(GetTree().CreateTimer(.5), SceneTreeTimer.SignalName.Timeout);
+
+        GetTree().Paused = false;
     }
 
     public override void _Process(double delta)

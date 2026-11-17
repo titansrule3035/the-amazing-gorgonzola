@@ -9,6 +9,8 @@ public partial class r2 : LocalGameManager
         MoveToTitle();
 
         base._Ready();
+
+        allowPausing = false;
     }
 
     public async void MoveToTitle()

@@ -9,7 +9,7 @@ public abstract partial class LocalGameManager : Node2D
 
     public event Action OnFlush;
 
-    [Export] bool allowPausing = true;
+    [Export] public bool allowPausing = true;
 
     private bool flush;
 
