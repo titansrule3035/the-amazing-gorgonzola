@@ -521,7 +521,7 @@ public partial class BasePlayerController : CharacterBody2D
                     using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
                 }
 
-                await ((Runtime)GetTree().CurrentScene).ImportLevel(GetTree().CurrentScene.GetNode("editor/main/level"), LevelData.Decode(File.ReadAllText(filePath)));
+                Runtime.GetInstance().ImportLevel(GetTree().CurrentScene.GetNode("editor/main/level"), LevelData.Decode(File.ReadAllText(filePath)));
 
             }
             else

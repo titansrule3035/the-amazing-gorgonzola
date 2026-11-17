@@ -223,7 +223,7 @@ public partial class GlobalGameManager : Node2D
 
         string levelText = file.GetAsText();
 
-        await ((Runtime)GetTree().CurrentScene).ImportLevel(activeLevel, LevelData.Decode(levelText));
+        Runtime.GetInstance().ImportLevel(activeLevel, LevelData.Decode(levelText));
     }
 
     /// <summary>

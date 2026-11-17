@@ -94,7 +94,7 @@ public partial class MainMenu : Control
     void EditorButtonPressed()
     {
         DisableButtonsState(true);
-        ((Runtime)GetTree().CurrentScene).SwitchToEditor(true);
+        Runtime.GetInstance().SwitchToEditor(true);
     }
 
     void CreditsButtonPressed()

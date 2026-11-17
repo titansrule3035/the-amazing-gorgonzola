@@ -45,7 +45,7 @@ public partial class LevelEditorMain : Node2D
 
         GetWindow().FocusExited += GetNode<ToolBar>("CanvasLayer/UI/ToolBar").CloseMenus;
 
-        Runtime runtime = (Runtime)GetTree().CurrentScene;
+        Runtime runtime = Runtime.GetInstance();
 
         fileButton.filePicked += runtime.FilePicked;
         runtime.OnFilePicked += FilePicked;
@@ -127,8 +127,8 @@ public partial class LevelEditorMain : Node2D
 
     public async void OnFadeOut()
     {
-        Runtime runtime = (Runtime)GetTree().CurrentScene;
-        await runtime.ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+        Runtime runtime = Runtime.GetInstance();
+        runtime.ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
 
         GetTree().CurrentScene.GetNode<Camera2D>("editor/main/Camera2D").GlobalPosition = new(-224, -400);
 

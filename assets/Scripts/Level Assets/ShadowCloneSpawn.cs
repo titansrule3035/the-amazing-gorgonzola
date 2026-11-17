@@ -45,8 +45,7 @@ public partial class ShadowCloneSpawn : Node2D
         instance.GlobalPosition = GlobalPosition;
         instance.target = Gorgonzola.GetInstance();
         instance.UseChaseMode = huntMode;
-        Runtime runtime = (Runtime)GetTree().CurrentScene;
-        runtime.GetNode<Node2D>((runtime._editorMode ? "editor" : "game") + "/main/level/level_assets/hazards").AddChild(instance);
+        Runtime.GetInstance().GetNode<Node2D>((Runtime.editorMode ? "editor" : "game") + "/main/level/level_assets/hazards").AddChild(instance);
         QueueFree();
     }
 }
