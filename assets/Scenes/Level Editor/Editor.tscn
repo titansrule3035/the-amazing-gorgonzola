@@ -298,6 +298,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ImportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=550291066]
+canvas_item_default_texture_filter = 0
 oversampling_override = 1.0
 title = "Open a File"
 position = Vector2i(544, 252)
@@ -315,6 +316,7 @@ file_filter_toggle_enabled = false
 layout_toggle_enabled = false
 
 [node name="ExportDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=378383444]
+canvas_item_default_texture_filter = 0
 oversampling_override = 1.0
 title = "Save Level"
 position = Vector2i(544, 252)
@@ -332,6 +334,7 @@ file_filter_toggle_enabled = false
 layout_toggle_enabled = false
 
 [node name="ExportAsDialog" type="FileDialog" parent="CanvasLayer/UI" unique_id=388796861]
+canvas_item_default_texture_filter = 0
 oversampling_override = 1.0
 title = "Save Level As File"
 position = Vector2i(544, 252)
@@ -1343,12 +1346,19 @@ layer = 2
 
 [node name="DebugConsole" type="Control" parent="OverlayCanvasLayer" unique_id=127667579]
 process_mode = 3
+visible = false
 visibility_layer = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("44_ffvxq")
+
+[node name="color_rect" type="ColorRect" parent="OverlayCanvasLayer/DebugConsole" unique_id=994805020]
+layout_mode = 0
+offset_right = 2829.0
+offset_bottom = 2123.0
+color = Color(0, 0, 0, 0.60784316)
 
 [node name="backdrop" type="NinePatchRect" parent="OverlayCanvasLayer/DebugConsole" unique_id=1056419166]
 texture_filter = 1

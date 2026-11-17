@@ -45,7 +45,7 @@ public partial class GlobalGameManager : Node2D
     {
         if (instance != null)
         {
-            GD.Print("More than one GlobalGameManager exists! Deleting this one...", "loba");
+            DebugManager.Log("More than one GlobalGameManager exists! Deleting this one...", "GlobalGameManagerService");
             QueueFree();
             return;
         }

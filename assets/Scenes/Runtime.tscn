@@ -53,7 +53,6 @@ region = Rect2(18, 17, 45, 45)
 [node name="runtime" type="Node2D" unique_id=1780813959]
 process_mode = 3
 script = ExtResource("1_pff64")
-launchCommand = "load_cached_level"
 gameScene = ExtResource("3_s7gb8")
 editorScene = ExtResource("2_6cu8n")
 LevelMechanicScenes = Dictionary[String, PackedScene]({
@@ -120,3 +119,8 @@ process_mode = 1
 layer = 100
 
 [node name="canvas_effects" parent="canvas_layer" unique_id=1212739994 instance=ExtResource("4_6cu8n")]
+
+[node name="ColorRect" parent="canvas_layer/canvas_effects" index="0" unique_id=1294107581]
+color = Color(0, 0, 0, 1)
+
+[editable path="canvas_layer/canvas_effects"]

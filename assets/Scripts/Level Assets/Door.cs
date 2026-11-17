@@ -172,7 +172,6 @@ public partial class Door : Node2D
         if (cacheLevelCompleted)
         {
             gorg.SetIndicatorVisibility(false);
-            GD.Print("levelcompleted, disabling indicator");
             return;
         }
 

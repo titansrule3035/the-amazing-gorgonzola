@@ -23,6 +23,8 @@ public partial class Runtime : Node2D
     private static Runtime instance;
 
     // game state
+    public bool justBooted = true;
+    public bool ranWithSplash = false;
     public static bool editorMode = false;
     [Export]
     public bool _editorMode
@@ -112,6 +114,8 @@ public partial class Runtime : Node2D
         instance = this;
 
         DebugManager.BuildCommands();
+
+        GetTree().Paused = false;
 
         GetTree().NodeAdded += CheckForHookableButtons;
 
@@ -383,7 +387,14 @@ public partial class Runtime : Node2D
             ApplyCursor(CursorMode.Mouse.ToString());
         }
 
-        DebugManager.Log(Window.GetFocusedWindow().Size.Y, "Screen Size");
+        if (ranWithSplash && !FadePanel.GetInstance().IsFading)
+        {
+            FadePanel.GetInstance().FadeIn();
+        }
+        else if (!ranWithSplash && justBooted)
+        {
+            FadePanel.GetInstance().SetClear();
+        }
 
         target.AddChild(mode);
     }

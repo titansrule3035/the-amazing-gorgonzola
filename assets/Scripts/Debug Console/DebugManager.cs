@@ -224,7 +224,7 @@ public static partial class DebugManager
         {
             using Godot.FileAccess file = Godot.FileAccess.Open(Runtime.CreateLogDump(), Godot.FileAccess.ModeFlags.Write);
 
-            file.StoreString($"{message}\n\n{callStack}");
+            file.StoreString($"{message}\n\nSTACK TRACE:\n{callStack}");
         }
     }
 

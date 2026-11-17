@@ -15,6 +15,9 @@ public partial class FadePanel : Control
     [Export] public float fadeinTime = 0.5f;
     [Export] public float fadeoutTime = 1.5f;
 
+    // True while a fade tween is running (read-only from outside)
+    public bool IsFading { get; private set; } = false;
+
     // Cached node references
     private ColorRect colorRect;
     private Tween tween;
@@ -34,9 +37,11 @@ public partial class FadePanel : Control
         instance = this;
         colorRect = GetNode<ColorRect>("ColorRect");
 
-        colorRect.Color = new Color(255, 255, 255, 0);
+        colorRect.Color = new Color(0, 0, 0, 1);
 
         colorRect.Visible = false;
+
+        SetOpaque();
     }
 
     // Public API
@@ -64,6 +69,28 @@ public partial class FadePanel : Control
         StartFadingOut(fadeoutTime);
     }
 
+    // Instantly makes the screen fully black (opaque), cancelling any fade in progress
+    public void SetOpaque()
+    {
+        tween?.Kill();
+        IsFading = false;
+
+        colorRect.Visible = true;
+        colorRect.Color = new Color(0, 0, 0, 1);
+        colorRect.MouseFilter = MouseFilterEnum.Ignore; // matches the end state of FadeOut()
+    }
+
+    // Instantly makes the screen fully clear, cancelling any fade in progress
+    public void SetClear()
+    {
+        tween?.Kill();
+        IsFading = false;
+
+        colorRect.Color = new Color(colorRect.Color.R, colorRect.Color.G, colorRect.Color.B, 0);
+        colorRect.MouseFilter = MouseFilterEnum.Ignore;
+        colorRect.Visible = false;
+    }
+
     public static FadePanel GetInstance()
     {
         return instance;
@@ -81,10 +108,14 @@ public partial class FadePanel : Control
         colorRect.Color = new Color(fadeToColor.R, fadeToColor.G, fadeToColor.B, 0);
 
         tween?.Kill();
+        IsFading = true;
         tween = CreateTween();
         tween.TweenProperty(colorRect, "color", fadeToColor, duration);
         tween.Finished += () =>
         {
+            // Clear the flag before raising events so listeners can start a new fade
+            IsFading = false;
+
             colorRect.MouseFilter = MouseFilterEnum.Ignore;
 
             OnFadeOut?.Invoke();
@@ -107,10 +138,14 @@ public partial class FadePanel : Control
         Color endResult = new Color(colorRect.Color.R, colorRect.Color.G, colorRect.Color.B, 0);
 
         tween?.Kill();
+        IsFading = true;
         tween = CreateTween();
         tween.TweenProperty(colorRect, "color", endResult, duration);
         tween.Finished += () =>
         {
+            // Clear the flag before raising events so listeners can start a new fade
+            IsFading = false;
+
             GlobalGameManager ggm = GlobalGameManager.GetInstance();
             if (ggm != null)
             {
