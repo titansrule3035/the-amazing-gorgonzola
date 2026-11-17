@@ -1,11 +1,6 @@
 A GAME BY
 
-
 Bored Duck Studios
-
-Enchanted Shears - Director, Art
-
-titansrule3035 aka YubboiChipsAhoy - Programming
 
 
 Made in
@@ -13,17 +8,23 @@ Made in
 Godot
 
 
+Enchanted Shears - Creative Director, Art, Original concept
+
+titansrule3035 aka YubboiChipsAhoy - Game Director, Programming
+
+
 ADDITIONAL HELP
 
 
 PJ_Pizza - The token ideas guy, the OG 
-bud, Moral support, level designer. Trailer cameraman
+bud, Moral support, Level design
 
 pixieeee22 - Level design, Moral support #
 
+Froziam - Level design, Moral support, Bug SQUASHER
 
 
-Helena 'Hel' V.R. - Concepts, design
+Helena 'Hel' V.R. - Concepts, Level design
 
 Eden - Art help, Quality assurance
 
@@ -32,19 +33,3 @@ scrufftuna - Art help, Moral support
 trucoteca.com - Dance gag 3D model
 
 vizalermee boi - Art help, Moral support
-
-
-PLAYTESTERS
-
-
-902
-
-Froziam
-
-jub.
-
-Rednbloo
-
-The Consul
-
-Shadow Star
