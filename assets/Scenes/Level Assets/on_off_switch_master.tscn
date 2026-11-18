@@ -165,7 +165,7 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_00mep")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2115898140]
-position = Vector2(0, -8)
+position = Vector2(0, -16)
 collision_layer = 9
 collision_mask = 32
 
