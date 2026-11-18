@@ -134,7 +134,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("texture_rect:visible")
+tracks/6/path = NodePath("texture_rect6:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -146,10 +146,58 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("texture_rect2:visible")
+tracks/7/path = NodePath("texture_rect5:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("texture_rect3:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("texture_rect4:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("texture_rect2:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("texture_rect:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -316,7 +364,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("texture_rect6:visible")
+tracks/6/path = NodePath("texture_rect:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -328,10 +376,58 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("texture_rect5:visible")
+tracks/7/path = NodePath("texture_rect2:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("texture_rect3:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("texture_rect4:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("texture_rect5:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("texture_rect6:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -426,26 +522,26 @@ texture = ExtResource("9_yyvtn")
 
 [node name="texture_rect3" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=728595463]
 offset_right = 864.0
-offset_bottom = 431.99597
+offset_bottom = 431.99878
 texture = ExtResource("9_yyvtn")
 
 [node name="texture_rect4" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=2068549613]
 offset_left = 864.0
 offset_right = 1728.0
-offset_bottom = 431.99597
+offset_bottom = 431.99878
 texture = ExtResource("9_yyvtn")
 
 [node name="texture_rect5" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=1427243503]
 offset_top = 432.0
 offset_right = 864.0
-offset_bottom = 864.0134
+offset_bottom = 864.01556
 texture = ExtResource("9_yyvtn")
 
 [node name="texture_rect6" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=753832972]
 offset_left = 864.0
 offset_top = 432.0
 offset_right = 1728.0
-offset_bottom = 864.0134
+offset_bottom = 864.01556
 texture = ExtResource("9_yyvtn")
 
 [node name="animation_player" type="AnimationPlayer" parent="BackgroundCanvasLayer1" unique_id=683180415]
@@ -468,20 +564,20 @@ texture = ExtResource("10_miqjo")
 
 [node name="texture_rect3" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=2062163522]
 offset_right = 864.0
-offset_bottom = 432.00006
+offset_bottom = 432.00104
 texture = ExtResource("10_miqjo")
 
 [node name="texture_rect4" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=450001052]
 offset_left = 864.0
 offset_right = 1728.0
-offset_bottom = 432.00006
+offset_bottom = 432.00104
 texture = ExtResource("10_miqjo")
 
 [node name="texture_rect5" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=1225348494]
 visible = false
 offset_top = 432.0
 offset_right = 864.0
-offset_bottom = 863.9999
+offset_bottom = 863.99805
 texture = ExtResource("10_miqjo")
 
 [node name="texture_rect6" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=1581895788]
@@ -489,7 +585,7 @@ visible = false
 offset_left = 864.0
 offset_top = 432.0
 offset_right = 1728.0
-offset_bottom = 863.9999
+offset_bottom = 863.99805
 texture = ExtResource("10_miqjo")
 
 [node name="animation_player" type="AnimationPlayer" parent="BackgroundCanvasLayer2" unique_id=406635083]
