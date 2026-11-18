@@ -94,14 +94,13 @@ public partial class GlobalGameManager : Node2D
             }
         }
 
-        PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused;
+        PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused && (localGM != null ? localGM.allowPausing : false);
 
-        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("F5"))
+        if (DebugManager.debug && Input.IsActionJustPressed("F5"))
         {
-            LoadNextLevel();
-            canMove = true;
-            canPause = true;
-        }
+			LoadNextLevel();
+			canMove = true;
+		}
 
         base._Process(delta);
     }
@@ -223,7 +222,7 @@ public partial class GlobalGameManager : Node2D
 
         string levelText = file.GetAsText();
 
-        await ((Runtime)GetTree().CurrentScene).ImportLevel(activeLevel, LevelData.Decode(levelText));
+        Runtime.GetInstance().ImportLevel(activeLevel, LevelData.Decode(levelText));
     }
 
     /// <summary>

@@ -127,13 +127,13 @@ public partial class FileButton : ToolBarButton
     }
     async void CloseButtonPressed()
     {
-        Runtime runtime = (Runtime)GetTree().CurrentScene;
+        Runtime runtime = Runtime.GetInstance();
         UpdateMenuAndButton(false);
         runtime.filePath = "";
         LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         main.levelName = "Untitled";
         EditorObject.GetInstance().history.Clear();
-        await runtime.ClearGroups();
+        runtime.ClearGroups();
         main.SetGameState(true);
         main.GetNode<EditorObject>("EditorObject").itemObject?.SetActiveItem(null);
     }

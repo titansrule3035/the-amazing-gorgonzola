@@ -84,7 +84,7 @@ public partial class QuitMenu : Control
         {
             quitButton.Disabled = cancelButton.Disabled = true;
 
-            ((Runtime)GetTree().CurrentScene).SwitchToGame(true);
+            Runtime.GetInstance().SwitchToGame(true);
         }
         else
         {

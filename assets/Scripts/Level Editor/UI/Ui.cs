@@ -15,7 +15,7 @@ public partial class Ui : Control
 
     public ColorRect blockMouse;
 
-    private bool levelLoaded => !string.IsNullOrEmpty(((Runtime)GetTree().CurrentScene).filePath);
+    private bool levelLoaded => !string.IsNullOrEmpty(Runtime.GetInstance().filePath);
 
     public override void _Ready()
     {

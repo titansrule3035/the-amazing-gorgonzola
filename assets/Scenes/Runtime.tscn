@@ -119,8 +119,14 @@ process_mode = 1
 layer = 100
 
 [node name="canvas_effects" parent="canvas_layer" unique_id=1212739994 instance=ExtResource("4_6cu8n")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="ColorRect" parent="canvas_layer/canvas_effects" index="0" unique_id=1294107581]
+anchors_preset = -1
 color = Color(0, 0, 0, 1)
 
 [editable path="canvas_layer/canvas_effects"]

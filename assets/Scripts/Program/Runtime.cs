@@ -115,8 +115,6 @@ public partial class Runtime : Node2D
 
         DebugManager.BuildCommands();
 
-        GetTree().Paused = false;
-
         GetTree().NodeAdded += CheckForHookableButtons;
 
         // Handle buttons that already exist in the scene.
@@ -162,20 +160,6 @@ public partial class Runtime : Node2D
             }
         }
 
-        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("F5"))
-        {
-            if (_editorMode)
-            {
-                ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
-            }
-            else
-            {
-                GlobalGameManager ggm = GlobalGameManager.GetInstance();
-                ggm.LoadNextLevel();
-                ggm.OnNextLevelLoaded += OnLevelSkipped;
-            }
-        }
-
         if (DebugManager.debug)
         {
             if (Input.IsActionPressed("ctrl"))
@@ -199,13 +183,6 @@ public partial class Runtime : Node2D
         {
             DebugManager.debugConsoleActive = false;
         }
-    }
-
-    public void OnLevelSkipped()
-    {
-        GlobalGameManager ggm = GlobalGameManager.GetInstance();
-        ggm.OnNextLevelLoaded -= OnLevelSkipped;
-        ggm.canMove = true;
     }
 
     private void CheckForHookableButtons(Node node)
@@ -394,6 +371,7 @@ public partial class Runtime : Node2D
         else if (!ranWithSplash && justBooted)
         {
             FadePanel.GetInstance().SetClear();
+            justBooted = false;
         }
 
         target.AddChild(mode);
@@ -779,8 +757,8 @@ public partial class Runtime : Node2D
 
         try
         {
-            await ImportLevel(GetNode(levelRootPath), LevelData.Decode(jsonString));
-            OnFilePicked.Invoke(filePath);
+            ImportLevel(GetNode(levelRootPath), LevelData.Decode(jsonString));
+            OnFilePicked?.Invoke(filePath);
         }
         catch (Exception exception)
         {
@@ -789,7 +767,7 @@ public partial class Runtime : Node2D
         }
     }
 
-    public async Task ImportLevel(Node levelRoot, string json)
+    public void ImportLevel(Node levelRoot, string json)
     {
         LevelData data = JsonSerializer.Deserialize<LevelData>(json, new JsonSerializerOptions { IncludeFields = true });
 
@@ -799,7 +777,7 @@ public partial class Runtime : Node2D
             return;
         }
 
-        await ClearGroups();
+        ClearGroups();
 
         // reset state
         if (_editorMode)
@@ -811,11 +789,6 @@ public partial class Runtime : Node2D
             GlobalGameManager.GetInstance().levelCompleted = false;
         }
 
-        // so apparently queuefree waits until the end of the frame to dispose of an object,
-        // which is pretty bad for our use case.
-        // fix? make the method async and wait a frame before importing anything
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
         level = data;
 
         ImportTiles(levelRoot, data);
@@ -824,7 +797,7 @@ public partial class Runtime : Node2D
         OnLevelImported?.Invoke();
     }
 
-    public async Task ClearGroups()
+    public void ClearGroups()
     {
         if (GetNodeOrNull<Node2D>($"{levelRootPath}/level_assets") == null)
         {
@@ -839,7 +812,7 @@ public partial class Runtime : Node2D
             {
                 foreach (Node node2 in node.GetChildren())
                 {
-                    node.RemoveChild(node2);
+                    node2.GetParent().RemoveChild(node2);
                     node2.QueueFree();
                 }
             }
@@ -915,7 +888,7 @@ public partial class Runtime : Node2D
         }
 
         // Master
-        if (asset.OnOffSwitchMaster != null && sceneMap.TryGetValue(asset.OnOffSwitchMaster.Type, out PackedScene masterScene))
+        if (asset.OnOffSwitchMaster != null && sceneMap.TryGetValue(nameof(OnOffSwitchMaster), out PackedScene masterScene))
         {
             foundMasterSwitch = true;
 
@@ -1048,7 +1021,7 @@ public partial class Runtime : Node2D
         }
     }
 
-    private void ExportLevelAsScene(string folderPath)
+    public void ExportLevelAsScene(string folderPath)
     {
         Node duplicatedRoot = GetNode<Node>(levelRootPath).Duplicate((int)(Node.DuplicateFlags.Signals | Node.DuplicateFlags.Groups | Node.DuplicateFlags.Scripts));
 

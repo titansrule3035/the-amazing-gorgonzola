@@ -105,8 +105,6 @@ public partial class Splash : Node2D
         {
             if (canFade && !fading)
             {
-                GetTree().Paused = true;
-
                 StartForegroundFade(EndSplash);
             }
         }

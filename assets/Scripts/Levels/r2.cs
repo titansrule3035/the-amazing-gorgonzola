@@ -9,6 +9,10 @@ public partial class r2 : LocalGameManager
         MoveToTitle();
 
         base._Ready();
+
+        allowPausing = false;
+
+        LevelClearedMenu.GetInstance().Visible = false;
     }
 
     public async void MoveToTitle()

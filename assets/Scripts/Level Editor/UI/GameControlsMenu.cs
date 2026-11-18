@@ -89,7 +89,7 @@ public partial class GameControlsMenu : Control
                 using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
             }
 
-            await ((Runtime)GetTree().CurrentScene).ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(filePath)));
+            Runtime.GetInstance().ImportLevel(main.GetNode("level"), LevelData.Decode(File.ReadAllText(filePath)));
 
             EditorGameManager.GetInstance().canMove = false;
 

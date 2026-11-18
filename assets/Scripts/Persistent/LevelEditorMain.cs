@@ -45,7 +45,7 @@ public partial class LevelEditorMain : Node2D
 
         GetWindow().FocusExited += GetNode<ToolBar>("CanvasLayer/UI/ToolBar").CloseMenus;
 
-        Runtime runtime = (Runtime)GetTree().CurrentScene;
+        Runtime runtime = Runtime.GetInstance();
 
         fileButton.filePicked += runtime.FilePicked;
         runtime.OnFilePicked += FilePicked;
@@ -63,6 +63,14 @@ public partial class LevelEditorMain : Node2D
     public override void _Process(double delta)
     {
         ProcessWindowTitle();
+
+        if (DebugManager.debug && Input.IsActionJustPressed("F5"))
+        {
+            if (Runtime.editorMode)
+            {
+                Runtime.GetInstance().ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
+            }
+        }
     }
 
     private void ProcessWindowTitle()
@@ -127,8 +135,8 @@ public partial class LevelEditorMain : Node2D
 
     public async void OnFadeOut()
     {
-        Runtime runtime = (Runtime)GetTree().CurrentScene;
-        await runtime.ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
+        Runtime runtime = Runtime.GetInstance();
+        runtime.ImportLevel(GetNode("level"), LevelData.Decode(File.ReadAllText(Path.Combine(OS.GetUserDataDir(), "tmp/.taglevel"))));
 
         GetTree().CurrentScene.GetNode<Camera2D>("editor/main/Camera2D").GlobalPosition = new(-224, -400);
 
