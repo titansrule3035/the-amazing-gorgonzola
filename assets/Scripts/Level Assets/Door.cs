@@ -3,6 +3,8 @@ using System;
 
 public partial class Door : Node2D
 {
+    private const string EditorGameManagerPath = "editor/main/editor_game_manager";
+
     private static Door instance;
 
     [Export] public bool opened = false;
@@ -14,20 +16,22 @@ public partial class Door : Node2D
     private Area2D area;
     private bool inRange;
 
-    private string[] animationParams = { "open", "close" };
+    private readonly string[] animationParams = { "open", "close" };
 
-    private bool lastGroundedState 
-    {
-        get => Runtime.editorMode ? EditorGameManager.GetInstance().levelCompleted : GlobalGameManager.GetInstance().levelCompleted;
-        set;
-    }
+    // Last known "player is on floor" value, used to detect changes.
+    private bool lastGrounded = false;
 
-    bool cacheLevelCompleted = false;
+    // Set once the player has used the door. Stops all further processing.
+    private bool cacheLevelCompleted = false;
+
+    // True for a second Door that freed itself in _Ready because one already exists.
+    private bool isDuplicate = false;
 
     public override void _Ready()
     {
         if (instance != null)
         {
+            isDuplicate = true;
             QueueFree();
             return;
         }
@@ -35,7 +39,8 @@ public partial class Door : Node2D
         instance = this;
 
         animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        animPlayer ??= GetNode<AnimationPlayer>("AnimationPlayer");
+        animTree ??= GetNode<AnimationTree>("AnimationTree");
 
         area = GetNode<Area2D>("Area2D");
         area.BodyEntered += OnAreaEntered;
@@ -43,9 +48,61 @@ public partial class Door : Node2D
 
         if (Runtime.editorMode)
         {
-            GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").RegisterDoor(this);
+            GetEditorManagerNode()?.RegisterDoor(this);
         }
     }
+
+    public override void _ExitTree()
+    {
+        // A duplicate must not wipe the real Door's singleton or unregister it.
+        if (isDuplicate)
+        {
+            return;
+        }
+
+        if (area != null)
+        {
+            area.BodyEntered -= OnAreaEntered;
+            area.BodyExited -= OnAreaExited;
+        }
+
+        if (instance == this)
+        {
+            instance = null;
+        }
+
+        if (Runtime.editorMode)
+        {
+            GetEditorManagerNode()?.UnregisterDoor();
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (isDuplicate || cacheLevelCompleted)
+        {
+            return;
+        }
+
+        Gorgonzola gorg = Gorgonzola.GetInstance();
+        bool grounded = gorg != null && gorg.IsOnFloor();
+
+        if (grounded != lastGrounded)
+        {
+            lastGrounded = grounded;
+            UpdateIndicator();
+        }
+
+        if (opened && inRange && grounded && Input.IsActionJustPressed("interact"))
+        {
+            Enemy.KillAll?.Invoke();
+
+            cacheLevelCompleted = true;
+            SetLevelCompleted(true);
+            UpdateIndicator();
+        }
+    }
+
     private void OnAreaEntered(Node2D body)
     {
         if (body is Gorgonzola)
@@ -60,45 +117,6 @@ public partial class Door : Node2D
         if (body is Gorgonzola)
         {
             inRange = false;
-            UpdateIndicator();
-        }
-    }
-
-    public override void _Process(double delta)
-    {
-        if (cacheLevelCompleted)
-        {
-            return;
-        }
-        Gorgonzola? gorg = Gorgonzola.GetInstance();
-        bool grounded = gorg != null ? gorg.IsOnFloor() : false;
-
-        if (grounded != lastGroundedState)
-        {
-            lastGroundedState = grounded;
-            UpdateIndicator();
-        }
-
-        if (opened && inRange && Input.IsActionJustPressed("interact") && grounded)
-        {
-            Enemy.KillAll?.Invoke();
-            if (cacheLevelCompleted)
-            {
-                return;
-            }
-
-            cacheLevelCompleted = true;
-
-            if (Runtime.editorMode)
-            {
-                EditorGameManager.GetInstance().levelCompleted = cacheLevelCompleted;
-            }
-            else
-            {
-                GlobalGameManager.GetInstance().levelCompleted = cacheLevelCompleted;
-            }
-
-
             UpdateIndicator();
         }
     }
@@ -119,13 +137,15 @@ public partial class Door : Node2D
 
     private void PlayAnimation(string activeParam)
     {
-        //fix bug here, animation player is null???
-        //ok kinda, only triggered when clone touches the key
-        //we get a similar bug when a clone tries to flip an on/off switch
+        // Can be reached on a duplicate / freed Door (e.g. a clone touching the key).
+        if (isDuplicate || !IsInstanceValid(this) || animTree == null || !IsInstanceValid(animTree))
+        {
+            return;
+        }
 
         foreach (string param in animationParams)
         {
-            GetNode<AnimationTree>("AnimationTree").Set($"parameters/conditions/{param}", param == activeParam);
+            animTree.Set($"parameters/conditions/{param}", param == activeParam);
         }
     }
 
@@ -134,37 +154,20 @@ public partial class Door : Node2D
         return instance;
     }
 
-    public override void _ExitTree()
+    public Vector2 GetColliderPos()
     {
-        instance = null;
-
-        if (Runtime.editorMode == true)
-        {
-            GetTree().CurrentScene.GetNode<EditorGameManager>("editor/main/editor_game_manager").UnregisterDoor();
-        }
+        return area.GlobalPosition;
     }
 
     private void UpdateIndicator()
     {
-        GlobalGameManager ggm = null;
-        EditorGameManager egm = null;
-        Gorgonzola gorg = Gorgonzola.GetInstance();
-
-        if (Runtime.editorMode)
-        {
-            egm = EditorGameManager.GetInstance();
-        }
-        else
-        {
-            ggm = GlobalGameManager.GetInstance();
-        }
-
-        if (egm == null && ggm == null)
+        if (isDuplicate)
         {
             return;
         }
 
-        if (Gorgonzola.GetInstance() == null)
+        Gorgonzola gorg = Gorgonzola.GetInstance();
+        if (gorg == null)
         {
             return;
         }
@@ -180,31 +183,39 @@ public partial class Door : Node2D
         if (shouldShow)
         {
             gorg.ChangeIndicator("interact");
-            gorg.SetIndicatorVisibility(true);
+        }
+
+        gorg.SetIndicatorVisibility(shouldShow);
+    }
+
+    // Writes levelCompleted to whichever manager is active, if it still exists.
+    private void SetLevelCompleted(bool value)
+    {
+        if (Runtime.editorMode)
+        {
+            var egm = EditorGameManager.GetInstance();
+            if (egm != null)
+            {
+                egm.levelCompleted = value;
+            }
         }
         else
         {
-            gorg.SetIndicatorVisibility(false);
+            var ggm = GlobalGameManager.GetInstance();
+            if (ggm != null)
+            {
+                ggm.levelCompleted = value;
+            }
         }
     }
 
-    void OnFlush()
+    private EditorGameManager GetEditorManagerNode()
+    {
+        return GetTree()?.CurrentScene?.GetNodeOrNull<EditorGameManager>(EditorGameManagerPath);
+    }
+
+    private void OnFlush()
     {
         QueueFree();
-    }
-
-    private void RefreshIfNeeded()
-    {
-        if (Gorgonzola.GetInstance() == null || GlobalGameManager.GetInstance() == null)
-        {
-            return;
-        }
-
-        UpdateIndicator();
-    }
-
-    public Vector2 GetColliderPos()
-    {
-        return area.GlobalPosition;
     }
 }
