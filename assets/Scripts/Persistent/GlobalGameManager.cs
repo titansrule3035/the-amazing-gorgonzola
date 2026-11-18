@@ -96,11 +96,11 @@ public partial class GlobalGameManager : Node2D
 
         PauseMenu.GetInstance().Visible = GetTree().Paused = gamePaused && (localGM != null ? localGM.allowPausing : false);
 
-        if (DebugManager.debug && Input.IsActionJustPressed("F5"))
+        /*if (DebugManager.debug && Input.IsActionJustPressed("F5"))
         {
 			LoadNextLevel();
 			canMove = true;
-		}
+		}*/
 
         base._Process(delta);
     }
@@ -108,7 +108,9 @@ public partial class GlobalGameManager : Node2D
     public override void _ExitTree()
     {
         if (instance == this)
+        {
             instance = null;
+        }
 
         base._ExitTree();
     }

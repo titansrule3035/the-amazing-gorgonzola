@@ -37,6 +37,10 @@ public static partial class DebugManager
             {
                 GlobalGameManager ggm = GlobalGameManager.GetInstance();
 
+                Runtime runtime = Runtime.GetInstance();
+
+                ggm.OnNextLevelLoaded += runtime.OnLevelSkipped;
+
                 ggm.LoadLevel(groupIndex, TAGLevelIndex);
 
                 ggm.canMove = true;

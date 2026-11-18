@@ -207,6 +207,13 @@ public partial class Runtime : Node2D
         }
     }
 
+    public void OnLevelSkipped()
+    {
+        GlobalGameManager ggm = GlobalGameManager.GetInstance();
+        ggm.OnNextLevelLoaded -= OnLevelSkipped;
+        ggm.canMove = true;
+    }
+
     private void HookButton(BaseButton button)
     {
         // Guard against double-hooking (e.g. node reparented -> NodeAdded fires again)
