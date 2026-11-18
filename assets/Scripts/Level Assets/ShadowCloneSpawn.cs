@@ -4,7 +4,7 @@ using System;
 public partial class ShadowCloneSpawn : Node2D
 {
     [Export] PackedScene shadowClone;
-    [Export] bool huntMode = false;
+    [Export] bool huntMode = true;
     AnimationPlayer animationPlayer;
     bool startedSpawning = false;
 
