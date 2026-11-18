@@ -56,16 +56,21 @@ public partial class Gorgonzola : BasePlayerController
         }
 
         bool? canMove;
+        bool? levelCompleted = false;
         if (Runtime.editorMode)
         {
-            canMove = EditorGameManager.GetInstance()?.canMove;
+            EditorGameManager egm = EditorGameManager.GetInstance();
+            canMove = egm?.canMove;
+            levelCompleted = egm?.levelCompleted;
         }
         else
         {
-            canMove = GlobalGameManager.GetInstance()?.canMove;
+            GlobalGameManager ggm = GlobalGameManager.GetInstance();
+            canMove = ggm?.canMove;
+            levelCompleted = ggm?.levelCompleted;
         }
 
-        if (Input.IsActionJustPressed("reset") && canMove == true && !DebugConsole.focusedOnConsole)
+        if (Input.IsActionJustPressed("reset") && canMove == true && !DebugConsole.focusedOnConsole && levelCompleted == false)
         {
             Kill();
         }
