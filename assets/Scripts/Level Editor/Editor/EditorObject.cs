@@ -190,6 +190,7 @@ public partial class EditorObject : Node2D
     LevelEditorMain? editorMain;
     bool ctrlOverride;
     bool wasActive;
+    bool wasPlacing = false;
     bool overOwnUi;
     bool isDuplicate;
     ulong uiBlockUntilFrame;
@@ -385,6 +386,25 @@ public partial class EditorObject : Node2D
             tool.Update(delta);
         }
         hideCursor = !(!DebugConsole.focusedOnConsole && active && tool.cursorVisible);
+
+        if (IsHoveredCellBlocked())
+        {
+            if (currentCursorMode == CursorMode.Place && !wasPlacing)
+            {
+                wasPlacing = true;
+                currentCursorMode = CursorMode.Mouse;
+            }
+        }
+        else
+        {
+            if (wasPlacing)
+            {
+                currentCursorMode = CursorMode.Place;
+                wasPlacing = false;
+            }
+        }
+
+        
     }
 
     LevelEditorMain? GetEditorMain()
