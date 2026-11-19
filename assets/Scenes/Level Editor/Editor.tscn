@@ -32,7 +32,9 @@
 [ext_resource type="PackedScene" uid="uid://j6teup3h4r6y" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_red_on_off_block.tscn" id="39_hgw8s"]
 [ext_resource type="PackedScene" uid="uid://dlr7d3uibltro" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_on_off_switch_master.tscn" id="40_5j6bi"]
 [ext_resource type="PackedScene" uid="uid://dmss5kybk5cbn" path="res://assets/Scenes/Level Editor/Items/Hazards/item_chunk.tscn" id="41_pw0c8"]
+[ext_resource type="Texture2D" uid="uid://m8l7n4ak02vd" path="res://assets/Sprites/Level Editor/leveleditor_help.png" id="41_tiove"]
 [ext_resource type="PackedScene" uid="uid://dpjqqtkm7dx5i" path="res://assets/Scenes/UI/kill_panel.tscn" id="42_7pho1"]
+[ext_resource type="Texture2D" uid="uid://do1atkouln2kb" path="res://assets/Sprites/Level Editor/buttons.png" id="43_miqjo"]
 [ext_resource type="Texture2D" uid="uid://cj6vqsmewgpil" path="res://assets/Sprites/UI/Debug Console/box.png" id="44_eecbv"]
 [ext_resource type="Script" uid="uid://bs6h58nd2cj1y" path="res://assets/Scripts/Debug Console/DebugConsole.cs" id="44_ffvxq"]
 [ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="45_krgg0"]
@@ -450,6 +452,102 @@ bg_color = Color(0, 1, 0, 0.52156866)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2a1od"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bi6qw"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvert"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b756o"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlf2w"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qby8e"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sn2hh"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3lrl"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7iut"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx6vq"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_riogd"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uxtx"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glw6i"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q661f"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8662r"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp8fp"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymcgj"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khjdg"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thvp2"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i31c"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(256, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30nhs"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(288, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjd6l"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7osbc"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aryov"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(320, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyrmb"]
+atlas = ExtResource("43_miqjo")
+region = Rect2(352, 32, 32, 32)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fni2r"]
 bg_color = Color(0.49019608, 0, 0, 0.52156866)
@@ -870,7 +968,7 @@ anchors_preset = -1
 anchor_left = 0.004
 anchor_top = 0.031000001
 anchor_right = 0.99600005
-anchor_bottom = 0.96900004
+anchor_bottom = 0.84400004
 offset_left = 0.07999992
 offset_top = 0.007999957
 offset_right = -0.08001709
@@ -922,10 +1020,10 @@ vertical_alignment = 1
 [node name="ClonesMenu" type="Control" parent="CanvasLayer/UI" unique_id=594398989]
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
-anchor_top = 0.075
+anchor_top = 0.072000004
 anchor_right = 0.27800003
 anchor_bottom = 0.91
-offset_top = 0.19999695
+offset_top = -0.208004
 offset_right = -0.3840332
 offset_bottom = -0.24005127
 grow_horizontal = 2
@@ -936,11 +1034,11 @@ mouse_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.004
-anchor_top = 0.004
+anchor_top = 0.003
 anchor_right = 0.99600005
 anchor_bottom = 0.99700004
 offset_left = 0.07999992
-offset_top = 0.11599994
+offset_top = -0.1720016
 offset_right = -0.08001709
 offset_bottom = 0.16296387
 grow_horizontal = 2
@@ -952,13 +1050,11 @@ custom_maximum_size = Vector2(476, -1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.004
-anchor_top = 0.003
 anchor_right = 0.99600005
 anchor_bottom = 0.99700004
 offset_left = 0.07999992
-offset_top = -0.16000223
 offset_right = -0.08001709
-offset_bottom = 2.1629639
+offset_bottom = 0.15997314
 mouse_filter = 0
 horizontal_scroll_mode = 0
 
@@ -1019,7 +1115,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
-visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -1111,20 +1206,6 @@ theme_override_constants/separation = 12
 alignment = 1
 
 [node name="ItemID3SemiSolid" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=518054047 instance=ExtResource("51_5j6bi")]
-layout_mode = 2
-
-[node name="ItemTileID3SemiSolid1" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=37559973 instance=ExtResource("28_3eqs7")]
-layout_mode = 2
-
-[node name="TilesItemContainer5" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=303550362]
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="ItemTileID3Outter" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=1602622208 instance=ExtResource("26_dscuk")]
-layout_mode = 2
-
-[node name="ItemTileID3Inner" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer5" unique_id=668414888 instance=ExtResource("27_3eqs7")]
 layout_mode = 2
 
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
@@ -1522,7 +1603,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_tkxyu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fphxj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fphxj")
 
-[node name="GameControlsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1976162405]
+[node name="GameControlsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1976162405 node_paths=PackedStringArray("HelpButton", "UndoButton", "RedoButton", "MuteButton", "BrushButton", "EraseButton", "helpMenu")]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 1
 anchor_top = 0.91
@@ -1531,6 +1612,13 @@ anchor_bottom = 1.0
 offset_top = -0.24005127
 offset_right = -0.3840332
 script = ExtResource("52_8ul77")
+HelpButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer/HelpButton")
+UndoButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer/UndoButton")
+RedoButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer/RedoButton")
+MuteButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2/MuteButton")
+BrushButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2/BrushButton")
+EraseButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2/EraseButton")
+helpMenu = NodePath("../HelpMenuBg")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/GameControlsMenu" unique_id=1460833739]
 layout_mode = 1
@@ -1574,7 +1662,7 @@ offset_left = 192.0
 offset_right = 344.0
 offset_bottom = 76.0
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl" unique_id=1533842866]
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl" unique_id=1470058043]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1585,58 +1673,96 @@ offset_right = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer" unique_id=1922419187]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2" unique_id=1925196787]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer" unique_id=1234239616]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer" unique_id=767514001]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 
-[node name="HelpButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer" unique_id=499907931]
+[node name="HelpButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer" unique_id=305745557]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 6
-text = "Help"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_bi6qw")
+texture_pressed = SubResource("AtlasTexture_tvert")
+texture_hover = SubResource("AtlasTexture_b756o")
+texture_disabled = SubResource("AtlasTexture_tlf2w")
+texture_focused = SubResource("AtlasTexture_bi6qw")
 
-[node name="UndoButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer" unique_id=505536742]
+[node name="UndoButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer" unique_id=389824997]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 6
-text = "Undo"
+texture_normal = SubResource("AtlasTexture_qby8e")
+texture_pressed = SubResource("AtlasTexture_sn2hh")
+texture_hover = SubResource("AtlasTexture_d3lrl")
+texture_disabled = SubResource("AtlasTexture_d7iut")
+texture_focused = SubResource("AtlasTexture_qby8e")
 
-[node name="RedoButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer" unique_id=607377926]
+[node name="RedoButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer" unique_id=1636084888]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 6
-text = "Redo"
+texture_normal = SubResource("AtlasTexture_xx6vq")
+texture_pressed = SubResource("AtlasTexture_riogd")
+texture_hover = SubResource("AtlasTexture_3uxtx")
+texture_disabled = SubResource("AtlasTexture_glw6i")
+texture_focused = SubResource("AtlasTexture_xx6vq")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer" unique_id=1697526877]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer" unique_id=730877032]
 layout_mode = 2
 
-[node name="ResetButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=1098769369]
+[node name="MuteButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2" unique_id=1537037548]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 6
-text = "Reset"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_q661f")
+texture_pressed = SubResource("AtlasTexture_8662r")
+texture_hover = SubResource("AtlasTexture_bp8fp")
+texture_disabled = SubResource("AtlasTexture_ymcgj")
+texture_focused = SubResource("AtlasTexture_q661f")
 
-[node name="SelectButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=408595651]
+[node name="BrushButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2" unique_id=226348857]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 6
-text = "Mouse"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_khjdg")
+texture_pressed = SubResource("AtlasTexture_thvp2")
+texture_hover = SubResource("AtlasTexture_2i31c")
+texture_disabled = SubResource("AtlasTexture_30nhs")
+texture_focused = SubResource("AtlasTexture_khjdg")
 
-[node name="EraseButton" type="Button" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=222075454]
+[node name="EraseButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2" unique_id=1450751659]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 6
-text = "Erase"
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_wjd6l")
+texture_pressed = SubResource("AtlasTexture_7osbc")
+texture_hover = SubResource("AtlasTexture_aryov")
+texture_disabled = SubResource("AtlasTexture_qyrmb")
+texture_focused = SubResource("AtlasTexture_wjd6l")
+
+[node name="HelpMenuBg" type="ColorRect" parent="CanvasLayer/UI" unique_id=587108065]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="center_container" type="CenterContainer" parent="CanvasLayer/UI/HelpMenuBg" unique_id=2081286395]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="texture_rect" type="TextureRect" parent="CanvasLayer/UI/HelpMenuBg/center_container" unique_id=1804714965]
+layout_mode = 2
+texture = ExtResource("41_tiove")
 
 [node name="BlockMouse" type="ColorRect" parent="CanvasLayer/UI" unique_id=434577153]
 layout_mode = 1
@@ -1649,6 +1775,7 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [node name="QuitMenu" type="Control" parent="CanvasLayer/UI" unique_id=483901159 node_paths=PackedStringArray("quitButton", "cancelButton")]
+visible = false
 anchors_preset = 0
 offset_left = 608.0
 offset_top = 200.0
