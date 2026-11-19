@@ -2,16 +2,22 @@ using Godot;
 using System;
 using System.IO;
 using FileAccess = Godot.FileAccess;
+using CursorMode = EditorObject.CursorMode;
+
 
 public partial class GameControlsMenu : Control
 {
     Button PlayButton;
-    Button HelpButton;
-    Button UndoButton;
-    Button RedoButton;
-    Button ResetButton;
-    Button SelectButton;
-    Button EraseButton;
+    [Export] TextureButton HelpButton;
+    [Export] TextureButton UndoButton;
+    [Export] TextureButton RedoButton;
+    [Export] TextureButton MuteButton;
+    [Export] TextureButton BrushButton;
+    [Export] TextureButton EraseButton;
+
+    CursorMode lastCursorMode;
+    public static bool helpMenuActive = false;
+    [Export] public Control helpMenu;
 
     Runtime runtime;
     LevelEditorMain main;
@@ -21,17 +27,11 @@ public partial class GameControlsMenu : Control
     {
         PlayButton = GetNode<Button>("PlayButtonControl/CenterContainer/PlayButton");
         PlayButton.Pressed += PlayButtonPressed;
-        HelpButton = GetNode<Button>("EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer/HelpButton");
         HelpButton.Pressed += HelpButtonPressed;
-        UndoButton = GetNode<Button>("EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer/UndoButton");
         UndoButton.Pressed += UndoButtonPressed;
-        RedoButton = GetNode<Button>("EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer/RedoButton");
         RedoButton.Pressed += RedoButtonPressed;
-        ResetButton = GetNode<Button>("EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2/ResetButton");
-        ResetButton.Pressed += ResetButtonPressed;
-        SelectButton = GetNode<Button>("EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2/SelectButton");
-        SelectButton.Pressed += SelectButtonPressed;
-        EraseButton = GetNode<Button>("EditorToolsControl/CenterContainer/VBoxContainer/HBoxContainer2/EraseButton");
+        MuteButton.Pressed += MuteButtonPressed;
+        BrushButton.Pressed += BrushButtonPressed;
         EraseButton.Pressed += EraseButtonPressed;
     }
 
@@ -48,8 +48,33 @@ public partial class GameControlsMenu : Control
 
         PlayButton.Text = GetTree().Paused ? "Play" : "Stop";
 
-        UndoButton.Disabled = !editor.history.canUndo;
-        RedoButton.Disabled = !editor.history.canRedo;
+        HelpButton.Disabled = BrushButton.Disabled = EraseButton.Disabled = !GetTree().Paused;
+
+        if (GetTree().Paused)
+        {
+            UndoButton.Disabled = !editor.history.canUndo;
+            RedoButton.Disabled = !editor.history.canRedo;
+        }
+        else
+        {
+            UndoButton.Disabled = RedoButton.Disabled = true;
+        }
+
+        BrushButton.ButtonPressed = (editor.currentCursorMode == CursorMode.Place);
+        EraseButton.ButtonPressed = (editor.currentCursorMode == CursorMode.Eraser);
+
+        helpMenu.Visible = helpMenuActive;
+
+        if (!helpMenuActive)
+        {
+            HelpButton.ButtonPressed = false;
+        }
+
+        if (Input.IsActionJustPressed("mb_left") && helpMenuActive)
+        {
+            editor.currentCursorMode = lastCursorMode;
+            helpMenuActive = false;
+        }
     }
     private async void PlayButtonPressed()
     {
@@ -99,7 +124,12 @@ public partial class GameControlsMenu : Control
 
     private void HelpButtonPressed()
     {
-        DebugManager.Log($"{new NotImplementedException()}", "Editor Help Button");
+        if (!helpMenuActive)
+        {
+            lastCursorMode = editor.currentCursorMode;
+            editor.currentCursorMode = CursorMode.Mouse;
+            helpMenuActive = true;
+        }
     }
 
     private void UndoButtonPressed()
@@ -112,18 +142,32 @@ public partial class GameControlsMenu : Control
         editor.Redo();
     }
 
-    private void ResetButtonPressed()
+    private void MuteButtonPressed()
     {
-        DebugManager.Log(new NotImplementedException(), "Editor Reset Button");
+        DebugManager.Log(new NotImplementedException(), "Editor Mute Button");
     }
 
-    private void SelectButtonPressed()
+    private void BrushButtonPressed()
     {
-        editor.SetCursorMode(EditorObject.CursorMode.Select);
+        if (editor.currentCursorMode == EditorObject.CursorMode.Place)
+        {
+            editor.SetCursorMode(EditorObject.CursorMode.Mouse);
+        }
+        else
+        {
+            editor.SetCursorMode(EditorObject.CursorMode.Place);
+        }
     }
 
     private void EraseButtonPressed()
     {
-        editor.SetCursorMode(EditorObject.CursorMode.Eraser);
+        if (editor.currentCursorMode == EditorObject.CursorMode.Eraser)
+        {
+            editor.SetCursorMode(EditorObject.CursorMode.Mouse);
+        }
+        else
+        {
+            editor.SetCursorMode(EditorObject.CursorMode.Eraser);
+        }
     }
 }
