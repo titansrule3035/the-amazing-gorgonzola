@@ -199,7 +199,7 @@ public partial class EditorItemObject : TextureRect
         else
         {
             selected = !disabled && item == this;
-            player.Play(disabled ? animDisabled : selected ? animSelected : animDefault);
+            GetParent().GetNode<AnimationPlayer>("AnimationPlayer").Play(disabled ? animDisabled : selected ? animSelected : animDefault);
         }
 
         if (item == null)
