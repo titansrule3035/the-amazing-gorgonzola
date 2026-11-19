@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://beheqwali40kg"]
 
 [ext_resource type="Texture2D" uid="uid://d2gf4vci3tk1n" path="res://assets/Sprites/Level Editor/ItemBGDisabled.png" id="1_bgkya"]
+[ext_resource type="Texture2D" uid="uid://dbfl4quscunxt" path="res://assets/Sprites/Level Editor/leveleditor_UI.png" id="1_qg682"]
 [ext_resource type="Texture2D" uid="uid://dwlgqmvpto5wg" path="res://assets/Sprites/Level Editor/ItemBG.png" id="1_x54yb"]
 [ext_resource type="Script" uid="uid://b37a551o7knnq" path="res://assets/Scripts/Level Editor/UI/EditorItemObject.cs" id="2_jy0h8"]
 [ext_resource type="Texture2D" uid="uid://ci3inxjevxkdg" path="res://assets/Sprites/Level Editor/ItemBGSelected.png" id="3_wnyfm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x44h1"]
+atlas = ExtResource("1_qg682")
+region = Rect2(656, 367, 96, 97)
 
 [sub_resource type="Animation" id="Animation_bgkya"]
 resource_name = "default"
@@ -94,9 +99,12 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 process_mode = 3
 texture_filter = 1
 custom_minimum_size = Vector2(96, 96)
-offset_right = 96.0
-offset_bottom = 96.0
-texture = ExtResource("1_x54yb")
+anchors_preset = -1
+anchor_right = 0.056
+anchor_bottom = 0.11100001
+offset_right = -0.7680054
+offset_bottom = 0.09599304
+texture = SubResource("AtlasTexture_x44h1")
 stretch_mode = 4
 
 [node name="ItemTexture" type="TextureRect" parent="." unique_id=1896539650]
@@ -125,6 +133,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_x44h1")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_8scmh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_p75mh")

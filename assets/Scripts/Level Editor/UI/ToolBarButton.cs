@@ -14,6 +14,7 @@ public partial class ToolBarButton : Button
     [Export] public ToolBarMenu menu;
     [Export] public Godot.Collections.Array<Button> menuButtons;
     Godot.Color fill;
+    AnimationPlayer fillController;
     public ColorRect blockMouse;
 
     public override void _Ready()
@@ -26,6 +27,9 @@ public partial class ToolBarButton : Button
         menu.parentButton = this;
 
         menu.Visible = false;
+
+        fillController = GetNode<AnimationPlayer>("animation_player");
+
         showMenu = false;
     }
 
@@ -34,13 +38,12 @@ public partial class ToolBarButton : Button
         menu.Visible = showMenu;
         if (showMenu)
         {
-            fill = new("004C0B");
+            fillController.Play("on");
         }
         else
         {
-            fill = new("008800");
+            fillController.Play("off");
         }
-        GetNode<ColorRect>("ButtonForeground").Color = fill;
     }
 
     public void UpdateMenuAndButton(bool state)

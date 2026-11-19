@@ -9,15 +9,23 @@ public partial class ScrollButtonMenusController : Control
     [Export] Godot.Collections.Array<string> scrollButtonMenuNames;
 
     public Button leftButton;
+    public TextureRect leftSprite;
+    public AnimationPlayer leftPlayer;
     public Button rightButton;
+    public TextureRect rightSprite;
+    public AnimationPlayer rightPlayer;
     public Label assetsLabel;
 
     public override void _Ready()
     {
         leftButton = GetNode<Button>("LeftButton");
         leftButton.Pressed += LeftButtonPressed;
+        leftSprite = GetNode<TextureRect>("LeftSprite");
+        leftPlayer = leftSprite.GetNode<AnimationPlayer>("player");
         rightButton = GetNode<Button>("RightButton");
         rightButton.Pressed += RightButtonPressed;
+        rightSprite = GetNode<TextureRect>("RightSprite");
+        rightPlayer = rightSprite.GetNode<AnimationPlayer>("player");
         assetsLabel = GetNode<Label>("TitleLabel");
     }
 
@@ -46,6 +54,8 @@ public partial class ScrollButtonMenusController : Control
             }
         }
 
+        leftPlayer.Play(leftButton.ButtonPressed ? "pressed" : "default");
+        rightPlayer.Play(rightButton.ButtonPressed ? "pressed" : "default");
     }
     void LeftButtonPressed()
     {

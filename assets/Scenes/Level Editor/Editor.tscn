@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="5_w41ii"]
 [ext_resource type="Texture2D" uid="uid://d0svfio3mqfe6" path="res://assets/Sprites/World/worldHUB_bg_2_2.png" id="9_yyvtn"]
 [ext_resource type="Texture2D" uid="uid://ctjfy4d5vkxg0" path="res://assets/Sprites/World/worldHUB_bg_1_2.png" id="10_miqjo"]
+[ext_resource type="Texture2D" uid="uid://dbfl4quscunxt" path="res://assets/Sprites/Level Editor/leveleditor_UI.png" id="13_mgmnv"]
 [ext_resource type="Script" uid="uid://bv7bfobi7ndpy" path="res://assets/Scripts/Level Editor/UI/CameraDrag.cs" id="17_yuieu"]
 [ext_resource type="Script" uid="uid://decn0trfeo5dx" path="res://assets/Scripts/Persistent/EditorGameManager.cs" id="18_xuh87"]
 [ext_resource type="PackedScene" uid="uid://bc8rxj4w6dd3f" path="res://assets/Scenes/Level Editor/Items/Clones/item_rev_upside_clone.tscn" id="20_fm07t"]
@@ -440,13 +441,245 @@ _data = {
 &"default": SubResource("Animation_miqjo")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ml30"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(0, 0, 1728, 32)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qdlv5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq7ac"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(560, 64, 160, 32)
+
+[sub_resource type="Animation" id="Animation_3eqs7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(560, 64, 160, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_r76fb"]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(560, 64, 160, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_dscuk"]
+resource_name = "on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(720, 64, 160, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3eqs7"]
+_data = {
+&"RESET": SubResource("Animation_3eqs7"),
+&"off": SubResource("Animation_r76fb"),
+&"on": SubResource("Animation_dscuk")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76dpg"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(560, 96, 160, 32)
+
+[sub_resource type="Animation" id="Animation_76dpg"]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(560, 96, 160, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_fm07t"]
+resource_name = "on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(720, 96, 160, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5j6bi"]
+_data = {
+&"off": SubResource("Animation_76dpg"),
+&"on": SubResource("Animation_fm07t")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm07t"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(560, 128, 160, 32)
+
+[sub_resource type="Animation" id="Animation_5j6bi"]
+resource_name = "off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(560, 128, 160, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_pw0c8"]
+resource_name = "on"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(720, 128, 160, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w41ii"]
+_data = {
+&"off": SubResource("Animation_5j6bi"),
+&"on": SubResource("Animation_pw0c8")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22nh7"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(0, 64, 480, 688)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8b2ky"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(0, 32, 480, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5l2r5"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(658, 226, 28, 28)
+
+[sub_resource type="Animation" id="Animation_fn5li"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(658, 226, 28, 28)]
+}
+
+[sub_resource type="Animation" id="Animation_n0wal"]
+resource_name = "pressed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(722, 226, 28, 28)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ovo5j"]
+_data = {
+&"default": SubResource("Animation_fn5li"),
+&"pressed": SubResource("Animation_n0wal")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aknia"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(562, 226, 28, 28)
+
+[sub_resource type="Animation" id="Animation_6514u"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(562, 226, 28, 28)]
+}
+
+[sub_resource type="Animation" id="Animation_s2quw"]
+resource_name = "pressed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(626, 226, 28, 28)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ullss"]
+_data = {
+&"default": SubResource("Animation_6514u"),
+&"pressed": SubResource("Animation_s2quw")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkxyu"]
 bg_color = Color(0, 0.49019608, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fphxj"]
 bg_color = Color(0, 1, 0, 0.52156866)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ku4rv"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(0, 752, 480, 112)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2a1od"]
 bg_color = Color(0, 0, 0, 1)
@@ -706,99 +939,71 @@ offset_right = 1728.0
 offset_bottom = 32.0
 script = ExtResource("26_miwel")
 
-[node name="ToolBarBackground" type="ColorRect" parent="CanvasLayer/UI/ToolBar" unique_id=1669384270]
-layout_mode = 0
-offset_right = 1728.0
-offset_bottom = 32.0
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI/ToolBar" unique_id=583801867]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_1ml30")
 
 [node name="FileButton" type="Button" parent="CanvasLayer/UI/ToolBar" unique_id=1187218834 node_paths=PackedStringArray("menu", "menuButtons")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.074
+anchor_right = 0.093
 anchor_bottom = 1.0
-offset_right = 0.12799835
+offset_right = -0.70401
 focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qdlv5")
 script = ExtResource("28_vthxm")
 menu = NodePath("../../FileMenu")
 menuButtons = [null, null, null, null, null, null]
 
-[node name="ButtonForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar/FileButton" unique_id=1689586199]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.012
-anchor_top = 0.062000003
-anchor_right = 0.98800004
-anchor_bottom = 0.93700004
-offset_left = 0.464
-offset_top = 0.015999913
-offset_right = -0.46400452
-offset_bottom = 0.01599884
-mouse_filter = 2
-color = Color(0, 0.53333336, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/FileButton" unique_id=731033202]
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI/ToolBar/FileButton" unique_id=999447275]
 layout_mode = 0
-offset_right = 128.0
+offset_right = 160.0
 offset_bottom = 32.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 16
-text = "File"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = SubResource("AtlasTexture_iq7ac")
+
+[node name="animation_player" type="AnimationPlayer" parent="CanvasLayer/UI/ToolBar/FileButton" unique_id=536963975]
+libraries/ = SubResource("AnimationLibrary_3eqs7")
+autoplay = &"off"
 
 [node name="WindowButton" type="Button" parent="CanvasLayer/UI/ToolBar" unique_id=1308339602 node_paths=PackedStringArray("menu", "menuButtons")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.074
+anchor_left = 0.09200001
 anchor_right = 0.172
 anchor_bottom = 1.0
-offset_left = 0.12799835
-offset_right = 0.7839966
+offset_left = 1.0239868
+offset_right = 22.783997
 focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qdlv5")
 script = ExtResource("29_6g7ay")
 menu = NodePath("../../WindowMenu")
 menuButtons = []
 
-[node name="ButtonForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar/WindowButton" unique_id=1760801875]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.012
-anchor_top = 0.062000003
-anchor_right = 0.98800004
-anchor_bottom = 0.93700004
-offset_left = -0.03999996
-offset_top = 0.015999913
-offset_right = 0.039993286
-offset_bottom = 0.01599884
-mouse_filter = 2
-color = Color(0, 0.53333336, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/WindowButton" unique_id=908977366]
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI/ToolBar/WindowButton" unique_id=769312472]
 layout_mode = 0
-offset_right = 168.0
+offset_right = 160.0
 offset_bottom = 32.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 16
-text = "Window"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = SubResource("AtlasTexture_76dpg")
+
+[node name="animation_player" type="AnimationPlayer" parent="CanvasLayer/UI/ToolBar/WindowButton" unique_id=715544134]
+libraries/ = SubResource("AnimationLibrary_5j6bi")
+autoplay = &"off"
 
 [node name="EditorButton" type="Button" parent="CanvasLayer/UI/ToolBar" unique_id=2086372300 node_paths=PackedStringArray("menu", "menuButtons")]
 process_mode = 3
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172
+anchor_left = 0.185
 anchor_right = 0.27800003
 anchor_bottom = 1.0
-offset_left = 0.7839966
+offset_left = 0.32000732
 offset_right = -0.3840332
 focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qdlv5")
@@ -806,39 +1011,15 @@ script = ExtResource("30_ll6sc")
 menu = NodePath("../../EditorMenu")
 menuButtons = [null, null, null, null, null]
 
-[node name="ButtonForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=400297462]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.011000001
-anchor_top = 0.062000003
-anchor_right = 0.989
-anchor_bottom = 0.93700004
-offset_left = -0.0020000935
-offset_top = 0.015999913
-offset_right = 0.0019989014
-offset_bottom = 0.01599884
-mouse_filter = 2
-color = Color(0, 0.53333336, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=2100602292]
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=541657620]
 layout_mode = 0
-offset_right = 182.0
+offset_right = 160.0
 offset_bottom = 32.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 16
-text = "Editor"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = SubResource("AtlasTexture_fm07t")
 
-[node name="ToolBarForeground" type="ColorRect" parent="CanvasLayer/UI/ToolBar" unique_id=1997947204]
-layout_mode = 0
-offset_left = 482.0
-offset_top = 2.0
-offset_right = 1726.0
-offset_bottom = 30.0
-mouse_filter = 2
-color = Color(0, 0.53333336, 0, 1)
+[node name="animation_player" type="AnimationPlayer" parent="CanvasLayer/UI/ToolBar/EditorButton" unique_id=1145214949]
+libraries/ = SubResource("AnimationLibrary_w41ii")
+autoplay = &"off"
 
 [node name="ToolBarLabel" type="Label" parent="CanvasLayer/UI/ToolBar" unique_id=1695420679]
 layout_mode = 1
@@ -909,22 +1090,22 @@ hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
 layout_toggle_enabled = false
 
-[node name="MenuBackdrop" type="ColorRect" parent="CanvasLayer/UI" unique_id=1930504820]
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI" unique_id=488056958]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.037
-anchor_right = 0.24100001
-anchor_bottom = 1.0
-offset_top = 0.031999588
-offset_right = 63.55197
-color = Color(0, 0, 0, 1)
+anchor_top = 0.074
+anchor_right = 0.27800003
+anchor_bottom = 0.87000006
+offset_top = 0.063999176
+offset_right = -0.3840332
+offset_bottom = 0.3199463
+texture = SubResource("AtlasTexture_22nh7")
 
 [node name="ScrollButton" type="Control" parent="CanvasLayer/UI" unique_id=1801667640 node_paths=PackedStringArray("scrollButtonMenus")]
-custom_minimum_size = Vector2(352, 32)
 anchors_preset = 0
-offset_top = 33.0
+offset_top = 32.0
 offset_right = 480.0
-offset_bottom = 65.0
+offset_bottom = 62.0
 script = ExtResource("31_464bi")
 scrollButtonMenus = [NodePath("../ClonesMenu"), NodePath("../TilesMenu"), NodePath("../LevelMechanicsMenu")]
 scrollButtonMenuNames = Array[String](["Clones", "Tiles", "Level Mechanics"])
@@ -934,11 +1115,10 @@ process_mode = 3
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.004
-anchor_right = 0.071
-anchor_bottom = 1.0
-offset_left = 0.07999992
-offset_right = -0.08000183
+anchor_right = 0.067
+anchor_bottom = 1.067
+offset_right = -0.15999985
+offset_bottom = -0.010002136
 focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -953,26 +1133,46 @@ process_mode = 3
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.929
-anchor_right = 0.99600005
+anchor_left = 0.933
+anchor_top = -0.033
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.07998657
-offset_right = -0.08001709
+offset_left = 0.15997314
+offset_top = 0.30200028
 focus_mode = 0
 
-[node name="ScrollButtonForeground" type="ColorRect" parent="CanvasLayer/UI/ScrollButton" unique_id=1611388771]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.031000001
-anchor_right = 0.99600005
-anchor_bottom = 0.84400004
-offset_left = 0.07999992
-offset_top = 0.007999957
-offset_right = -0.08001709
-offset_bottom = -0.0080013275
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI/ScrollButton" unique_id=1266376522]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 32.0
 mouse_filter = 2
-color = Color(0, 0.53333336, 0, 1)
+texture = SubResource("AtlasTexture_8b2ky")
+
+[node name="LeftSprite" type="TextureRect" parent="CanvasLayer/UI/ScrollButton" unique_id=254714275]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 31.0
+offset_bottom = 31.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_5l2r5")
+
+[node name="player" type="AnimationPlayer" parent="CanvasLayer/UI/ScrollButton/LeftSprite" unique_id=1902939778]
+libraries/ = SubResource("AnimationLibrary_ovo5j")
+autoplay = &"default"
+
+[node name="RightSprite" type="TextureRect" parent="CanvasLayer/UI/ScrollButton" unique_id=1494791035]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 2.0
+offset_right = 478.0
+offset_bottom = 30.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_aknia")
+
+[node name="player" type="AnimationPlayer" parent="CanvasLayer/UI/ScrollButton/RightSprite" unique_id=1796947613]
+libraries/ = SubResource("AnimationLibrary_ullss")
+autoplay = &"default"
 
 [node name="TitleLabel" type="Label" parent="CanvasLayer/UI/ScrollButton" unique_id=599683389]
 layout_mode = 1
@@ -983,76 +1183,29 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("27_v344w")
-theme_override_font_sizes/font_size = 16
 text = "Clones"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LeftLabel" type="Label" parent="CanvasLayer/UI/ScrollButton" unique_id=314703288]
-custom_minimum_size = Vector2(28, 28)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.085
-anchor_bottom = 1.0
-offset_right = 0.07999802
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "<"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RightLabel" type="Label" parent="CanvasLayer/UI/ScrollButton" unique_id=1204997525]
-custom_minimum_size = Vector2(28, 28)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.92
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.16000366
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = ">"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ClonesMenu" type="Control" parent="CanvasLayer/UI" unique_id=594398989]
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
-anchor_top = 0.072000004
+anchor_top = 0.074
 anchor_right = 0.27800003
 anchor_bottom = 0.91
-offset_top = -0.208004
+offset_top = 0.063999176
 offset_right = -0.3840332
 offset_bottom = -0.24005127
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="AssetsForeground" type="ColorRect" parent="CanvasLayer/UI/ClonesMenu" unique_id=1332045913]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.003
-anchor_right = 0.99600005
-anchor_bottom = 0.99700004
-offset_left = 0.07999992
-offset_top = -0.1720016
-offset_right = -0.08001709
-offset_bottom = 0.16296387
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.53333336, 0, 1)
-
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ClonesMenu" unique_id=1094621]
-custom_maximum_size = Vector2(476, -1)
+custom_maximum_size = Vector2(480, -1)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.004
-anchor_right = 0.99600005
-anchor_bottom = 0.99700004
-offset_left = 0.07999992
-offset_right = -0.08001709
-offset_bottom = 0.15997314
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 0
 horizontal_scroll_mode = 0
 
@@ -1074,7 +1227,6 @@ theme_override_constants/separation = 24
 alignment = 1
 
 [node name="ItemGorgonzola" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer" unique_id=1663939762 instance=ExtResource("32_ys3g7")]
-process_mode = 0
 layout_mode = 2
 
 [node name="ClonesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1315606873]
@@ -1082,12 +1234,10 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemRevClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=1816618345 instance=ExtResource("34_xibel")]
-process_mode = 0
+[node name="ItemRevClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=649440360 instance=ExtResource("34_xibel")]
 layout_mode = 2
 
-[node name="ItemNormClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=569672106 instance=ExtResource("33_10656")]
-process_mode = 0
+[node name="ItemNormClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=675237825 instance=ExtResource("33_10656")]
 layout_mode = 2
 
 [node name="ClonesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=52311940]
@@ -1095,10 +1245,10 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=504478294 instance=ExtResource("20_fm07t")]
+[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=2123207687 instance=ExtResource("20_fm07t")]
 layout_mode = 2
 
-[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=908811045 instance=ExtResource("21_5j6bi")]
+[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=1684128032 instance=ExtResource("21_5j6bi")]
 layout_mode = 2
 
 [node name="ClonesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1808902787]
@@ -1106,13 +1256,14 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=39698176 instance=ExtResource("20_pw0c8")]
+[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=1943570613 instance=ExtResource("20_pw0c8")]
 layout_mode = 2
 
-[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=375646916 instance=ExtResource("21_w41ii")]
+[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=120500501 instance=ExtResource("21_w41ii")]
 layout_mode = 2
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
+visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
 anchor_top = 0.075
@@ -1124,21 +1275,6 @@ offset_bottom = -0.24005127
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-
-[node name="AssetsForeground" type="ColorRect" parent="CanvasLayer/UI/TilesMenu" unique_id=2050153300]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.004
-anchor_right = 0.99600005
-anchor_bottom = 0.99700004
-offset_left = 0.07999992
-offset_top = -0.88000226
-offset_right = -0.08001709
-offset_bottom = 0.1630249
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.53333336, 0, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/TilesMenu" unique_id=879181758]
 custom_maximum_size = Vector2(476, -1)
@@ -1173,7 +1309,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeUp" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer1" unique_id=218435291 instance=ExtResource("45_krgg0")]
+[node name="ItemTileSpikeUp" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer1" unique_id=1744320458 instance=ExtResource("45_krgg0")]
 layout_mode = 2
 
 [node name="TilesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1087283251]
@@ -1181,13 +1317,13 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeLeft" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=758821428 instance=ExtResource("46_16gwb")]
+[node name="ItemTileSpikeLeft" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=2000290763 instance=ExtResource("46_16gwb")]
 layout_mode = 2
 
-[node name="ItemTile0718" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=304621617 instance=ExtResource("47_upxro")]
+[node name="ItemTile0718" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=760154883 instance=ExtResource("47_upxro")]
 layout_mode = 2
 
-[node name="ItemTileSpikeRight" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=1920915507 instance=ExtResource("48_gwxgc")]
+[node name="ItemTileSpikeRight" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=1914954390 instance=ExtResource("48_gwxgc")]
 layout_mode = 2
 
 [node name="TilesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1687889666]
@@ -1195,7 +1331,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=170586311 instance=ExtResource("49_n2ci5")]
+[node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=147886871 instance=ExtResource("49_n2ci5")]
 layout_mode = 2
 
 [node name="TilesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=864938905]
@@ -1203,7 +1339,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemID3SemiSolid" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=518054047 instance=ExtResource("51_5j6bi")]
+[node name="ItemTile" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=487209587 instance=ExtResource("51_5j6bi")]
 layout_mode = 2
 
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
@@ -1219,22 +1355,6 @@ offset_bottom = -0.24005127
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-
-[node name="AssetsForeground" type="ColorRect" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=543983774]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.0026166637
-anchor_right = 0.99600005
-anchor_bottom = 0.9970001
-offset_left = 0.07999992
-offset_top = 0.11599994
-offset_right = -0.08001709
-offset_bottom = 0.16296387
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.53333336, 0, 1)
-metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=1775274923]
 custom_maximum_size = Vector2(476, -1)
@@ -1268,10 +1388,10 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=328486715 instance=ExtResource("50_t3qxf")]
+[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=1485627557 instance=ExtResource("50_t3qxf")]
 layout_mode = 2
 
-[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=1534183261 instance=ExtResource("51_voii0")]
+[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=1609522930 instance=ExtResource("51_voii0")]
 layout_mode = 2
 
 [node name="OnOffsContainer1" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1668982465]
@@ -1279,7 +1399,7 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemOnOffSwitchMaster" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer1" unique_id=1353392283 instance=ExtResource("40_5j6bi")]
+[node name="ItemOnOffSwitchMaster" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer1" unique_id=1071236715 instance=ExtResource("40_5j6bi")]
 layout_mode = 2
 
 [node name="OnOffsContainer3" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1840752929]
@@ -1287,10 +1407,10 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemGreenOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=2065234632 instance=ExtResource("38_nb3xa")]
+[node name="ItemGreenOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=419539377 instance=ExtResource("38_nb3xa")]
 layout_mode = 2
 
-[node name="ItemRedOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=817325666 instance=ExtResource("39_hgw8s")]
+[node name="ItemRedOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=104353718 instance=ExtResource("39_hgw8s")]
 layout_mode = 2
 
 [node name="OnOffsContainer2" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=2042602988]
@@ -1298,10 +1418,10 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemChunk" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=429919840 instance=ExtResource("41_pw0c8")]
+[node name="ItemChunk" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=846923468 instance=ExtResource("41_pw0c8")]
 layout_mode = 2
 
-[node name="ItemMissileMortyLauncher" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=189049999 instance=ExtResource("38_76dpg")]
+[node name="ItemMissileMortyLauncher" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=2086165325 instance=ExtResource("38_76dpg")]
 layout_mode = 2
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
@@ -1618,24 +1738,23 @@ BrushButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxCo
 EraseButton = NodePath("EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer2/EraseButton")
 helpMenu = NodePath("../HelpMenuBg")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/GameControlsMenu" unique_id=1460833739]
+[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI/GameControlsMenu" unique_id=1573184203]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.026
-anchor_right = 0.99500006
-anchor_bottom = 0.97400004
-offset_left = 0.07999992
-offset_top = -0.02800107
-offset_right = 0.39996338
-offset_bottom = 0.0019989014
-color = Color(0, 0.53333336, 0, 1)
+anchor_right = 1.0
+anchor_bottom = 1.4360001
+offset_top = -34.0
+offset_bottom = -34.00801
+texture = SubResource("AtlasTexture_ku4rv")
 
 [node name="PlayButtonControl" type="Control" parent="CanvasLayer/UI/GameControlsMenu" unique_id=2061604047]
-anchors_preset = 0
-offset_left = 62.0
-offset_right = 192.0
-offset_bottom = 76.0
+layout_mode = 1
+anchor_left = 0.12900001
+anchor_top = -0.43600002
+anchor_right = 0.4
+anchor_bottom = 1.0
+offset_left = 0.0799942
+offset_top = 0.008003235
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/GameControlsMenu/PlayButtonControl" unique_id=1528107747]
 layout_mode = 1
@@ -1657,17 +1776,16 @@ text = "Play"
 [node name="EditorToolsControl" type="Control" parent="CanvasLayer/UI/GameControlsMenu" unique_id=430160898]
 anchors_preset = 0
 offset_left = 192.0
-offset_right = 344.0
-offset_bottom = 76.0
+offset_top = -34.0
+offset_right = 480.0
+offset_bottom = 78.0
 
 [node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl" unique_id=1470058043]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 0.906
 anchor_bottom = 1.0
-offset_left = 41.0
-offset_top = 2.0
-offset_right = 48.0
+offset_right = 0.07199097
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1741,6 +1859,7 @@ texture_disabled = SubResource("AtlasTexture_qyrmb")
 texture_focused = SubResource("AtlasTexture_wjd6l")
 
 [node name="HelpMenuBg" type="ColorRect" parent="CanvasLayer/UI" unique_id=587108065]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
