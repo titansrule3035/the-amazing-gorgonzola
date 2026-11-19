@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dtkkypel8chuv"]
 
 [ext_resource type="Script" uid="uid://bni2vnnwehdf" path="res://assets/Scripts/Persistent/LevelEditorMain.cs" id="1_xuh87"]
+[ext_resource type="AudioStream" uid="uid://c5dirpaj8qx44" path="res://assets/Audio/SPM_meow.mp3" id="2_yyvtn"]
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/Layout/tiles.tscn" id="4_pw0c8"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="5_w41ii"]
 [ext_resource type="Texture2D" uid="uid://d0svfio3mqfe6" path="res://assets/Sprites/World/worldHUB_bg_2_2.png" id="9_yyvtn"]
@@ -15,11 +16,8 @@
 [ext_resource type="Script" uid="uid://cigia10ol51ab" path="res://assets/Scripts/Level Editor/Editor/EditorObject.cs" id="22_07x1x"]
 [ext_resource type="Script" uid="uid://bquphp5j7gww7" path="res://assets/Scripts/Level Editor/UI/Grid.cs" id="23_5qh5s"]
 [ext_resource type="Script" uid="uid://bjuxwcce1ffw5" path="res://assets/Scripts/Level Editor/UI/Ui.cs" id="24_3ar2r"]
-[ext_resource type="PackedScene" uid="uid://ds7702yn44ofn" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_id_3_outter.tscn" id="26_dscuk"]
 [ext_resource type="Script" uid="uid://cdkcaip0x2d4n" path="res://assets/Scripts/Level Editor/UI/ToolBar.cs" id="26_miwel"]
-[ext_resource type="PackedScene" uid="uid://c132fl123351f" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_id_3_inner.tscn" id="27_3eqs7"]
 [ext_resource type="FontFile" uid="uid://sy8gc53buru6" path="res://assets/Fonts/font_sheet.png" id="27_v344w"]
-[ext_resource type="PackedScene" uid="uid://dmgg7m7yt1x10" path="res://assets/Scenes/Level Editor/Items/Tiles/ID3/item_tile_id_3_semi_solid_1.tscn" id="28_3eqs7"]
 [ext_resource type="Script" uid="uid://mcq11oudr4ja" path="res://assets/Scripts/Level Editor/UI/FileButton.cs" id="28_vthxm"]
 [ext_resource type="Script" uid="uid://bh15051wr0qun" path="res://assets/Scripts/Level Editor/UI/WindowButton.cs" id="29_6g7ay"]
 [ext_resource type="Script" uid="uid://djaq4ro08n7uu" path="res://assets/Scripts/Level Editor/UI/EditorButton.cs" id="30_ll6sc"]
@@ -2012,3 +2010,7 @@ offset_bottom = -1.5258789e-05
 theme_override_fonts/font = ExtResource("27_v344w")
 theme_override_font_sizes/font_size = 25
 placeholder_text = "Debug Command here..."
+
+[node name="meow" type="AudioStreamPlayer2D" parent="." unique_id=361560750]
+process_mode = 3
+stream = ExtResource("2_yyvtn")

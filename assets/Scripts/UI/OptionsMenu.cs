@@ -23,6 +23,8 @@ public partial class OptionsMenu : Control
         volumeSlider.MinValue = 0;
         volumeSlider.MaxValue = 100;
 
+        volumeSlider.ValueChanged += UpdateVolume;
+
         colorButtons = new();
 
         foreach (Button button in GetNode<Control>("color_buttons").GetChildren())
@@ -39,13 +41,15 @@ public partial class OptionsMenu : Control
         }
 
         backButton.Pressed += () => backButtonPressed?.Invoke();
+    }
 
+    private void UpdateVolume(double value)
+    {
+        Runtime.GetInstance().UpdateBusVolume("Master", (float) value);
     }
 
     public override void _Process(double delta)
     {
-        Runtime.GetInstance().UpdateBusVolume("Master", (float)volumeSlider.Value);
-
         base._Process(delta);
     }
 

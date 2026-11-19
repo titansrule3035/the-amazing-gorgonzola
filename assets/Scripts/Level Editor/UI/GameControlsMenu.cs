@@ -144,7 +144,9 @@ public partial class GameControlsMenu : Control
 
     private void MuteButtonPressed()
     {
-        DebugManager.Log(new NotImplementedException(), "Editor Mute Button");
+        int busIndex = AudioServer.GetBusIndex("Master");
+
+        AudioServer.SetBusMute(busIndex, !AudioServer.IsBusMute(busIndex));
     }
 
     private void BrushButtonPressed()
