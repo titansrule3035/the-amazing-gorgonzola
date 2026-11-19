@@ -71,6 +71,13 @@ public partial class LevelEditorMain : Node2D
                 Runtime.GetInstance().ExportLevelAsScene("C:/Users/Princ/source/repos/C#/Godot Projects/the-amazing-gorgonzola/assets/Levels/Scenes/Exported");
             }
         }
+
+        if (Input.IsActionJustPressed("ins") && GetTree().Paused)
+        {
+            string theCat = "meow";
+            DebugManager.PlainLog(theCat);
+            GetNode<AudioStreamPlayer2D>(theCat).Play();
+        }
     }
 
     private void ProcessWindowTitle()
@@ -126,11 +133,6 @@ public partial class LevelEditorMain : Node2D
     public void ImportLevel()
     {
         SetGameState(true);
-    }
-
-    public void ResetGame()
-    {
-        Input.ActionPress("reset");
     }
 
     public async void OnFadeOut()
