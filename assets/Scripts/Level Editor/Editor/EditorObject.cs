@@ -165,7 +165,7 @@ public partial class EditorObject : Node2D
     /// <summary>The single "is the editor live" check. Change it here and everything follows.</summary>
     public bool editorActive => GetTree().Paused;
 
-    public bool primaryHeld => Input.IsActionPressed("mb_left");
+    public bool primaryHeld => (!GameControlsMenu.helpMenuActive && Input.IsActionPressed("mb_left"));
 
     /// <summary>Editor is live, the mouse is over the level, and no popup or editor UI is eating the click.</summary>
     public bool canInteract => !DebugConsole.focusedOnConsole && editorActive && canPlace && !overOwnUi && Engine.GetProcessFrames() > uiBlockUntilFrame && !(contextMenu?.Menu.Visible ?? false);
