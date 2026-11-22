@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://beheqwali40kg"]
 
 [ext_resource type="Texture2D" uid="uid://d2gf4vci3tk1n" path="res://assets/Sprites/Level Editor/ItemBGDisabled.png" id="1_bgkya"]
-[ext_resource type="Texture2D" uid="uid://dbfl4quscunxt" path="res://assets/Sprites/Level Editor/leveleditor_UI.png" id="1_qg682"]
 [ext_resource type="Texture2D" uid="uid://dwlgqmvpto5wg" path="res://assets/Sprites/Level Editor/ItemBG.png" id="1_x54yb"]
 [ext_resource type="Script" uid="uid://b37a551o7knnq" path="res://assets/Scripts/Level Editor/UI/EditorItemObject.cs" id="2_jy0h8"]
 [ext_resource type="Texture2D" uid="uid://ci3inxjevxkdg" path="res://assets/Sprites/Level Editor/ItemBGSelected.png" id="3_wnyfm"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x44h1"]
-atlas = ExtResource("1_qg682")
-region = Rect2(656, 367, 96, 97)
 
 [sub_resource type="Animation" id="Animation_bgkya"]
 resource_name = "default"
@@ -104,7 +99,7 @@ anchor_right = 0.056
 anchor_bottom = 0.11100001
 offset_right = -0.7680054
 offset_bottom = 0.09599304
-texture = SubResource("AtlasTexture_x44h1")
+texture = ExtResource("1_x54yb")
 stretch_mode = 4
 
 [node name="ItemTexture" type="TextureRect" parent="." unique_id=1896539650]

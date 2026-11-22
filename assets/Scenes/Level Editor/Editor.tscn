@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dbfl4quscunxt" path="res://assets/Sprites/Level Editor/leveleditor_UI.png" id="13_mgmnv"]
 [ext_resource type="Script" uid="uid://bv7bfobi7ndpy" path="res://assets/Scripts/Level Editor/UI/CameraDrag.cs" id="17_yuieu"]
 [ext_resource type="Script" uid="uid://decn0trfeo5dx" path="res://assets/Scripts/Persistent/EditorGameManager.cs" id="18_xuh87"]
+[ext_resource type="Script" uid="uid://c0w44nqle4lgc" path="res://assets/Scripts/Level Editor/UI/AssetMenu.cs" id="19_mgmnv"]
 [ext_resource type="PackedScene" uid="uid://bc8rxj4w6dd3f" path="res://assets/Scenes/Level Editor/Items/Clones/item_rev_upside_clone.tscn" id="20_fm07t"]
 [ext_resource type="PackedScene" uid="uid://bjiqqwwtih733" path="res://assets/Scenes/Level Editor/Items/Clones/item_deadly_clone.tscn" id="20_pw0c8"]
 [ext_resource type="PackedScene" uid="uid://op3dfgwcmd6l" path="res://assets/Scenes/Level Editor/Items/Clones/item_upside_clone.tscn" id="21_5j6bi"]
@@ -671,6 +672,50 @@ _data = {
 &"pressed": SubResource("Animation_s2quw")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_x44h1"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(656, 368, 96, 96)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iq7ac"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgmnv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miqjo"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(770, 290, 28, 28)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mgmnv"]
+texture = SubResource("AtlasTexture_miqjo")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgmnv"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(802, 290, 28, 28)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2h3ye"]
+texture = SubResource("AtlasTexture_mgmnv")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r76fb"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(834, 290, 28, 28)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dscuk"]
+texture = SubResource("AtlasTexture_r76fb")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkxyu"]
 bg_color = Color(0, 0.49019608, 0, 0)
 
@@ -1199,68 +1244,91 @@ offset_bottom = -0.24005127
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("19_mgmnv")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/ClonesMenu" unique_id=1094621]
-custom_maximum_size = Vector2(480, -1)
+[node name="ContentClip" type="Control" parent="CanvasLayer/UI/ClonesMenu" unique_id=1142167099]
+clip_contents = true
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
+anchor_right = 0.933
 anchor_bottom = 1.0
-mouse_filter = 0
-horizontal_scroll_mode = 0
+offset_right = 0.15997314
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer" unique_id=1837668825]
-custom_minimum_size = Vector2(476, 750)
-propagate_maximum_size = false
+[node name="Content" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip" unique_id=2119256128]
+layout_mode = 1
+offset_right = 216.0
+offset_bottom = 1296.0
+theme_override_constants/separation = 24
+
+[node name="PaddingTop" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=1757129183]
+custom_minimum_size = Vector2(448, 16)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer" unique_id=751740593]
-custom_minimum_size = Vector2(0, 245)
+[node name="ClonesItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=724463918]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ClonesItemContainer" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1394840934]
+[node name="ItemGorgonzola" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer" unique_id=1663939762 instance=ExtResource("32_ys3g7")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ClonesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=1735762407]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemGorgonzola" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer" unique_id=1663939762 instance=ExtResource("32_ys3g7")]
+[node name="ItemRevClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer2" unique_id=1535529218 instance=ExtResource("34_xibel")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="ClonesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1315606873]
+[node name="ItemNormClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer2" unique_id=1876210054 instance=ExtResource("33_10656")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ClonesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=641377529]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemRevClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=649440360 instance=ExtResource("34_xibel")]
+[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer3" unique_id=1671153315 instance=ExtResource("20_fm07t")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="ItemNormClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer2" unique_id=675237825 instance=ExtResource("33_10656")]
+[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer3" unique_id=136964953 instance=ExtResource("21_5j6bi")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="ClonesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=52311940]
+[node name="ClonesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=745934736]
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemRevUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=2123207687 instance=ExtResource("20_fm07t")]
+[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer4" unique_id=2079221827 instance=ExtResource("20_pw0c8")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer4" unique_id=1689444371 instance=ExtResource("21_w41ii")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="PaddingBottom" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=1015566341]
+custom_minimum_size = Vector2(448, 128)
 layout_mode = 2
 
-[node name="ItemUpsideClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer3" unique_id=1684128032 instance=ExtResource("21_5j6bi")]
-layout_mode = 2
-
-[node name="ClonesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1808902787]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=1943570613 instance=ExtResource("20_pw0c8")]
-layout_mode = 2
-
-[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ScrollContainer/CenterContainer/VBoxContainer/ClonesItemContainer4" unique_id=120500501 instance=ExtResource("21_w41ii")]
-layout_mode = 2
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/ClonesMenu" unique_id=1766560730]
+layout_mode = 0
+offset_left = 448.0
+offset_right = 480.0
+offset_bottom = 688.0
+theme_override_styles/scroll = SubResource("StyleBoxEmpty_iq7ac")
+theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_mgmnv")
+theme_override_styles/grabber = SubResource("StyleBoxTexture_mgmnv")
+theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_2h3ye")
+theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_dscuk")
+max_value = 1.0
+step = 0.01
+page = 0.2
+custom_step = 1.0
 
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
 visible = false
@@ -1275,154 +1343,190 @@ offset_bottom = -0.24005127
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("19_mgmnv")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/TilesMenu" unique_id=879181758]
-custom_maximum_size = Vector2(476, -1)
+[node name="ContentClip" type="Control" parent="CanvasLayer/UI/TilesMenu" unique_id=1775659374]
+clip_contents = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.003
-anchor_right = 0.99600005
-anchor_bottom = 0.99700004
-offset_left = 0.07999992
-offset_top = -0.16000223
-offset_right = -0.08001709
-offset_bottom = 0.1630249
-mouse_filter = 0
-scroll_vertical = 33
-horizontal_scroll_mode = 0
+anchor_right = 0.933
+anchor_bottom = 1.0
+offset_right = 0.15997314
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer" unique_id=1887784356]
-custom_minimum_size = Vector2(476, 750)
-propagate_maximum_size = false
+[node name="Content" type="VBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip" unique_id=1078160619]
+layout_mode = 1
+offset_right = 216.0
+offset_bottom = 1296.0
+theme_override_constants/separation = 24
+
+[node name="PaddingTop" type="VBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content" unique_id=1815334180]
+custom_minimum_size = Vector2(448, 16)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer" unique_id=1352687597]
-custom_minimum_size = Vector2(0, 485)
+[node name="TilesItemContainer1" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content" unique_id=1318873965]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="TilesItemContainer1" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=339106463]
+[node name="ItemTileSpikeUp" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content/TilesItemContainer1" unique_id=1600070320 instance=ExtResource("45_krgg0")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="TilesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content" unique_id=1920918949]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeUp" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer1" unique_id=1744320458 instance=ExtResource("45_krgg0")]
+[node name="ItemTileSpikeLeft" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content/TilesItemContainer2" unique_id=139185790 instance=ExtResource("46_16gwb")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="TilesItemContainer2" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1087283251]
+[node name="ItemTile0718" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content/TilesItemContainer2" unique_id=57491429 instance=ExtResource("47_upxro")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemTileSpikeRight" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content/TilesItemContainer2" unique_id=169021659 instance=ExtResource("48_gwxgc")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="TilesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content" unique_id=1311430562]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeLeft" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=2000290763 instance=ExtResource("46_16gwb")]
+[node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content/TilesItemContainer3" unique_id=168185691 instance=ExtResource("49_n2ci5")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="ItemTile0718" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=760154883 instance=ExtResource("47_upxro")]
-layout_mode = 2
-
-[node name="ItemTileSpikeRight" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer2" unique_id=1914954390 instance=ExtResource("48_gwxgc")]
-layout_mode = 2
-
-[node name="TilesItemContainer3" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1687889666]
+[node name="TilesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content" unique_id=614150458]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="ItemTileSpikeDown" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer3" unique_id=147886871 instance=ExtResource("49_n2ci5")]
+[node name="ItemTile" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content/TilesItemContainer4" unique_id=1884577315 instance=ExtResource("51_5j6bi")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="PaddingBottom" type="VBoxContainer" parent="CanvasLayer/UI/TilesMenu/ContentClip/Content" unique_id=227636957]
+custom_minimum_size = Vector2(448, 128)
 layout_mode = 2
 
-[node name="TilesItemContainer4" type="HBoxContainer" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=864938905]
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="ItemTile" parent="CanvasLayer/UI/TilesMenu/ScrollContainer/CenterContainer/VBoxContainer/TilesItemContainer4" unique_id=487209587 instance=ExtResource("51_5j6bi")]
-layout_mode = 2
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/TilesMenu" unique_id=972365540]
+layout_mode = 0
+offset_left = 448.0
+offset_top = -2.0
+offset_right = 480.0
+offset_bottom = 686.0
+theme_override_styles/scroll = SubResource("StyleBoxEmpty_iq7ac")
+theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_mgmnv")
+theme_override_styles/grabber = SubResource("StyleBoxTexture_mgmnv")
+theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_2h3ye")
+theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_dscuk")
+max_value = 1.0
+page = 0.2
+custom_step = 1.0
 
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
 visible = false
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 1
-anchor_top = 0.075
+anchor_top = 0.074
 anchor_right = 0.27800003
-anchor_bottom = 0.91
-offset_top = 1.199997
+anchor_bottom = 0.87200004
+offset_top = 0.063999176
 offset_right = -0.3840332
-offset_bottom = -0.24005127
+offset_bottom = -1.40802
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("19_mgmnv")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=1775274923]
-custom_maximum_size = Vector2(476, -1)
+[node name="ContentClip" type="Control" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=668199397]
+clip_contents = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.004
-anchor_top = 0.003
-anchor_right = 0.99600005
-anchor_bottom = 0.99700004
-offset_left = 0.07999992
-offset_top = -0.16000223
-offset_right = -0.08001709
-offset_bottom = 0.1630249
-mouse_filter = 0
-horizontal_scroll_mode = 0
+anchor_right = 0.933
+anchor_bottom = 1.0
+offset_right = 0.15997314
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer" unique_id=812660937]
-custom_minimum_size = Vector2(476, 750)
-propagate_maximum_size = false
+[node name="Content" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip" unique_id=462000671]
+layout_mode = 1
+offset_right = 216.0
+offset_bottom = 1296.0
+theme_override_constants/separation = 24
+
+[node name="PaddingTop" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content" unique_id=740281401]
+custom_minimum_size = Vector2(448, 16)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer" unique_id=1347255536]
-custom_minimum_size = Vector2(0, 245)
+[node name="LevelEndpointsContainer" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content" unique_id=537826209]
+custom_minimum_size = Vector2(448, 0)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="LevelEndpointsContainer" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=535616373]
+[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/LevelEndpointsContainer" unique_id=1127997321 instance=ExtResource("50_t3qxf")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/LevelEndpointsContainer" unique_id=2050617634 instance=ExtResource("51_voii0")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="OnOffsContainer1" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content" unique_id=1363380618]
+custom_minimum_size = Vector2(448, 0)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemKeyCard" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=1485627557 instance=ExtResource("50_t3qxf")]
+[node name="ItemOnOffSwitchMaster" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/OnOffsContainer1" unique_id=1244101702 instance=ExtResource("40_5j6bi")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="ItemDoor" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/LevelEndpointsContainer" unique_id=1609522930 instance=ExtResource("51_voii0")]
-layout_mode = 2
-
-[node name="OnOffsContainer1" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1668982465]
+[node name="OnOffsContainer3" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content" unique_id=470504702]
+custom_minimum_size = Vector2(448, 0)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemOnOffSwitchMaster" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer1" unique_id=1071236715 instance=ExtResource("40_5j6bi")]
+[node name="ItemGreenOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/OnOffsContainer3" unique_id=1535266680 instance=ExtResource("38_nb3xa")]
 layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
 
-[node name="OnOffsContainer3" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=1840752929]
+[node name="ItemRedOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/OnOffsContainer3" unique_id=2090032364 instance=ExtResource("39_hgw8s")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="OnOffsContainer2" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content" unique_id=2038312520]
+custom_minimum_size = Vector2(448, 0)
 layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="ItemGreenOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=419539377 instance=ExtResource("38_nb3xa")]
+[node name="ItemChunk" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/OnOffsContainer2" unique_id=432242666 instance=ExtResource("41_pw0c8")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemMissileMortyLauncher" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content/OnOffsContainer2" unique_id=2085358981 instance=ExtResource("38_76dpg")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="PaddingBottom" type="VBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ContentClip/Content" unique_id=78166493]
+custom_minimum_size = Vector2(448, 128)
 layout_mode = 2
 
-[node name="ItemRedOnOffBlock" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer3" unique_id=104353718 instance=ExtResource("39_hgw8s")]
-layout_mode = 2
-
-[node name="OnOffsContainer2" type="HBoxContainer" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer" unique_id=2042602988]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="ItemChunk" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=846923468 instance=ExtResource("41_pw0c8")]
-layout_mode = 2
-
-[node name="ItemMissileMortyLauncher" parent="CanvasLayer/UI/LevelMechanicsMenu/ScrollContainer/CenterContainer/VBoxContainer/OnOffsContainer2" unique_id=2086165325 instance=ExtResource("38_76dpg")]
-layout_mode = 2
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=258076713]
+layout_mode = 0
+offset_left = 448.0
+offset_top = -2.0
+offset_right = 480.0
+offset_bottom = 686.0
+theme_override_styles/scroll = SubResource("StyleBoxEmpty_iq7ac")
+theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_mgmnv")
+theme_override_styles/grabber = SubResource("StyleBoxTexture_mgmnv")
+theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_2h3ye")
+theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_dscuk")
+max_value = 1.0
+page = 0.2
+custom_step = 1.0
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
 visible = false
