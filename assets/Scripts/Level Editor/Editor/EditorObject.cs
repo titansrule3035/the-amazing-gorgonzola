@@ -530,7 +530,7 @@ public partial class EditorObject : Node2D
         {
             Undo();
         }
-        if (ActionJustPressed(redoAction) && ctrl && shift && !alt)
+        if (ActionJustPressed(redoAction) && ctrl && !shift && !alt)
         {
             Redo();
         }
