@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhki2klpp2pgk"
-path="res://.godot/imported/redblock_on_transform.png-d8f47a31b0161dd68054370335469abd.ctex"
+uid="uid://be73y2awy367k"
+path="res://.godot/imported/redblock_off_transform.png-73dadda4448b68a5554834cb31ae78a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/redblock_on_transform.png"
-dest_files=["res://.godot/imported/redblock_on_transform.png-d8f47a31b0161dd68054370335469abd.ctex"]
+source_file="res://assets/Sprites/Level Assets/Elements/redblock_off_transform.png"
+dest_files=["res://.godot/imported/redblock_off_transform.png-73dadda4448b68a5554834cb31ae78a3.ctex"]
 
 [params]
 

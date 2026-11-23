@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg6cp7x1cu4bx"
-path="res://.godot/imported/tile_water.png-25bb4b432721c1f4a2937e7896b98155.ctex"
+uid="uid://drffeattg3ime"
+path="res://.godot/imported/off_switch.png-0b41f1e48f3a7c97eb0c4bbbbf9dc007.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/tile_water.png"
-dest_files=["res://.godot/imported/tile_water.png-25bb4b432721c1f4a2937e7896b98155.ctex"]
+source_file="res://assets/Sprites/Level Assets/Elements/off_switch.png"
+dest_files=["res://.godot/imported/off_switch.png-0b41f1e48f3a7c97eb0c4bbbbf9dc007.ctex"]
 
 [params]
 

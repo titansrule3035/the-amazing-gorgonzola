@@ -231,7 +231,6 @@ public class EraserTool : EditorTool
         editor.cursorSprite.Material = null;
         editor.cursorSprite.Modulate = Colors.White;
         editor.cursorSprite.Position = Vector2.Zero;
-        editor.wasPlacing = false;
     }
 
     public override void Exit()
@@ -307,12 +306,6 @@ public class SelectTool : EditorTool
     public override bool isBusy => dragging;
 
     public override bool allowCtrlMouseOverride => false;
-
-    public override void Enter()
-    {
-        editor.wasPlacing = false;
-    }
-
     public override void Exit()
     {
         if (!dragging)
@@ -401,11 +394,6 @@ public class MoveTool : EditorTool
     public override bool isBusy => dragging;
 
     public override bool allowCtrlMouseOverride => !dragging;
-
-    public override void Enter()
-    {
-        editor.wasPlacing = false;
-    }
 
     public override void Exit()
     {

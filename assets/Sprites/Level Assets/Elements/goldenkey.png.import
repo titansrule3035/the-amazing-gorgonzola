@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfl2pk6bb7iad"
-path="res://.godot/imported/tile_water_waves.png-30c25740e56e62943857248dd3859333.ctex"
+uid="uid://d0do7q1qlkwqi"
+path="res://.godot/imported/goldenkey.png-bc57e5b82b8fc92fc33dbfa6a364de13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/tile_water_waves.png"
-dest_files=["res://.godot/imported/tile_water_waves.png-30c25740e56e62943857248dd3859333.ctex"]
+source_file="res://assets/Sprites/Level Assets/Elements/goldenkey.png"
+dest_files=["res://.godot/imported/goldenkey.png-bc57e5b82b8fc92fc33dbfa6a364de13.ctex"]
 
 [params]
 

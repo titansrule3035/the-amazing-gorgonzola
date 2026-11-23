@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dkl2s68guvcg6"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_q26ky"]
-[ext_resource type="Texture2D" uid="uid://cfpusrvto0hs8" path="res://assets/Sprites/World/greenblock_on_transform.png" id="2_q26ky"]
+[ext_resource type="Texture2D" uid="uid://cfpusrvto0hs8" path="res://assets/Sprites/Level Assets/Elements/greenblock_on_transform.png" id="2_q26ky"]
 [ext_resource type="PackedScene" uid="uid://dmccyvogpf7vb" path="res://assets/Scenes/Level Assets/green_on_off_block.tscn" id="3_qndjg"]
 [ext_resource type="Script" uid="uid://cly2u6g847wm2" path="res://assets/Scripts/Level Editor/Items/ItemGreenOnOffBlock.cs" id="3_rwdd6"]
 

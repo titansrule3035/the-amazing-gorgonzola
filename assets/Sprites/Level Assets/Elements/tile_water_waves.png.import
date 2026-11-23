@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfpusrvto0hs8"
-path="res://.godot/imported/greenblock_on_transform.png-6447a5be47cc1c6584067141d810bffa.ctex"
+uid="uid://dfl2pk6bb7iad"
+path="res://.godot/imported/tile_water_waves.png-8c276dc6b10fdb1739f5e9e4eb587164.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/greenblock_on_transform.png"
-dest_files=["res://.godot/imported/greenblock_on_transform.png-6447a5be47cc1c6584067141d810bffa.ctex"]
+source_file="res://assets/Sprites/Level Assets/Elements/tile_water_waves.png"
+dest_files=["res://.godot/imported/tile_water_waves.png-8c276dc6b10fdb1739f5e9e4eb587164.ctex"]
 
 [params]
 

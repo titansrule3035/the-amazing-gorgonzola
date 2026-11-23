@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d4lyad824tgl3"]
 
 [ext_resource type="Script" uid="uid://cnga6wp7jtdtk" path="res://assets/Scripts/Level Assets/Key.cs" id="1_iahil"]
-[ext_resource type="Texture2D" uid="uid://d0do7q1qlkwqi" path="res://assets/Sprites/World/goldenkey.png" id="2_0x26w"]
+[ext_resource type="Texture2D" uid="uid://d0do7q1qlkwqi" path="res://assets/Sprites/Level Assets/Elements/goldenkey.png" id="2_0x26w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c3x83"]
 atlas = ExtResource("2_0x26w")
