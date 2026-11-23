@@ -26,8 +26,6 @@ public partial class Ui : Control
 
         toolBarLabel = GetNode<Label>("ToolBar/ToolBarLabel");
 
-        quitMenu.HideMenu();
-
         blockMouse = GetNode<ColorRect>("BlockMouse");
         blockMouse.MouseFilter = MouseFilterEnum.Ignore;
 

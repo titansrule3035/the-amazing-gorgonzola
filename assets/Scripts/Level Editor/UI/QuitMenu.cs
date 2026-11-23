@@ -9,6 +9,7 @@ public partial class QuitMenu : Control
     public FileButton fileButton;
     LevelEditorMain main;
     bool quit;
+    bool lastState;
 
     public override void _Ready()
     {
@@ -78,7 +79,7 @@ public partial class QuitMenu : Control
     public void SetMenuVisibility(bool state)
     {
         quitButton.Disabled = cancelButton.Disabled = !state;
-        Visible = state;
+        GetNode<AnimationPlayer>("animPlayer").Play("turn_" + (state ? "on" : "off"));
         main.SetInputRestriction(this, state, state);
     }
 
