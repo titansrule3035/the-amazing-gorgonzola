@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ca2ql5v56htt4"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_spoot"]
-[ext_resource type="Texture2D" uid="uid://rniodrmugb08" path="res://assets/Sprites/NPCs/pasghettihappy.png" id="2_f5pce"]
+[ext_resource type="Texture2D" uid="uid://rniodrmugb08" path="res://assets/Sprites/NPCs/Pasghetti/pasghettihappy.png" id="2_f5pce"]
 [ext_resource type="PackedScene" uid="uid://rweosbehs30f" path="res://assets/Scenes/Level Assets/NPCs/pasghetti.tscn" id="3_yv3bd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1cdrw"]

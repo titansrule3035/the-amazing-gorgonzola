@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://de3hu0sd6u84n" path="res://assets/Scripts/Effects/Effect.cs" id="1_8byi6"]
 [ext_resource type="Texture2D" uid="uid://brcmxb0xap4tw" path="res://assets/Sprites/Effects/Pallettes/default_kill_effect_pallette.png" id="2_43ckb"]
-[ext_resource type="Texture2D" uid="uid://b87qpxhdflsa0" path="res://assets/Sprites/Clones/Shadow Clone/evilgorgdeath.png" id="3_kjpop"]
+[ext_resource type="Texture2D" uid="uid://b87qpxhdflsa0" path="res://assets/Sprites/Level Assets/Clones/Shadow Clone/evilgorgdeath.png" id="3_kjpop"]
 
 [sub_resource type="Shader" id="Shader_tki4n"]
 code = "shader_type canvas_item;

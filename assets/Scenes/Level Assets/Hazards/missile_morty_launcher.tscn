@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://w5ij2rvxpi2t" path="res://assets/Scripts/Level Assets/Hazards/MissileMortyLauncher.cs" id="1_5qf1k"]
 [ext_resource type="PackedScene" uid="uid://m5niqrv8ejwl" path="res://assets/Scenes/Level Assets/Hazards/missile_morty.tscn" id="2_r0y5y"]
-[ext_resource type="Texture2D" uid="uid://0mk23sx2bslg" path="res://assets/Sprites/Enemies/Missile Morty/missile_launcher.png" id="3_qcndd"]
+[ext_resource type="Texture2D" uid="uid://0mk23sx2bslg" path="res://assets/Sprites/Level Assets/Hazards/Missile Morty/missile_launcher.png" id="3_qcndd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
 size = Vector2(64, 64)

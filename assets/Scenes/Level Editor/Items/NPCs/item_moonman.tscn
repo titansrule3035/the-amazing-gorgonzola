@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dd8dnegl7ln3l"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_8rw40"]
-[ext_resource type="Texture2D" uid="uid://gq83howcxbk0" path="res://assets/Sprites/NPCs/moonmanidle.png" id="2_le87i"]
+[ext_resource type="Texture2D" uid="uid://gq83howcxbk0" path="res://assets/Sprites/NPCs/Moon Man/moonmanidle.png" id="2_le87i"]
 [ext_resource type="PackedScene" uid="uid://ca8rx3ue113dc" path="res://assets/Scenes/Level Assets/NPCs/moonman.tscn" id="3_im620"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m3p7a"]

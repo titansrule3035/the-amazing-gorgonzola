@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cisq0tci68xs5"]
 
 [ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_na081"]
-[ext_resource type="Texture2D" uid="uid://c4b0m4ecuj1mf" path="res://assets/Sprites/NPCs/esseidle.png" id="2_kv33v"]
+[ext_resource type="Texture2D" uid="uid://c4b0m4ecuj1mf" path="res://assets/Sprites/NPCs/Esse/esseidle.png" id="2_kv33v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kn3g"]
 atlas = ExtResource("2_kv33v")

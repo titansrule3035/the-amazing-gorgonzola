@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqnofguoq48ag"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_y7k1n"]
-[ext_resource type="Texture2D" uid="uid://csrgd6wiqkxu6" path="res://assets/Sprites/NPCs/blinkyidle.png" id="2_6kro6"]
+[ext_resource type="Texture2D" uid="uid://csrgd6wiqkxu6" path="res://assets/Sprites/NPCs/Blinky/blinkyidle.png" id="2_6kro6"]
 [ext_resource type="PackedScene" uid="uid://v6qygxrnjgva" path="res://assets/Scenes/Level Assets/NPCs/blinky.tscn" id="3_iflp7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7f42d"]

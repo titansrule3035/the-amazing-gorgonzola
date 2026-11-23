@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://v6qygxrnjgva"]
 
 [ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_rvvmb"]
-[ext_resource type="Texture2D" uid="uid://csrgd6wiqkxu6" path="res://assets/Sprites/NPCs/blinkyidle.png" id="2_0rnib"]
+[ext_resource type="Texture2D" uid="uid://csrgd6wiqkxu6" path="res://assets/Sprites/NPCs/Blinky/blinkyidle.png" id="2_0rnib"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hr65h"]
 atlas = ExtResource("2_0rnib")

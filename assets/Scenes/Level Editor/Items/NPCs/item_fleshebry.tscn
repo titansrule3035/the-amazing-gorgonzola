@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://btvhr7g40o2de"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_dtvlv"]
-[ext_resource type="Texture2D" uid="uid://bjerqhsb3bq8g" path="res://assets/Sprites/NPCs/fleshebry.png" id="2_nnrdk"]
+[ext_resource type="Texture2D" uid="uid://bjerqhsb3bq8g" path="res://assets/Sprites/NPCs/Fleshebry/fleshebry.png" id="2_nnrdk"]
 [ext_resource type="PackedScene" uid="uid://71n62e82gkju" path="res://assets/Scenes/Level Assets/NPCs/fleshebry.tscn" id="3_gev5g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ihr8"]

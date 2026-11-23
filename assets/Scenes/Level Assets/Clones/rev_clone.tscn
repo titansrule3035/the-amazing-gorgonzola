@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bpnpe2o4rqypr"]
 
 [ext_resource type="PackedScene" uid="uid://bykyni0d72okt" path="res://assets/Scenes/Level Assets/Clones/default_clone.tscn" id="1_6xlgx"]
-[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Clones/Palettes/default_clone_palette.png" id="5_vir5c"]
-[ext_resource type="Texture2D" uid="uid://d1q2escmf2ll6" path="res://assets/Sprites/Clones/Palettes/rev_clone_palette.png" id="6_646g3"]
+[ext_resource type="Texture2D" uid="uid://chq7kar3xu38b" path="res://assets/Sprites/Level Assets/Clones/Palettes/default_clone_palette.png" id="5_vir5c"]
+[ext_resource type="Texture2D" uid="uid://d1q2escmf2ll6" path="res://assets/Sprites/Level Assets/Clones/Palettes/rev_clone_palette.png" id="6_646g3"]
 
 [sub_resource type="Shader" id="Shader_oghvo"]
 code = "shader_type canvas_item;

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cd0jlsxv71ntb"]
 
 [ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_5ychd"]
-[ext_resource type="Texture2D" uid="uid://cek6kufmov81s" path="res://assets/Sprites/NPCs/gergenschpooglus.png" id="2_kxtld"]
+[ext_resource type="Texture2D" uid="uid://cek6kufmov81s" path="res://assets/Sprites/NPCs/Gergenschpooglus/gergenschpooglus.png" id="2_kxtld"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7k8qj"]
 atlas = ExtResource("2_kxtld")

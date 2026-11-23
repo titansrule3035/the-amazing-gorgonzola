@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2i1kwqpd53mi"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_bne8v"]
-[ext_resource type="Texture2D" uid="uid://cgolnsjob6ybe" path="res://assets/Sprites/NPCs/jubidle.png" id="2_yfw71"]
+[ext_resource type="Texture2D" uid="uid://cgolnsjob6ybe" path="res://assets/Sprites/NPCs/Jub/jubidle.png" id="2_yfw71"]
 [ext_resource type="PackedScene" uid="uid://bcmsccw5lho0v" path="res://assets/Scenes/Level Assets/NPCs/jub.tscn" id="3_pdxcd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8gpsk"]

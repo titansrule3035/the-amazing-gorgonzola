@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cit4u73dsbtek"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_tvr6w"]
-[ext_resource type="Texture2D" uid="uid://dshyb6x5prw7r" path="res://assets/Sprites/NPCs/peteridle.png" id="2_73ixu"]
+[ext_resource type="Texture2D" uid="uid://dshyb6x5prw7r" path="res://assets/Sprites/NPCs/Pasghetti/peteridle.png" id="2_73ixu"]
 [ext_resource type="PackedScene" uid="uid://b1i5syvfkxu0h" path="res://assets/Scenes/Level Assets/NPCs/peter.tscn" id="3_kbkn7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ia4m1"]

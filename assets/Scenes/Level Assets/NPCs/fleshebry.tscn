@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://71n62e82gkju"]
 
 [ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_y5ues"]
-[ext_resource type="Texture2D" uid="uid://bjerqhsb3bq8g" path="res://assets/Sprites/NPCs/fleshebry.png" id="2_j3j05"]
+[ext_resource type="Texture2D" uid="uid://bjerqhsb3bq8g" path="res://assets/Sprites/NPCs/Fleshebry/fleshebry.png" id="2_j3j05"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtv7q"]
 atlas = ExtResource("2_j3j05")

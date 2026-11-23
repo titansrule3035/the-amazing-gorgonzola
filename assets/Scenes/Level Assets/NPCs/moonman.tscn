@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ca8rx3ue113dc"]
 
 [ext_resource type="PackedScene" uid="uid://bv86yys4afvxp" path="res://assets/Scenes/Level Assets/NPCs/npc.tscn" id="1_1rkm8"]
-[ext_resource type="Texture2D" uid="uid://gq83howcxbk0" path="res://assets/Sprites/NPCs/moonmanidle.png" id="2_x32lf"]
+[ext_resource type="Texture2D" uid="uid://gq83howcxbk0" path="res://assets/Sprites/NPCs/Moon Man/moonmanidle.png" id="2_x32lf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_carno"]
 atlas = ExtResource("2_x32lf")

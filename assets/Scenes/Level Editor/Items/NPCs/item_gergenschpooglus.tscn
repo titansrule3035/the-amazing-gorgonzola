@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://1lxjy5igfqfn"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_kwxem"]
-[ext_resource type="Texture2D" uid="uid://cek6kufmov81s" path="res://assets/Sprites/NPCs/gergenschpooglus.png" id="2_wiwb2"]
+[ext_resource type="Texture2D" uid="uid://cek6kufmov81s" path="res://assets/Sprites/NPCs/Gergenschpooglus/gergenschpooglus.png" id="2_wiwb2"]
 [ext_resource type="PackedScene" uid="uid://cd0jlsxv71ntb" path="res://assets/Scenes/Level Assets/NPCs/gergenschpooglus.tscn" id="3_qrv1f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jatr"]
