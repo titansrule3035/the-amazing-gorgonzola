@@ -237,6 +237,8 @@ public partial class EditorItemObject : TextureRect
         MouseFilter = MouseFilterEnum.Ignore;
         MouseDefaultCursorShape = Control.CursorShape.Arrow;
         button.Disabled = true;
+
+        Modulate = new(Modulate.R, Modulate.G, Modulate.B, .4f);
     }
 
     /// <summary>Unlocks the item. While the game is running it stays inert until the next pause.</summary>
@@ -254,6 +256,8 @@ public partial class EditorItemObject : TextureRect
         MouseFilter = MouseFilterEnum.Pass;
         MouseDefaultCursorShape = Control.CursorShape.PointingHand;
         button.Disabled = false;
+
+        Modulate = new(Modulate.R, Modulate.G, Modulate.B, 1);
     }
 
     /// <summary>Same as EnableItem, but lands in the selected state. Used to restore the editor's held item after a pause.</summary>
