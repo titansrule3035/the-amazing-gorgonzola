@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bsahlmow4kq57"]
 
-[ext_resource type="Texture2D" uid="uid://bhki2klpp2pgk" path="res://assets/Sprites/World/redblock_on_transform.png" id="1_5wy5w"]
+[ext_resource type="Texture2D" uid="uid://bhki2klpp2pgk" path="res://assets/Sprites/Level Assets/Elements/redblock_on_transform.png" id="1_5wy5w"]
 [ext_resource type="Script" uid="uid://dqrrfs0t0pa2i" path="res://assets/Scripts/Level Assets/OnOffBlock.cs" id="1_r0j76"]
-[ext_resource type="Texture2D" uid="uid://be73y2awy367k" path="res://assets/Sprites/World/redblock_off_transform.png" id="2_r0j76"]
+[ext_resource type="Texture2D" uid="uid://be73y2awy367k" path="res://assets/Sprites/Level Assets/Elements/redblock_off_transform.png" id="2_r0j76"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1d0im"]
 atlas = ExtResource("1_5wy5w")

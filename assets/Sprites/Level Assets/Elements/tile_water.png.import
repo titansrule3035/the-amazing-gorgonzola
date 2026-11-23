@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0do7q1qlkwqi"
-path="res://.godot/imported/goldenkey.png-0f7d0af84d1f24549dc16f7608c8eae2.ctex"
+uid="uid://cg6cp7x1cu4bx"
+path="res://.godot/imported/tile_water.png-6f7a738e5bbb1ad3711ea7b98cf35a53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/World/goldenkey.png"
-dest_files=["res://.godot/imported/goldenkey.png-0f7d0af84d1f24549dc16f7608c8eae2.ctex"]
+source_file="res://assets/Sprites/Level Assets/Elements/tile_water.png"
+dest_files=["res://.godot/imported/tile_water.png-6f7a738e5bbb1ad3711ea7b98cf35a53.ctex"]
 
 [params]
 

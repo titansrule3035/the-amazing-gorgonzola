@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://j6teup3h4r6y"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_yhl8t"]
-[ext_resource type="Texture2D" uid="uid://bhki2klpp2pgk" path="res://assets/Sprites/World/redblock_on_transform.png" id="2_4c14x"]
+[ext_resource type="Texture2D" uid="uid://bhki2klpp2pgk" path="res://assets/Sprites/Level Assets/Elements/redblock_on_transform.png" id="2_4c14x"]
 [ext_resource type="PackedScene" uid="uid://bsahlmow4kq57" path="res://assets/Scenes/Level Assets/red_on_off_block.tscn" id="3_hsvht"]
 [ext_resource type="Script" uid="uid://oicoxrxgscyi" path="res://assets/Scripts/Level Editor/Items/ItemRedOnOffBlock.cs" id="3_pdeqr"]
 

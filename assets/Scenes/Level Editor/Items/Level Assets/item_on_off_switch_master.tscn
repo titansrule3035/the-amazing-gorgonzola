@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlr7d3uibltro"]
 
 [ext_resource type="PackedScene" uid="uid://beheqwali40kg" path="res://assets/Scenes/Level Editor/Items/item_template.tscn" id="1_g6i3c"]
-[ext_resource type="Texture2D" uid="uid://65gryihn34it" path="res://assets/Sprites/World/onoff_block_real.png" id="2_j8fkq"]
+[ext_resource type="Texture2D" uid="uid://65gryihn34it" path="res://assets/Sprites/Level Assets/Elements/on_off_switch.png" id="2_j8fkq"]
 [ext_resource type="Script" uid="uid://yah8nidvbbp1" path="res://assets/Scripts/Level Editor/Items/ItemOnOffSwitchMaster.cs" id="3_a4v14"]
 [ext_resource type="PackedScene" uid="uid://yxtnpwnyc241" path="res://assets/Scenes/Level Assets/on_off_switch_master.tscn" id="4_0lg7b"]
 [ext_resource type="PackedScene" uid="uid://d3xgwjijc1j5h" path="res://assets/Scenes/Level Assets/on_off_switch.tscn" id="4_j8fkq"]
