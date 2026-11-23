@@ -190,7 +190,7 @@ public partial class EditorObject : Node2D
     LevelEditorMain? editorMain;
     bool ctrlOverride;
     bool wasActive;
-    bool wasPlacing = false;
+    public bool wasPlacing = false;
     bool overOwnUi;
     bool isDuplicate;
     ulong uiBlockUntilFrame;

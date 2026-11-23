@@ -676,7 +676,23 @@ _data = {
 atlas = ExtResource("13_mgmnv")
 region = Rect2(656, 368, 96, 96)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iq7ac"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hol1"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(562, 256, 28, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2h3ye"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(626, 256, 28, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dscuk"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(594, 256, 28, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eqs7"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(562, 288, 28, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iq7ac"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgmnv"]
 
@@ -716,6 +732,22 @@ texture_margin_top = 9.0
 texture_margin_right = 9.0
 texture_margin_bottom = 9.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5j6bi"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(658, 258, 28, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw0c8"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(722, 258, 28, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w41ii"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(690, 258, 28, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn5li"]
+atlas = ExtResource("13_mgmnv")
+region = Rect2(658, 290, 28, 30)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkxyu"]
 bg_color = Color(0, 0.49019608, 0, 0)
 
@@ -729,7 +761,7 @@ region = Rect2(0, 752, 480, 112)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2a1od"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bi6qw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwatk"]
 atlas = ExtResource("43_miqjo")
 region = Rect2(0, 0, 32, 32)
 
@@ -1250,8 +1282,9 @@ script = ExtResource("19_mgmnv")
 clip_contents = true
 layout_mode = 1
 anchor_right = 0.933
-anchor_bottom = 1.0
+anchor_bottom = 0.95300007
 offset_right = 0.15997314
+offset_bottom = -0.06604004
 
 [node name="Content" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip" unique_id=2119256128]
 layout_mode = 1
@@ -1315,12 +1348,28 @@ texture = SubResource("AtlasTexture_x44h1")
 custom_minimum_size = Vector2(448, 128)
 layout_mode = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/ClonesMenu" unique_id=1766560730]
-layout_mode = 0
+[node name="Scroll" type="Control" parent="CanvasLayer/UI/ClonesMenu" unique_id=926050641]
+anchors_preset = 0
 offset_left = 448.0
 offset_right = 480.0
 offset_bottom = 688.0
-theme_override_styles/scroll = SubResource("StyleBoxEmpty_iq7ac")
+
+[node name="TopButton" type="TextureButton" parent="CanvasLayer/UI/ClonesMenu/Scroll" unique_id=1682521459]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 30.0
+texture_normal = SubResource("AtlasTexture_1hol1")
+texture_pressed = SubResource("AtlasTexture_2h3ye")
+texture_hover = SubResource("AtlasTexture_dscuk")
+texture_disabled = SubResource("AtlasTexture_3eqs7")
+stretch_mode = 3
+
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/ClonesMenu/Scroll" unique_id=1766560730]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 32.0
+offset_bottom = 658.0
+theme_override_styles/scroll = SubResource("StyleBoxTexture_iq7ac")
 theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_mgmnv")
 theme_override_styles/grabber = SubResource("StyleBoxTexture_mgmnv")
 theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_2h3ye")
@@ -1330,6 +1379,17 @@ step = 0.01
 page = 0.2
 custom_step = 1.0
 
+[node name="BottomButton" type="TextureButton" parent="CanvasLayer/UI/ClonesMenu/Scroll" unique_id=53439059]
+layout_mode = 0
+offset_top = 658.0
+offset_right = 32.0
+offset_bottom = 688.0
+texture_normal = SubResource("AtlasTexture_5j6bi")
+texture_pressed = SubResource("AtlasTexture_pw0c8")
+texture_hover = SubResource("AtlasTexture_w41ii")
+texture_disabled = SubResource("AtlasTexture_fn5li")
+stretch_mode = 3
+
 [node name="TilesMenu" type="Control" parent="CanvasLayer/UI" unique_id=584694828]
 visible = false
 custom_minimum_size = Vector2(480, 0)
@@ -1337,9 +1397,9 @@ layout_mode = 1
 anchor_top = 0.075
 anchor_right = 0.27800003
 anchor_bottom = 0.91
-offset_top = 1.199997
+offset_top = -0.80000305
 offset_right = -0.3840332
-offset_bottom = -0.24005127
+offset_bottom = -34.24005
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -1410,20 +1470,47 @@ texture = SubResource("AtlasTexture_x44h1")
 custom_minimum_size = Vector2(448, 128)
 layout_mode = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/TilesMenu" unique_id=972365540]
-layout_mode = 0
+[node name="Scroll" type="Control" parent="CanvasLayer/UI/TilesMenu" unique_id=887260102]
+anchors_preset = 0
 offset_left = 448.0
-offset_top = -2.0
 offset_right = 480.0
-offset_bottom = 686.0
-theme_override_styles/scroll = SubResource("StyleBoxEmpty_iq7ac")
+offset_bottom = 688.0
+
+[node name="TopButton" type="TextureButton" parent="CanvasLayer/UI/TilesMenu/Scroll" unique_id=438925299]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 30.0
+texture_normal = SubResource("AtlasTexture_1hol1")
+texture_pressed = SubResource("AtlasTexture_2h3ye")
+texture_hover = SubResource("AtlasTexture_dscuk")
+texture_disabled = SubResource("AtlasTexture_3eqs7")
+stretch_mode = 3
+
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/TilesMenu/Scroll" unique_id=636665769]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 32.0
+offset_bottom = 658.0
+theme_override_styles/scroll = SubResource("StyleBoxTexture_iq7ac")
 theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_mgmnv")
 theme_override_styles/grabber = SubResource("StyleBoxTexture_mgmnv")
 theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_2h3ye")
 theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_dscuk")
 max_value = 1.0
+step = 0.01
 page = 0.2
 custom_step = 1.0
+
+[node name="BottomButton" type="TextureButton" parent="CanvasLayer/UI/TilesMenu/Scroll" unique_id=1893174404]
+layout_mode = 0
+offset_top = 658.0
+offset_right = 32.0
+offset_bottom = 688.0
+texture_normal = SubResource("AtlasTexture_5j6bi")
+texture_pressed = SubResource("AtlasTexture_pw0c8")
+texture_hover = SubResource("AtlasTexture_w41ii")
+texture_disabled = SubResource("AtlasTexture_fn5li")
+stretch_mode = 3
 
 [node name="LevelMechanicsMenu" type="Control" parent="CanvasLayer/UI" unique_id=1015022252]
 visible = false
@@ -1513,20 +1600,47 @@ texture = SubResource("AtlasTexture_x44h1")
 custom_minimum_size = Vector2(448, 128)
 layout_mode = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=258076713]
-layout_mode = 0
+[node name="Scroll" type="Control" parent="CanvasLayer/UI/LevelMechanicsMenu" unique_id=1218123569]
+anchors_preset = 0
 offset_left = 448.0
-offset_top = -2.0
 offset_right = 480.0
-offset_bottom = 686.0
-theme_override_styles/scroll = SubResource("StyleBoxEmpty_iq7ac")
+offset_bottom = 688.0
+
+[node name="TopButton" type="TextureButton" parent="CanvasLayer/UI/LevelMechanicsMenu/Scroll" unique_id=1126111601]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 30.0
+texture_normal = SubResource("AtlasTexture_1hol1")
+texture_pressed = SubResource("AtlasTexture_2h3ye")
+texture_hover = SubResource("AtlasTexture_dscuk")
+texture_disabled = SubResource("AtlasTexture_3eqs7")
+stretch_mode = 3
+
+[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/UI/LevelMechanicsMenu/Scroll" unique_id=1056996618]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 32.0
+offset_bottom = 658.0
+theme_override_styles/scroll = SubResource("StyleBoxTexture_iq7ac")
 theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_mgmnv")
 theme_override_styles/grabber = SubResource("StyleBoxTexture_mgmnv")
 theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_2h3ye")
 theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_dscuk")
 max_value = 1.0
+step = 0.01
 page = 0.2
 custom_step = 1.0
+
+[node name="BottomButton" type="TextureButton" parent="CanvasLayer/UI/LevelMechanicsMenu/Scroll" unique_id=1785415160]
+layout_mode = 0
+offset_top = 658.0
+offset_right = 32.0
+offset_bottom = 688.0
+texture_normal = SubResource("AtlasTexture_5j6bi")
+texture_pressed = SubResource("AtlasTexture_pw0c8")
+texture_hover = SubResource("AtlasTexture_w41ii")
+texture_disabled = SubResource("AtlasTexture_fn5li")
+stretch_mode = 3
 
 [node name="FileMenu" type="Control" parent="CanvasLayer/UI" unique_id=1020448080]
 visible = false
@@ -1905,11 +2019,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 toggle_mode = true
-texture_normal = SubResource("AtlasTexture_bi6qw")
+texture_normal = SubResource("AtlasTexture_bwatk")
 texture_pressed = SubResource("AtlasTexture_tvert")
 texture_hover = SubResource("AtlasTexture_b756o")
 texture_disabled = SubResource("AtlasTexture_tlf2w")
-texture_focused = SubResource("AtlasTexture_bi6qw")
+texture_focused = SubResource("AtlasTexture_bwatk")
 
 [node name="UndoButton" type="TextureButton" parent="CanvasLayer/UI/GameControlsMenu/EditorToolsControl/CenterContainer2/VBoxContainer/HBoxContainer" unique_id=389824997]
 custom_minimum_size = Vector2(32, 32)
