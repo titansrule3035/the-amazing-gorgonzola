@@ -1344,6 +1344,45 @@ texture = SubResource("AtlasTexture_x44h1")
 layout_mode = 2
 texture = SubResource("AtlasTexture_x44h1")
 
+[node name="ClonesItemContainer5" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=468525192]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer5" unique_id=1762857802 instance=ExtResource("20_pw0c8")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer5" unique_id=2055365819 instance=ExtResource("21_w41ii")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ClonesItemContainer6" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=1802328875]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer6" unique_id=1835100560 instance=ExtResource("20_pw0c8")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer6" unique_id=1027539171 instance=ExtResource("21_w41ii")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ClonesItemContainer7" type="HBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=848495152]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ItemDeadlyClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer7" unique_id=403581125 instance=ExtResource("20_pw0c8")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
+[node name="ItemShadowClone" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content/ClonesItemContainer7" unique_id=233540208 instance=ExtResource("21_w41ii")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x44h1")
+
 [node name="PaddingBottom" type="VBoxContainer" parent="CanvasLayer/UI/ClonesMenu/ContentClip/Content" unique_id=1015566341]
 custom_minimum_size = Vector2(448, 128)
 layout_mode = 2

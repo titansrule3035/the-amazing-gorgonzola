@@ -403,8 +403,6 @@ public partial class EditorObject : Node2D
                 wasPlacing = false;
             }
         }
-
-        
     }
 
     LevelEditorMain? GetEditorMain()
