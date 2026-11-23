@@ -102,7 +102,10 @@ public partial class DebugConsole : Control
 
     public override void _ExitTree()
     {
-        SetEditorInputRestriction(false);
+        if (Runtime.editorMode)
+        {
+            SetEditorInputRestriction(false);
+        }
         instance = null;
 
         LogRead -= OnLogRead;
@@ -116,7 +119,10 @@ public partial class DebugConsole : Control
         Visible = active;
 
         DebugManager.debugConsoleActive = focusedOnConsole = active;
-        SetEditorInputRestriction(active);
+        if (Runtime.editorMode)
+        {
+            SetEditorInputRestriction(active);
+        }
 
         if (focusedOnConsole)
         {
