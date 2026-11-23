@@ -175,7 +175,7 @@ public partial class EditorObject : Node2D
 
     public bool hasPlaceableItem => !inputBlocked && itemObject != null && itemType != EditorItemObject.ItemType.Null && (currentItem != null || currentTile != null);
 
-    public bool inputBlocked => GetEditorMain()?.IsInputBlocked ?? false;
+    public bool inputBlocked => IsInsideTree() && (GetEditorMain()?.IsInputBlocked ?? false);
 
     /// <summary>True while a mouse stroke or drag is in progress (the active tool says so).</summary>
     public bool toolBusy => activeTool?.isBusy == true;
