@@ -958,11 +958,13 @@ autoplay = &"default"
 layer = -1
 
 [node name="texture_rect" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=667735898]
+visible = false
 offset_top = -432.0
 offset_right = 864.0
 texture = ExtResource("10_miqjo")
 
 [node name="texture_rect2" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=2049664431]
+visible = false
 offset_left = 864.0
 offset_top = -432.0
 offset_right = 1728.0
@@ -980,14 +982,12 @@ offset_bottom = 432.00104
 texture = ExtResource("10_miqjo")
 
 [node name="texture_rect5" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=1225348494]
-visible = false
 offset_top = 432.0
 offset_right = 864.0
 offset_bottom = 863.99805
 texture = ExtResource("10_miqjo")
 
 [node name="texture_rect6" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=1581895788]
-visible = false
 offset_left = 864.0
 offset_top = 432.0
 offset_right = 1728.0
