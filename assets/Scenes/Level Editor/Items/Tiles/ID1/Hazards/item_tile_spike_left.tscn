@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://daw8b8yyqitqu"]
 
 [ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="1_tgcfv"]
-[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="2_usdrv"]
+[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/World 1/world_1_tileset.png" id="2_usdrv"]
 [ext_resource type="PackedScene" uid="uid://cdjhcvnksu6fx" path="res://assets/Scenes/Level Assets/Hazards/spike_left.tscn" id="3_oj08f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5kwgg"]

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://chwp3j7nqf0g3"]
 
-[ext_resource type="Texture2D" uid="uid://dh8obka4fynom" path="res://assets/Sprites/World/laboratorydoorclose.png" id="1_i2bu2"]
+[ext_resource type="Texture2D" uid="uid://dh8obka4fynom" path="res://assets/Sprites/World/World 1/laboratorydoorclose.png" id="1_i2bu2"]
 [ext_resource type="Script" uid="uid://b6a7xr3d4w1x8" path="res://assets/Scripts/Level Assets/Door.cs" id="1_x6ynr"]
-[ext_resource type="Texture2D" uid="uid://mgy5rx8bpdod" path="res://assets/Sprites/World/laboratorydooropen.png" id="2_x6ynr"]
+[ext_resource type="Texture2D" uid="uid://mgy5rx8bpdod" path="res://assets/Sprites/World/World 1/laboratorydooropen.png" id="2_x6ynr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnlo3"]
 atlas = ExtResource("1_i2bu2")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ds7702yn44ofn"]
 
 [ext_resource type="PackedScene" uid="uid://c47ypiivjvu6o" path="res://assets/Scenes/Level Editor/Items/Tiles/item_tile_template.tscn" id="1_gaymc"]
-[ext_resource type="Texture2D" uid="uid://cpvyjdtdycr4j" path="res://assets/Sprites/World/world2_tileset.png" id="2_0ewe4"]
+[ext_resource type="Texture2D" uid="uid://cpvyjdtdycr4j" path="res://assets/Sprites/World/World 2/world2_tileset.png" id="2_0ewe4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iivos"]
 atlas = ExtResource("2_0ewe4")

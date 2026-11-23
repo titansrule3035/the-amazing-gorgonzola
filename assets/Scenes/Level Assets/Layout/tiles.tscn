@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c8ydq7hkn7au5"]
 
-[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/world_1_tileset.png" id="1_ouifh"]
-[ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/world_1_tileset_final.png" id="2_ho6j5"]
-[ext_resource type="Texture2D" uid="uid://cpvyjdtdycr4j" path="res://assets/Sprites/World/world2_tileset.png" id="3_kit41"]
-[ext_resource type="Texture2D" uid="uid://bolckr30bd73c" path="res://assets/Sprites/World/tileset_template.png" id="4_ho6j5"]
+[ext_resource type="Texture2D" uid="uid://c7s0ogejj2yjq" path="res://assets/Sprites/World/World 1/world_1_tileset.png" id="1_ouifh"]
+[ext_resource type="Texture2D" uid="uid://o2d0rn0cia38" path="res://assets/Sprites/World/World 1/world_1_tileset_final.png" id="2_ho6j5"]
+[ext_resource type="Texture2D" uid="uid://cpvyjdtdycr4j" path="res://assets/Sprites/World/World 2/world2_tileset.png" id="3_kit41"]
+[ext_resource type="Texture2D" uid="uid://bolckr30bd73c" path="res://assets/Sprites/World/Static/tileset_template.png" id="4_ho6j5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7pho1"]
 texture = ExtResource("1_ouifh")

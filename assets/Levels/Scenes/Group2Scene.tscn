@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bfr0vncusk3bw"]
 
 [ext_resource type="Script" uid="uid://37axq3bg5awu" path="res://assets/Scripts/Levels/r1.cs" id="1_tyrx5"]
-[ext_resource type="Texture2D" uid="uid://cpvspocthubso" path="res://assets/Sprites/World/world2_bg.png" id="2_7f42d"]
+[ext_resource type="Texture2D" uid="uid://cpvspocthubso" path="res://assets/Sprites/World/World 2/world2_bg.png" id="2_7f42d"]
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/Layout/tiles.tscn" id="3_tyrx5"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="4_7f42d"]
 [ext_resource type="PackedScene" uid="uid://drpvr8uxi62tu" path="res://assets/Scenes/Level Assets/Hazards/missile_morty_launcher.tscn" id="5_7f42d"]
