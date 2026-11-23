@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Runtime.CompilerServices;
 
 public partial class FileButton : ToolBarButton
 {
@@ -11,10 +10,11 @@ public partial class FileButton : ToolBarButton
     public Action<string>? filePicked;
     public Action<string>? fileSaved;
 
-    public EditorObject.CursorMode oldCursorMode;
+    LevelEditorMain main;
 
     public override void _Ready()
     {
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         GetTree().CurrentScene.GetNode<QuitMenu>("editor/main/CanvasLayer/UI/QuitMenu").cancelButton.Pressed += HideMenuAndEnableClicks;
 
         menuButtons[0] = menu.GetNode<Button>("OpenButton/Button");
@@ -30,41 +30,19 @@ public partial class FileButton : ToolBarButton
 
         importDialog.FileSelected += OnFileSelected;
 
-        importDialog.VisibilityChanged += () =>
-        {
-            if (!importDialog.Visible)
-            {
-                blockMouse.MouseFilter = MouseFilterEnum.Ignore;
-                UpdateMenuAndButton(false);
-                return;
-            }
-        };
+        importDialog.VisibilityChanged += () => OnDialogVisibilityChanged(importDialog);
 
         exportDialog = GetTree().CurrentScene.GetNode<FileDialog>("editor/main/CanvasLayer/UI/ExportDialog");
 
         exportDialog.FileSelected += OnFileSaved;
 
-        exportDialog.VisibilityChanged += () =>
-        {
-            if (!exportDialog.Visible)
-            {
-                blockMouse.MouseFilter = MouseFilterEnum.Ignore;
-                UpdateMenuAndButton(false);
-            }
-        };
+        exportDialog.VisibilityChanged += () => OnDialogVisibilityChanged(exportDialog);
 
         exportAsDialog = GetTree().CurrentScene.GetNode<FileDialog>("editor/main/CanvasLayer/UI/ExportAsDialog");
 
         exportAsDialog.FileSelected += OnFileSaved;
 
-        exportAsDialog.VisibilityChanged += () =>
-        { 
-            if (!exportDialog.Visible)
-            {
-                blockMouse.MouseFilter = MouseFilterEnum.Ignore;
-                UpdateMenuAndButton(false);
-            }
-        };
+        exportAsDialog.VisibilityChanged += () => OnDialogVisibilityChanged(exportAsDialog);
 
         foreach (var dialog in new[] { importDialog, exportDialog, exportAsDialog })
         {
@@ -81,28 +59,28 @@ public partial class FileButton : ToolBarButton
 
     public override void _Process(double delta)
     {
-        if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("ctrl"))
+        if (!main.IsInputBlocked && Input.IsActionPressed("ctrl"))
         {
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("o"))
+            if (Input.IsActionJustPressed("o"))
             {
                 OpenButtonPressed();
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("s") && !Input.IsActionPressed("shift"))
+            if (Input.IsActionJustPressed("s") && !Input.IsActionPressed("shift"))
             {
                 SaveButtonPressed();
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("shift"))
+            if (Input.IsActionPressed("shift"))
             {
-                if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("s"))
+                if (Input.IsActionJustPressed("s"))
                 {
                     SaveAsButtonPressed();
                 }
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("c"))
+            if (Input.IsActionJustPressed("c"))
             {
                 CloseButtonPressed();
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("q"))
+            if (Input.IsActionJustPressed("q"))
             {
                 GetTree().CurrentScene.GetNode<QuitMenu>("editor/main/CanvasLayer/UI/QuitMenu").SetMenuVisibility(true);
             }
@@ -113,16 +91,19 @@ public partial class FileButton : ToolBarButton
     void OpenButtonPressed()
     {
         blockMouse.MouseFilter = MouseFilterEnum.Stop;
+        main.SetInputRestriction(importDialog, true, true);
         importDialog.PopupCenteredRatio();
     }
     void SaveButtonPressed()
     {
         blockMouse.MouseFilter = MouseFilterEnum.Stop;
+        main.SetInputRestriction(exportDialog, true, true);
         exportDialog.PopupCenteredRatio();
     }
     void SaveAsButtonPressed()
     {
         blockMouse.MouseFilter = MouseFilterEnum.Stop;
+        main.SetInputRestriction(exportAsDialog, true, true);
         exportAsDialog.PopupCenteredRatio();
     }
     async void CloseButtonPressed()
@@ -150,5 +131,15 @@ public partial class FileButton : ToolBarButton
     void HideMenuAndEnableClicks()
     {
         UpdateMenuAndButton(false);
+    }
+
+    private void OnDialogVisibilityChanged(FileDialog dialog)
+    {
+        main.SetInputRestriction(dialog, dialog.Visible, dialog.Visible);
+        if (!dialog.Visible)
+        {
+            blockMouse.MouseFilter = MouseFilterEnum.Ignore;
+            UpdateMenuAndButton(false);
+        }
     }
 }

@@ -8,9 +8,11 @@ public partial class ToolBar : Control
     public FileButton fileButton;
     public WindowButton windowButton;
     public EditorButton editorButton;
+    LevelEditorMain main;
 
     public override void _Ready()
     {
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         fileButton = GetNode<FileButton>("FileButton");
         fileButton.toolBarButtonPressed += ArrangeMenuVisibility;
         fileButton.toolBarButtonHovered += HoverMenu;
@@ -26,23 +28,23 @@ public partial class ToolBar : Control
     {
         if (fileButton.showMenu || windowButton.showMenu || editorButton.showMenu)
         {
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("escape"))
+            if (!main.IsInputBlocked && Input.IsActionJustPressed("escape"))
             {
                 CloseMenus();
             }
         }
 
-        if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("alt"))
+        if (!main.IsInputBlocked && Input.IsActionPressed("alt"))
         {
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("f"))
+            if (Input.IsActionJustPressed("f"))
             {
                 fileButton.ToolBarButtonPressed();
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("w"))
+            if (Input.IsActionJustPressed("w"))
             {
                 windowButton.ToolBarButtonPressed();
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("e"))
+            if (Input.IsActionJustPressed("e"))
             {
                 editorButton.ToolBarButtonPressed();
             }

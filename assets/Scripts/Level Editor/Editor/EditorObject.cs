@@ -165,15 +165,17 @@ public partial class EditorObject : Node2D
     /// <summary>The single "is the editor live" check. Change it here and everything follows.</summary>
     public bool editorActive => GetTree().Paused;
 
-    public bool primaryHeld => (!GameControlsMenu.helpMenuActive && Input.IsActionPressed("mb_left"));
+    public bool primaryHeld => (!inputBlocked && !GameControlsMenu.helpMenuActive && Input.IsActionPressed("mb_left"));
 
     /// <summary>Editor is live, the mouse is over the level, and no popup or editor UI is eating the click.</summary>
-    public bool canInteract => !DebugConsole.focusedOnConsole && editorActive && canPlace && !overOwnUi && Engine.GetProcessFrames() > uiBlockUntilFrame && !(contextMenu?.Menu.Visible ?? false);
+    public bool canInteract => !inputBlocked && editorActive && canPlace && !overOwnUi && Engine.GetProcessFrames() > uiBlockUntilFrame && !(contextMenu?.Menu.Visible ?? false);
 
     /// <summary>Offset from a tile's center to its bottom edge.</summary>
     public Vector2 halfTileDown => new(0, tileMap.TileSet.TileSize.Y / 2f);
 
-    public bool hasPlaceableItem => !DebugConsole.focusedOnConsole && itemObject != null && itemType != EditorItemObject.ItemType.Null && (currentItem != null || currentTile != null);
+    public bool hasPlaceableItem => !inputBlocked && itemObject != null && itemType != EditorItemObject.ItemType.Null && (currentItem != null || currentTile != null);
+
+    public bool inputBlocked => GetEditorMain()?.IsInputBlocked ?? false;
 
     /// <summary>True while a mouse stroke or drag is in progress (the active tool says so).</summary>
     public bool toolBusy => activeTool?.isBusy == true;
@@ -204,7 +206,7 @@ public partial class EditorObject : Node2D
     {
         get
         {
-            if (!DebugConsole.focusedOnConsole && tools != null && tools.TryGetValue(mode, out EditorTool? tool))
+            if (tools != null && tools.TryGetValue(mode, out EditorTool? tool))
             {
                 return tool;
             }
@@ -266,7 +268,7 @@ public partial class EditorObject : Node2D
 
     public override void _Ready()
     {
-        if (!DebugConsole.focusedOnConsole && instance != null && instance != this && IsInstanceValid(instance))
+        if (instance != null && instance != this && IsInstanceValid(instance))
         {
             DebugManager.Log($"Error: only one EditorObject allowed, deleting this one...", "EditorScript");
             // QueueFree is deferred, so stop this node from running in the meantime.
@@ -305,10 +307,20 @@ public partial class EditorObject : Node2D
 
     public override void _Notification(int what)
     {
-        if (!DebugConsole.focusedOnConsole && what == NotificationWMCloseRequest && !isDuplicate && history != null)
+        if (!inputBlocked && what == NotificationWMCloseRequest && !isDuplicate && history != null)
         {
             RequestAction(() => GetTree().Quit());
         }
+    }
+
+    public void CancelActiveInput()
+    {
+        if (tools != null && tools.TryGetValue(mode, out EditorTool? tool))
+        {
+            tool.OnEditorDeactivated();
+        }
+        pressedButton = MouseButton.None;
+        selectionPressStarted = false;
     }
 
     /// <summary>Runs `proceed` immediately if history is clean or if already prompted, otherwise asks first.</summary>
@@ -375,7 +387,7 @@ public partial class EditorObject : Node2D
         HandleModeHotkeys();
         HandleEditHotkeys();
         EditorTool? tool = activeTool;
-        if (tool == null)
+        if (tool == null || inputBlocked)
         {
             hideCursor = true;
             return;
@@ -385,7 +397,7 @@ public partial class EditorObject : Node2D
         {
             tool.Update(delta);
         }
-        hideCursor = !(!DebugConsole.focusedOnConsole && active && tool.cursorVisible);
+        hideCursor = !(active && !inputBlocked && tool.cursorVisible);
 
         if (IsHoveredCellBlocked())
         {
@@ -426,12 +438,12 @@ public partial class EditorObject : Node2D
             bool tracking = canInteract;
             pressedButton = tracking ? MouseButton.Left : MouseButton.None;
             pressPos = GetGlobalMousePosition();
-            selectionPressStarted = !DebugConsole.focusedOnConsole && tracking && !selection.isEmpty;
+            selectionPressStarted = tracking && !selection.isEmpty;
             return;
         }
 
         // Release. Always reset the press state, even when we bail out below, so it can't go stale.
-        bool pressWasTracked = !DebugConsole.focusedOnConsole && pressedButton == MouseButton.Left && selectionPressStarted;
+        bool pressWasTracked = !inputBlocked && pressedButton == MouseButton.Left && selectionPressStarted;
         Vector2 startPos = pressPos;
         pressedButton = MouseButton.None;
         selectionPressStarted = false;
@@ -447,7 +459,7 @@ public partial class EditorObject : Node2D
             return;
         }
         Vector2I releaseCell = WorldToCell(releasePos);
-        bool clickedEmptySpace = !DebugConsole.focusedOnConsole && ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && tileMap.GetCellSourceId(releaseCell) == -1;
+        bool clickedEmptySpace = ObjectsAtCell(releaseCell).Count == 0 && QueryObjectsAt(releasePos).Count == 0 && tileMap.GetCellSourceId(releaseCell) == -1;
         if (clickedEmptySpace)
         {
             selection.Clear();
@@ -464,6 +476,10 @@ public partial class EditorObject : Node2D
     /// </summary>
     bool HotkeysBlocked()
     {
+        if (inputBlocked)
+        {
+            return true;
+        }
         // A text field has focus: typing must not trigger shortcuts.
         Control? focused = GetViewport().GuiGetFocusOwner();
         if (focused is LineEdit or TextEdit)
@@ -475,11 +491,6 @@ public partial class EditorObject : Node2D
         {
             return true;
         }
-        // PLACEHOLDER: global gatekeep (e.g. a rebind screen is open, a dialog is showing).
-        // if (Input.IsActionPressed("PLACEHOLDER_gate"))
-        // {
-        //     return true;
-        // }
         return false;
     }
 
@@ -489,16 +500,16 @@ public partial class EditorObject : Node2D
     /// </summary>
     bool EditHotkeysAllowed()
     {
-        return !DebugConsole.focusedOnConsole && editorActive && !toolBusy && !HotkeysBlocked();
+        return editorActive && !toolBusy && !HotkeysBlocked();
     }
 
     /// <summary>
     /// Input.IsActionJustPressed that tolerates an action that is not in the Input Map yet.
     /// Godot logs an error for unknown actions, which would spam every frame while placeholders are in place.
     /// </summary>
-    static bool ActionJustPressed(string action)
+    bool ActionJustPressed(string action)
     {
-        return !DebugConsole.focusedOnConsole && InputMap.HasAction(action) && Input.IsActionJustPressed(action) && !DebugConsole.focusedOnConsole;
+        return !inputBlocked && InputMap.HasAction(action) && Input.IsActionJustPressed(action);
     }
 
     /// <summary>Undo, redo and delete through the Input Map. Bind the keys (and modifiers) there.</summary>
@@ -509,21 +520,21 @@ public partial class EditorObject : Node2D
             return;
         }
 
-        bool ctrl = !DebugConsole.focusedOnConsole && InputMap.HasAction(ctrlAction) && Input.IsActionPressed(ctrlAction);
+        bool ctrl = InputMap.HasAction(ctrlAction) && Input.IsActionPressed(ctrlAction);
 
-        bool shift = !DebugConsole.focusedOnConsole && InputMap.HasAction(shiftAction) && Input.IsActionPressed(shiftAction);
+        bool shift = InputMap.HasAction(shiftAction) && Input.IsActionPressed(shiftAction);
 
-        bool alt = !DebugConsole.focusedOnConsole && InputMap.HasAction(altAction) && Input.IsActionPressed(altAction);
+        bool alt = InputMap.HasAction(altAction) && Input.IsActionPressed(altAction);
 
-        if (!DebugConsole.focusedOnConsole && ActionJustPressed(undoAction) && ctrl && !shift && !alt)
+        if (ActionJustPressed(undoAction) && ctrl && !shift && !alt)
         {
             Undo();
         }
-        if (!DebugConsole.focusedOnConsole && ActionJustPressed(redoAction) && ctrl && shift && !alt)
+        if (ActionJustPressed(redoAction) && ctrl && shift && !alt)
         {
             Redo();
         }
-        if (!DebugConsole.focusedOnConsole && ActionJustPressed(deleteAction) && !ctrl && !shift && !alt)
+        if (ActionJustPressed(deleteAction) && !ctrl && !shift && !alt)
         {
             DeleteSelection();
         }
@@ -592,7 +603,7 @@ public partial class EditorObject : Node2D
 
     bool ModifierHeld()
     {
-        return !DebugConsole.focusedOnConsole && InputMap.HasAction(ctrlAction) && Input.IsActionPressed(ctrlAction) || !DebugConsole.focusedOnConsole && InputMap.HasAction(shiftAction) && Input.IsActionPressed(shiftAction) || !DebugConsole.focusedOnConsole && InputMap.HasAction(altAction) && Input.IsActionPressed(altAction);
+        return !inputBlocked && (InputMap.HasAction(ctrlAction) && Input.IsActionPressed(ctrlAction) || InputMap.HasAction(shiftAction) && Input.IsActionPressed(shiftAction) || InputMap.HasAction(altAction) && Input.IsActionPressed(altAction));
     }
 
     bool NoModifiersHeld()
@@ -613,11 +624,11 @@ public partial class EditorObject : Node2D
         bool blocked = HotkeysBlocked() || !NoModifiersHeld();
         foreach (var (action, hotkeyMode, needsEditorActive) in hotkeys)
         {
-            if (blocked || (!DebugConsole.focusedOnConsole && needsEditorActive && !editorActive))
+            if (blocked || (needsEditorActive && !editorActive))
             {
                 continue;
             }
-            if (!DebugConsole.focusedOnConsole && InputMap.HasAction(action) && Input.IsActionJustPressed(action))
+            if (InputMap.HasAction(action) && Input.IsActionJustPressed(action))
             {
                 // PLACEHOLDER: per-mode gatekeep, e.g. skip Place while no item is selected.
                 // SwitchMode also updates the OS cursor.
@@ -631,13 +642,13 @@ public partial class EditorObject : Node2D
         // Ctrl temporarily becomes the plain mouse, then restores the previous mode.
         // Tools can opt out (Select uses Ctrl for "add to selection", and drags must not be interrupted).
         // Only while the editor is live, so Ctrl in gameplay can't flip the tool or the OS cursor.
-        if (!DebugConsole.focusedOnConsole && editorActive && Input.IsActionJustPressed("ctrl") && mode != CursorMode.Mouse && activeTool is { allowCtrlMouseOverride: true })
+        if (!inputBlocked && editorActive && Input.IsActionJustPressed("ctrl") && mode != CursorMode.Mouse && activeTool is { allowCtrlMouseOverride: true })
         {
             lastCursorMode = mode;
             ctrlOverride = true;
             SwitchMode(CursorMode.Mouse);
         }
-        if (!DebugConsole.focusedOnConsole && Input.IsActionJustReleased("ctrl") && ctrlOverride)
+        if (!inputBlocked && Input.IsActionJustReleased("ctrl") && ctrlOverride)
         {
             ctrlOverride = false;
             if (lastCursorMode != CursorMode.Null)

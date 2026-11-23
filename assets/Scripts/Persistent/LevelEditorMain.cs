@@ -25,8 +25,43 @@ public partial class LevelEditorMain : Node2D
 
     public CursorMode storedMode;
 
-    // Map each object's "Type" (the original node Name) to the scene that should be instantiated.
-    // Populate these from the Editor or load them by convention, e.g. res://objects/{type}.tscn
+    // Input blocking
+    public HashSet<Node> restrictionsFromEditor = new();
+    private readonly HashSet<Node> cursorModeRestrictions = new();
+    private CursorMode cursorModeBeforeRestriction = CursorMode.Null;
+
+    public bool IsInputBlocked => restrictionsFromEditor.Count > 0;
+
+    public bool IsInputRestrictedBy(Node source) => restrictionsFromEditor.Contains(source);
+
+    public void SetInputRestriction(Node source, bool restricted, bool forceMouseCursor = false)
+    {
+        bool wasBlocked = IsInputBlocked;
+
+        if (restricted)
+        {
+            if (!wasBlocked)
+            {
+                editorObject.CancelActiveInput();
+            }
+
+            restrictionsFromEditor.Add(source);
+            if (forceMouseCursor && cursorModeRestrictions.Add(source) && cursorModeRestrictions.Count == 1)
+            {
+                cursorModeBeforeRestriction = editorObject.currentCursorMode;
+                editorObject.SwitchMode(CursorMode.Mouse);
+            }
+
+            return;
+        }
+
+        restrictionsFromEditor.Remove(source);
+        if (cursorModeRestrictions.Remove(source) && cursorModeRestrictions.Count == 0)
+        {
+            editorObject.SwitchMode(cursorModeBeforeRestriction);
+            cursorModeBeforeRestriction = CursorMode.Null;
+        }
+    }
 
     public override void _Ready()
     {
@@ -64,7 +99,7 @@ public partial class LevelEditorMain : Node2D
     {
         ProcessWindowTitle();
 
-        if (DebugManager.debug && Input.IsActionJustPressed("F5"))
+        if (!IsInputBlocked && DebugManager.debug && Input.IsActionJustPressed("F5"))
         {
             if (Runtime.editorMode)
             {
@@ -72,7 +107,7 @@ public partial class LevelEditorMain : Node2D
             }
         }
 
-        if (Input.IsActionJustPressed("ins") && GetTree().Paused)
+        if (!IsInputBlocked && Input.IsActionJustPressed("ins") && GetTree().Paused)
         {
             string theCat = "meow";
             DebugManager.PlainLog(theCat);

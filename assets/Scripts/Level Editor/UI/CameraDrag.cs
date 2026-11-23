@@ -29,25 +29,32 @@ public partial class CameraDrag : Camera2D
     public override void _Process(double delta)
     {
         EditorObject editorObject = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+
+        if (main.IsInputBlocked)
+        {
+            canDrag = _dragging = false;
+            return;
+        }
 
         Vector2 move = Vector2.Zero;
 
-        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.I))
+        if (Input.IsKeyPressed(Godot.Key.I))
         {
             move.Y -= 1;
         }
 
-        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.K))
+        if (Input.IsKeyPressed(Godot.Key.K))
         {
             move.Y += 1;
         }
 
-        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.J))
+        if (Input.IsKeyPressed(Godot.Key.J))
         {
             move.X -= 1;
         }
 
-        if (!DebugConsole.focusedOnConsole && Input.IsKeyPressed(Godot.Key.L))
+        if (Input.IsKeyPressed(Godot.Key.L))
         {
             move.X += 1;
         }
@@ -59,12 +66,12 @@ public partial class CameraDrag : Camera2D
             ClampToBounds();
         }
 
-        if (!DebugConsole.focusedOnConsole && (Input.IsKeyPressed(Godot.Key.F)))
+        if (Input.IsKeyPressed(Godot.Key.F))
         {
             GlobalPosition = startingPos;
         }
 
-        if (!DebugConsole.focusedOnConsole && (Input.IsActionJustPressed("spacebar") || Input.IsActionJustPressed("mb_middle")))
+        if (Input.IsActionJustPressed("spacebar") || Input.IsActionJustPressed("mb_middle"))
         {
             canDrag = true;
 
@@ -92,9 +99,16 @@ public partial class CameraDrag : Camera2D
 
     public override void _Input(InputEvent @event)
     {
+        LevelEditorMain main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
+        if (main.IsInputBlocked)
+        {
+            _dragging = false;
+            return;
+        }
+
         if (@event is InputEventMouseButton mouseButton)
         {
-            if (!DebugConsole.focusedOnConsole && (mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed && Input.IsActionPressed("spacebar") || (mouseButton.ButtonIndex == MouseButton.Middle && mouseButton.Pressed)))
+            if ((mouseButton.ButtonIndex == MouseButton.Left && mouseButton.Pressed && Input.IsActionPressed("spacebar") || (mouseButton.ButtonIndex == MouseButton.Middle && mouseButton.Pressed)))
             {
                 _dragging = true;
             }

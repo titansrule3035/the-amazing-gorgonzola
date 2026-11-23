@@ -7,6 +7,7 @@ public partial class QuitMenu : Control
     [Export] Button quitButton;
     [Export] public Button cancelButton;
     public FileButton fileButton;
+    LevelEditorMain main;
     bool quit;
 
     public override void _Ready()
@@ -17,6 +18,7 @@ public partial class QuitMenu : Control
 
         cancelButton.Pressed += CancelButtonPressed;
         fileButton = GetTree().CurrentScene.GetNode<FileButton>("editor/main/CanvasLayer/UI/ToolBar/FileButton");
+        main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
     }
 
     private void CancelButtonPressed()
@@ -35,23 +37,24 @@ public partial class QuitMenu : Control
 
     public override void _Process(double delta)
     {
+        bool consoleOpen = main.IsInputRestrictedBy(DebugConsole.GetInstance());
         if (Visible)
         {
             if (quit)
             {
-                if (!DebugConsole.focusedOnConsole && Input.IsActionPressed("ctrl"))
+                if (!consoleOpen && Input.IsActionPressed("ctrl"))
                 {
-                    if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("q"))
+                    if (!consoleOpen && Input.IsActionJustPressed("q"))
                     {
                         QuitEditor();
                     }
                 }
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustReleased("q") && Visible)
+            if (!consoleOpen && Input.IsActionJustReleased("q") && Visible)
             {
                 quit = true;
             }
-            if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("escape"))
+            if (!consoleOpen && Input.IsActionJustPressed("escape"))
             {
                 CancelButtonPressed();
             }
@@ -76,6 +79,7 @@ public partial class QuitMenu : Control
     {
         quitButton.Disabled = cancelButton.Disabled = !state;
         Visible = state;
+        main.SetInputRestriction(this, state, state);
     }
 
     void QuitEditor()
@@ -83,6 +87,7 @@ public partial class QuitMenu : Control
         if (!programMode)
         {
             quitButton.Disabled = cancelButton.Disabled = true;
+            SetMenuVisibility(false);
 
             Runtime.GetInstance().SwitchToGame(true);
         }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using CursorMode = EditorObject.CursorMode;
 
 public partial class Ui : Control
 {
@@ -16,6 +17,8 @@ public partial class Ui : Control
     public ColorRect blockMouse;
 
     private bool levelLoaded => !string.IsNullOrEmpty(Runtime.GetInstance().filePath);
+
+    private CursorMode lastCursorMode = CursorMode.Null;
 
     public override void _Ready()
     {
@@ -31,12 +34,18 @@ public partial class Ui : Control
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
 
-
+        blockMouse.MouseEntered += OnMouseEntered;
+        blockMouse.MouseExited += OnMouseExited;
     }
 
     private void OnMouseEntered()
     {
         EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
+        if (lastCursorMode != CursorMode.Null && editor.currentCursorMode == CursorMode.Mouse)
+        {
+            editor.currentCursorMode = lastCursorMode;
+            lastCursorMode = CursorMode.Null;
+        }
         editor.canPlace = true;
         editor.hideCursor = false;
     }
@@ -44,6 +53,11 @@ public partial class Ui : Control
     private void OnMouseExited()
     {
         EditorObject editor = GetTree().CurrentScene.GetNode<EditorObject>("editor/main/EditorObject");
+        if (editor.currentCursorMode != CursorMode.Mouse)
+        {
+            lastCursorMode = editor.currentCursorMode;
+            editor.currentCursorMode = CursorMode.Mouse;
+        }
         editor.canPlace = false;
         editor.hideCursor = true;
     }
@@ -52,7 +66,7 @@ public partial class Ui : Control
     {
         // Center quitMenu within this UI control
         quitMenu.Position = (Size - quitMenu.Size) / 2;
-        
+
         string trail;
         bool dirty = main.editorObject.history.IsDirty;
 

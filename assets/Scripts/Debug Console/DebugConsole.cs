@@ -102,6 +102,7 @@ public partial class DebugConsole : Control
 
     public override void _ExitTree()
     {
+        SetEditorInputRestriction(false);
         instance = null;
 
         LogRead -= OnLogRead;
@@ -111,18 +112,29 @@ public partial class DebugConsole : Control
 
     public void SetActive(bool active)
     {
+        bool visibilityChanged = Visible != active;
         Visible = active;
 
         DebugManager.debugConsoleActive = focusedOnConsole = active;
+        SetEditorInputRestriction(active);
 
         if (focusedOnConsole)
         {
-            input.GrabFocus();
+            if (visibilityChanged || !input.HasFocus())
+            {
+                input.GrabFocus();
+            }
         }
         else
         {
             input.ReleaseFocus();
         }
+    }
+
+    private void SetEditorInputRestriction(bool restricted)
+    {
+        LevelEditorMain? main = GetTree().CurrentScene?.GetNodeOrNull<LevelEditorMain>("editor/main");
+        main?.SetInputRestriction(this, restricted);
     }
 
     public static void ReadLog()

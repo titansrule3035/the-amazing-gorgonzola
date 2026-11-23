@@ -41,7 +41,7 @@ public partial class GameControlsMenu : Control
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
         editor = main.GetNode<EditorObject>("EditorObject");
 
-        if (!DebugConsole.focusedOnConsole && Input.IsActionJustPressed("editor_play"))
+        if (!main.IsInputBlocked && Input.IsActionJustPressed("editor_play"))
         {
             PlayButtonPressed();
         }
@@ -70,7 +70,7 @@ public partial class GameControlsMenu : Control
             HelpButton.ButtonPressed = false;
         }
 
-        if (Input.IsActionJustPressed("mb_left") && helpMenuActive)
+        if (!main.IsInputBlocked && Input.IsActionJustPressed("mb_left") && helpMenuActive)
         {
             editor.currentCursorMode = lastCursorMode;
             helpMenuActive = false;
