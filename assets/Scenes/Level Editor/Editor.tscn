@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctjfy4d5vkxg0" path="res://assets/Sprites/World/Hub/worldHUB_bg_1_2.png" id="10_miqjo"]
 [ext_resource type="Texture2D" uid="uid://dbfl4quscunxt" path="res://assets/Sprites/Level Editor/leveleditor_UI.png" id="13_mgmnv"]
 [ext_resource type="Script" uid="uid://bv7bfobi7ndpy" path="res://assets/Scripts/Level Editor/UI/CameraDrag.cs" id="17_yuieu"]
+[ext_resource type="Texture2D" uid="uid://dqc5xvjdgxen5" path="res://assets/Sprites/Level Editor/course_elements_bg.png" id="18_dscuk"]
 [ext_resource type="Script" uid="uid://decn0trfeo5dx" path="res://assets/Scripts/Persistent/EditorGameManager.cs" id="18_xuh87"]
 [ext_resource type="Script" uid="uid://c0w44nqle4lgc" path="res://assets/Scripts/Level Editor/UI/AssetMenu.cs" id="19_mgmnv"]
 [ext_resource type="PackedScene" uid="uid://bc8rxj4w6dd3f" path="res://assets/Scenes/Level Editor/Items/Clones/item_rev_upside_clone.tscn" id="20_fm07t"]
@@ -39,9 +40,11 @@
 [ext_resource type="Script" uid="uid://bs6h58nd2cj1y" path="res://assets/Scripts/Debug Console/DebugConsole.cs" id="44_ffvxq"]
 [ext_resource type="Texture2D" uid="uid://bnq30ywiovsxm" path="res://assets/Sprites/UI/Dialogue/dialogue_bg_red.png" id="45_2h3ye"]
 [ext_resource type="PackedScene" uid="uid://qyiid3xcqfhu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_up.tscn" id="45_krgg0"]
+[ext_resource type="Texture2D" uid="uid://dxrad12kjhxh5" path="res://assets/Sprites/UI/Dialogue/speechbubble.png" id="46_3eqs7"]
 [ext_resource type="PackedScene" uid="uid://daw8b8yyqitqu" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_left.tscn" id="46_16gwb"]
 [ext_resource type="Texture2D" uid="uid://0tq3gjxwc2yj" path="res://assets/Sprites/UI/Debug Console/box_small.png" id="46_tiove"]
 [ext_resource type="PackedScene" uid="uid://h7juj7n2816b" path="res://assets/Scenes/Level Editor/Items/Tiles/ID2/item_tile_07_18.tscn" id="47_upxro"]
+[ext_resource type="Texture2D" uid="uid://c6ud1capgafgr" path="res://assets/Sprites/UI/Dialogue/speechbubble_transparent_thicc.png" id="48_3eqs7"]
 [ext_resource type="PackedScene" uid="uid://ck86k773p7lc7" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_right.tscn" id="48_gwxgc"]
 [ext_resource type="PackedScene" uid="uid://bwjeam3o5kvn5" path="res://assets/Scenes/Level Editor/Items/Tiles/ID1/Hazards/item_tile_spike_down.tscn" id="49_n2ci5"]
 [ext_resource type="PackedScene" uid="uid://1gscoiqbtax4" path="res://assets/Scenes/Level Editor/Items/Level Assets/item_key_card.tscn" id="50_t3qxf"]
@@ -585,9 +588,863 @@ _data = {
 &"on": SubResource("Animation_pw0c8")
 }
 
+[sub_resource type="Animation" id="Animation_i5g7p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture_rect24:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 688)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture_rect23:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 688)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("texture_rect22:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 688)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("texture_rect30:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, 688)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("texture_rect28:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, 432)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("texture_rect29:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, 560)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("texture_rect27:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, 304)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("texture_rect26:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, 176)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("texture_rect35:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, -80)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("texture_rect34:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, -80)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("texture_rect33:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, -80)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("texture_rect32:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, -80)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("texture_rect31:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -80)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("texture_rect25:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-128, 48)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("texture_rect21:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 688)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("texture_rect20:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 560)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("texture_rect19:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 560)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("texture_rect18:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 560)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("texture_rect17:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 560)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("texture_rect15:position")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 432)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("texture_rect16:position")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 432)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("texture_rect14:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 432)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("texture_rect13:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 432)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("texture_rect12:position")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 304)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("texture_rect11:position")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 304)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("texture_rect10:position")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 304)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("texture_rect9:position")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 304)]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("texture_rect7:position")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 176)]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("texture_rect8:position")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 176)]
+}
+tracks/29/type = "value"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("texture_rect6:position")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 176)]
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("texture_rect5:position")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 176)]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("texture_rect4:position")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 48)]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("texture_rect3:position")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 48)]
+}
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("texture_rect2:position")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 48)]
+}
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("texture_rect:position")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 48)]
+}
+
+[sub_resource type="Animation" id="Animation_2emwo"]
+resource_name = "default"
+length = 5.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture_rect24:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, 560), Vector2(384, 688)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture_rect23:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, 560), Vector2(256, 688)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("texture_rect22:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, 560), Vector2(128, 688)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("texture_rect30:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 560), Vector2(-128, 688)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("texture_rect28:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 304), Vector2(-128, 432)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("texture_rect29:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 432), Vector2(-128, 560)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("texture_rect27:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 176), Vector2(-128, 304)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("texture_rect26:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 48), Vector2(-128, 176)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("texture_rect35:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -208), Vector2(-128, -80)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("texture_rect34:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, -208), Vector2(384, -80)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("texture_rect33:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, -208), Vector2(256, -80)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("texture_rect32:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, -208), Vector2(128, -80)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("texture_rect31:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, -208), Vector2(0, -80)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("texture_rect25:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -80), Vector2(-128, 48)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("texture_rect21:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 560), Vector2(0, 688)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("texture_rect20:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, 432), Vector2(384, 560)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("texture_rect19:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, 432), Vector2(256, 560)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("texture_rect18:position")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, 432), Vector2(128, 560)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("texture_rect17:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 432), Vector2(0, 560)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("texture_rect15:position")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, 304), Vector2(256, 432)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("texture_rect16:position")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, 304), Vector2(384, 432)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("texture_rect14:position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, 304), Vector2(128, 432)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("texture_rect13:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 304), Vector2(0, 432)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("texture_rect12:position")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, 176), Vector2(384, 304)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("texture_rect11:position")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, 176), Vector2(256, 304)]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("texture_rect10:position")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, 176), Vector2(128, 304)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("texture_rect9:position")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 176), Vector2(0, 304)]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("texture_rect7:position")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, 48), Vector2(256, 176)]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("texture_rect8:position")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, 48), Vector2(384, 176)]
+}
+tracks/29/type = "value"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("texture_rect6:position")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, 48), Vector2(128, 176)]
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("texture_rect5:position")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 48), Vector2(0, 176)]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("texture_rect4:position")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(512, -80), Vector2(384, 48)]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("texture_rect3:position")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(384, -80), Vector2(256, 48)]
+}
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("texture_rect2:position")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, -80), Vector2(128, 48)]
+}
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("texture_rect:position")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, -80), Vector2(0, 48)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ps382"]
+_data = {
+&"RESET": SubResource("Animation_i5g7p"),
+&"default": SubResource("Animation_2emwo")
+}
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_22nh7"]
 atlas = ExtResource("13_mgmnv")
-region = Rect2(0, 64, 480, 688)
+region = Rect2(448, 64, 32, 688)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8b2ky"]
 atlas = ExtResource("13_mgmnv")
@@ -1716,12 +2573,291 @@ hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
 layout_toggle_enabled = false
 
-[node name="Sprite" type="TextureRect" parent="CanvasLayer/UI" unique_id=488056958]
+[node name="Bg" type="Control" parent="CanvasLayer/UI" unique_id=1568555455]
+process_mode = 3
+clip_contents = true
+anchors_preset = 0
+offset_top = 64.0
+offset_right = 448.0
+offset_bottom = 752.0
+
+[node name="texture_rect" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1008356617]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 128.0
+offset_bottom = 176.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect2" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=361566676]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 48.0
+offset_right = 256.0151
+offset_bottom = 176.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect3" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=457401223]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 48.0
+offset_right = 384.0
+offset_bottom = 176.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect4" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=563692184]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 48.0
+offset_right = 512.00476
+offset_bottom = 176.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect5" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1851884164]
+layout_mode = 0
+offset_top = 176.0
+offset_right = 128.0
+offset_bottom = 304.00003
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect6" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=85199275]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 176.0
+offset_right = 256.0151
+offset_bottom = 304.00003
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect7" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1169681531]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 176.0
+offset_right = 384.0
+offset_bottom = 304.00003
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect8" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1647275823]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 176.0
+offset_right = 512.00476
+offset_bottom = 304.00003
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect9" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1217149372]
+layout_mode = 0
+offset_top = 304.0
+offset_right = 128.0
+offset_bottom = 432.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect10" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=911056946]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 304.0
+offset_right = 256.0151
+offset_bottom = 432.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect11" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=2021410370]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 304.0
+offset_right = 384.0
+offset_bottom = 432.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect12" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=545438843]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 304.0
+offset_right = 512.00476
+offset_bottom = 432.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect13" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1094720191]
+layout_mode = 0
+offset_top = 432.0
+offset_right = 128.0
+offset_bottom = 560.0112
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect14" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1887035072]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 432.0
+offset_right = 256.0151
+offset_bottom = 560.0112
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect15" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1634395075]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 432.0
+offset_right = 384.0
+offset_bottom = 560.0112
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect16" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=2011639003]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 432.0
+offset_right = 512.00476
+offset_bottom = 560.0112
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect17" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1083029616]
+layout_mode = 0
+offset_top = 560.0
+offset_right = 128.0
+offset_bottom = 688.01306
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect18" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1315914339]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 560.0
+offset_right = 256.0151
+offset_bottom = 688.01306
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect19" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1013916383]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 560.0
+offset_right = 384.0
+offset_bottom = 688.01306
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect20" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=31619972]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 560.0
+offset_right = 512.00476
+offset_bottom = 688.01306
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect21" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1997044070]
+layout_mode = 0
+offset_top = 688.0
+offset_right = 128.0
+offset_bottom = 816.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect25" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1432618001]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 48.0
+offset_bottom = 176.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect31" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1205990713]
+layout_mode = 0
+offset_top = -80.0
+offset_right = 128.0
+offset_bottom = 48.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect32" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1194844608]
+layout_mode = 0
+offset_left = 128.0
+offset_top = -80.0
+offset_right = 256.0151
+offset_bottom = 48.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect33" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1827138699]
+layout_mode = 0
+offset_left = 256.0
+offset_top = -80.0
+offset_right = 384.0
+offset_bottom = 48.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect34" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=571036790]
+layout_mode = 0
+offset_left = 384.0
+offset_top = -80.0
+offset_right = 512.00476
+offset_bottom = 48.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect35" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1131753918]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -80.0
+offset_bottom = 48.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect26" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1601698359]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 176.0
+offset_bottom = 304.00003
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect27" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=2124023271]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 304.0
+offset_bottom = 432.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect28" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=126628954]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 432.0
+offset_bottom = 560.0112
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect29" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=800380250]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 560.0
+offset_bottom = 688.01306
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect30" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=395359527]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 688.0
+offset_bottom = 816.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect22" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1604037148]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 688.0
+offset_right = 256.0151
+offset_bottom = 816.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect23" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1150462703]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 688.0
+offset_right = 384.0
+offset_bottom = 816.0
+texture = ExtResource("18_dscuk")
+
+[node name="texture_rect24" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1340443729]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 688.0
+offset_right = 512.00476
+offset_bottom = 816.0
+texture = ExtResource("18_dscuk")
+
+[node name="animation_player" type="AnimationPlayer" parent="CanvasLayer/UI/Bg" unique_id=1071027979]
+libraries/ = SubResource("AnimationLibrary_ps382")
+autoplay = &"default"
+
+[node name="ScrollBarSprite" type="TextureRect" parent="CanvasLayer/UI" unique_id=488056958]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.074
 anchor_right = 0.27800003
 anchor_bottom = 0.87000006
+offset_left = 448.0
 offset_top = 0.063999176
 offset_right = -0.3840332
 offset_bottom = 0.3199463
@@ -2671,13 +3807,18 @@ script = ExtResource("53_tbr8v")
 quitButton = NodePath("QuitButton/Button")
 cancelButton = NodePath("CancelButton/Button")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/QuitMenu" unique_id=1916612660]
+[node name="Background" type="NinePatchRect" parent="CanvasLayer/UI/QuitMenu" unique_id=2017530313]
+modulate = Color(0.41953176, 0.016306242, 0.16470313, 1)
 layout_mode = 0
 offset_right = 672.0
 offset_bottom = 464.0
-color = Color(0, 0, 0, 1)
+texture = ExtResource("46_3eqs7")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
 
-[node name="Bg" type="Control" parent="CanvasLayer/UI/QuitMenu" unique_id=175471740]
+[node name="Backdrop" type="Control" parent="CanvasLayer/UI/QuitMenu" unique_id=175471740]
 clip_contents = true
 anchors_preset = 0
 offset_left = 8.0
@@ -2685,155 +3826,151 @@ offset_top = 7.0
 offset_right = 664.0
 offset_bottom = 456.0
 
-[node name="texture_rect_3" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=1273079964]
+[node name="texture_rect_3" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=1273079964]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 72.0
-offset_right = 184.0
-offset_bottom = 136.0
-scale = Vector2(3, 3)
+offset_right = 376.0
+offset_bottom = 264.0001
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_4" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=390385431]
+[node name="texture_rect_4" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=390385431]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 73.0
-offset_right = 472.1199
-offset_bottom = 137.0
-scale = Vector2(3, 3)
+offset_right = 664.0061
+offset_bottom = 265.0001
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_5" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=2102267680]
+[node name="texture_rect_5" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=2102267680]
 layout_mode = 0
 offset_left = 664.0
 offset_top = 73.0
-offset_right = 760.2912
-offset_bottom = 137.0
-scale = Vector2(3, 3)
+offset_right = 952.0079
+offset_bottom = 265.0001
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_12" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=897411425]
+[node name="texture_rect_12" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=897411425]
 layout_mode = 0
 offset_left = 88.0
 offset_top = -120.0
-offset_right = 184.0
-offset_bottom = -56.0
-scale = Vector2(3, 3)
+offset_right = 376.0
+offset_bottom = 72.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_13" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=1749471115]
+[node name="texture_rect_13" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=1749471115]
 layout_mode = 0
 offset_left = 376.0
 offset_top = -119.0
-offset_right = 472.1199
-offset_bottom = -55.0
-scale = Vector2(3, 3)
+offset_right = 664.0061
+offset_bottom = 73.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_14" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=2015272349]
+[node name="texture_rect_14" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=2015272349]
 layout_mode = 0
 offset_left = 664.0
 offset_top = -119.0
-offset_right = 760.2912
-offset_bottom = -55.0
-scale = Vector2(3, 3)
+offset_right = 952.0079
+offset_bottom = 73.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_6" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=389365011]
+[node name="texture_rect_6" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=389365011]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 264.0
-offset_right = 184.0
-offset_bottom = 328.01404
-scale = Vector2(3, 3)
+offset_right = 376.0
+offset_bottom = 456.0008
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_7" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=931713415]
+[node name="texture_rect_7" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=931713415]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 265.0
-offset_right = 472.1199
-offset_bottom = 329.01483
-scale = Vector2(3, 3)
+offset_right = 664.0061
+offset_bottom = 457.0008
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_8" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=880714625]
+[node name="texture_rect_8" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=880714625]
 layout_mode = 0
 offset_left = 664.0
 offset_top = 265.0
-offset_right = 760.2912
-offset_bottom = 329.01483
-scale = Vector2(3, 3)
+offset_right = 952.0079
+offset_bottom = 457.0008
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_9" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=1422847834]
+[node name="texture_rect_9" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=1422847834]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 456.0
-offset_right = 184.0
-offset_bottom = 520.0
-scale = Vector2(3, 3)
+offset_right = 376.0
+offset_bottom = 648.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_15" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=2096348861]
+[node name="texture_rect_15" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=2096348861]
 layout_mode = 0
 offset_left = -200.0
 offset_top = 72.0
-offset_right = -104.0
-offset_bottom = 136.0
-scale = Vector2(3, 3)
+offset_right = 88.0
+offset_bottom = 264.0001
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_16" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=828755543]
+[node name="texture_rect_16" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=828755543]
 layout_mode = 0
 offset_left = -200.0
 offset_top = -120.0
-offset_right = -104.0
-offset_bottom = -56.0
-scale = Vector2(3, 3)
+offset_right = 88.0
+offset_bottom = 72.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_17" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=2085016657]
+[node name="texture_rect_17" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=2085016657]
 layout_mode = 0
 offset_left = -200.0
 offset_top = 264.0
-offset_right = -104.0
-offset_bottom = 328.01404
-scale = Vector2(3, 3)
+offset_right = 88.0
+offset_bottom = 456.0008
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_18" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=821456463]
+[node name="texture_rect_18" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=821456463]
 layout_mode = 0
 offset_left = -200.0
 offset_top = 456.0
-offset_right = -104.0
-offset_bottom = 520.0
-scale = Vector2(3, 3)
+offset_right = 88.0
+offset_bottom = 648.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_10" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=1751234074]
+[node name="texture_rect_10" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=1751234074]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 457.0
-offset_right = 472.1199
-offset_bottom = 521.0
-scale = Vector2(3, 3)
+offset_right = 664.0061
+offset_bottom = 649.0
 texture = ExtResource("45_2h3ye")
 
-[node name="texture_rect_11" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=1287765142]
+[node name="texture_rect_11" type="TextureRect" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=1287765142]
 layout_mode = 0
 offset_left = 664.0
 offset_top = 457.0
-offset_right = 760.2912
-offset_bottom = 521.0
-scale = Vector2(3, 3)
+offset_right = 952.0079
+offset_bottom = 649.0
 texture = ExtResource("45_2h3ye")
 
-[node name="animation_player" type="AnimationPlayer" parent="CanvasLayer/UI/QuitMenu/Bg" unique_id=1159455849]
+[node name="animation_player" type="AnimationPlayer" parent="CanvasLayer/UI/QuitMenu/Backdrop" unique_id=1159455849]
 libraries/ = SubResource("AnimationLibrary_6514u")
 autoplay = &"default"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/QuitMenu" unique_id=1421705998]
+[node name="Background2" type="NinePatchRect" parent="CanvasLayer/UI/QuitMenu" unique_id=1837034505]
+modulate = Color(0.41953176, 0.016306242, 0.16470313, 1)
+layout_mode = 0
+offset_right = 672.0
+offset_bottom = 464.0
+texture = ExtResource("48_3eqs7")
+draw_center = false
+patch_margin_left = 25
+patch_margin_top = 24
+patch_margin_right = 25
+patch_margin_bottom = 24
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/UI/QuitMenu" unique_id=1421705998]
 texture_filter = 1
 layout_mode = 0
 offset_left = 272.0
