@@ -5,15 +5,14 @@ public partial class EditorButton : ToolBarButton
 {
     public override void _Ready()
     {
+        base._Ready();
+
         menuButtons[4] = menu.GetNode<Button>("QuitButton/Button");
 
         menuButtons[4].Pressed += QuitButtonPressed;
-
-        base._Ready();
     }
     void QuitButtonPressed()
     {
-        blockMouse.MouseFilter = MouseFilterEnum.Stop;
         GetTree().CurrentScene.GetNode<QuitMenu>("editor/main/CanvasLayer/UI/QuitMenu").ShowMenu();
     }
 }

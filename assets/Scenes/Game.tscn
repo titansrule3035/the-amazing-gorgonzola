@@ -179,7 +179,6 @@ layer = 2
 
 [node name="DebugConsole" type="Control" parent="canvas_layer_2" unique_id=500259199]
 process_mode = 3
-visible = false
 visibility_layer = 2
 layout_mode = 3
 anchors_preset = 0
@@ -189,8 +188,8 @@ script = ExtResource("22_aufyu")
 
 [node name="color_rect" type="ColorRect" parent="canvas_layer_2/DebugConsole" unique_id=1293193621]
 layout_mode = 0
-offset_right = 2829.0
-offset_bottom = 2123.0
+offset_right = 1248.0
+offset_bottom = 864.0
 color = Color(0, 0, 0, 0.60784316)
 
 [node name="backdrop" type="NinePatchRect" parent="canvas_layer_2/DebugConsole" unique_id=1083430002]

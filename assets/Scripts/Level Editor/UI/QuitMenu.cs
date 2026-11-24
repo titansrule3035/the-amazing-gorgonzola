@@ -6,6 +6,7 @@ public partial class QuitMenu : Control
     public bool programMode = false;
     [Export] Button quitButton;
     [Export] public Button cancelButton;
+    public Control mouseBlock;
     public FileButton fileButton;
     LevelEditorMain main;
     bool quit;
@@ -17,6 +18,8 @@ public partial class QuitMenu : Control
 
         quitButton.Pressed += QuitEditor;
 
+        mouseBlock = GetNode<Control>("MouseBlock");
+
         cancelButton.Pressed += CancelButtonPressed;
         fileButton = GetTree().CurrentScene.GetNode<FileButton>("editor/main/CanvasLayer/UI/ToolBar/FileButton");
         main = GetTree().CurrentScene.GetNode<LevelEditorMain>("editor/main");
@@ -27,11 +30,7 @@ public partial class QuitMenu : Control
         HideMenu();
         quit = false;
 
-        if (GetParent() is Ui ui)
-        {
-            ui.blockMouse.MouseFilter = MouseFilterEnum.Ignore;
-            fileButton.UpdateMenuAndButton(false);
-        }
+        fileButton.UpdateMenuAndButton(false);
 
         programMode = false;
     }
@@ -59,10 +58,6 @@ public partial class QuitMenu : Control
             {
                 CancelButtonPressed();
             }
-
-            Ui ui = GetParent() as Ui;
-
-            ui.blockMouse.MouseFilter = MouseFilterEnum.Stop;
         }
     }
 
@@ -78,6 +73,7 @@ public partial class QuitMenu : Control
 
     public void SetMenuVisibility(bool state)
     {
+        mouseBlock.MouseFilter = state ? MouseFilterEnum.Stop : MouseFilterEnum.Ignore;
         quitButton.Disabled = cancelButton.Disabled = !state;
         GetNode<AnimationPlayer>("animPlayer").Play("turn_" + (state ? "on" : "off"));
         main.SetInputRestriction(this, state, state);
@@ -88,7 +84,6 @@ public partial class QuitMenu : Control
         if (!programMode)
         {
             quitButton.Disabled = cancelButton.Disabled = true;
-            SetMenuVisibility(false);
 
             Runtime.GetInstance().SwitchToGame(true);
         }

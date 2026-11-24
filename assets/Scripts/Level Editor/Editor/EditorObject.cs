@@ -334,7 +334,6 @@ public partial class EditorObject : Node2D
         OnSaveComplete = proceed;
         main.ui.quitMenu.SetMenuVisibility(true);
         main.ui.quitMenu.programMode = true;
-        main.ui.blockMouse.MouseFilter = Control.MouseFilterEnum.Stop;
     }
 
     /// <summary>Call from the save code once the file is written. Runs the pending action (once) and clears it.</summary>

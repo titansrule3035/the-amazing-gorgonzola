@@ -14,8 +14,6 @@ public partial class Ui : Control
 
     [Export] public QuitMenu quitMenu;
 
-    public ColorRect blockMouse;
-
     private bool levelLoaded => !string.IsNullOrEmpty(Runtime.GetInstance().filePath);
 
     private CursorMode lastCursorMode = CursorMode.Null;
@@ -26,14 +24,8 @@ public partial class Ui : Control
 
         toolBarLabel = GetNode<Label>("ToolBar/ToolBarLabel");
 
-        blockMouse = GetNode<ColorRect>("BlockMouse");
-        blockMouse.MouseFilter = MouseFilterEnum.Ignore;
-
         MouseEntered += OnMouseEntered;
         MouseExited += OnMouseExited;
-
-        blockMouse.MouseEntered += OnMouseEntered;
-        blockMouse.MouseExited += OnMouseExited;
     }
 
     private void OnMouseEntered()
@@ -44,6 +36,7 @@ public partial class Ui : Control
             editor.currentCursorMode = lastCursorMode;
             lastCursorMode = CursorMode.Null;
         }
+
         editor.canPlace = true;
         editor.hideCursor = false;
     }

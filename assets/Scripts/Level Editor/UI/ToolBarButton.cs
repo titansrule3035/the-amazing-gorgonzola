@@ -15,14 +15,11 @@ public partial class ToolBarButton : Button
     [Export] public Godot.Collections.Array<Button> menuButtons;
     Godot.Color fill;
     AnimationPlayer fillController;
-    public ColorRect blockMouse;
 
     public override void _Ready()
     {
         Pressed += ToolBarButtonPressed;
         MouseEntered += ToolBarButtonHovered;
-
-        blockMouse = GetTree().CurrentScene.GetNode<ColorRect>("editor/main/CanvasLayer/UI/BlockMouse");
 
         menu.parentButton = this;
 
