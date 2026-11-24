@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bni2vnnwehdf" path="res://assets/Scripts/Persistent/LevelEditorMain.cs" id="1_xuh87"]
 [ext_resource type="AudioStream" uid="uid://c5dirpaj8qx44" path="res://assets/Audio/SPM_meow.mp3" id="2_yyvtn"]
 [ext_resource type="PackedScene" uid="uid://c8ydq7hkn7au5" path="res://assets/Scenes/Level Assets/Layout/tiles.tscn" id="4_pw0c8"]
+[ext_resource type="Script" uid="uid://dpt5pihw73edp" path="res://assets/Scripts/Effects/WorldAnchoredBg.cs" id="5_3eqs7"]
 [ext_resource type="PackedScene" uid="uid://bpr24iw2b4j2t" path="res://assets/Scenes/Level Assets/Layout/level_assets.tscn" id="5_w41ii"]
 [ext_resource type="Texture2D" uid="uid://d0svfio3mqfe6" path="res://assets/Sprites/World/Hub/worldHUB_bg_2_2.png" id="9_yyvtn"]
 [ext_resource type="Texture2D" uid="uid://ctjfy4d5vkxg0" path="res://assets/Sprites/World/Hub/worldHUB_bg_1_2.png" id="10_miqjo"]
@@ -55,396 +56,114 @@
 [ext_resource type="Script" uid="uid://cnebv16m11afh" path="res://assets/Scripts/Level Editor/UI/QuitMenu.cs" id="53_tbr8v"]
 [ext_resource type="Texture2D" uid="uid://dm1ve5n7hm2qw" path="res://assets/Sprites/Level Editor/warning.png" id="54_0e44q"]
 
+[sub_resource type="Shader" id="Shader_76dpg"]
+code = "shader_type canvas_item;
+
+uniform sampler2D background_texture : source_color, filter_linear_mipmap, repeat_enable;
+
+// 1.0 = texture's native pixel size, 2.0 = twice as dense.
+uniform vec2 texture_scale = vec2(1.0);
+
+// 1.0 = locked to the world, 0.0 = locked to the screen, in between = parallax.
+uniform float parallax_factor = 1.0;
+
+// Independent drift in world pixels (wrapped on the C# side).
+uniform vec2 scroll_offset = vec2(0.0);
+
+// Logical viewport size (VIEWPORT_SIZE does not exist in canvas_item shaders).
+uniform vec2 viewport_size = vec2(1152.0, 648.0);
+
+// Inverse camera/canvas transform: viewport pixels -> world pixels.
+uniform vec2 world_from_screen_x = vec2(1.0, 0.0);
+uniform vec2 world_from_screen_y = vec2(0.0, 1.0);
+uniform vec2 world_from_screen_origin = vec2(0.0);
+
+void fragment() {
+    // Viewport position in logical pixels.
+    vec2 screen_position = SCREEN_UV * viewport_size;
+
+    // Viewport -> world.
+    vec2 world_position =
+        world_from_screen_origin
+        + world_from_screen_x * screen_position.x
+        + world_from_screen_y * screen_position.y;
+
+    // Blend between screen-locked and world-locked, then add independent drift.
+    vec2 p = mix(screen_position, world_position, parallax_factor) + scroll_offset;
+
+    // Position -> texture coordinates. repeat_enable handles the tiling.
+    vec2 uv = p * texture_scale / vec2(textureSize(background_texture, 0));
+
+    COLOR = texture(background_texture, uv);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fn5li"]
+shader = SubResource("Shader_76dpg")
+shader_parameter/background_texture = ExtResource("9_yyvtn")
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/parallax_factor = 1.0
+shader_parameter/scroll_offset = Vector2(0, 0)
+shader_parameter/viewport_size = Vector2(1152, 648)
+shader_parameter/world_from_screen_x = Vector2(1, 0)
+shader_parameter/world_from_screen_y = Vector2(0, 1)
+shader_parameter/world_from_screen_origin = Vector2(0, 0)
+
+[sub_resource type="Shader" id="Shader_pw0c8"]
+code = "shader_type canvas_item;
+
+uniform sampler2D background_texture : source_color, filter_linear_mipmap, repeat_enable;
+
+// 1.0 = texture's native pixel size, 2.0 = twice as dense.
+uniform vec2 texture_scale = vec2(1.0);
+
+// 1.0 = locked to the world, 0.0 = locked to the screen, in between = parallax.
+uniform float parallax_factor = 1.0;
+
+// Independent drift in world pixels (wrapped on the C# side).
+uniform vec2 scroll_offset = vec2(0.0);
+
+// Logical viewport size (VIEWPORT_SIZE does not exist in canvas_item shaders).
+uniform vec2 viewport_size = vec2(1152.0, 648.0);
+
+// Inverse camera/canvas transform: viewport pixels -> world pixels.
+uniform vec2 world_from_screen_x = vec2(1.0, 0.0);
+uniform vec2 world_from_screen_y = vec2(0.0, 1.0);
+uniform vec2 world_from_screen_origin = vec2(0.0);
+
+void fragment() {
+    // Viewport position in logical pixels.
+    vec2 screen_position = SCREEN_UV * viewport_size;
+
+    // Viewport -> world.
+    vec2 world_position =
+        world_from_screen_origin
+        + world_from_screen_x * screen_position.x
+        + world_from_screen_y * screen_position.y;
+
+    // Blend between screen-locked and world-locked, then add independent drift.
+    vec2 p = mix(screen_position, world_position, parallax_factor) + scroll_offset;
+
+    // Position -> texture coordinates. repeat_enable handles the tiling.
+    vec2 uv = p * texture_scale / vec2(textureSize(background_texture, 0));
+
+    COLOR = texture(background_texture, uv);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iq7ac"]
+shader = SubResource("Shader_pw0c8")
+shader_parameter/background_texture = ExtResource("10_miqjo")
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/parallax_factor = 1.0
+shader_parameter/scroll_offset = Vector2(0, 0)
+shader_parameter/viewport_size = Vector2(1152, 648)
+shader_parameter/world_from_screen_x = Vector2(0, 0)
+shader_parameter/world_from_screen_y = Vector2(0, 0)
+shader_parameter/world_from_screen_origin = Vector2(0, 0)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iq7ac"]
 size = Vector2(7008, 20)
-
-[sub_resource type="Animation" id="Animation_mgmnv"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_2h3ye"]
-resource_name = "default"
-length = 8.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("texture_rect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -432), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("texture_rect2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(864, -432), Vector2(864, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("texture_rect3:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 432)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("texture_rect4:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(864, 0), Vector2(864, 432)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("texture_rect5:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 432), Vector2(0, 864)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("texture_rect6:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(864, 432), Vector2(864, 864)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("texture_rect6:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("texture_rect5:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("texture_rect3:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("texture_rect4:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("texture_rect2:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("texture_rect:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_r76fb"]
-_data = {
-&"RESET": SubResource("Animation_mgmnv"),
-&"default": SubResource("Animation_2h3ye")
-}
-
-[sub_resource type="Animation" id="Animation_yyvtn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("texture_rect6:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, 432)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("texture_rect5:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 432)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("texture_rect4:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("texture_rect3:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("texture_rect2:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, -432)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("texture_rect:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -432)]
-}
-
-[sub_resource type="Animation" id="Animation_miqjo"]
-resource_name = "default"
-length = 8.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("texture_rect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -432)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("texture_rect2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(864, 0), Vector2(864, -432)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("texture_rect3:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 432), Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("texture_rect4:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(864, 432), Vector2(864, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("texture_rect5:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 864), Vector2(0, 432)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("texture_rect6:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(864, 864), Vector2(864, 432)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("texture_rect:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("texture_rect2:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("texture_rect3:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("texture_rect4:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("texture_rect5:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("texture_rect6:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mgmnv"]
-_data = {
-&"RESET": SubResource("Animation_yyvtn"),
-&"default": SubResource("Animation_miqjo")
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ml30"]
 atlas = ExtResource("13_mgmnv")
@@ -2291,6 +2010,33 @@ script = ExtResource("18_xuh87")
 [node name="level" type="Node2D" parent="." unique_id=498026799]
 process_mode = 1
 
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="level" unique_id=1590725272]
+layer = -2
+
+[node name="WorldAnchoredBg1" type="ColorRect" parent="level/BackgroundCanvasLayer" unique_id=741179930]
+process_mode = 3
+material = SubResource("ShaderMaterial_fn5li")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_3eqs7")
+bgTexture = ExtResource("9_yyvtn")
+parallaxFactor = 0.5
+
+[node name="WorldAnchoredBg2" type="ColorRect" parent="level/BackgroundCanvasLayer" unique_id=302695358]
+process_mode = 3
+material = SubResource("ShaderMaterial_iq7ac")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_3eqs7")
+bgTexture = ExtResource("10_miqjo")
+parallaxFactor = 0.75
+
 [node name="tiles" parent="level" unique_id=1718396930 instance=ExtResource("4_pw0c8")]
 
 [node name="level_assets" parent="level" unique_id=1309160586 instance=ExtResource("5_w41ii")]
@@ -2315,94 +2061,6 @@ z_index = 100
 position = Vector2(0, 16)
 script = ExtResource("23_5qh5s")
 lineColor = Color(0.34509805, 0.34509805, 0.34509805, 0.7372549)
-
-[node name="BackgroundCanvasLayer1" type="CanvasLayer" parent="." unique_id=1590725272]
-layer = -2
-
-[node name="texture_rect" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=441274036]
-visible = false
-offset_top = -432.0
-offset_right = 864.0
-texture = ExtResource("9_yyvtn")
-
-[node name="texture_rect2" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=41962998]
-visible = false
-offset_left = 864.0
-offset_top = -432.0
-offset_right = 1728.0
-texture = ExtResource("9_yyvtn")
-
-[node name="texture_rect3" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=728595463]
-offset_right = 864.0
-offset_bottom = 431.99878
-texture = ExtResource("9_yyvtn")
-
-[node name="texture_rect4" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=2068549613]
-offset_left = 864.0
-offset_right = 1728.0
-offset_bottom = 431.99878
-texture = ExtResource("9_yyvtn")
-
-[node name="texture_rect5" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=1427243503]
-offset_top = 432.0
-offset_right = 864.0
-offset_bottom = 864.01556
-texture = ExtResource("9_yyvtn")
-
-[node name="texture_rect6" type="TextureRect" parent="BackgroundCanvasLayer1" unique_id=753832972]
-offset_left = 864.0
-offset_top = 432.0
-offset_right = 1728.0
-offset_bottom = 864.01556
-texture = ExtResource("9_yyvtn")
-
-[node name="animation_player" type="AnimationPlayer" parent="BackgroundCanvasLayer1" unique_id=683180415]
-libraries/ = SubResource("AnimationLibrary_r76fb")
-autoplay = &"default"
-
-[node name="BackgroundCanvasLayer2" type="CanvasLayer" parent="." unique_id=1280963614]
-layer = -1
-
-[node name="texture_rect" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=667735898]
-visible = false
-offset_top = -432.0
-offset_right = 864.0
-texture = ExtResource("10_miqjo")
-
-[node name="texture_rect2" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=2049664431]
-visible = false
-offset_left = 864.0
-offset_top = -432.0
-offset_right = 1728.0
-texture = ExtResource("10_miqjo")
-
-[node name="texture_rect3" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=2062163522]
-offset_right = 864.0
-offset_bottom = 432.00104
-texture = ExtResource("10_miqjo")
-
-[node name="texture_rect4" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=450001052]
-offset_left = 864.0
-offset_right = 1728.0
-offset_bottom = 432.00104
-texture = ExtResource("10_miqjo")
-
-[node name="texture_rect5" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=1225348494]
-offset_top = 432.0
-offset_right = 864.0
-offset_bottom = 863.99805
-texture = ExtResource("10_miqjo")
-
-[node name="texture_rect6" type="TextureRect" parent="BackgroundCanvasLayer2" unique_id=1581895788]
-offset_left = 864.0
-offset_top = 432.0
-offset_right = 1728.0
-offset_bottom = 863.99805
-texture = ExtResource("10_miqjo")
-
-[node name="animation_player" type="AnimationPlayer" parent="BackgroundCanvasLayer2" unique_id=406635083]
-libraries/ = SubResource("AnimationLibrary_mgmnv")
-autoplay = &"default"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1841905286]
 
@@ -2539,7 +2197,7 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = 128.0
 offset_top = 48.0
-offset_right = 256.0151
+offset_right = 256.0
 offset_bottom = 176.0
 texture = ExtResource("18_dscuk")
 
@@ -2555,7 +2213,7 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = 384.0
 offset_top = 48.0
-offset_right = 512.00476
+offset_right = 512.0
 offset_bottom = 176.0
 texture = ExtResource("18_dscuk")
 
@@ -2563,15 +2221,15 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_top = 176.0
 offset_right = 128.0
-offset_bottom = 304.00003
+offset_bottom = 304.0238
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect6" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=85199275]
 layout_mode = 0
 offset_left = 128.0
 offset_top = 176.0
-offset_right = 256.0151
-offset_bottom = 304.00003
+offset_right = 256.0
+offset_bottom = 304.0238
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect7" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1169681531]
@@ -2579,30 +2237,30 @@ layout_mode = 0
 offset_left = 256.0
 offset_top = 176.0
 offset_right = 384.0
-offset_bottom = 304.00003
+offset_bottom = 304.0238
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect8" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1647275823]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 176.0
-offset_right = 512.00476
-offset_bottom = 304.00003
+offset_right = 512.0
+offset_bottom = 304.0238
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect9" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1217149372]
 layout_mode = 0
 offset_top = 304.0
 offset_right = 128.0
-offset_bottom = 432.0
+offset_bottom = 432.05542
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect10" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=911056946]
 layout_mode = 0
 offset_left = 128.0
 offset_top = 304.0
-offset_right = 256.0151
-offset_bottom = 432.0
+offset_right = 256.0
+offset_bottom = 432.05542
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect11" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=2021410370]
@@ -2610,30 +2268,30 @@ layout_mode = 0
 offset_left = 256.0
 offset_top = 304.0
 offset_right = 384.0
-offset_bottom = 432.0
+offset_bottom = 432.05542
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect12" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=545438843]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 304.0
-offset_right = 512.00476
-offset_bottom = 432.0
+offset_right = 512.0
+offset_bottom = 432.05542
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect13" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1094720191]
 layout_mode = 0
 offset_top = 432.0
 offset_right = 128.0
-offset_bottom = 560.0112
+offset_bottom = 560.05365
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect14" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1887035072]
 layout_mode = 0
 offset_left = 128.0
 offset_top = 432.0
-offset_right = 256.0151
-offset_bottom = 560.0112
+offset_right = 256.0
+offset_bottom = 560.05365
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect15" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1634395075]
@@ -2641,30 +2299,30 @@ layout_mode = 0
 offset_left = 256.0
 offset_top = 432.0
 offset_right = 384.0
-offset_bottom = 560.0112
+offset_bottom = 560.05365
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect16" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=2011639003]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 432.0
-offset_right = 512.00476
-offset_bottom = 560.0112
+offset_right = 512.0
+offset_bottom = 560.05365
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect17" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1083029616]
 layout_mode = 0
 offset_top = 560.0
 offset_right = 128.0
-offset_bottom = 688.01306
+offset_bottom = 688.0931
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect18" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1315914339]
 layout_mode = 0
 offset_left = 128.0
 offset_top = 560.0
-offset_right = 256.0151
-offset_bottom = 688.01306
+offset_right = 256.0
+offset_bottom = 688.0931
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect19" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1013916383]
@@ -2672,15 +2330,15 @@ layout_mode = 0
 offset_left = 256.0
 offset_top = 560.0
 offset_right = 384.0
-offset_bottom = 688.01306
+offset_bottom = 688.0931
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect20" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=31619972]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 560.0
-offset_right = 512.00476
-offset_bottom = 688.01306
+offset_right = 512.0
+offset_bottom = 688.0931
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect21" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=1997044070]
@@ -2708,7 +2366,7 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = 128.0
 offset_top = -80.0
-offset_right = 256.0151
+offset_right = 256.0
 offset_bottom = 48.0
 texture = ExtResource("18_dscuk")
 
@@ -2724,7 +2382,7 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = 384.0
 offset_top = -80.0
-offset_right = 512.00476
+offset_right = 512.0
 offset_bottom = 48.0
 texture = ExtResource("18_dscuk")
 
@@ -2739,28 +2397,28 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = -128.0
 offset_top = 176.0
-offset_bottom = 304.00003
+offset_bottom = 304.0238
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect27" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=2124023271]
 layout_mode = 0
 offset_left = -128.0
 offset_top = 304.0
-offset_bottom = 432.0
+offset_bottom = 432.05542
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect28" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=126628954]
 layout_mode = 0
 offset_left = -128.0
 offset_top = 432.0
-offset_bottom = 560.0112
+offset_bottom = 560.05365
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect29" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=800380250]
 layout_mode = 0
 offset_left = -128.0
 offset_top = 560.0
-offset_bottom = 688.01306
+offset_bottom = 688.0931
 texture = ExtResource("18_dscuk")
 
 [node name="texture_rect30" type="TextureRect" parent="CanvasLayer/UI/Bg" unique_id=395359527]
@@ -2774,7 +2432,7 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = 128.0
 offset_top = 688.0
-offset_right = 256.0151
+offset_right = 256.0
 offset_bottom = 816.0
 texture = ExtResource("18_dscuk")
 
@@ -2790,7 +2448,7 @@ texture = ExtResource("18_dscuk")
 layout_mode = 0
 offset_left = 384.0
 offset_top = 688.0
-offset_right = 512.00476
+offset_right = 512.0
 offset_bottom = 816.0
 texture = ExtResource("18_dscuk")
 

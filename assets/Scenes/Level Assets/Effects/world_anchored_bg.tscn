@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://be2guov12sgsv"]
+
+[ext_resource type="Texture2D" uid="uid://ctjfy4d5vkxg0" path="res://assets/Sprites/World/Hub/worldHUB_bg_1_2.png" id="1_anypy"]
+[ext_resource type="Script" uid="uid://dpt5pihw73edp" path="res://assets/Scripts/Effects/WorldAnchoredBg.cs" id="2_mab6d"]
+
+[sub_resource type="Shader" id="Shader_dscuk"]
+code = "shader_type canvas_item;
+
+uniform sampler2D background_texture : source_color, filter_linear_mipmap, repeat_enable;
+
+// 1.0 = texture's native pixel size, 2.0 = twice as dense.
+uniform vec2 texture_scale = vec2(1.0);
+
+// 1.0 = locked to the world, 0.0 = locked to the screen, in between = parallax.
+uniform float parallax_factor = 1.0;
+
+// Independent drift in world pixels (wrapped on the C# side).
+uniform vec2 scroll_offset = vec2(0.0);
+
+// Logical viewport size (VIEWPORT_SIZE does not exist in canvas_item shaders).
+uniform vec2 viewport_size = vec2(1152.0, 648.0);
+
+// Inverse camera/canvas transform: viewport pixels -> world pixels.
+uniform vec2 world_from_screen_x = vec2(1.0, 0.0);
+uniform vec2 world_from_screen_y = vec2(0.0, 1.0);
+uniform vec2 world_from_screen_origin = vec2(0.0);
+
+void fragment() {
+    // Viewport position in logical pixels.
+    vec2 screen_position = SCREEN_UV * viewport_size;
+
+    // Viewport -> world.
+    vec2 world_position =
+        world_from_screen_origin
+        + world_from_screen_x * screen_position.x
+        + world_from_screen_y * screen_position.y;
+
+    // Blend between screen-locked and world-locked, then add independent drift.
+    vec2 p = mix(screen_position, world_position, parallax_factor) + scroll_offset;
+
+    // Position -> texture coordinates. repeat_enable handles the tiling.
+    vec2 uv = p * texture_scale / vec2(textureSize(background_texture, 0));
+
+    COLOR = texture(background_texture, uv);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b7kr4"]
+shader = SubResource("Shader_dscuk")
+shader_parameter/background_texture = ExtResource("1_anypy")
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/parallax_factor = 1.0
+shader_parameter/scroll_offset = Vector2(0, 0)
+shader_parameter/viewport_size = Vector2(1152, 648)
+shader_parameter/world_from_screen_x = Vector2(0, 0)
+shader_parameter/world_from_screen_y = Vector2(0, 0)
+shader_parameter/world_from_screen_origin = Vector2(0, 0)
+
+[node name="WorldAnchoredBg" type="ColorRect" unique_id=521262601]
+material = SubResource("ShaderMaterial_b7kr4")
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_mab6d")
